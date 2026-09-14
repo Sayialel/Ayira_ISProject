@@ -9,6 +9,17 @@ export interface AuthRequest extends Request {
 }
 
 /**
+ * Short-lived role cache.
+ *
+ * Authenticating already costs one round trip to Supabase; looking the role up
+ * on every request would double it. Roles change rarely (only an admin can
+ * change one), so a few seconds of staleness is a fair trade. The TTL is short
+ * enough that a revoked admin loses access almost immediately.
+ */
+const ROLE_CACHE_TTL_MS = 30_000;
+const roleCache = new Map<string, { role: string; expiresAt: number }>();
+
+/**
  * Roles are read from public.users, never from the JWT's user_metadata.
  *
  * user_metadata is writable by the account holder — a signed-in user can call
@@ -18,6 +29,9 @@ export interface AuthRequest extends Request {
  * trustworthy source.
  */
 async function resolveRole(userId: string, fallback: string): Promise<string> {
+  const cached = roleCache.get(userId);
+  if (cached && cached.expiresAt > Date.now()) return cached.role;
+
   const { data, error } = await supabaseAdmin
     .from('users')
     .select('role')
@@ -26,15 +40,22 @@ async function resolveRole(userId: string, fallback: string): Promise<string> {
 
   if (error) {
     console.error('Failed to resolve user role:', error.message);
-    // Degrade to the least-privileged role rather than to whatever the token claims.
+    // Degrade to the least-privileged role rather than to whatever the token
+    // claims, and do not cache a result we are not confident in.
     return 'worker';
   }
 
   // No profile row yet (signup mid-flight): fall back to the requested role,
   // but never to a privileged one.
-  if (!data) return fallback === 'employer' ? 'employer' : 'worker';
+  const role = data ? (data.role as UserRole) : fallback === 'employer' ? 'employer' : 'worker';
 
-  return data.role as UserRole;
+  roleCache.set(userId, { role, expiresAt: Date.now() + ROLE_CACHE_TTL_MS });
+  return role;
+}
+
+/** Drops a user's cached role, so a change takes effect on the next request. */
+export function invalidateRoleCache(userId: string) {
+  roleCache.delete(userId);
 }
 
 export async function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
@@ -61,8 +82,14 @@ export async function authMiddleware(req: AuthRequest, res: Response, next: Next
     req.userRole = await resolveRole(user.id, user.user_metadata?.role);
     next();
   } catch (err) {
-    console.error('Authentication failed:', err);
-    return res.status(401).json({ error: 'Authentication failed' });
+    // Reaching here means the call to Supabase itself failed — a timeout or a
+    // network fault — not that the token was rejected. Reporting that as 401
+    // would tell users their session had expired and bounce them to the login
+    // screen over a transient blip, so it is surfaced as a server-side fault.
+    console.error('Authentication check could not be completed:', err);
+    return res
+      .status(503)
+      .json({ error: 'Could not verify your session right now. Please try again.' });
   }
 }
 

@@ -11,3 +11,6 @@ __pycache__/
 .venv/
 .mypy_cache/
 .pytest_cache/
+
+# Supabase CLI scratch state
+supabase/.temp/
