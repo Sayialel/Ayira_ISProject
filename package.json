@@ -1,0 +1,29 @@
+{
+  "name": "ayira",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ayira: AI-Powered Gig Economy Platform for Africa's Youth Workforce",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:ai": "cd apps/ai-engine && uvicorn app.main:app --reload --port 8001",
+    "dev": "concurrently \"npm:dev:api\" \"npm:dev:web\" \"npm:dev:ai\"",
+    "build:api": "npm run build --workspace=apps/api",
+    "build:web": "npm run build --workspace=apps/web",
+    "build": "npm run build:api && npm run build:web",
+    "lint": "eslint . --ext .ts,.tsx",
+    "db:types": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > packages/shared/src/database.types.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "typescript": "^5.5.0",
+    "eslint": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

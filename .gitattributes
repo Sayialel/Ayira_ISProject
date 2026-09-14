@@ -1,0 +1,13 @@
+# Normalise line endings so Windows and Linux checkouts produce identical diffs.
+* text=auto eol=lf
+
+# Binary assets git should never try to normalise.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# Generated; collapse in pull request diffs.
+package-lock.json linguist-generated=true
