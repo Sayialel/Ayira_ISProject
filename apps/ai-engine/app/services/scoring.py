@@ -170,12 +170,16 @@ def score_gigs(
     worker: dict,
     gigs: list[dict],
     weights: Weights = DEFAULT_WEIGHTS,
+    semantic_scores: list[float] | None = None,
 ) -> list[ScoredGig]:
     """
     Scores every gig against one worker profile, ranked best first.
 
-    Both similarity passes run over the whole list in a single batched call,
-    which is what keeps a match over a full catalogue responsive.
+    `semantic_scores` lets the caller supply similarities it already has — the
+    live path derives them from vectors cached in Postgres, so the model never
+    runs during an ordinary request. Left out, they are computed here, which is
+    what the evaluation harness does so it measures the scoring itself rather
+    than the cache.
     """
     if not gigs:
         return []
@@ -185,7 +189,14 @@ def score_gigs(
     reputation = float(worker.get("reputation_score") or 0)
 
     texts = [gig_text(gig) for gig in gigs]
-    semantic_scores = compute_semantic_similarities(worker_profile, texts)
+
+    if semantic_scores is None:
+        semantic_scores = compute_semantic_similarities(worker_profile, texts)
+    elif len(semantic_scores) != len(gigs):
+        raise ValueError(
+            f"semantic_scores has {len(semantic_scores)} entries for {len(gigs)} gigs"
+        )
+
     tfidf_scores = compute_tfidf_similarities(worker_profile, texts)
 
     scored = [

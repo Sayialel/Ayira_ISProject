@@ -176,6 +176,71 @@ real but modest, and most of it comes from trusting the embedding model more.
 
 ---
 
+## Retrieval: does the shortlist cost anything?
+
+The engine no longer scores every open gig. Postgres returns the nearest
+candidates by vector, and only those are re-ranked with the full composite.
+That is faster by construction, but it can only rank what the shortlist
+contains — so the question is whether anything good is being dropped.
+
+`python -m eval.retrieval_eval` simulates the shortlist at several sizes:
+
+| shortlist | NDCG@10 | vs exhaustive |
+| --- | --- | --- |
+| 3 | 0.8491 | −0.0939 |
+| 5 | 0.9108 | −0.0322 |
+| 10 | 0.9413 | −0.0017 |
+| 15 | 0.9430 | — |
+| 20 | 0.9430 | — |
+| exhaustive | 0.9430 | — |
+
+Quality is exact from 15 candidates upward and effectively exact at 10. The
+engine keeps 200, so the shortlist is not what limits results — it is roughly
+an order of magnitude more headroom than the measurements say is needed.
+
+### End-to-end confirmation
+
+`python -m eval.live_eval` scores the running service over HTTP, through the
+shared secret, the pgvector retrieval, the SQL pre-filter, the embedding cache
+and the re-rank:
+
+| | NDCG@10 | P@5 | MRR |
+| --- | --- | --- | --- |
+| offline scoring | 0.9430 | 0.600 | 1.000 |
+| **live service** | **0.9430** | **0.600** | **1.000** |
+
+Identical. The optimisation is free.
+
+## Cost
+
+What the previous architecture paid on *every* request, and the new one pays
+only when a gig is created or edited:
+
+| catalogue | model encode time per request |
+| --- | --- |
+| 42 gigs | 0.389 s |
+| 100 gigs | 0.814 s |
+| 250 gigs | 1.890 s |
+| 500 gigs | 3.706 s |
+| 1,000 gigs | 6.925 s |
+
+Linear in catalogue size, paid per request, growing with traffic at the same
+time. The current path spends none of it: vectors are already in Postgres, and
+only the worker's own text is encoded, only when their profile changes.
+
+Measured end to end against the live service:
+
+| | catalogue | median |
+| --- | --- | --- |
+| before (encode everything) | 3 gigs | 0.43–0.45 s |
+| after (cached vectors) | 42 gigs | 0.42–0.50 s |
+
+The same latency for fourteen times the catalogue. What remains is dominated by
+network round trips to Supabase, not computation — which is why reducing those
+round trips, rather than more model work, is where the next gain lies.
+
+---
+
 ## What this evaluation does not establish
 
 State these plainly before citing any number above.
@@ -208,4 +273,18 @@ State these plainly before citing any number above.
 | `harness.py` | corpus loading, ranking strategies, metric averaging |
 | `run_eval.py` | baselines against the live system |
 | `tune_weights.py` | grid search and cross-validation |
+| `retrieval_eval.py` | what the candidate shortlist costs in quality |
+| `live_eval.py` | scores the running service over HTTP, end to end |
+| `seed_db.py` | loads the corpus into Supabase, and removes it again |
 | `results/` | committed output of each run |
+
+## Working with a seeded database
+
+```bash
+python -m eval.seed_db seed    # 12 workers and 42 open gigs
+python -m eval.live_eval       # score the running engine against them
+python -m eval.seed_db clear    # remove everything it created
+```
+
+Seeded accounts all carry the `@ayira-eval.invalid` suffix, and `clear` matches
+on it, so real accounts are never touched.
