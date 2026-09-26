@@ -17,3 +17,4 @@ supabase/.temp/
 
 # Python virtualenv
 apps/ai-engine/.venv/
+apps/ai-engine/**/__pycache__/

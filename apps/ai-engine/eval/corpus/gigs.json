@@ -1,0 +1,585 @@
+[
+  {
+    "id": "g-react-landing",
+    "title": "React landing page for a fintech startup",
+    "description": "Build a responsive marketing landing page in React and Tailwind CSS from an existing Figma design. Must work well on low-end Android phones and deploy to Vercel.",
+    "category": "Technology",
+    "required_skills": [
+      "React",
+      "Tailwind CSS",
+      "JavaScript"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 30000,
+    "budget_max": 60000
+  },
+  {
+    "id": "g-react-dashboard",
+    "title": "Front-end developer for an analytics dashboard",
+    "description": "Build charting screens in React and TypeScript against an existing REST API. Experience with component libraries and responsive layouts required.",
+    "category": "Technology",
+    "required_skills": [
+      "React",
+      "TypeScript",
+      "JavaScript"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 55000,
+    "budget_max": 95000
+  },
+  {
+    "id": "g-wordpress",
+    "title": "WordPress site for a dental clinic",
+    "description": "Set up a WordPress site with a booking form, gallery and contact page. Light theme customisation, no custom plugin development.",
+    "category": "Technology",
+    "required_skills": [
+      "WordPress",
+      "CSS"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 18000,
+    "budget_max": 30000
+  },
+  {
+    "id": "g-node-api",
+    "title": "Node.js REST API for an inventory system",
+    "description": "Design and build a REST API in Node.js with PostgreSQL covering stock levels, suppliers and purchase orders. Include migrations and API documentation.",
+    "category": "Technology",
+    "required_skills": [
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 70000,
+    "budget_max": 120000
+  },
+  {
+    "id": "g-django-backend",
+    "title": "Python backend engineer for a logistics platform",
+    "description": "Extend a Django backend with new endpoints, background jobs and a Postgres schema for shipment tracking.",
+    "category": "Technology",
+    "required_skills": [
+      "Python",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "location": "Mombasa",
+    "is_remote": true,
+    "budget_min": 80000,
+    "budget_max": 140000
+  },
+  {
+    "id": "g-flutter-app",
+    "title": "Flutter app for a salon booking service",
+    "description": "Build a cross-platform Flutter app with Firebase authentication, appointment booking and push notifications.",
+    "category": "Technology",
+    "required_skills": [
+      "Flutter",
+      "Dart",
+      "Firebase"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 90000,
+    "budget_max": 150000
+  },
+  {
+    "id": "g-android-maintenance",
+    "title": "Android developer to maintain a delivery app",
+    "description": "Take over maintenance of an existing Android application: fix crashes, update dependencies and ship monthly releases to the Play Store.",
+    "category": "Technology",
+    "required_skills": [
+      "Android",
+      "Dart",
+      "Flutter"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 60000,
+    "budget_max": 100000
+  },
+  {
+    "id": "g-data-dashboard",
+    "title": "Sales dashboard from raw spreadsheets",
+    "description": "Clean two years of messy sales spreadsheets and build a dashboard showing revenue by region and product. SQL and Python preferred.",
+    "category": "Technology",
+    "required_skills": [
+      "Data Analysis",
+      "SQL",
+      "Excel"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 45000,
+    "budget_max": 80000
+  },
+  {
+    "id": "g-ml-model",
+    "title": "Build a churn prediction model",
+    "description": "Train and evaluate a customer churn model in Python on an existing dataset, and document the features that drive predictions.",
+    "category": "Technology",
+    "required_skills": [
+      "Python",
+      "Data Analysis"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 85000,
+    "budget_max": 140000
+  },
+  {
+    "id": "g-excel-cleanup",
+    "title": "Clean up supplier records in Excel",
+    "description": "Deduplicate and standardise a supplier contact list of about four thousand rows in Excel. No analysis required, accuracy matters most.",
+    "category": "Business",
+    "required_skills": [
+      "Data Entry",
+      "Excel"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 12000,
+    "budget_max": 20000
+  },
+  {
+    "id": "g-website-copy",
+    "title": "Website copy for a savings app",
+    "description": "Write homepage, features and pricing copy for a mobile savings product aimed at young Kenyans. Clear, warm, jargon-free tone.",
+    "category": "Writing",
+    "required_skills": [
+      "Copywriting",
+      "Content Writing"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 25000,
+    "budget_max": 45000
+  },
+  {
+    "id": "g-blog-seo",
+    "title": "SEO blog articles for an insurance broker",
+    "description": "Research and write eight search-optimised blog articles about personal insurance, around a thousand words each.",
+    "category": "Writing",
+    "required_skills": [
+      "Content Writing",
+      "SEO"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 20000,
+    "budget_max": 40000
+  },
+  {
+    "id": "g-swahili-translation",
+    "title": "Translate a health campaign into Swahili",
+    "description": "Translate a public health awareness campaign from English into natural Swahili, including posters, radio scripts and SMS copy.",
+    "category": "Writing",
+    "required_skills": [
+      "Translation",
+      "Content Writing"
+    ],
+    "location": "Kisumu",
+    "is_remote": true,
+    "budget_min": 30000,
+    "budget_max": 55000
+  },
+  {
+    "id": "g-transcription",
+    "title": "Transcribe twenty research interviews",
+    "description": "Transcribe twenty recorded interviews, roughly forty minutes each, mixed English and Swahili, with speaker labels and timestamps.",
+    "category": "Writing",
+    "required_skills": [
+      "Transcription",
+      "Translation"
+    ],
+    "location": "Kisumu",
+    "is_remote": true,
+    "budget_min": 25000,
+    "budget_max": 45000
+  },
+  {
+    "id": "g-technical-writing",
+    "title": "API documentation for a payments SDK",
+    "description": "Write developer-facing reference documentation and a getting-started guide for a payments SDK. Must be comfortable reading code samples.",
+    "category": "Writing",
+    "required_skills": [
+      "Technical Writing",
+      "Content Writing"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 50000,
+    "budget_max": 90000
+  },
+  {
+    "id": "g-logo-design",
+    "title": "Logo and brand kit for a coffee roastery",
+    "description": "Design a logo, colour palette and packaging label set for a speciality coffee roastery launching in Nairobi.",
+    "category": "Design",
+    "required_skills": [
+      "Logo Design",
+      "Graphic Design"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 35000,
+    "budget_max": 70000
+  },
+  {
+    "id": "g-social-graphics",
+    "title": "Monthly social media graphics for a gym",
+    "description": "Produce a monthly set of Instagram and Facebook graphics following an existing brand guide.",
+    "category": "Design",
+    "required_skills": [
+      "Graphic Design",
+      "Social Media"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 15000,
+    "budget_max": 30000
+  },
+  {
+    "id": "g-video-reels",
+    "title": "Edit short-form video reels for a restaurant",
+    "description": "Cut twelve short vertical videos a month from supplied footage, with captions, music and simple motion graphics.",
+    "category": "Design",
+    "required_skills": [
+      "Video Editing",
+      "Animation"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 30000,
+    "budget_max": 55000
+  },
+  {
+    "id": "g-wedding-photo",
+    "title": "Wedding photographer for a weekend event",
+    "description": "Photograph a two day wedding in Naivasha and deliver a set of edited images within three weeks.",
+    "category": "Design",
+    "required_skills": [
+      "Photography",
+      "Photo Editing"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 45000,
+    "budget_max": 80000
+  },
+  {
+    "id": "g-product-photo",
+    "title": "Product photography for an online store",
+    "description": "Shoot and retouch about sixty product images on a white background for an e-commerce catalogue.",
+    "category": "Design",
+    "required_skills": [
+      "Photography",
+      "Photo Editing"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 30000,
+    "budget_max": 55000
+  },
+  {
+    "id": "g-social-campaign",
+    "title": "Run a paid social campaign for a new snack brand",
+    "description": "Plan and run Instagram and TikTok advertising for a product launch, managing budget, targeting and weekly reporting.",
+    "category": "Marketing",
+    "required_skills": [
+      "Social Media",
+      "Digital Advertising"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 40000,
+    "budget_max": 80000
+  },
+  {
+    "id": "g-email-marketing",
+    "title": "Email marketing sequence for an online course",
+    "description": "Write and schedule a seven-part email onboarding sequence, and set up basic automation in Mailchimp.",
+    "category": "Marketing",
+    "required_skills": [
+      "Email Marketing",
+      "Copywriting"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 25000,
+    "budget_max": 50000
+  },
+  {
+    "id": "g-seo-audit",
+    "title": "SEO audit for a travel booking site",
+    "description": "Audit an existing travel site for technical and content SEO issues and deliver a prioritised list of fixes.",
+    "category": "Marketing",
+    "required_skills": [
+      "SEO",
+      "Data Analysis"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 35000,
+    "budget_max": 65000
+  },
+  {
+    "id": "g-virtual-assistant",
+    "title": "Part-time virtual assistant for a consultancy",
+    "description": "Manage a shared inbox, schedule client meetings across time zones and keep the CRM up to date. Twenty hours a week.",
+    "category": "Business",
+    "required_skills": [
+      "Virtual Assistant",
+      "Customer Service"
+    ],
+    "location": "Eldoret",
+    "is_remote": true,
+    "budget_min": 30000,
+    "budget_max": 50000
+  },
+  {
+    "id": "g-customer-support",
+    "title": "Customer support agent for an e-commerce store",
+    "description": "Answer customer questions over WhatsApp and email, process returns and escalate delivery issues.",
+    "category": "Business",
+    "required_skills": [
+      "Customer Service",
+      "Virtual Assistant"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 25000,
+    "budget_max": 40000
+  },
+  {
+    "id": "g-bookkeeping",
+    "title": "Monthly bookkeeping for a small retail chain",
+    "description": "Reconcile bank statements, maintain the ledger in QuickBooks and prepare monthly management accounts for three shops.",
+    "category": "Business",
+    "required_skills": [
+      "Accounting",
+      "QuickBooks",
+      "Excel"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 40000,
+    "budget_max": 70000
+  },
+  {
+    "id": "g-payroll",
+    "title": "Set up payroll and statutory filings",
+    "description": "Set up payroll for a twelve-person company, including PAYE, NHIF and NSSF filings, and document the monthly process.",
+    "category": "Business",
+    "required_skills": [
+      "Accounting",
+      "Data Entry"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 45000,
+    "budget_max": 75000
+  },
+  {
+    "id": "g-project-coordinator",
+    "title": "Project coordinator for an NGO programme",
+    "description": "Coordinate schedules, track deliverables and prepare progress reports for a six-month community health programme.",
+    "category": "Business",
+    "required_skills": [
+      "Project Management",
+      "Content Writing"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 55000,
+    "budget_max": 90000
+  },
+  {
+    "id": "g-ui-design",
+    "title": "UI designer for a mobile banking app",
+    "description": "Design screens and a component library in Figma for a mobile banking product. Hand off specs to the front-end team.",
+    "category": "Design",
+    "required_skills": [
+      "UI/UX Design",
+      "Graphic Design"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 70000,
+    "budget_max": 120000
+  },
+  {
+    "id": "g-data-entry-medical",
+    "title": "Digitise paper patient records",
+    "description": "Enter about six thousand paper patient record cards into a web system. Careful, repetitive work with strict confidentiality.",
+    "category": "Business",
+    "required_skills": [
+      "Data Entry"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 20000,
+    "budget_max": 35000
+  },
+  {
+    "id": "g-para-frontend",
+    "title": "Turn our Figma screens into a working web interface",
+    "description": "We have designs for a customer portal and need someone to build the user-facing side. Component-driven, must look right on phones as well as desktops. Our team works in a modern JavaScript component framework.",
+    "category": "Technology",
+    "required_skills": [
+      "Web Development"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 60000,
+    "budget_max": 110000
+  },
+  {
+    "id": "g-para-backend",
+    "title": "Server-side engineer for an order processing service",
+    "description": "Build the parts customers never see: endpoints, the relational schema behind them, and scheduled jobs that reconcile orders overnight. You decide the table design.",
+    "category": "Technology",
+    "required_skills": [
+      "Server Development"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 75000,
+    "budget_max": 130000
+  },
+  {
+    "id": "g-para-mobile",
+    "title": "Ship a handset application for our courier fleet",
+    "description": "Riders need something on their phones to accept jobs, capture signatures and work offline in poor coverage. One codebase for both app stores, please.",
+    "category": "Technology",
+    "required_skills": [
+      "App Development"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 95000,
+    "budget_max": 160000
+  },
+  {
+    "id": "g-para-analyst",
+    "title": "Make sense of two years of transaction records",
+    "description": "We have exports nobody has looked at properly. We want to understand what drives repeat purchases and to see it summarised visually each month, not as a wall of numbers.",
+    "category": "Technology",
+    "required_skills": [
+      "Reporting"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 50000,
+    "budget_max": 95000
+  },
+  {
+    "id": "g-para-copy",
+    "title": "Words for our new product pages",
+    "description": "Our pages read like a manual. We need someone to rewrite them so an ordinary person understands what we sell in ten seconds, with a warm and plain tone.",
+    "category": "Writing",
+    "required_skills": [
+      "Editorial"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 28000,
+    "budget_max": 50000
+  },
+  {
+    "id": "g-para-translator",
+    "title": "Make our materials work for a rural audience",
+    "description": "Our guidance is written in formal English. We need it rendered into the everyday language farmers actually speak, keeping the meaning exact, for print and radio.",
+    "category": "Writing",
+    "required_skills": [
+      "Localisation"
+    ],
+    "location": "Kisumu",
+    "is_remote": true,
+    "budget_min": 32000,
+    "budget_max": 58000
+  },
+  {
+    "id": "g-para-graphic",
+    "title": "Give our bakery a proper visual identity",
+    "description": "We started with a mark a cousin drew in Word. We need a real one, plus the colours and packaging artwork that go with it, so everything looks like it belongs together.",
+    "category": "Design",
+    "required_skills": [
+      "Branding"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 38000,
+    "budget_max": 75000
+  },
+  {
+    "id": "g-para-video",
+    "title": "Cut our event footage into something people will watch",
+    "description": "We filmed a two-day conference and have hours of raw material. We want short highlight clips for social, with subtitles and music, delivered weekly.",
+    "category": "Design",
+    "required_skills": [
+      "Post-production"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 35000,
+    "budget_max": 62000
+  },
+  {
+    "id": "g-para-photo",
+    "title": "Capture our new collection for the online shop",
+    "description": "Sixty items need shooting against a clean backdrop and retouching so colours are true. Consistency across the set matters more than artistry.",
+    "category": "Design",
+    "required_skills": [
+      "Studio Work"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 33000,
+    "budget_max": 58000
+  },
+  {
+    "id": "g-para-social",
+    "title": "Grow our following and run our paid promotion",
+    "description": "We need someone to own what goes out on our channels, plan it ahead, and manage the advertising budget behind it with weekly numbers on what worked.",
+    "category": "Marketing",
+    "required_skills": [
+      "Brand Growth"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 42000,
+    "budget_max": 85000
+  },
+  {
+    "id": "g-para-va",
+    "title": "Take the admin off my plate",
+    "description": "I am drowning in my inbox and calendar. I need someone reliable to triage messages, arrange calls across time zones and keep our records tidy.",
+    "category": "Business",
+    "required_skills": [
+      "Administration"
+    ],
+    "location": "Eldoret",
+    "is_remote": true,
+    "budget_min": 32000,
+    "budget_max": 52000
+  },
+  {
+    "id": "g-para-accountant",
+    "title": "Keep our books straight and close each month",
+    "description": "Match our bank lines against what the shops recorded, keep the ledger tidy and give us a short monthly summary of where the money went.",
+    "category": "Business",
+    "required_skills": [
+      "Financial Records"
+    ],
+    "location": "Nairobi",
+    "is_remote": true,
+    "budget_min": 42000,
+    "budget_max": 72000
+  }
+]

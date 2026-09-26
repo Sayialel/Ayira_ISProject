@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-09-26T09:18:05.618945+00:00",
+  "grid_step": 0.05,
+  "combinations_tried": 1771,
+  "current": {
+    "weights": {
+      "semantic": 0.45,
+      "tfidf": 0.25,
+      "location": 0.15,
+      "reputation": 0.15
+    },
+    "ndcg_at_10": 0.9223283694154166
+  },
+  "best_on_corpus": {
+    "weights": {
+      "semantic": 0.65,
+      "tfidf": 0.25,
+      "location": 0.0,
+      "reputation": 0.1
+    },
+    "ndcg_at_10": 0.950428501031336
+  },
+  "cross_validated": {
+    "tuned": 0.9412077381193695,
+    "current": 0.9223283694154166
+  }
+}

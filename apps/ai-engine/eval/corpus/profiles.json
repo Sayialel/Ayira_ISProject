@@ -1,0 +1,98 @@
+[
+  {
+    "id": "w-frontend",
+    "label": "Front-end developer",
+    "skills": ["React", "JavaScript", "Tailwind CSS", "TypeScript"],
+    "bio": "Front-end developer building responsive web interfaces for startups and small businesses. Comfortable turning a Figma file into production React.",
+    "location": "Nairobi",
+    "reputation_score": 4.2
+  },
+  {
+    "id": "w-backend",
+    "label": "Backend / API developer",
+    "skills": ["Node.js", "Python", "PostgreSQL", "REST APIs"],
+    "bio": "Backend engineer building APIs and database schemas. I work mostly in Node and Python and care about clean data models.",
+    "location": "Nairobi",
+    "reputation_score": 4.6
+  },
+  {
+    "id": "w-mobile",
+    "label": "Mobile developer",
+    "skills": ["Flutter", "Dart", "Android", "Firebase"],
+    "bio": "Mobile developer shipping cross-platform apps with Flutter. I have published several Android apps for local service businesses.",
+    "location": "Mombasa",
+    "reputation_score": 3.8
+  },
+  {
+    "id": "w-dataanalyst",
+    "label": "Data analyst",
+    "skills": ["Data Analysis", "Python", "SQL", "Excel"],
+    "bio": "Data analyst turning messy spreadsheets into dashboards and reports. I build models in Python and visualise results for non-technical teams.",
+    "location": "Nairobi",
+    "reputation_score": 4.0
+  },
+  {
+    "id": "w-copywriter",
+    "label": "Copywriter",
+    "skills": ["Copywriting", "Content Writing", "SEO"],
+    "bio": "Copywriter producing website copy, blog articles and email campaigns. I write for fintech and retail brands across East Africa.",
+    "location": "Nairobi",
+    "reputation_score": 4.4
+  },
+  {
+    "id": "w-translator",
+    "label": "Translator / transcriber",
+    "skills": ["Translation", "Transcription", "Content Writing"],
+    "bio": "Translator working between English and Swahili. I transcribe interviews and localise marketing material for Kenyan audiences.",
+    "location": "Kisumu",
+    "reputation_score": 3.5
+  },
+  {
+    "id": "w-graphic",
+    "label": "Graphic designer",
+    "skills": ["Graphic Design", "Logo Design", "Adobe Illustrator"],
+    "bio": "Graphic designer creating brand identities, logos and print material for small businesses and events.",
+    "location": "Nairobi",
+    "reputation_score": 4.1
+  },
+  {
+    "id": "w-video",
+    "label": "Video editor",
+    "skills": ["Video Editing", "Animation", "Adobe Premiere"],
+    "bio": "Video editor cutting promotional clips, event recaps and social media reels. I also produce simple motion graphics.",
+    "location": "Nairobi",
+    "reputation_score": 3.9
+  },
+  {
+    "id": "w-photographer",
+    "label": "Photographer",
+    "skills": ["Photography", "Photo Editing"],
+    "bio": "Event and portrait photographer covering weddings, corporate functions and product shoots around the Rift Valley.",
+    "location": "Nakuru",
+    "reputation_score": 4.3
+  },
+  {
+    "id": "w-socialmedia",
+    "label": "Social media marketer",
+    "skills": ["Social Media", "Digital Advertising", "Content Writing"],
+    "bio": "Social media manager running content calendars and paid campaigns on Instagram, TikTok and Facebook for consumer brands.",
+    "location": "Nairobi",
+    "reputation_score": 4.0
+  },
+  {
+    "id": "w-va",
+    "label": "Virtual assistant",
+    "skills": ["Virtual Assistant", "Data Entry", "Customer Service"],
+    "bio": "Virtual assistant handling inboxes, scheduling, data entry and customer support for busy founders.",
+    "location": "Eldoret",
+    "reputation_score": 3.6
+  },
+  {
+    "id": "w-accountant",
+    "label": "Bookkeeper",
+    "skills": ["Accounting", "Excel", "QuickBooks"],
+    "bio": "Bookkeeper maintaining ledgers, reconciling accounts and preparing monthly management reports for SMEs.",
+    "location": "Nairobi",
+    "reputation_score": 4.5
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-09-26T09:17:02.489658+00:00",
+  "corpus": {
+    "profiles": 12,
+    "gigs": 42,
+    "graded_pairs": 68
+  },
+  "results": [
+    {
+      "name": "random",
+      "precision_at_5": 0.06666666666666667,
+      "precision_at_10": 0.08333333333333333,
+      "recall_at_10": 0.23194444444444443,
+      "mrr": 0.2619949494949495,
+      "ndcg_at_10": 0.14975000471323938
+    },
+    {
+      "name": "tfidf only",
+      "precision_at_5": 0.5,
+      "precision_at_10": 0.27499999999999997,
+      "recall_at_10": 0.8375,
+      "mrr": 1.0,
+      "ndcg_at_10": 0.8280931203210956
+    },
+    {
+      "name": "semantic only",
+      "precision_at_5": 0.6,
+      "precision_at_10": 0.325,
+      "recall_at_10": 0.9833333333333334,
+      "mrr": 1.0,
+      "ndcg_at_10": 0.9472229096724757
+    },
+    {
+      "name": "composite (live)",
+      "precision_at_5": 0.5833333333333334,
+      "precision_at_10": 0.31666666666666665,
+      "recall_at_10": 0.9555555555555556,
+      "mrr": 1.0,
+      "ndcg_at_10": 0.9223283694154166
+    }
+  ]
+}

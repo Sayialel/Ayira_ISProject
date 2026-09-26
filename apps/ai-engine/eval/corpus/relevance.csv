@@ -1,0 +1,84 @@
+# Graded relevance judgements for the Ayira matching evaluation.
+#
+# grade  meaning
+#   3    ideal      — this is squarely the worker's job
+#   2    good       — they could do it well, slightly outside their core
+#   1    marginal   — plausible but a stretch; a weak result, not a wrong one
+#   0    irrelevant — omitted from this file; any pair not listed is graded 0
+#
+# Judgements are author-assigned as part of corpus design, not independently
+# annotated. A second annotator and an inter-annotator agreement score are
+# noted as future work in the evaluation write-up.
+#
+# Hard cases are included deliberately — pairs where surface wording pulls one
+# way and the correct grade goes the other. They are marked in the notes column
+# and are the ones worth watching when a change moves the metrics.
+worker_id,gig_id,grade,notes
+w-frontend,g-react-landing,3,core react work
+w-frontend,g-react-dashboard,3,core react work
+w-frontend,g-wordpress,1,HARD web work but an unrelated stack
+w-frontend,g-ui-design,1,HARD adjacent to design but they build rather than design
+w-frontend,g-node-api,1,same trade different layer
+w-backend,g-node-api,3,core api work
+w-backend,g-django-backend,3,core api work
+w-backend,g-ml-model,1,python but modelling rather than services
+w-backend,g-data-dashboard,1,sql overlap only
+w-backend,g-react-dashboard,1,HARD posting mentions a REST API but the role is front-end
+w-mobile,g-flutter-app,3,core flutter work
+w-mobile,g-android-maintenance,3,core android work
+w-mobile,g-react-landing,0,HARD posting says low-end Android phones but it is a web build
+w-dataanalyst,g-data-dashboard,3,core analysis work
+w-dataanalyst,g-ml-model,2,modelling is adjacent to analysis
+w-dataanalyst,g-seo-audit,1,analysis applied to an unfamiliar domain
+w-dataanalyst,g-excel-cleanup,1,HARD shares Excel but is data entry not analysis
+w-copywriter,g-website-copy,3,core copywriting
+w-copywriter,g-blog-seo,3,core content writing
+w-copywriter,g-email-marketing,2,copy-led marketing work
+w-copywriter,g-technical-writing,1,HARD writing but needs comfort reading code
+w-copywriter,g-seo-audit,1,HARD shares SEO but the work is technical auditing
+w-translator,g-swahili-translation,3,core translation work
+w-translator,g-transcription,3,core transcription work
+w-translator,g-blog-seo,1,general content writing
+w-translator,g-website-copy,1,general content writing
+w-graphic,g-logo-design,3,core identity work
+w-graphic,g-social-graphics,3,core graphic work
+w-graphic,g-ui-design,2,design but a product specialism
+w-graphic,g-video-reels,1,motion graphics overlap only
+w-video,g-video-reels,3,core editing work
+w-video,g-social-graphics,1,adjacent design work
+w-video,g-wedding-photo,1,HARD event media but a different craft
+w-photographer,g-wedding-photo,3,core event photography and the right town
+w-photographer,g-product-photo,3,core studio photography
+w-photographer,g-video-reels,1,adjacent visual media
+w-socialmedia,g-social-campaign,3,core paid social work
+w-socialmedia,g-email-marketing,2,adjacent channel marketing
+w-socialmedia,g-social-graphics,2,posting asks for social media skill
+w-socialmedia,g-blog-seo,1,content marketing overlap
+w-socialmedia,g-seo-audit,1,marketing but technical
+w-va,g-virtual-assistant,3,core assistant work and the right town
+w-va,g-customer-support,3,core support work
+w-va,g-excel-cleanup,2,straightforward data entry
+w-va,g-data-entry-medical,2,straightforward data entry
+w-va,g-project-coordinator,1,coordination is a step up in scope
+w-accountant,g-bookkeeping,3,core bookkeeping
+w-accountant,g-payroll,3,core statutory work
+w-accountant,g-excel-cleanup,1,Excel overlap only
+w-accountant,g-data-dashboard,1,HARD shares Excel and reporting language but is an analyst role
+w-frontend,g-para-frontend,3,PARAPHRASE says component framework never says React
+w-backend,g-para-backend,3,PARAPHRASE says server-side and relational schema never says Node or SQL
+w-mobile,g-para-mobile,3,PARAPHRASE says handset application and one codebase never says Flutter
+w-dataanalyst,g-para-analyst,3,PARAPHRASE describes analysis without naming a tool
+w-copywriter,g-para-copy,3,PARAPHRASE says words for our pages never says copywriting
+w-translator,g-para-translator,3,PARAPHRASE describes localisation without naming a language
+w-graphic,g-para-graphic,3,PARAPHRASE says visual identity never says logo or graphic design
+w-video,g-para-video,3,PARAPHRASE says cut our footage never says video editing
+w-photographer,g-para-photo,3,PARAPHRASE says capture the collection never says photography
+w-socialmedia,g-para-social,3,PARAPHRASE says grow our following never says social media
+w-va,g-para-va,3,PARAPHRASE says take the admin off my plate never says virtual assistant
+w-accountant,g-para-accountant,3,PARAPHRASE says keep our books straight never says accounting
+w-frontend,g-para-mobile,1,builds interfaces but this is a native handset app
+w-backend,g-para-analyst,1,data work but reporting rather than services
+w-copywriter,g-para-translator,1,writing but requires a second language
+w-socialmedia,g-para-copy,1,writing for the brand but not their core channel work
+w-va,g-para-accountant,1,record keeping but requires real bookkeeping
+w-graphic,g-para-video,1,visual work but a moving medium
