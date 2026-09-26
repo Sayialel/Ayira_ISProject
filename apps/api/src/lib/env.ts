@@ -50,5 +50,9 @@ export const env = {
   apiPort: Number(process.env.API_PORT || 3001),
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
   aiEngineUrl: process.env.AI_ENGINE_URL || 'http://localhost:8001',
+  // Shared secret presented to the AI engine on every call. Not in
+  // REQUIRED_VARS because the gateway is useful without matching; the match
+  // route reports a clear error when it is missing.
+  aiEngineSecret: process.env.AI_ENGINE_SECRET || '',
   nodeEnv: process.env.NODE_ENV || 'development',
 };

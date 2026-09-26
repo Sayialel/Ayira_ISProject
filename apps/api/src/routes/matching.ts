@@ -50,12 +50,22 @@ const GIG_FIELDS =
   'id, title, description, category, required_skills, location, is_remote, budget_min, budget_max, currency, deadline, status, employer:users!employer_id(id, full_name, avatar_url, is_verified)';
 
 async function callAiEngine(workerId: string, limit: number) {
+  if (!env.aiEngineSecret) {
+    // Fail here rather than letting the engine reject the call, so the message
+    // names the actual problem.
+    console.error('AI_ENGINE_SECRET is not set — cannot authenticate to the AI engine.');
+    throw new AppError('Matching is not configured on this server.', 503);
+  }
+
   let response: Response;
 
   try {
     response = await fetch(`${AI_ENGINE_URL}/ai/match`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Ayira-Key': env.aiEngineSecret,
+      },
       body: JSON.stringify({ worker_id: workerId, limit }),
       signal: AbortSignal.timeout(AI_TIMEOUT_MS),
     });

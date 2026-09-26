@@ -213,38 +213,49 @@ applicationRouter.patch(
       );
     }
 
-    const { data: updated, error: updateError } = await supabaseAdmin
-      .from('applications')
-      .update({ status: nextStatus })
-      .eq('id', row.id)
-      // Re-assert the status we validated against, so two concurrent decisions
-      // cannot both succeed.
-      .eq('status', row.status)
-      .select(`*, ${GIG_EMBED}, ${WORKER_EMBED}`)
-      .maybeSingle();
-
-    assertNoDbError(updateError, 'Failed to update application');
-    if (!updated) {
-      throw new AppError('This application was updated by someone else — reload and retry', 409);
-    }
-
     if (nextStatus === 'accepted') {
-      // Hiring closes the gig to further applicants and turns down the rest.
-      const { error: gigError } = await supabaseAdmin
-        .from('gigs')
-        .update({ status: 'in_progress' })
-        .eq('id', row.gig.id);
-      assertNoDbError(gigError, 'Failed to update gig status');
+      // Hiring touches three rows and must not half-succeed, so it runs as one
+      // transaction inside Postgres (migration 012). Ownership was verified
+      // above — the function itself is SECURITY DEFINER and trusts its caller.
+      const { error: rpcError } = await supabaseAdmin.rpc('accept_application', {
+        p_application_id: row.id,
+      });
 
-      const { error: rejectError } = await supabaseAdmin
+      if (rpcError) {
+        // The function raises when the application or gig moved underneath us,
+        // which is a conflict rather than a server fault.
+        console.error('accept_application failed:', rpcError.message);
+        throw new AppError(
+          'This application could not be accepted — it may have changed. Reload and retry.',
+          409
+        );
+      }
+    } else {
+      const { data: updated, error: updateError } = await supabaseAdmin
         .from('applications')
-        .update({ status: 'rejected' })
-        .eq('gig_id', row.gig.id)
-        .neq('id', row.id)
-        .in('status', ['pending', 'shortlisted']);
-      assertNoDbError(rejectError, 'Failed to close remaining applications');
+        .update({ status: nextStatus })
+        .eq('id', row.id)
+        // Re-assert the status we validated against, so two concurrent
+        // decisions cannot both succeed.
+        .eq('status', row.status)
+        .select('id')
+        .maybeSingle();
+
+      assertNoDbError(updateError, 'Failed to update application');
+      if (!updated) {
+        throw new AppError('This application was updated by someone else — reload and retry', 409);
+      }
     }
 
-    res.json({ data: updated });
+    // Read back through the same projection both paths share, so the response
+    // shape does not depend on which branch ran.
+    const { data: result, error: readError } = await supabaseAdmin
+      .from('applications')
+      .select(`*, ${GIG_EMBED}, ${WORKER_EMBED}`)
+      .eq('id', row.id)
+      .single();
+
+    assertNoDbError(readError, 'Failed to load the updated application');
+    res.json({ data: result });
   })
 );

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { supabaseAdmin } from '../lib/supabase';
 import { asyncHandler } from '../lib/asyncHandler';
 import { AppError } from '../middleware/errorHandler';
-import { requireRole } from '../middleware/auth';
+import { requireRole, invalidateRoleCache } from '../middleware/auth';
 import {
   requireUser,
   assertNoDbError,
@@ -136,6 +136,10 @@ adminRouter.patch(
 
     assertNoDbError(error, 'Failed to update verification status');
     if (!data) throw new AppError('User not found', 404);
+
+    // Drop any cached role for this user so an admin action takes effect on
+    // their next request rather than after the cache TTL.
+    invalidateRoleCache(parsed.data);
 
     res.json({ data });
   })

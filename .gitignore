@@ -14,3 +14,6 @@ __pycache__/
 
 # Supabase CLI scratch state
 supabase/.temp/
+
+# Python virtualenv
+apps/ai-engine/.venv/

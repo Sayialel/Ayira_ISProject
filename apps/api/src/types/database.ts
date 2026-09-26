@@ -236,6 +236,16 @@ export interface Database {
       };
     };
     Views: Record<never, never>;
-    Functions: Record<never, never>;
+    Functions: {
+      /**
+       * Hires an applicant in one transaction: marks the application accepted,
+       * moves the gig to in_progress and rejects the remaining applicants.
+       * Defined in migration 012 and executable only by the service role.
+       */
+      accept_application: {
+        Args: { p_application_id: string };
+        Returns: ApplicationRow;
+      };
+    };
   };
 }
