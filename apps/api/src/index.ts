@@ -14,13 +14,22 @@ import { adminRouter } from './routes/admin';
 import { matchingRouter } from './routes/matching';
 import { errorHandler } from './middleware/errorHandler';
 import { authMiddleware } from './middleware/auth';
+import { authLimiter, apiLimiter } from './middleware/rateLimit';
 
 const app = express();
+
+// Rate limiting identifies clients by IP. Behind Railway's proxy the socket
+// address is the proxy's, so the first X-Forwarded-For hop must be trusted —
+// but only in production, where we know a proxy is actually in front. Trusting
+// it in development would let any client spoof its own address.
+if (env.nodeEnv === 'production') {
+  app.set('trust proxy', 1);
+}
 
 // Global middleware
 app.use(helmet());
 app.use(cors({ origin: env.corsOrigin }));
-app.use(express.json());
+app.use(express.json({ limit: '100kb' }));
 app.use(morgan('dev'));
 
 // Health check
@@ -28,10 +37,12 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'ayira-api', timestamp: new Date().toISOString() });
 });
 
-// Public routes
-app.use('/api/auth', authRouter);
+// Public routes — the only ones reachable without a token, so the strictest
+// budget applies here.
+app.use('/api/auth', authLimiter, authRouter);
 
 // Protected routes
+app.use('/api', apiLimiter);
 app.use('/api/gigs', authMiddleware, gigRouter);
 app.use('/api/workers', authMiddleware, workerRouter);
 app.use('/api/applications', authMiddleware, applicationRouter);

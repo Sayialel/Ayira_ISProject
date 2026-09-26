@@ -12,7 +12,7 @@ import {
   paginationSchema,
   toRange,
   buildPageMeta,
-  sanitizeSearchTerm,
+  normalizeSearchQuery,
 } from '../lib/http';
 import type { GigRow, GigStatus } from '../types/database';
 
@@ -20,7 +20,14 @@ export const gigRouter = Router();
 
 /** Employer fields safe to expose alongside a gig. */
 const EMPLOYER_FIELDS = 'id, full_name, avatar_url, reputation_score, is_verified, location';
-const GIG_WITH_EMPLOYER = `*, employer:users!employer_id(${EMPLOYER_FIELDS})`;
+
+// Listed explicitly rather than "*" so the generated search_vector column
+// (migration 013) stays server-side — it is a long list of lexemes with no
+// meaning to a client, and it would ride along on every gig in every response.
+const GIG_COLUMNS =
+  'id, employer_id, title, description, category, required_skills, location, is_remote, budget_min, budget_max, currency, deadline, status, created_at, updated_at';
+
+const GIG_WITH_EMPLOYER = `${GIG_COLUMNS}, employer:users!employer_id(${EMPLOYER_FIELDS})`;
 
 const uuid = z.string().uuid();
 
@@ -174,8 +181,17 @@ gigRouter.get(
     if (q.max_budget !== undefined) query = query.lte('budget_min', q.max_budget);
 
     if (q.search) {
-      const term = sanitizeSearchTerm(q.search);
-      if (term) query = query.or(`title.ilike.%${term}%,description.ilike.%${term}%`);
+      const term = normalizeSearchQuery(q.search);
+      if (term) {
+        // Full-text search against the generated, GIN-indexed search_vector
+        // (migration 013). websearch_to_tsquery accepts what people actually
+        // type — quoted phrases, OR, -exclusions — and never throws on
+        // malformed input the way plainto_tsquery's stricter cousins do.
+        query = query.textSearch('search_vector', term, {
+          type: 'websearch',
+          config: 'english',
+        });
+      }
     }
 
     const { data, error, count } = await query

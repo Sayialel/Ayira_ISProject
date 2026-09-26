@@ -63,3 +63,15 @@ export function buildPageMeta(total: number, page: number, limit: number) {
 export function sanitizeSearchTerm(term: string): string {
   return term.replace(/[,().*%\\"']/g, ' ').trim().slice(0, 100);
 }
+
+/**
+ * Prepares a term for full-text search.
+ *
+ * Unlike the `or=(...)` case above, a textSearch term is sent as a parameter
+ * rather than spliced into a filter expression, so it needs no escaping —
+ * and stripping punctuation would break the syntax websearch_to_tsquery
+ * supports: "quoted phrases", OR, and -exclusions. Only the length is capped.
+ */
+export function normalizeSearchQuery(term: string): string {
+  return term.trim().slice(0, 200);
+}
