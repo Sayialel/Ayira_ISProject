@@ -5,8 +5,7 @@ skills profile and get open gigs ranked against it by a semantic matching engine
 employers post gigs, review applicants, and pay through M-Pesa escrow.
 
 Final year Information Systems project — Strathmore University.
-Student: Lenina Sayialel (161492) · Supervisor: Ms. Eunice Manyasi
-
+Student: Lenina Sayialel (161492) 
 ---
 
 ## Architecture
@@ -153,40 +152,10 @@ writes such as accepting an applicant.
 
 ---
 
-## Project status
 
-| Phase | Scope | State |
-| --- | --- | --- |
-| 1 | Monorepo, auth, schema | Complete |
-| 2 | Gigs, workers, applications, admin CRUD + UI | Complete |
-| 3 | AI matching integration | Complete |
-| 4 | M-Pesa escrow (Daraja) | Not started — `routes/escrow.ts` is a stub |
-| 5 | Notifications (SMS, push, in-app) | Not started |
-| 6 | Messaging | Not started |
-| 7 | Polish, hardening, tests, deploy | Not started |
 
 ---
 
-## Deployment
-
-**Frontend — Vercel.** Framework Vite, build `cd apps/web && npm run build`,
-output `apps/web/dist`. Set `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` and
-`VITE_API_URL` (the gateway origin; the `/api` prefix is added by the client).
-
-**API gateway — Railway.** Root directory `apps/api`, build
-`npm install && npm run build`, start `node dist/index.js`. Set the `SUPABASE_*`
-variables, `AI_ENGINE_URL`, and `CORS_ORIGIN` pointing at the deployed frontend.
-
-**AI engine — Railway**, as a separate service. Root directory `apps/ai-engine`,
-build `pip install -r requirements.txt`, start
-`uvicorn app.main:app --host 0.0.0.0 --port $PORT`. Needs `SUPABASE_URL` and
-`SUPABASE_SERVICE_ROLE_KEY`.
-
----
 
 ## Conventions
 
-TypeScript strict mode, no `any`. Zod validates every API input. Errors are
-thrown as `AppError` with a status code and never leak internals to clients.
-React components are PascalCase, utilities camelCase, and the frontend imports
-through the `@/*` alias.
