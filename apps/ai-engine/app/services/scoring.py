@@ -1,7 +1,5 @@
 """
 Pure scoring logic, with no database and no I/O.
-
-Keeping this separate from matcher.py is what makes the engine measurable:
 the evaluation harness scores a fixture corpus by calling score_gigs()
 directly, exercising exactly the code that serves live requests rather than a
 reimplementation of it that could drift.
@@ -17,28 +15,7 @@ from app.services.embeddings import (
 
 @dataclass(frozen=True)
 class Weights:
-    """
-    The composite formula's coefficients.
-
-    These began as asserted constants (0.45 / 0.25 / 0.15 / 0.15). The defaults
-    below are instead the outcome of a grid search over 1,771 combinations
-    against eval/corpus, reported in eval/results and summarised in
-    eval/README.md. Leave-one-profile-out cross-validation puts the
-    generalised gain at about +0.019 NDCG@10.
-
-    Two measured findings shaped them:
-
-    * Semantic similarity carries most of the signal. Raising it from 0.45
-      while trimming TF-IDF is what produced the improvement — TF-IDF alone
-      reaches 0.828 NDCG@10 against semantic's 0.947, because it cannot match
-      a gig that describes the same work in different words.
-
-    * Reputation cannot affect ranking at all. It is one number per worker, so
-      it adds the same amount to every gig that worker is scored against and
-      leaves the ordering untouched — NDCG@10 is identical whether its weight
-      is 0.00 or 0.90. It is kept only because it shifts the percentage the
-      interface displays; see eval/README.md, which argues that is a misfeature.
-    """
+   
 
     semantic: float = 0.60
     tfidf: float = 0.20

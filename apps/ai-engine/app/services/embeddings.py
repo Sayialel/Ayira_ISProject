@@ -33,8 +33,6 @@ def compute_semantic_similarities(query: str, documents: list[str]) -> list[floa
     if not documents:
         return []
     if not query.strip():
-        # Nothing to compare against — fall back to a neutral score rather than
-        # ranking on noise from an empty embedding.
         return [0.0] * len(documents)
 
     model = get_model()
@@ -73,16 +71,9 @@ def compute_tfidf_similarities(query: str, documents: list[str]) -> list[float]:
     return [_clamp(s) for s in sims]
 
 
-def composite_score(
-    semantic: float,
-    tfidf: float,
-    location_match: bool,
-    reputation: float,
-) -> float:
-    """
-    Composite matching formula:
-    0.45 * semantic + 0.25 * tfidf + 0.15 * location + 0.15 * reputation
-    """
-    loc = 1.0 if location_match else 0.0
-    rep = min(max(reputation, 0.0) / 5.0, 1.0)  # normalise to 0-1
-    return 0.45 * semantic + 0.25 * tfidf + 0.15 * loc + 0.15 * rep
+# composite_score() used to live here with the weights hard-coded. It moved to
+# app/services/scoring.py, where the weights are parameters the evaluation can
+# search over. The copy here was left behind and became dead code carrying the
+# old 0.45/0.25/0.15/0.15 values — a trap for anyone reading this file to find
+# out what the formula is. This module is now similarity only; the formula that
+# combines those similarities lives in scoring.py.
