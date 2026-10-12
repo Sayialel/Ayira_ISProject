@@ -83,46 +83,73 @@ def extract_text(pdf: Path) -> str:
     return "\n".join(page.extract_text() or "" for page in reader.pages)
 
 
-def clean(text: str) -> str:
+def build_vocabulary(text: str, minimum: int = 4) -> set[str]:
     """
-    Repairs the artefacts this particular PDF's text layer produces.
+    Words the document uses often enough to be considered real.
 
-    Extraction splits words at what were line-break hyphens and sometimes
-    inserts a space mid-word ("i mprove", "biologic al", "t his"). Both would
-    otherwise end up in generated gig descriptions, so they are repaired here
-    rather than left for a reader to notice.
+    The repair below needs to know what a word is, and the document itself is
+    the best authority available — it establishes that "communicating" and
+    "procedures" are words in this register without needing a dictionary
+    dependency or a guess about vocabulary.
     """
+    counts: dict[str, int] = {}
+    for word in re.findall(r"[a-z]{2,}", text.lower()):
+        counts[word] = counts.get(word, 0) + 1
+    return {word for word, n in counts.items() if n >= minimum}
+
+
+def repair_split_words(text: str, vocabulary: set[str]) -> str:
+    """
+    Rejoins words that extraction broke in half.
+
+    This PDF's text layer scatters spaces inside words — "communi cating",
+    "pro cedures", "main tain", "sellin g". Left alone they end up in generated
+    gig descriptions, where they read as carelessness.
+
+    Two adjacent fragments are joined when the combination is a word the
+    document uses, and at least one fragment is not. That second condition is
+    what makes it safe: "the rapist" survives because both halves are real
+    words, and so does "data base".
+    """
+    tokens = re.split(r"(\s+)", text)
+    out: list[str] = []
+    i = 0
+
+    while i < len(tokens):
+        token = tokens[i]
+        # Look at this word, the whitespace after it, and the next word.
+        if i + 2 < len(tokens) and tokens[i + 1].isspace():
+            left, right = token, tokens[i + 2]
+            lw, rw = left.lower(), right.lower()
+            if lw.isalpha() and rw.isalpha():
+                joined = lw + rw
+                if (
+                    joined in vocabulary
+                    and (lw not in vocabulary or rw not in vocabulary)
+                    and len(joined) > 3
+                ):
+                    # Preserve the first fragment's capitalisation.
+                    out.append(left + right if left.islower() else left + right.lower())
+                    i += 3
+                    continue
+        out.append(token)
+        i += 1
+
+    return "".join(out)
+
+
+def clean(text: str) -> str:
+    """Strips running headers and repairs the text-layer artefacts."""
     for pattern in NOISE:
         text = pattern.sub(" ", text)
 
     # "infra -red" and "records -keeping" — a hyphen that gained a space.
     text = re.sub(r"\s+-\s*(?=[a-z])", "-", text)
 
-    # A word split by a stray space: join when one side is a short fragment and
-    # the other continues in lower case. Deliberately conservative — it only
-    # fires on fragments of three characters or fewer.
-    text = re.sub(r"\b([a-z]{1,3}) ([a-z]{2,})\b", _rejoin, text)
-
     text = re.sub(r"[ \t]+", " ", text)
-    return re.sub(r"\s*\n\s*", " ", text).strip()
+    text = re.sub(r"\s*\n\s*", " ", text).strip()
 
-
-# Short words that legitimately precede another word; never join these.
-REAL_SHORT_WORDS = {
-    "a", "an", "as", "at", "be", "by", "do", "for", "he", "if", "in", "is", "it",
-    "its", "may", "no", "not", "of", "on", "or", "out", "set", "she", "so", "the",
-    "to", "up", "use", "via", "was", "we", "who", "and", "are", "all", "any",
-    "can", "has", "had", "her", "him", "his", "how", "its", "new", "non", "one",
-    "our", "own", "per", "see", "two", "way", "you", "end", "job", "key", "low",
-    "run", "top", "aid", "air", "art", "car", "day", "oil", "raw", "tax", "etc",
-}
-
-
-def _rejoin(match: re.Match) -> str:
-    head, tail = match.group(1), match.group(2)
-    if head in REAL_SHORT_WORDS:
-        return match.group(0)
-    return head + tail
+    return repair_split_words(text, build_vocabulary(text))
 
 
 # The source is entirely upper case, so titles must be recased to read

@@ -1,585 +1,928 @@
 [
   {
-    "id": "g-react-landing",
-    "title": "React landing page for a fintech startup",
-    "description": "Build a responsive marketing landing page in React and Tailwind CSS from an existing Figma design. Must work well on low-end Android phones and deploy to Vercel.",
-    "category": "Technology",
+    "id": "g-2411-1",
+    "kesco_code": "2411",
+    "title": "Accountant needed — advising, planning and installing budgetary, accounts",
+    "description": "We are looking for someone to take on advising, planning and installing budgetary, accounts controlling and other accounting policies and systems. The work also covers preparing and certifying financial statements for presentation to management, shareholders and statutory or other bodies. The work also covers preparing tax returns, advising on taxation problems and c ontesting disputed claims before tax officials.",
+    "category": "Business",
     "required_skills": [
-      "React",
-      "Tailwind CSS",
-      "JavaScript"
-    ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 30000,
-    "budget_max": 60000
-  },
-  {
-    "id": "g-react-dashboard",
-    "title": "Front-end developer for an analytics dashboard",
-    "description": "Build charting screens in React and TypeScript against an existing REST API. Experience with component libraries and responsive layouts required.",
-    "category": "Technology",
-    "required_skills": [
-      "React",
-      "TypeScript",
-      "JavaScript"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 55000,
-    "budget_max": 95000
-  },
-  {
-    "id": "g-wordpress",
-    "title": "WordPress site for a dental clinic",
-    "description": "Set up a WordPress site with a booking form, gallery and contact page. Light theme customisation, no custom plugin development.",
-    "category": "Technology",
-    "required_skills": [
-      "WordPress",
-      "CSS"
-    ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 18000,
-    "budget_max": 30000
-  },
-  {
-    "id": "g-node-api",
-    "title": "Node.js REST API for an inventory system",
-    "description": "Design and build a REST API in Node.js with PostgreSQL covering stock levels, suppliers and purchase orders. Include migrations and API documentation.",
-    "category": "Technology",
-    "required_skills": [
-      "Node.js",
-      "PostgreSQL",
-      "REST APIs"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 70000,
-    "budget_max": 120000
-  },
-  {
-    "id": "g-django-backend",
-    "title": "Python backend engineer for a logistics platform",
-    "description": "Extend a Django backend with new endpoints, background jobs and a Postgres schema for shipment tracking.",
-    "category": "Technology",
-    "required_skills": [
-      "Python",
-      "PostgreSQL",
-      "REST APIs"
-    ],
-    "location": "Mombasa",
-    "is_remote": true,
-    "budget_min": 80000,
-    "budget_max": 140000
-  },
-  {
-    "id": "g-flutter-app",
-    "title": "Flutter app for a salon booking service",
-    "description": "Build a cross-platform Flutter app with Firebase authentication, appointment booking and push notifications.",
-    "category": "Technology",
-    "required_skills": [
-      "Flutter",
-      "Dart",
-      "Firebase"
+      "Accountant",
+      "Budgetary Accounts Controlling",
+      "Financial Statements"
     ],
     "location": "Mombasa",
     "is_remote": false,
-    "budget_min": 90000,
-    "budget_max": 150000
+    "budget_min": 2080,
+    "budget_max": 3700
   },
   {
-    "id": "g-android-maintenance",
-    "title": "Android developer to maintain a delivery app",
-    "description": "Take over maintenance of an existing Android application: fix crashes, update dependencies and ship monthly releases to the Play Store.",
-    "category": "Technology",
-    "required_skills": [
-      "Android",
-      "Dart",
-      "Flutter"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 60000,
-    "budget_max": 100000
-  },
-  {
-    "id": "g-data-dashboard",
-    "title": "Sales dashboard from raw spreadsheets",
-    "description": "Clean two years of messy sales spreadsheets and build a dashboard showing revenue by region and product. SQL and Python preferred.",
-    "category": "Technology",
-    "required_skills": [
-      "Data Analysis",
-      "SQL",
-      "Excel"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 45000,
-    "budget_max": 80000
-  },
-  {
-    "id": "g-ml-model",
-    "title": "Build a churn prediction model",
-    "description": "Train and evaluate a customer churn model in Python on an existing dataset, and document the features that drive predictions.",
-    "category": "Technology",
-    "required_skills": [
-      "Python",
-      "Data Analysis"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 85000,
-    "budget_max": 140000
-  },
-  {
-    "id": "g-excel-cleanup",
-    "title": "Clean up supplier records in Excel",
-    "description": "Deduplicate and standardise a supplier contact list of about four thousand rows in Excel. No analysis required, accuracy matters most.",
+    "id": "g-2411-2",
+    "kesco_code": "2411",
+    "title": "Accountant needed — preparing tax returns, advising on taxation problems",
+    "description": "We are looking for someone to take on preparing tax returns, advising on taxation problems and c ontesting disputed claims before tax officials. The work also covers preparing or reporting on profit forecasts and budgets.",
     "category": "Business",
     "required_skills": [
-      "Data Entry",
-      "Excel"
+      "Accountant",
+      "Budgetary Accounts Controlling",
+      "Financial Statements"
     ],
-    "location": "Nairobi",
+    "location": null,
     "is_remote": true,
-    "budget_min": 12000,
-    "budget_max": 20000
+    "budget_min": 4000,
+    "budget_max": 7700
   },
   {
-    "id": "g-website-copy",
-    "title": "Website copy for a savings app",
-    "description": "Write homepage, features and pricing copy for a mobile savings product aimed at young Kenyans. Clear, warm, jargon-free tone.",
-    "category": "Writing",
-    "required_skills": [
-      "Copywriting",
-      "Content Writing"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 25000,
-    "budget_max": 45000
-  },
-  {
-    "id": "g-blog-seo",
-    "title": "SEO blog articles for an insurance broker",
-    "description": "Research and write eight search-optimised blog articles about personal insurance, around a thousand words each.",
-    "category": "Writing",
-    "required_skills": [
-      "Content Writing",
-      "SEO"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 20000,
-    "budget_max": 40000
-  },
-  {
-    "id": "g-swahili-translation",
-    "title": "Translate a health campaign into Swahili",
-    "description": "Translate a public health awareness campaign from English into natural Swahili, including posters, radio scripts and SMS copy.",
-    "category": "Writing",
-    "required_skills": [
-      "Translation",
-      "Content Writing"
-    ],
-    "location": "Kisumu",
-    "is_remote": true,
-    "budget_min": 30000,
-    "budget_max": 55000
-  },
-  {
-    "id": "g-transcription",
-    "title": "Transcribe twenty research interviews",
-    "description": "Transcribe twenty recorded interviews, roughly forty minutes each, mixed English and Swahili, with speaker labels and timestamps.",
-    "category": "Writing",
-    "required_skills": [
-      "Transcription",
-      "Translation"
-    ],
-    "location": "Kisumu",
-    "is_remote": true,
-    "budget_min": 25000,
-    "budget_max": 45000
-  },
-  {
-    "id": "g-technical-writing",
-    "title": "API documentation for a payments SDK",
-    "description": "Write developer-facing reference documentation and a getting-started guide for a payments SDK. Must be comfortable reading code samples.",
-    "category": "Writing",
-    "required_skills": [
-      "Technical Writing",
-      "Content Writing"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 50000,
-    "budget_max": 90000
-  },
-  {
-    "id": "g-logo-design",
-    "title": "Logo and brand kit for a coffee roastery",
-    "description": "Design a logo, colour palette and packaging label set for a speciality coffee roastery launching in Nairobi.",
-    "category": "Design",
-    "required_skills": [
-      "Logo Design",
-      "Graphic Design"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 35000,
-    "budget_max": 70000
-  },
-  {
-    "id": "g-social-graphics",
-    "title": "Monthly social media graphics for a gym",
-    "description": "Produce a monthly set of Instagram and Facebook graphics following an existing brand guide.",
-    "category": "Design",
-    "required_skills": [
-      "Graphic Design",
-      "Social Media"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 15000,
-    "budget_max": 30000
-  },
-  {
-    "id": "g-video-reels",
-    "title": "Edit short-form video reels for a restaurant",
-    "description": "Cut twelve short vertical videos a month from supplied footage, with captions, music and simple motion graphics.",
-    "category": "Design",
-    "required_skills": [
-      "Video Editing",
-      "Animation"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 30000,
-    "budget_max": 55000
-  },
-  {
-    "id": "g-wedding-photo",
-    "title": "Wedding photographer for a weekend event",
-    "description": "Photograph a two day wedding in Naivasha and deliver a set of edited images within three weeks.",
-    "category": "Design",
-    "required_skills": [
-      "Photography",
-      "Photo Editing"
-    ],
-    "location": "Nakuru",
-    "is_remote": false,
-    "budget_min": 45000,
-    "budget_max": 80000
-  },
-  {
-    "id": "g-product-photo",
-    "title": "Product photography for an online store",
-    "description": "Shoot and retouch about sixty product images on a white background for an e-commerce catalogue.",
-    "category": "Design",
-    "required_skills": [
-      "Photography",
-      "Photo Editing"
-    ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 30000,
-    "budget_max": 55000
-  },
-  {
-    "id": "g-social-campaign",
-    "title": "Run a paid social campaign for a new snack brand",
-    "description": "Plan and run Instagram and TikTok advertising for a product launch, managing budget, targeting and weekly reporting.",
-    "category": "Marketing",
-    "required_skills": [
-      "Social Media",
-      "Digital Advertising"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 40000,
-    "budget_max": 80000
-  },
-  {
-    "id": "g-email-marketing",
-    "title": "Email marketing sequence for an online course",
-    "description": "Write and schedule a seven-part email onboarding sequence, and set up basic automation in Mailchimp.",
-    "category": "Marketing",
-    "required_skills": [
-      "Email Marketing",
-      "Copywriting"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 25000,
-    "budget_max": 50000
-  },
-  {
-    "id": "g-seo-audit",
-    "title": "SEO audit for a travel booking site",
-    "description": "Audit an existing travel site for technical and content SEO issues and deliver a prioritised list of fixes.",
-    "category": "Marketing",
-    "required_skills": [
-      "SEO",
-      "Data Analysis"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 35000,
-    "budget_max": 65000
-  },
-  {
-    "id": "g-virtual-assistant",
-    "title": "Part-time virtual assistant for a consultancy",
-    "description": "Manage a shared inbox, schedule client meetings across time zones and keep the CRM up to date. Twenty hours a week.",
+    "id": "g-2421-1",
+    "kesco_code": "2421",
+    "title": "Management Analyst needed — assisting in the development of objectives",
+    "description": "We are looking for someone to take on assisting in the development of objectives, strategies and plans aimed at achieving customer satisfaction and the efficient use of organizations’ resources. The work also covers analyzing and evaluating current systems and structures. The work also covers discussing current systems with staff and observing systems at all levels of organization.",
     "category": "Business",
     "required_skills": [
-      "Virtual Assistant",
-      "Customer Service"
+      "Management Organization Analyst",
+      "Current Systems",
+      "Clients Towards More"
+    ],
+    "location": "Machakos",
+    "is_remote": false,
+    "budget_min": 3600,
+    "budget_max": 6900
+  },
+  {
+    "id": "g-2421-2",
+    "kesco_code": "2421",
+    "title": "Management Analyst needed — discussing current systems with staff and observing",
+    "description": "We are looking for someone to take on discussing current systems with staff and observing systems at all levels of organization. The work also covers directing clients towards more efficient organization and developing solutions to organizational problems.",
+    "category": "Business",
+    "required_skills": [
+      "Management Organization Analyst",
+      "Current Systems",
+      "Clients Towards More"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 4900,
+    "budget_max": 9500
+  },
+  {
+    "id": "g-2431-1",
+    "kesco_code": "2431",
+    "title": "Advertising and Marketing Professional needed — planning, developing and organizing advertising",
+    "description": "We are looking for someone to take on planning, developing and organizing advertising policies and campaigns to support sales objectives. The work also covers advising managers and clients on strategies and campaigns to reach target markets, creating consumer awareness and effectively promoting the attributes of goods and services. The work also covers writing advertising copy and media scripts, and arranging television and film production and media placement.",
+    "category": "Marketing",
+    "required_skills": [
+      "Advertising Marketing Professional",
+      "Policies",
+      "Managers"
+    ],
+    "location": "Nyeri",
+    "is_remote": false,
+    "budget_min": 44900,
+    "budget_max": 86800
+  },
+  {
+    "id": "g-2431-2",
+    "kesco_code": "2431",
+    "title": "Advertising and Marketing Professional needed — writing advertising copy and media scripts, and",
+    "description": "We are looking for someone to take on writing advertising copy and media scripts, and arranging television and film production and media placement.",
+    "category": "Marketing",
+    "required_skills": [
+      "Advertising Marketing Professional",
+      "Policies",
+      "Managers"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 43900,
+    "budget_max": 84900
+  },
+  {
+    "id": "g-2432-1",
+    "kesco_code": "2432",
+    "title": "Public Relations Professional needed — planning and organizing publicity campaigns and",
+    "description": "We are looking for someone to take on planning and organizing publicity campaigns and communication strategies. The work also covers advising executives on the public relations implications of their policies, programmes and practices, and preparing and controlling the issue of news and press release s. The work also covers undertaking and commissioning public opinion research, analysing the findings and planning public relations and promotional campaigns.",
+    "category": "Marketing",
+    "required_skills": [
+      "Public Relations Professional",
+      "Publicity Campaigns",
+      "Executives"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3000
+  },
+  {
+    "id": "g-2432-2",
+    "kesco_code": "2432",
+    "title": "Public Relations Professional needed — undertaking and commissioning public opinion",
+    "description": "We are looking for someone to take on undertaking and commissioning public opinion research, analysing the findings and planning public relations and promotional campaigns. The work also covers organizing special events, seminars, entertainment, competitions and social functions to promote goodwill and favourable publicity.",
+    "category": "Marketing",
+    "required_skills": [
+      "Public Relations Professional",
+      "Publicity Campaigns",
+      "Executives"
+    ],
+    "location": "Thika",
+    "is_remote": false,
+    "budget_min": 4200,
+    "budget_max": 8100
+  },
+  {
+    "id": "g-2434-1",
+    "kesco_code": "2434",
+    "title": "ICT Sales Professional needed — soliciting orders and selling goods to retail",
+    "description": "We are looking for someone to take on soliciting orders and selling goods to retail, industrial, wholesale and other establishments. The work also covers selling technical equipment, supplies and related services to business establishments or individuals. The work also covers discussing the needs of new and existing customers and providing specialized information about how particular equipment, supplies and services meet those needs.",
+    "category": "Marketing",
+    "required_skills": [
+      "Information Communications Technology",
+      "Orders",
+      "Technical Equipment Supplies"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 19800,
+    "budget_max": 38300
+  },
+  {
+    "id": "g-2434-2",
+    "kesco_code": "2434",
+    "title": "ICT Sales Professional needed — discussing the needs of new and existing customers",
+    "description": "We are looking for someone to take on discussing the needs of new and existing customers and providing specialized information about how particular equipment, supplies and services meet those needs.",
+    "category": "Marketing",
+    "required_skills": [
+      "Information Communications Technology",
+      "Orders",
+      "Technical Equipment Supplies"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 18300,
+    "budget_max": 35300
+  },
+  {
+    "id": "g-2511-1",
+    "kesco_code": "2511",
+    "title": "Systems Analyst needed — researching Information Communication Technology use",
+    "description": "We are looking for someone to take on researching Information Communication Technology use in business functions and identifying areas in which improvements could be made to maximize effectiveness and efficiency. The work also covers conducting research into the theoretical aspects of and operational methods for the use of computers.",
+    "category": "Technology",
+    "required_skills": [
+      "Systems Analyst",
+      "Research"
     ],
     "location": "Eldoret",
-    "is_remote": true,
-    "budget_min": 30000,
-    "budget_max": 50000
+    "is_remote": false,
+    "budget_min": 23100,
+    "budget_max": 44700
   },
   {
-    "id": "g-customer-support",
-    "title": "Customer support agent for an e-commerce store",
-    "description": "Answer customer questions over WhatsApp and email, process returns and escalate delivery issues.",
-    "category": "Business",
+    "id": "g-2511-2",
+    "kesco_code": "2511",
+    "title": "Systems Analyst needed — researching Information Communication Technology use",
+    "description": "We are looking for someone to take on researching Information Communication Technology use in business functions and identifying areas in which improvements could be made to maximize effectiveness and efficiency. The work also covers conducting research into the theoretical aspects of and operational methods for the use of computers.",
+    "category": "Technology",
     "required_skills": [
-      "Customer Service",
-      "Virtual Assistant"
+      "Systems Analyst",
+      "Research"
     ],
-    "location": "Nairobi",
+    "location": null,
     "is_remote": true,
-    "budget_min": 25000,
-    "budget_max": 40000
+    "budget_min": 59200,
+    "budget_max": 114400
   },
   {
-    "id": "g-bookkeeping",
-    "title": "Monthly bookkeeping for a small retail chain",
-    "description": "Reconcile bank statements, maintain the ledger in QuickBooks and prepare monthly management accounts for three shops.",
-    "category": "Business",
+    "id": "g-2512-1",
+    "kesco_code": "2512",
+    "title": "Software Developer needed — developing and testing software to meet customers",
+    "description": "We are looking for someone to take on developing and testing software to meet customers’ and client’s needs. The work also covers recommend and develop upgrades for existing applications. The work also covers create models and diagrams to show programmers the code needed for applications.",
+    "category": "Technology",
     "required_skills": [
-      "Accounting",
-      "QuickBooks",
-      "Excel"
+      "Software Developer",
+      "Software",
+      "Recommend"
     ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 40000,
-    "budget_max": 70000
+    "location": "Thika",
+    "is_remote": false,
+    "budget_min": 3100,
+    "budget_max": 6000
   },
   {
-    "id": "g-payroll",
-    "title": "Set up payroll and statutory filings",
-    "description": "Set up payroll for a twelve-person company, including PAYE, NHIF and NSSF filings, and document the monthly process.",
-    "category": "Business",
+    "id": "g-2512-2",
+    "kesco_code": "2512",
+    "title": "Software Developer needed — create models and diagrams to show programmers the",
+    "description": "We are looking for someone to take on create models and diagrams to show programmers the code needed for applications. The work also covers monitor quality and performance of applications through testing and maintenance. The work also covers researching, analysing and evaluating requirements for software applications and operating systems.",
+    "category": "Technology",
     "required_skills": [
-      "Accounting",
-      "Data Entry"
+      "Software Developer",
+      "Software",
+      "Recommend"
     ],
     "location": "Nairobi",
     "is_remote": false,
-    "budget_min": 45000,
-    "budget_max": 75000
+    "budget_min": 11600,
+    "budget_max": 22400
   },
   {
-    "id": "g-project-coordinator",
-    "title": "Project coordinator for an NGO programme",
-    "description": "Coordinate schedules, track deliverables and prepare progress reports for a six-month community health programme.",
-    "category": "Business",
+    "id": "g-2513-1",
+    "kesco_code": "2513",
+    "title": "Web and Multimedia Developer needed — analyzing, designing and developing Internet sites by",
+    "description": "We are looking for someone to take on analyzing, designing and developing Internet sites by applying a mixture of artistry and creativity with software programming and scripting languages and interfacing with operating environments. The work also covers designing and developing digital animations, imaging, presentations, games, audio and video clips and Internet applications using multimedia software, tools and utilities, interactive graphics and programming languages.",
+    "category": "Technology",
     "required_skills": [
-      "Project Management",
-      "Content Writing"
+      "Web Multimedia Developer",
+      "Internet Sites",
+      "Digital Animations Imaging"
     ],
-    "location": "Kisumu",
-    "is_remote": false,
-    "budget_min": 55000,
-    "budget_max": 90000
-  },
-  {
-    "id": "g-ui-design",
-    "title": "UI designer for a mobile banking app",
-    "description": "Design screens and a component library in Figma for a mobile banking product. Hand off specs to the front-end team.",
-    "category": "Design",
-    "required_skills": [
-      "UI/UX Design",
-      "Graphic Design"
-    ],
-    "location": "Nairobi",
+    "location": null,
     "is_remote": true,
-    "budget_min": 70000,
-    "budget_max": 120000
+    "budget_min": 7200,
+    "budget_max": 14000
   },
   {
-    "id": "g-data-entry-medical",
-    "title": "Digitise paper patient records",
-    "description": "Enter about six thousand paper patient record cards into a web system. Careful, repetitive work with strict confidentiality.",
-    "category": "Business",
+    "id": "g-2513-2",
+    "kesco_code": "2513",
+    "title": "Web and Multimedia Developer needed — analyzing, designing and developing Internet sites by",
+    "description": "We are looking for someone to take on analyzing, designing and developing Internet sites by applying a mixture of artistry and creativity with software programming and scripting languages and interfacing with operating environments. The work also covers designing and developing digital animations, imaging, presentations, games, audio and video clips and Internet applications using multimedia software, tools and utilities, interactive graphics and programming languages.",
+    "category": "Technology",
     "required_skills": [
-      "Data Entry"
+      "Web Multimedia Developer",
+      "Internet Sites",
+      "Digital Animations Imaging"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 7900,
+    "budget_max": 15300
+  },
+  {
+    "id": "g-2514-1",
+    "kesco_code": "2514",
+    "title": "Applications Programmer needed — , writing and maintaining program code outlined in",
+    "description": "We are looking for someone to take on , writing and maintaining program code outlined in instructions and specifications in accordance with quality accredited standards. The work also covers revising, repairing or expanding existing programs to increase operating efficiency or adapt to new requirements.",
+    "category": "Technology",
+    "required_skills": [
+      "Applications Programmer",
+      "Program Code Outlined",
+      "Programs"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 5100,
+    "budget_max": 9900
+  },
+  {
+    "id": "g-2514-2",
+    "kesco_code": "2514",
+    "title": "Applications Programmer needed — , writing and maintaining program code outlined in",
+    "description": "We are looking for someone to take on , writing and maintaining program code outlined in instructions and specifications in accordance with quality accredited standards. The work also covers revising, repairing or expanding existing programs to increase operating efficiency or adapt to new requirements.",
+    "category": "Technology",
+    "required_skills": [
+      "Applications Programmer",
+      "Program Code Outlined",
+      "Programs"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000
+  },
+  {
+    "id": "g-2521-1",
+    "kesco_code": "2521",
+    "title": "Database Administrator needed — , defining the detailed database design, including",
+    "description": "We are looking for someone to take on , defining the detailed database design, including tables, indexes, vi ews, constraints, triggers, stored procedures, and other database-specific constructs needed to store, retrieve, and delete persistent objects. The work also covers designing and developing database architecture, data structures, tables, dictionaries and naming conventions for information systems projects. The work also covers designing, constructing, modifying, integrating, implementing and testing database management systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Database Designers Administrator",
+      "Detailed Database Design",
+      "Database Architecture Data"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 3800,
+    "budget_max": 7400
+  },
+  {
+    "id": "g-2521-2",
+    "kesco_code": "2521",
+    "title": "Database Administrator needed — designing, constructing, modifying, integrating",
+    "description": "We are looking for someone to take on designing, constructing, modifying, integrating, implementing and testing database management systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Database Designers Administrator",
+      "Detailed Database Design",
+      "Database Architecture Data"
     ],
     "location": "Nakuru",
     "is_remote": false,
-    "budget_min": 20000,
-    "budget_max": 35000
+    "budget_min": 2600,
+    "budget_max": 5100
   },
   {
-    "id": "g-para-frontend",
+    "id": "g-2523-1",
+    "kesco_code": "2523",
+    "title": "Computer Network Professional needed — , analyzing, developing, interpreting and evaluating",
+    "description": "We are looking for someone to take on , analyzing, developing, interpreting and evaluating complex system design and architecture specifications, data models and diagrams in the development, configuration and integration of computer systems. The work also covers researching, analysing, evaluating and monitoring network infrastructure to ensure that networks are configured to operate at optimal performance. The work also covers assessing and recommending improvements to network operations and integrated hardware, software, communications and operating systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Computer Network Professional",
+      "Complex System Design",
+      "Network Infrastructure"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 4700,
+    "budget_max": 9100
+  },
+  {
+    "id": "g-2523-2",
+    "kesco_code": "2523",
+    "title": "Computer Network Professional needed — assessing and recommending improvements to network",
+    "description": "We are looking for someone to take on assessing and recommending improvements to network operations and integrated hardware, software, communications and operating systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Computer Network Professional",
+      "Complex System Design",
+      "Network Infrastructure"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2500,
+    "budget_max": 4900
+  },
+  {
+    "id": "g-2641-1",
+    "kesco_code": "2641",
+    "title": "Writer needed — conceiving, writing and editing novels, plays",
+    "description": "We are looking for someone to take on conceiving, writing and editing novels, plays, scripts, poetry and other material for publication or presentation. The work also covers conducting research to establish factual content and to obtain other necessary information. The work also covers writing scripts and continuities and preparing programmes for stage, film, radio and television productions.",
+    "category": "Writing",
+    "required_skills": [
+      "Authors Writer",
+      "Novels Plays Scripts",
+      "Research"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000
+  },
+  {
+    "id": "g-2641-2",
+    "kesco_code": "2641",
+    "title": "Writer needed — writing scripts and continuities and preparing",
+    "description": "We are looking for someone to take on writing scripts and continuities and preparing programmes for stage, film, radio and television productions.",
+    "category": "Writing",
+    "required_skills": [
+      "Authors Writer",
+      "Novels Plays Scripts",
+      "Research"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 5700,
+    "budget_max": 11100
+  },
+  {
+    "id": "g-2642-1",
+    "kesco_code": "2642",
+    "title": "Journalist needed — collecting local, national and international news",
+    "description": "We are looking for someone to take on collecting local, national and international news through interviews, investigation and observation, attending public events to seek information, reviewing records and other written works, attending film and stage performances record events. The work also covers collecting, reporting and commenting on news and current affairs fo r publication in newspapers and periodicals, or for broadcasting by radio, television or webcast media. The work also covers receiving, analyzing and verifying news and other copy for accuracy.",
+    "category": "Writing",
+    "required_skills": [
+      "Journalist",
+      "Local National",
+      "News"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3000
+  },
+  {
+    "id": "g-2642-2",
+    "kesco_code": "2642",
+    "title": "Journalist needed — receiving, analyzing and verifying news and other",
+    "description": "We are looking for someone to take on receiving, analyzing and verifying news and other copy for accuracy. The work also covers interviewing individuals at press conferences and record for radio, television or webcast media. The work also covers researching and reporting on developments in specialized fields such as medicine, science and technology.",
+    "category": "Writing",
+    "required_skills": [
+      "Journalist",
+      "Local National",
+      "News"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2600,
+    "budget_max": 5000
+  },
+  {
+    "id": "g-2643-1",
+    "kesco_code": "2643",
+    "title": "Translator and Interpreter needed — studying relationships between ancient parent",
+    "description": "We are looking for someone to take on studying relationships between ancient parent languages and modern language groups, tracing the origin and evolution of words, grammar and language forms, and presenting findings. The work also covers advising on or preparing language classification systems, grammars, dictionaries and similar materials. The work also covers translating from one language into another and ensuring that the correct meaning of the original is retained, that legal, technical or scientific works are correctly rendered, and that the phraseology and terminology of the spirit and style of literary works are conveyed as far as possible.",
+    "category": "Writing",
+    "required_skills": [
+      "Translators Interpreters Linguist",
+      "Relationships Between Ancient"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3000
+  },
+  {
+    "id": "g-2643-2",
+    "kesco_code": "2643",
+    "title": "Translator and Interpreter needed — translating from one language into another and",
+    "description": "We are looking for someone to take on translating from one language into another and ensuring that the correct meaning of the original is retained, that legal, technical or scientific works are correctly rendered, and that the phraseology and terminology of the spirit and style of literary works are conveyed as far as possible.",
+    "category": "Writing",
+    "required_skills": [
+      "Translators Interpreters Linguist",
+      "Relationships Between Ancient"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2700,
+    "budget_max": 5100
+  },
+  {
+    "id": "g-2651-1",
+    "kesco_code": "2651",
+    "title": "Visual Artist needed — conceiving and developing ideas, designs and styles",
+    "description": "We are looking for someone to take on conceiving and developing ideas, designs and styles for paintings, drawings and sculptures. The work also covers arranging objects, positioning models, and selecting landscapes and other visual forms according to chosen subject matter. The work also covers selecting artistic media, method and materials.",
+    "category": "Design",
+    "required_skills": [
+      "Visual Artist",
+      "Ideas Designs",
+      "Objects Positioning Models"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 4500,
+    "budget_max": 8700
+  },
+  {
+    "id": "g-2651-2",
+    "kesco_code": "2651",
+    "title": "Visual Artist needed — selecting artistic media, method and materials",
+    "description": "We are looking for someone to take on selecting artistic media, method and materials. The work also covers creating representational or abstract three-dimensional or relief forms by shaping, carving and working and combining materials such as wood, stone, clay, metal, ice or paper.",
+    "category": "Design",
+    "required_skills": [
+      "Visual Artist",
+      "Ideas Designs",
+      "Objects Positioning Models"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 4000,
+    "budget_max": 7800
+  },
+  {
+    "id": "g-2654-1",
+    "kesco_code": "2654",
+    "title": "Film and Video Producer needed — choosing writers, studying scripts to determine",
+    "description": "We are looking for someone to take on choosing writers, studying scripts to determine artistic interpretation, and instructing actors on acting methods. The work also covers directing all aspects of dramatic productions on stage, television, radio or in motion pictures, including choice of actors, and final decisions concerning costumes, set designs, sound or lighting effects. The work also covers planning, organizing and controlling the various stages and scheduling involved in the production of presentations, motion pictures, television shows and radio programmes.",
+    "category": "Design",
+    "required_skills": [
+      "Film Stage Director",
+      "Writers Studying Scripts",
+      "All Aspects"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000
+  },
+  {
+    "id": "g-2654-2",
+    "kesco_code": "2654",
+    "title": "Film and Video Producer needed — planning, organizing and controlling the various",
+    "description": "We are looking for someone to take on planning, organizing and controlling the various stages and scheduling involved in the production of presentations, motion pictures, television shows and radio programmes. The work also covers engaging and supervising all technical pers onnel, and determining the treatment, scope and scheduling of production. The work also covers maintaining production archives and negotiating royalties.",
+    "category": "Design",
+    "required_skills": [
+      "Film Stage Director",
+      "Writers Studying Scripts",
+      "All Aspects"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 3700,
+    "budget_max": 7100
+  },
+  {
+    "id": "g-3431-1",
+    "kesco_code": "3431",
+    "title": "Photographer needed — taking photographs for advertising, or other",
+    "description": "We are looking for someone to take on taking photographs for advertising, or other commercial, industrial or scientific purposes and to illustrate stories and articles in newspapers, magazines and other publications. The work also covers taking portrait photographs of persons and groups of persons. The work also covers studying requirements of a particular assignment and decide on type of camera, film, lighting and background accessories to be used.",
+    "category": "Design",
+    "required_skills": [
+      "Photographer",
+      "Photographs",
+      "Portrait Photographs"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1440,
+    "budget_max": 2100
+  },
+  {
+    "id": "g-3431-2",
+    "kesco_code": "3431",
+    "title": "Photographer needed — studying requirements of a particular assignment and",
+    "description": "We are looking for someone to take on studying requirements of a particular assignment and decide on type of camera, film, lighting and background accessories to be used.",
+    "category": "Design",
+    "required_skills": [
+      "Photographer",
+      "Photographs",
+      "Portrait Photographs"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1440,
+    "budget_max": 2800
+  },
+  {
+    "id": "g-3432-1",
+    "kesco_code": "3432",
+    "title": "Interior Designer needed — determining the objectives and constraints of the",
+    "description": "We are looking for someone to take on determining the objectives and constraints of the design brief by consulting with clients and stakeholders. The work also covers researching and analysing spatial, functional, efficiency, safety and aesthetic requirements. The work also covers formulating design concepts for the interiors of buildings.",
+    "category": "Design",
+    "required_skills": [
+      "Interior Designers Decorator",
+      "Objectives",
+      "Spatial Functional Efficiency"
+    ],
+    "location": "Machakos",
+    "is_remote": false,
+    "budget_min": 2400,
+    "budget_max": 4700
+  },
+  {
+    "id": "g-3432-2",
+    "kesco_code": "3432",
+    "title": "Interior Designer needed — formulating design concepts for the interiors of",
+    "description": "We are looking for someone to take on formulating design concepts for the interiors of buildings. The work also covers preparing sketches, diagrams, illustrations and plans to communicate design concepts. The work also covers negotiating design solutions with clients, management, suppliers and construction staff.",
+    "category": "Design",
+    "required_skills": [
+      "Interior Designers Decorator",
+      "Objectives",
+      "Spatial Functional Efficiency"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 3300,
+    "budget_max": 6400
+  },
+  {
+    "id": "g-3514-1",
+    "kesco_code": "3514",
+    "title": "Web Technician needed — installing, monitoring and supporting the reliability",
+    "description": "We are looking for someone to take on installing, monitoring and supporting the reliability and usability of Internet and Intranet websites or web server hardware or software. The work also covers developing and maintaining documentation, policies and instructions, recording operational procedures and system logs. The work also covers developing, coordinating, implementing and monitoring security measures.",
+    "category": "Technology",
+    "required_skills": [
+      "Web Technician",
+      "Reliability",
+      "Documentation Policies"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1800,
+    "budget_max": 3600
+  },
+  {
+    "id": "g-3514-2",
+    "kesco_code": "3514",
+    "title": "Web Technician needed — developing, coordinating, implementing and monitoring",
+    "description": "We are looking for someone to take on developing, coordinating, implementing and monitoring security measures.",
+    "category": "Technology",
+    "required_skills": [
+      "Web Technician",
+      "Reliability",
+      "Documentation Policies"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 3700,
+    "budget_max": 7200
+  },
+  {
+    "id": "g-3521-1",
+    "kesco_code": "3521",
+    "title": "Audio-Visual Technician needed — controlling equipment to record sound",
+    "description": "We are looking for someone to take on controlling equipment to record sound. The work also covers controlling equipment to edit and mix image and sound recordings to ensure satisfactory quality and to create special image and sound effects. The work also covers applying knowledge of principles and practices of image and sound recording and editing in order to identify and solve problems.",
+    "category": "Design",
+    "required_skills": [
+      "Broadcasting Audio-Visual Technician",
+      "Equipment",
+      "Knowledge"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1440,
+    "budget_max": 2100
+  },
+  {
+    "id": "g-3521-2",
+    "kesco_code": "3521",
+    "title": "Audio-Visual Technician needed — applying knowledge of principles and practices of",
+    "description": "We are looking for someone to take on applying knowledge of principles and practices of image and sound recording and editing in order to identify and solve problems.",
+    "category": "Design",
+    "required_skills": [
+      "Broadcasting Audio-Visual Technician",
+      "Equipment",
+      "Knowledge"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 1440,
+    "budget_max": 2100
+  },
+  {
+    "id": "g-4120-1",
+    "kesco_code": "4120",
+    "title": "Office Secretarie needed — checking, formatting and transcribing correspondence",
+    "description": "We are looking for someone to take on checking, formatting and transcribing correspondence, minutes and reports from dictation, electronic documents or written drafts to conform to office standards, using typewriter, personal computer or other word processing equipment. The work also covers using various computer software packages including spreadsheets to provide administrative support. The work also covers dealing with incoming or outgoing mail.",
+    "category": "Business",
+    "required_skills": [
+      "Office Secretarie",
+      "Correspondence Minutes",
+      "Various Computer Software"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 3500,
+    "budget_max": 6800
+  },
+  {
+    "id": "g-4120-2",
+    "kesco_code": "4120",
+    "title": "Office Secretarie needed — dealing with incoming or outgoing mail",
+    "description": "We are looking for someone to take on dealing with incoming or outgoing mail. The work also covers scanning, recording and distributing mail, correspondence and documents.",
+    "category": "Business",
+    "required_skills": [
+      "Office Secretarie",
+      "Correspondence Minutes",
+      "Various Computer Software"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 800,
+    "budget_max": 1200
+  },
+  {
+    "id": "g-4132-1",
+    "kesco_code": "4132",
+    "title": "Data Entry Clerk needed — receiving and registering invoices, forms, records",
+    "description": "We are looking for someone to take on receiving and registering invoices, forms, records and other documents for data capture. The work also covers entering numerical data, codes a nd text from source material into computer-compatible storage and processing devices.",
+    "category": "Business",
+    "required_skills": [
+      "Data Entry Clerk",
+      "Invoices Forms Records",
+      "Numerical Data Codes"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 8600,
+    "budget_max": 16700
+  },
+  {
+    "id": "g-4132-2",
+    "kesco_code": "4132",
+    "title": "Data Entry Clerk needed — receiving and registering invoices, forms, records",
+    "description": "We are looking for someone to take on receiving and registering invoices, forms, records and other documents for data capture. The work also covers entering numerical data, codes a nd text from source material into computer-compatible storage and processing devices.",
+    "category": "Business",
+    "required_skills": [
+      "Data Entry Clerk",
+      "Invoices Forms Records",
+      "Numerical Data Codes"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 1600,
+    "budget_max": 3000
+  },
+  {
+    "id": "g-4222-1",
+    "kesco_code": "4222",
+    "title": "Contact Centre Agent needed — dealing with incoming calls and messages from",
+    "description": "We are looking for someone to take on dealing with incoming calls and messages from clients, whether to answer queries, handle calls for service or sort out complaints. The work also covers identifying requirements and entering events into a computer system. The work also covers dispatching tasks to other units, when relevant.",
+    "category": "Business",
+    "required_skills": [
+      "Contact Centre Information",
+      "Requirements",
+      "Tasks"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2400,
+    "budget_max": 4600
+  },
+  {
+    "id": "g-4222-2",
+    "kesco_code": "4222",
+    "title": "Contact Centre Agent needed — dispatching tasks to other units, when relevant",
+    "description": "We are looking for someone to take on dispatching tasks to other units, when relevant.",
+    "category": "Business",
+    "required_skills": [
+      "Contact Centre Information",
+      "Requirements",
+      "Tasks"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 800,
+    "budget_max": 1400
+  },
+  {
+    "id": "g-4227-1",
+    "kesco_code": "4227",
+    "title": "Market Research Interviewer needed — contacting individuals by telephone or in person and",
+    "description": "We are looking for someone to take on contacting individuals by telephone or in person and explaining the purpose of the interview. The work also covers asking questions following the outlines of questionnaires and surveys.",
+    "category": "Marketing",
+    "required_skills": [
+      "Survey Market Research",
+      "Individuals",
+      "Questions Following The"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 3000,
+    "budget_max": 5900
+  },
+  {
+    "id": "g-4227-2",
+    "kesco_code": "4227",
+    "title": "Market Research Interviewer needed — contacting individuals by telephone or in person and",
+    "description": "We are looking for someone to take on contacting individuals by telephone or in person and explaining the purpose of the interview. The work also covers asking questions following the outlines of questionnaires and surveys.",
+    "category": "Marketing",
+    "required_skills": [
+      "Survey Market Research",
+      "Individuals",
+      "Questions Following The"
+    ],
+    "location": "Machakos",
+    "is_remote": false,
+    "budget_min": 3000,
+    "budget_max": 5800
+  },
+  {
+    "id": "g-4311-1",
+    "kesco_code": "4311",
+    "title": "Book-keeping Clerk needed — checking figures, postings, and documents for correct",
+    "description": "We are looking for someone to take on checking figures, postings, and documents for correct entry, mathematical accuracy, and proper codes. The work also covers operating computers programmed with accounting software to record, store, and analyze information.",
+    "category": "Business",
+    "required_skills": [
+      "Accounting Book Keeping",
+      "Figures Postings",
+      "Computers Programmed"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1100,
+    "budget_max": 2200
+  },
+  {
+    "id": "g-4311-2",
+    "kesco_code": "4311",
+    "title": "Book-keeping Clerk needed — checking figures, postings, and documents for correct",
+    "description": "We are looking for someone to take on checking figures, postings, and documents for correct entry, mathematical accuracy, and proper codes. The work also covers operating computers programmed with accounting software to record, store, and analyze information.",
+    "category": "Business",
+    "required_skills": [
+      "Accounting Book Keeping",
+      "Figures Postings",
+      "Computers Programmed"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 800,
+    "budget_max": 1200
+  },
+  {
+    "id": "g-para-dev",
     "title": "Turn our Figma screens into a working web interface",
-    "description": "We have designs for a customer portal and need someone to build the user-facing side. Component-driven, must look right on phones as well as desktops. Our team works in a modern JavaScript component framework.",
+    "description": "We have designs for a customer portal and need someone to build the part customers actually see. Component-driven, must hold up on a cheap phone as well as a laptop. Our team already works in a modern JavaScript component framework.",
     "category": "Technology",
     "required_skills": [
       "Web Development"
     ],
     "location": "Nairobi",
     "is_remote": true,
-    "budget_min": 60000,
-    "budget_max": 110000
+    "budget_min": 42000,
+    "budget_max": 78000
   },
   {
-    "id": "g-para-backend",
-    "title": "Server-side engineer for an order processing service",
-    "description": "Build the parts customers never see: endpoints, the relational schema behind them, and scheduled jobs that reconcile orders overnight. You decide the table design.",
+    "id": "g-para-db",
+    "title": "Our reports take four minutes to load and nobody knows why",
+    "description": "Something in how our information is organised has gone wrong as we have grown. We need someone to work out where the time is going, restructure what sits underneath, and make sure it does not creep back.",
     "category": "Technology",
     "required_skills": [
-      "Server Development"
+      "Performance"
     ],
-    "location": "Nairobi",
+    "location": null,
     "is_remote": true,
-    "budget_min": 75000,
-    "budget_max": 130000
-  },
-  {
-    "id": "g-para-mobile",
-    "title": "Ship a handset application for our courier fleet",
-    "description": "Riders need something on their phones to accept jobs, capture signatures and work offline in poor coverage. One codebase for both app stores, please.",
-    "category": "Technology",
-    "required_skills": [
-      "App Development"
-    ],
-    "location": "Mombasa",
-    "is_remote": false,
-    "budget_min": 95000,
-    "budget_max": 160000
-  },
-  {
-    "id": "g-para-analyst",
-    "title": "Make sense of two years of transaction records",
-    "description": "We have exports nobody has looked at properly. We want to understand what drives repeat purchases and to see it summarised visually each month, not as a wall of numbers.",
-    "category": "Technology",
-    "required_skills": [
-      "Reporting"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 50000,
+    "budget_min": 55000,
     "budget_max": 95000
   },
   {
-    "id": "g-para-copy",
+    "id": "g-para-writer",
     "title": "Words for our new product pages",
-    "description": "Our pages read like a manual. We need someone to rewrite them so an ordinary person understands what we sell in ten seconds, with a warm and plain tone.",
+    "description": "Our pages read like an instruction manual. We want them rewritten so an ordinary person understands what we sell within ten seconds, in a warm and plain tone, without the jargon we have accumulated.",
     "category": "Writing",
     "required_skills": [
       "Editorial"
     ],
     "location": "Nairobi",
     "is_remote": true,
-    "budget_min": 28000,
-    "budget_max": 50000
+    "budget_min": 18000,
+    "budget_max": 36000
   },
   {
-    "id": "g-para-translator",
-    "title": "Make our materials work for a rural audience",
-    "description": "Our guidance is written in formal English. We need it rendered into the everyday language farmers actually speak, keeping the meaning exact, for print and radio.",
+    "id": "g-para-translate",
+    "title": "Make our health materials work for a rural audience",
+    "description": "Our guidance is written in formal English and nobody upcountry reads it. We need it rendered into the everyday language people actually speak, keeping the meaning exact, for print, radio and SMS.",
     "category": "Writing",
     "required_skills": [
       "Localisation"
     ],
     "location": "Kisumu",
     "is_remote": true,
-    "budget_min": 32000,
-    "budget_max": 58000
-  },
-  {
-    "id": "g-para-graphic",
-    "title": "Give our bakery a proper visual identity",
-    "description": "We started with a mark a cousin drew in Word. We need a real one, plus the colours and packaging artwork that go with it, so everything looks like it belongs together.",
-    "category": "Design",
-    "required_skills": [
-      "Branding"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 38000,
-    "budget_max": 75000
-  },
-  {
-    "id": "g-para-video",
-    "title": "Cut our event footage into something people will watch",
-    "description": "We filmed a two-day conference and have hours of raw material. We want short highlight clips for social, with subtitles and music, delivered weekly.",
-    "category": "Design",
-    "required_skills": [
-      "Post-production"
-    ],
-    "location": "Nairobi",
-    "is_remote": true,
-    "budget_min": 35000,
-    "budget_max": 62000
+    "budget_min": 24000,
+    "budget_max": 46000
   },
   {
     "id": "g-para-photo",
     "title": "Capture our new collection for the online shop",
-    "description": "Sixty items need shooting against a clean backdrop and retouching so colours are true. Consistency across the set matters more than artistry.",
+    "description": "Sixty items need shooting against a clean backdrop and retouching so the colours are true to what arrives in the box. Consistency across the whole set matters far more than artistry on any one piece.",
     "category": "Design",
     "required_skills": [
       "Studio Work"
     ],
     "location": "Nairobi",
     "is_remote": false,
-    "budget_min": 33000,
-    "budget_max": 58000
+    "budget_min": 26000,
+    "budget_max": 48000
   },
   {
-    "id": "g-para-social",
-    "title": "Grow our following and run our paid promotion",
-    "description": "We need someone to own what goes out on our channels, plan it ahead, and manage the advertising budget behind it with weekly numbers on what worked.",
+    "id": "g-para-video",
+    "title": "Cut our conference footage into something people will watch",
+    "description": "We filmed two days of a conference and have hours of raw material nobody will sit through. We want short highlight pieces for social channels, with subtitles and music, delivered weekly.",
+    "category": "Design",
+    "required_skills": [
+      "Post-production"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 28000,
+    "budget_max": 52000
+  },
+  {
+    "id": "g-para-marketing",
+    "title": "Grow our following and run the money behind it",
+    "description": "We need somebody to own what goes out on our channels, plan it ahead rather than scrambling daily, and manage the promotion budget with weekly numbers on what actually worked.",
     "category": "Marketing",
     "required_skills": [
       "Brand Growth"
     ],
     "location": "Nairobi",
     "is_remote": true,
-    "budget_min": 42000,
-    "budget_max": 85000
-  },
-  {
-    "id": "g-para-va",
-    "title": "Take the admin off my plate",
-    "description": "I am drowning in my inbox and calendar. I need someone reliable to triage messages, arrange calls across time zones and keep our records tidy.",
-    "category": "Business",
-    "required_skills": [
-      "Administration"
-    ],
-    "location": "Eldoret",
-    "is_remote": true,
     "budget_min": 32000,
-    "budget_max": 52000
+    "budget_max": 68000
   },
   {
-    "id": "g-para-accountant",
+    "id": "g-para-books",
     "title": "Keep our books straight and close each month",
-    "description": "Match our bank lines against what the shops recorded, keep the ledger tidy and give us a short monthly summary of where the money went.",
+    "description": "Match our bank lines against what the three shops recorded, keep the ledger tidy, and give us a short monthly summary of where the money actually went. We are two months behind.",
     "category": "Business",
     "required_skills": [
       "Financial Records"
     ],
     "location": "Nairobi",
     "is_remote": true,
-    "budget_min": 42000,
-    "budget_max": 72000
+    "budget_min": 22000,
+    "budget_max": 44000
+  },
+  {
+    "id": "g-para-admin",
+    "title": "Take the admin off my plate",
+    "description": "I am drowning in my inbox and my calendar. I need somebody reliable to triage what comes in, arrange calls across time zones without me being involved, and keep our records in order.",
+    "category": "Business",
+    "required_skills": [
+      "Administration"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 16000,
+    "budget_max": 32000
+  },
+  {
+    "id": "g-para-dataentry",
+    "title": "Get six thousand paper cards onto the system",
+    "description": "We have boxes of handwritten patient cards that need to exist in the computer instead. Careful, repetitive work where accuracy matters far more than speed, and confidentiality is not negotiable.",
+    "category": "Business",
+    "required_skills": [
+      "Records"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 9000,
+    "budget_max": 18000
   }
 ]

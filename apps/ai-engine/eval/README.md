@@ -5,18 +5,21 @@ are a result rather than an assertion.
 
 ```bash
 cd apps/ai-engine
-python -m eval.run_eval        # baselines vs the live system
-python -m eval.tune_weights    # grid search over the four weights
+python -m eval.corpus_sources.parse_kesco     # occupational standard -> JSON
+python -m eval.corpus_sources.build_corpus    # JSON -> the corpus
+python -m eval.run_eval                       # baselines vs the live system
+python -m eval.tune_weights                   # grid search over the weights
+python -m eval.retrieval_eval                 # what the shortlist costs
 ```
 
-Both write a timestamped JSON file to `eval/results/`, which is committed so
-runs can be compared over time.
+Each writes a timestamped JSON file to `eval/results/`, committed so runs can
+be compared over time.
 
 ---
 
 ## What is being measured
 
-Nothing is trained. `all-MiniLM-L6-v2` is used zero-shot, exactly as it is in
+Nothing is trained. `all-MiniLM-L6-v2` is used zero-shot, exactly as in
 production — the harness calls `app.services.scoring.score_gigs()`, the same
 function that serves live requests, so the evaluation cannot drift from the
 system it claims to describe.
@@ -25,266 +28,217 @@ What *is* fitted is four numbers: the weights of the composite formula.
 
 ## The corpus
 
-`eval/corpus/` holds 12 worker profiles and 42 gigs, written to resemble the
-Kenyan gig market the platform targets, with 68 graded pairs. Any pair not
-listed in `relevance.csv` is treated as irrelevant.
+Generated, not written. `eval/corpus_sources/` holds the generator and the
+sources it draws on; `eval/corpus/` holds its output and is regenerated rather
+than edited. See `corpus_sources/README.md` for provenance and licensing.
 
-| grade | meaning |
+- **25 worker profiles**, one per occupation
+- **60 gigs** — 50 generated, 10 hand-authored
+- **237 graded pairs**; the remaining 1,263 are implicitly grade 0
+
+Occupations, skills and the language describing work come from the **Kenya
+Standard Classification of Occupations (KeSCO-2022)**. Pay is drawn from a
+lognormal reproducing WorkKE's observed figures for a real Kenyan platform
+(median KES 2,000, mean KES 4,664), scaled by KeSCO's own skill-level grouping.
+
+### How relevance is decided
+
+Two layers, kept separate in the output so they can be analysed apart.
+
+**Derived (204 pairs).** KeSCO's codes nest — 2512 Software Developers, 2513
+Web and Multimedia Developers and 2514 Applications Programmers all sit inside
+minor group 251 — so distance between codes is a published statement about how
+related two kinds of work are.
+
+| Relationship | Grade |
 | --- | --- |
-| 3 | ideal — squarely this worker's job |
-| 2 | good — they could do it well |
-| 1 | marginal — plausible but a stretch |
-| 0 | irrelevant — omitted from the file |
+| Same unit group | 3 — ideal |
+| Same minor group | 2 — good |
+| Same sub-major group | 1 — marginal |
+| Otherwise | 0 — irrelevant |
 
-Precision and recall count only grade 2 and above. Counting grade 1 as a hit
-would flatter every ranking.
+**Authored (33 pairs).** A hierarchy is a coarse proxy for fit, so the derived
+baseline is corrected where it is wrong, each with a recorded reason.
 
-### Two kinds of hard case
+Precision and recall count only grade 2 and above; counting "marginal" as a hit
+would flatter every strategy.
 
-The corpus would be worthless without them, and the first version of it was.
+### Two things the generator does deliberately
 
-**`HARD`** — pairs where the wording pulls one way and the correct grade goes
-the other. A React developer against a WordPress job: both are "web work" and
-share vocabulary, but the stack is wrong. A mobile developer against a React
-landing page whose description mentions "low-end Android phones".
+**Paraphrase gigs** describe work in a client's words while avoiding the
+occupation's vocabulary entirely — *"Take the admin off my plate"* never says
+virtual assistant. They separate semantic matching from keyword matching.
 
-**`PARAPHRASE`** — gigs that are genuinely ideal for a worker while avoiding
-that worker's vocabulary entirely. *"Turn our Figma screens into a working web
-interface… our team works in a modern JavaScript component framework"* never
-says React. *"Take the admin off my plate"* never says virtual assistant.
-
-These exist to separate lexical matching from semantic matching. Without them
-the benchmark cannot tell the two apart — see the first finding below.
+**Profiles and gigs are built from different halves of the task list.** Drawing
+both from the whole list would make a worker and their matching gig share
+wording no real pair would share. The first version did exactly that, and the
+consequence is measured below.
 
 ---
 
 ## Findings
 
-### 1. The first benchmark was saturated and proved nothing
+### 1. Vocabulary leakage inflates lexical matching
 
-The corpus originally had 30 gigs whose relevant pairs shared literal skill
-words with the profile ("React" → "React"). Every strategy scored about the
-same:
+The generator initially drew profile skills and gig descriptions from the same
+task statements. Splitting the list changed only the construction, not the
+method, and moved the numbers:
 
-| strategy | NDCG@10 |
-| --- | --- |
-| tfidf only | 0.964 |
-| semantic only | 0.964 |
-| composite | 0.960 |
+| strategy | shared source | split source |
+| --- | --- | --- |
+| tfidf only | 0.781 | **0.732** |
+| semantic only | 0.810 | 0.817 |
+| composite (tuned) | 0.820 | 0.817 |
 
-Keyword matching did as well as the embedding model, because the task was
-exactly what keyword matching is good at. MRR was 1.000 for all three: the top
-result was always relevant, so there was no headroom to measure into.
+Keyword matching lost 0.049 NDCG; semantic matching was unaffected. The leak
+was feeding TF-IDF words it would never see in a real pairing. Worth recording
+because it is invisible in the output and would have silently overstated the
+lexical baseline.
 
-**A benchmark that cannot separate a strong method from a weak one is not
-evidence.** Adding the 12 paraphrase gigs fixed it.
+### 2. Semantic similarity carries the signal
 
-### 2. Semantic similarity is doing the real work
-
-With paraphrase cases present:
+On the corrected corpus:
 
 | strategy | P@5 | P@10 | R@10 | MRR | NDCG@10 |
 | --- | --- | --- | --- | --- | --- |
-| random | 0.067 | 0.083 | 0.232 | 0.262 | 0.150 |
-| tfidf only | 0.500 | 0.275 | 0.838 | 1.000 | 0.828 |
-| semantic only | 0.600 | 0.325 | 0.983 | 1.000 | **0.947** |
-| composite (shipped) | 0.583 | 0.317 | 0.956 | 1.000 | 0.922 |
-| composite (tuned) | 0.600 | 0.325 | 0.983 | 1.000 | 0.943 |
+| random | 0.104 | 0.096 | 0.175 | 0.255 | 0.142 |
+| tfidf only | 0.480 | 0.316 | 0.628 | 0.939 | 0.732 |
+| semantic only | 0.544 | 0.380 | 0.727 | 1.000 | **0.817** |
+| composite (shipped 0.45/0.25/0.15/0.15) | 0.552 | 0.356 | 0.688 | 0.968 | 0.776 |
+| composite (current 0.60/0.20/0.05/0.15) | 0.568 | 0.380 | 0.722 | 1.000 | **0.817** |
 
-TF-IDF loses 0.12 NDCG to the embedding model, and it loses it precisely on
-the gigs that describe the same work in different words. That is the empirical
-case for using an embedding model at all.
+The embedding model leads keyword matching by 0.085 NDCG, and it is the only
+strategy besides the tuned composite to reach MRR 1.000 — the first relevant
+result is always top of the list.
 
-Note what the shipped composite was doing: at **0.922 it ranked worse than
-semantic similarity alone at 0.947**. The extra signals were subtracting value.
+### 3. The weights generalise across independently built corpora
 
-### 3. Reputation cannot affect ranking, at any weight
-
-| reputation weight | NDCG@10 |
-| --- | --- |
-| 0.00 | 0.9223 |
-| 0.15 | 0.9223 |
-| 0.50 | 0.9223 |
-| 0.90 | 0.9223 |
-
-Identical, because reputation is one number per worker. It adds the same
-constant to every gig that worker is scored against, and a constant cannot
-reorder a list. Fifteen per cent of the formula was spent on a term that is
-mathematically incapable of changing what the worker sees.
-
-It does change the number displayed. A worker with no reviews has their score
-capped at 85%, so **a new worker's perfect match shows as worse than an
-established worker's mediocre one** — which is backwards, since reputation says
-nothing about whether *this gig* suits *this worker*. Reputation belongs in
-ranking only if gigs are ever ranked across workers, as an employer's applicant
-list would be. That is the honest place for it.
-
-### 4. Location as an additive bonus makes ranking worse
-
-| location weight | NDCG@10 |
-| --- | --- |
-| 0.15 (shipped) | 0.9223 |
-| 0.10 | 0.9349 |
-| 0.05 | 0.9430 |
-| 0.00 | 0.9504 |
-
-Monotonic: every reduction helps. A flat bonus rewards *being nearby*
-independently of *being suitable*, so an irrelevant Nairobi gig outranks a
-well-matched Mombasa one. Remote gigs always score the bonus, which makes it
-close to free.
-
-**This result is the one to treat with most suspicion.** The corpus is
-Nairobi-heavy, so location has little to distinguish and its value here is
-understated. The defensible reading is not "location does not matter" but
-"a flat additive bonus is the wrong mechanism" — it belongs as a filter or a
-tie-breaker, not as a term competing with fit.
-
-A weight of 0.05 is kept rather than 0.00 for that reason: the corpus cannot
-fairly judge it, so the evidence is not taken further than it reaches.
-
-### 5. Tuned weights
-
-Grid search over 1,771 combinations on a 0.05 step, constrained to sum to 1:
+The current weights were fitted on the earlier hand-written corpus. Re-fitting
+them on this one — different occupations, different vocabulary, different
+construction — barely moves the optimum:
 
 | | semantic | tfidf | location | reputation | NDCG@10 |
 | --- | --- | --- | --- | --- | --- |
-| shipped | 0.45 | 0.25 | 0.15 | 0.15 | 0.9223 |
-| best on corpus | 0.65 | 0.25 | 0.00 | 0.10 | 0.9504 |
-| **adopted** | **0.60** | **0.20** | **0.05** | **0.15** | **0.9430** |
+| current | 0.60 | 0.20 | 0.05 | 0.15 | 0.8169 |
+| best on this corpus | 0.50 | 0.15 | 0.00 | 0.35 | 0.8243 |
 
-The adopted set is deliberately not the grid's best. It keeps a location signal
-for the reason in finding 4, and keeps reputation because removing it is a
-product decision about displayed scores rather than a ranking one.
+Cross-validated gain: **+0.0031**, well below the ~0.02 that counts as noise at
+this sample size. **The weights were therefore left unchanged** — refitting for
+a gain that small would be fitting the corpus rather than the problem, and the
+fact that weights from one corpus hold on another is better evidence than the
+0.007 would have been.
 
-Weights can be overridden without a deploy via `MATCH_WEIGHT_SEMANTIC`,
-`MATCH_WEIGHT_TFIDF`, `MATCH_WEIGHT_LOCATION` and `MATCH_WEIGHT_REPUTATION`.
+### 4. Reputation cannot affect ranking, at any weight
 
-### 6. Does the tuning generalise?
+NDCG@10 is identical whether reputation's weight is 0.00 or 0.90. It is one
+number per worker, so it adds the same constant to every gig that worker is
+scored against, and a constant cannot reorder a list. The weight search is
+correspondingly indifferent to it: the top combinations place it anywhere from
+0.10 to 0.45 with no change in score.
 
-Choosing weights on the same data you then report on measures how well the
-search memorised the corpus. Leave-one-profile-out cross-validation — each
-profile scored using weights chosen without it — gives the honest figure:
+It does shift the number displayed. A worker with no reviews is capped at 85%,
+so a newcomer's perfect match shows worse than an established worker's mediocre
+one — backwards, since reputation says nothing about whether *this* gig suits
+*this* worker. It belongs in ranking only where gigs are compared across
+workers, as an employer's applicant list would.
 
-| | NDCG@10 |
-| --- | --- |
-| shipped weights | 0.9223 |
-| tuned, on profiles never used for tuning | 0.9412 |
-| **generalised gain** | **+0.019** |
+### 5. Location as an additive bonus still makes ranking worse
 
-Smaller than the +0.028 measured on the full corpus, as expected. The gain is
-real but modest, and most of it comes from trusting the embedding model more.
+Every one of the top weight combinations sets location to **0.00**.
+
+This finding was previously caveated: the old corpus was Nairobi-heavy, so it
+could not judge location fairly. This corpus draws from nine Kenyan towns
+weighted toward where platform work concentrates, and location still comes out
+at zero. The earlier caveat is substantially answered.
+
+A flat bonus rewards being *nearby* independently of being *suitable*, so an
+irrelevant local gig outranks a well-matched distant one — and since remote
+gigs always collect it, it is close to free. The defensible reading remains
+that **a flat additive bonus is the wrong mechanism**: location belongs as a
+filter or tie-breaker, not as a term competing with fit. A weight of 0.05 is
+kept rather than 0.00 so the signal is not discarded outright.
 
 ---
 
 ## Retrieval: does the shortlist cost anything?
 
-The engine no longer scores every open gig. Postgres returns the nearest
-candidates by vector, and only those are re-ranked with the full composite.
-That is faster by construction, but it can only rank what the shortlist
-contains — so the question is whether anything good is being dropped.
-
-`python -m eval.retrieval_eval` simulates the shortlist at several sizes:
+The engine does not score every open gig. Postgres returns the nearest
+candidates by vector and only those are re-ranked. That is faster by
+construction but can only rank what the shortlist contains.
 
 | shortlist | NDCG@10 | vs exhaustive |
 | --- | --- | --- |
-| 3 | 0.8491 | −0.0939 |
-| 5 | 0.9108 | −0.0322 |
-| 10 | 0.9413 | −0.0017 |
-| 15 | 0.9430 | — |
-| 20 | 0.9430 | — |
-| exhaustive | 0.9430 | — |
+| 3 | 0.6745 | −0.1424 |
+| 5 | 0.7341 | −0.0828 |
+| 10 | 0.8213 | +0.0045 |
+| 20 | 0.8169 | exact |
+| score everything | 0.8169 | — |
 
-Quality is exact from 15 candidates upward and effectively exact at 10. The
-engine keeps 200, so the shortlist is not what limits results — it is roughly
-an order of magnitude more headroom than the measurements say is needed.
-
-### End-to-end confirmation
-
-`python -m eval.live_eval` scores the running service over HTTP, through the
-shared secret, the pgvector retrieval, the SQL pre-filter, the embedding cache
-and the re-rank:
-
-| | NDCG@10 | P@5 | MRR |
-| --- | --- | --- | --- |
-| offline scoring | 0.9430 | 0.600 | 1.000 |
-| **live service** | **0.9430** | **0.600** | **1.000** |
-
-Identical. The optimisation is free.
+Exact from 20 candidates upward. The engine keeps **200**, an order of
+magnitude more headroom than the measurement requires.
 
 ## Cost
 
-What the previous architecture paid on *every* request, and the new one pays
-only when a gig is created or edited:
+What the previous architecture paid on *every* request, and the current one
+pays only when a gig is created or edited:
 
 | catalogue | model encode time per request |
 | --- | --- |
 | 42 gigs | 0.389 s |
-| 100 gigs | 0.814 s |
 | 250 gigs | 1.890 s |
-| 500 gigs | 3.706 s |
 | 1,000 gigs | 6.925 s |
 
-Linear in catalogue size, paid per request, growing with traffic at the same
-time. The current path spends none of it: vectors are already in Postgres, and
-only the worker's own text is encoded, only when their profile changes.
-
-Measured end to end against the live service:
-
-| | catalogue | median |
-| --- | --- | --- |
-| before (encode everything) | 3 gigs | 0.43–0.45 s |
-| after (cached vectors) | 42 gigs | 0.42–0.50 s |
-
-The same latency for fourteen times the catalogue. What remains is dominated by
-network round trips to Supabase, not computation — which is why reducing those
-round trips, rather than more model work, is where the next gain lies.
+Linear in catalogue size, paid per request. The current path spends none of it.
+Measured end to end, the service held 0.42–0.50 s over 42 gigs where it
+previously took 0.43–0.45 s over 3 — the same latency for fourteen times the
+catalogue, with what remains dominated by network round trips rather than
+computation.
 
 ---
 
 ## What this evaluation does not establish
 
-State these plainly before citing any number above.
-
-- **The corpus is synthetic and self-graded.** Profiles, gigs and grades were
-  written by one person. No second annotator exists, so there is no
-  inter-annotator agreement to report. This is the single largest threat to
-  validity, and the first thing a pilot with real users would fix.
-- **Twelve profiles is a small sample.** Cross-validated figures rest on twelve
-  held-out measurements; treat differences under about 0.02 as noise.
-- **Grades were authored alongside the gigs**, so they encode the author's
-  model of relevance rather than any worker's. A real worker might reasonably
-  disagree.
+- **Relevance grading is still the project's own.** The derived layer comes
+  from the national classification, which is a real improvement over assertion,
+  but the mapping from hierarchy distance to a 0–3 grade is a choice, and the
+  33 authored corrections are judgements. **No second annotator has reviewed
+  them, so no inter-annotator agreement can be reported.** This remains the
+  largest threat to validity.
+- **The corpus is generated, not observed.** Its occupations, vocabulary and
+  pay distribution come from published Kenyan sources, but no real worker wrote
+  a profile and no real employer posted a gig.
+- **Twenty-five profiles is a small sample.** Treat differences under about
+  0.02 NDCG as noise — which is precisely why finding 3 left the weights alone.
 - **English only.** Nothing here tests Swahili, Sheng or code-switched text,
-  which the model does not handle and which the platform's users write in.
-  Benchmarking `paraphrase-multilingual-MiniLM-L12-v2` against this corpus
-  would be a genuinely useful next result.
+  which the model does not handle and which this platform's users write in.
 - **Ranking quality is not outcome quality.** A well-ranked gig is not evidence
-  anyone applied to it, was hired, or was paid. Once `applications` carries
-  real data, it becomes implicit relevance feedback and supersedes all of this.
+  anyone applied, was hired or was paid. Once `applications` carries real data
+  it becomes implicit relevance feedback and supersedes all of this.
 
 ## Files
 
 | path | purpose |
 | --- | --- |
-| `corpus/profiles.json` | 12 worker profiles |
-| `corpus/gigs.json` | 42 gigs, including 12 paraphrase cases |
-| `corpus/relevance.csv` | 68 graded pairs; unlisted pairs are grade 0 |
+| `corpus_sources/parse_kesco.py` | downloads and parses KeSCO-2022 |
+| `corpus_sources/category_map.py` | which occupations are in scope, and their pay scaling |
+| `corpus_sources/build_corpus.py` | generates the corpus and the derived grades |
+| `corpus_sources/overrides.json` | hand-authored gigs and grade corrections |
+| `corpus/` | generated output — regenerate, do not edit |
 | `metrics.py` | Precision@k, Recall@k, MRR, NDCG@k |
 | `harness.py` | corpus loading, ranking strategies, metric averaging |
 | `run_eval.py` | baselines against the live system |
 | `tune_weights.py` | grid search and cross-validation |
-| `retrieval_eval.py` | what the candidate shortlist costs in quality |
-| `live_eval.py` | scores the running service over HTTP, end to end |
+| `retrieval_eval.py` | what the candidate shortlist costs |
+| `live_eval.py` | scores the running service over HTTP |
 | `seed_db.py` | loads the corpus into Supabase, and removes it again |
-| `results/` | committed output of each run |
 
 ## Working with a seeded database
 
 ```bash
-python -m eval.seed_db seed    # 12 workers and 42 open gigs
-python -m eval.live_eval       # score the running engine against them
+python -m eval.seed_db seed     # workers and open gigs
+python -m eval.live_eval        # score the running engine against them
 python -m eval.seed_db clear    # remove everything it created
 ```
 
-Seeded accounts all carry the `@ayira-eval.invalid` suffix, and `clear` matches
-on it, so real accounts are never touched.
+Seeded accounts carry the `@ayira-eval.invalid` suffix and `clear` matches on
+it, so real accounts are never touched.

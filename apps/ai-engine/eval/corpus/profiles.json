@@ -1,98 +1,362 @@
 [
   {
-    "id": "w-frontend",
-    "label": "Front-end developer",
-    "skills": ["React", "JavaScript", "Tailwind CSS", "TypeScript"],
-    "bio": "Front-end developer building responsive web interfaces for startups and small businesses. Comfortable turning a Figma file into production React.",
+    "id": "w-2411",
+    "kesco_code": "2411",
+    "label": "Accountant",
+    "skills": [
+      "Accountant",
+      "Financial Investigations",
+      "Accounts",
+      "Investigations",
+      "Systems"
+    ],
+    "bio": "Accountants Plan and administer accounting services and advises on accountancy issues pertaining to private persons, enterprises, institutions and governmental organizations",
     "location": "Nairobi",
+    "reputation_score": 4.5
+  },
+  {
+    "id": "w-2421",
+    "kesco_code": "2421",
+    "label": "Management Analyst",
+    "skills": [
+      "Management Organization Analyst",
+      "Work Studies",
+      "Organizations Workflow Charts",
+      "Proposals",
+      "Procedures"
+    ],
+    "bio": "Management and organization analysts assist organizations to achieve greater efficiency and solve organizational problems. They study organizational structures, methods, systems and pro cedures. They are responsible for conducting and",
+    "location": "Nairobi",
+    "reputation_score": 3.3
+  },
+  {
+    "id": "w-2431",
+    "kesco_code": "2431",
+    "label": "Advertising and Marketing Professional",
+    "skills": [
+      "Advertising Marketing Professional",
+      "Data Regarding Consumer",
+      "Potential Demand",
+      "Business Growth",
+      "Market Research"
+    ],
+    "bio": "Advertising and Marketing Professionals, Conduct research, determine and advise on existing level of sales for particular products and or services, and assesses potential markets and future trends",
+    "location": "Eldoret",
+    "reputation_score": 4.1
+  },
+  {
+    "id": "w-2432",
+    "kesco_code": "2432",
+    "label": "Public Relations Professional",
+    "skills": [
+      "Public Relations Professional",
+      "Organizations",
+      "Business Social",
+      "Photographs",
+      "Material Submitted"
+    ],
+    "bio": "Public Relations Professionals Plans Organizes and Carry out programmes of information dissemination to influence the public to view favorably an organization, products or services. Receives and provides hospitality services to clients of",
+    "location": "Nairobi",
+    "reputation_score": 3.6
+  },
+  {
+    "id": "w-2434",
+    "kesco_code": "2434",
+    "label": "ICT Sales Professional",
+    "skills": [
+      "Information Communications Technology",
+      "Prices",
+      "Customer Records",
+      "Delivery",
+      "Customers Reactions"
+    ],
+    "bio": "Information and communications technology (ICT) sales professionals sell, at wholesale level, a range of computer hardware, software and other information and communications technology goods and services including installations, and",
+    "location": "Nairobi",
+    "reputation_score": 3.6
+  },
+  {
+    "id": "w-2511",
+    "kesco_code": "2511",
+    "label": "Systems Analyst",
+    "skills": [
+      "Systems Analyst",
+      "Hardware",
+      "Computer Programs",
+      "Internet Intranet"
+    ],
+    "bio": "System Analysts analyze data-processing needs of clients",
+    "location": "Thika",
     "reputation_score": 4.2
   },
   {
-    "id": "w-backend",
-    "label": "Backend / API developer",
-    "skills": ["Node.js", "Python", "PostgreSQL", "REST APIs"],
-    "bio": "Backend engineer building APIs and database schemas. I work mostly in Node and Python and care about clean data models.",
-    "location": "Nairobi",
-    "reputation_score": 4.6
-  },
-  {
-    "id": "w-mobile",
-    "label": "Mobile developer",
-    "skills": ["Flutter", "Dart", "Android", "Firebase"],
-    "bio": "Mobile developer shipping cross-platform apps with Flutter. I have published several Android apps for local service businesses.",
-    "location": "Mombasa",
-    "reputation_score": 3.8
-  },
-  {
-    "id": "w-dataanalyst",
-    "label": "Data analyst",
-    "skills": ["Data Analysis", "Python", "SQL", "Excel"],
-    "bio": "Data analyst turning messy spreadsheets into dashboards and reports. I build models in Python and visualise results for non-technical teams.",
-    "location": "Nairobi",
-    "reputation_score": 4.0
-  },
-  {
-    "id": "w-copywriter",
-    "label": "Copywriter",
-    "skills": ["Copywriting", "Content Writing", "SEO"],
-    "bio": "Copywriter producing website copy, blog articles and email campaigns. I write for fintech and retail brands across East Africa.",
-    "location": "Nairobi",
-    "reputation_score": 4.4
-  },
-  {
-    "id": "w-translator",
-    "label": "Translator / transcriber",
-    "skills": ["Translation", "Transcription", "Content Writing"],
-    "bio": "Translator working between English and Swahili. I transcribe interviews and localise marketing material for Kenyan audiences.",
-    "location": "Kisumu",
-    "reputation_score": 3.5
-  },
-  {
-    "id": "w-graphic",
-    "label": "Graphic designer",
-    "skills": ["Graphic Design", "Logo Design", "Adobe Illustrator"],
-    "bio": "Graphic designer creating brand identities, logos and print material for small businesses and events.",
+    "id": "w-2512",
+    "kesco_code": "2512",
+    "label": "Software Developer",
+    "skills": [
+      "Software Developer",
+      "Software Testing",
+      "Software",
+      "Software Programming",
+      "Maintenance Procedures"
+    ],
+    "bio": "Software developers research, analyze and evaluate requirements for existing or new software applications and operating systems, and design, develop, test and maintain software solutions to meet these requirements",
     "location": "Nairobi",
     "reputation_score": 4.1
   },
   {
-    "id": "w-video",
-    "label": "Video editor",
-    "skills": ["Video Editing", "Animation", "Adobe Premiere"],
-    "bio": "Video editor cutting promotional clips, event recaps and social media reels. I also produce simple motion graphics.",
-    "location": "Nairobi",
+    "id": "w-2513",
+    "kesco_code": "2513",
+    "label": "Web and Multimedia Developer",
+    "skills": [
+      "Web Multimedia Developer",
+      "Computer Code"
+    ],
+    "bio": "Web and multimedia development professionals combine design and technical knowledge to research, analyze, evaluate, design, programme and modify websites, and applications that draw together text, graphics, animations, imaging, audio and",
+    "location": "Kisumu",
     "reputation_score": 3.9
   },
   {
-    "id": "w-photographer",
-    "label": "Photographer",
-    "skills": ["Photography", "Photo Editing"],
-    "bio": "Event and portrait photographer covering weddings, corporate functions and product shoots around the Rift Valley.",
+    "id": "w-2514",
+    "kesco_code": "2514",
+    "label": "Applications Programmer",
+    "skills": [
+      "Applications Programmer",
+      "Trial Runs",
+      "Documentation",
+      "Technical Problems Processes"
+    ],
+    "bio": "Application Programmer's role is to assist in the definition, development, testing, analysis, and maintenance of new or existing software applications in support of the achievement of business requirements. This includes writing, coding,",
     "location": "Nakuru",
-    "reputation_score": 4.3
+    "reputation_score": 3.4
   },
   {
-    "id": "w-socialmedia",
-    "label": "Social media marketer",
-    "skills": ["Social Media", "Digital Advertising", "Content Writing"],
-    "bio": "Social media manager running content calendars and paid campaigns on Instagram, TikTok and Facebook for consumer brands.",
+    "id": "w-2521",
+    "kesco_code": "2521",
+    "label": "Database Administrator",
+    "skills": [
+      "Database Designers Administrator",
+      "Research",
+      "Data Administration Policy",
+      "Policies",
+      "Operational Establishment"
+    ],
+    "bio": "Database designers and administrators design, develop, control, maintain and support the optimal performance and security of databases. Controls computer database by maintaining data dictionaries and data management systems, and ensuring",
+    "location": "Thika",
+    "reputation_score": 4.6
+  },
+  {
+    "id": "w-2523",
+    "kesco_code": "2523",
+    "label": "Computer Network Professional",
+    "skills": [
+      "Computer Network Professional",
+      "Specialist Skills",
+      "Procedures",
+      "Network Traffic"
+    ],
+    "bio": "Computer Network Professionals research, analyze, design, test and recommend strategies for network architecture and development. They implement, manage, maintain and configure network hardware and software, and monitor, troubleshoot and",
+    "location": "Kisumu",
+    "reputation_score": 4.4
+  },
+  {
+    "id": "w-2641",
+    "kesco_code": "2641",
+    "label": "Writer",
+    "skills": [
+      "Authors Writer",
+      "Material Such",
+      "Brochures Handbooks",
+      "Material"
+    ],
+    "bio": "Authors and Related writers plan, research and write books, scripts, storyboards, plays, essays, speeches, manuals, specifications and other non-journalistic articles (excluding material for newspapers, magazines and other periodicals) for",
+    "location": "Mombasa",
+    "reputation_score": 3.3
+  },
+  {
+    "id": "w-2642",
+    "kesco_code": "2642",
+    "label": "Journalist",
+    "skills": [
+      "Journalist",
+      "Critical Reviews",
+      "Material",
+      "Publicity Material",
+      "Occupational Titles Classified"
+    ],
+    "bio": "Journalists, collect information and comment on news and current affairs for publication in bulletins, newspapers and periodicals or broadcasting through radio or television",
+    "location": "Nakuru",
+    "reputation_score": 3.4
+  },
+  {
+    "id": "w-2643",
+    "kesco_code": "2643",
+    "label": "Translator and Interpreter",
+    "skills": [
+      "Translators Interpreters Linguist",
+      "Methods",
+      "Translated Material"
+    ],
+    "bio": "Translators and interpreters study the origin, development and structure of languages, and translate or interpret them from one language to another",
     "location": "Nairobi",
     "reputation_score": 4.0
   },
   {
-    "id": "w-va",
-    "label": "Virtual assistant",
-    "skills": ["Virtual Assistant", "Data Entry", "Customer Service"],
-    "bio": "Virtual assistant handling inboxes, scheduling, data entry and customer support for busy founders.",
-    "location": "Eldoret",
-    "reputation_score": 3.6
+    "id": "w-2651",
+    "kesco_code": "2651",
+    "label": "Visual Artist",
+    "skills": [
+      "Visual Artist",
+      "Representational",
+      "Drawings",
+      "Cartoons",
+      "Damaged Soiled"
+    ],
+    "bio": "Visual artists are involved in the arts of painting, sculpting, photography, drawing, printmaking, ceramics, photography, video, filmmaking, design, crafts and architecture as opposed to music, drama, and literature",
+    "location": "Thika",
+    "reputation_score": 3.8
   },
   {
-    "id": "w-accountant",
-    "label": "Bookkeeper",
-    "skills": ["Accounting", "Excel", "QuickBooks"],
-    "bio": "Bookkeeper maintaining ledgers, reconciling accounts and preparing monthly management reports for SMEs.",
+    "id": "w-2654",
+    "kesco_code": "2654",
+    "label": "Film and Video Producer",
+    "skills": [
+      "Film Stage Director",
+      "Scripts",
+      "Industry Experience Is",
+      "Key Skills Required",
+      "Occupational Titles Classified"
+    ],
+    "bio": "Film, Stage and Related Directors And Producers oversee and control the technical and artistic aspects of motion pictures, television or radio productions and stage shows",
     "location": "Nairobi",
-    "reputation_score": 4.5
+    "reputation_score": 3.3
+  },
+  {
+    "id": "w-3431",
+    "kesco_code": "3431",
+    "label": "Photographer",
+    "skills": [
+      "Photographer",
+      "Picture Composition Making",
+      "Scanners",
+      "Photographic Images",
+      "Airbrush Computer"
+    ],
+    "bio": "Photographers operate still cameras to photograph people, events , scenes, places, merchandise, materials, products and other subjects",
+    "location": "Nairobi",
+    "reputation_score": 3.4
+  },
+  {
+    "id": "w-3432",
+    "kesco_code": "3432",
+    "label": "Interior Designer",
+    "skills": [
+      "Interior Designers Decorator",
+      "Functional",
+      "Selected Design",
+      "Construction",
+      "Stage Scenery"
+    ],
+    "bio": "Interior designers and decorators plan and design commercial, industrial, public, retail and residential building interiors to produce an environment tailored to a purpose, taking into consideration factors that enhance living and working",
+    "location": "Nairobi",
+    "reputation_score": 4.1
+  },
+  {
+    "id": "w-3514",
+    "kesco_code": "3514",
+    "label": "Web Technician",
+    "skills": [
+      "Web Technician",
+      "Recommendations",
+      "Web Pages",
+      "Web Server Backup"
+    ],
+    "bio": "Web Technicians maintain, monitor and support the optimal functioning of Internet and Intranet websites and web server hardware and software",
+    "location": "Nairobi",
+    "reputation_score": 4.4
+  },
+  {
+    "id": "w-3521",
+    "kesco_code": "3521",
+    "label": "Audio-Visual Technician",
+    "skills": [
+      "Broadcasting Audio-Visual Technician",
+      "Broadcast Systems",
+      "Radio Communications Systems",
+      "Knowledge",
+      "Emergency Repairs"
+    ],
+    "bio": "Broadcasting and audio-visual technicians control technical functioning of equipment to record and edit images and sound and for transmitting radio and television broadcasts of images and sounds, as well as other types of telecommunication",
+    "location": "Nairobi",
+    "reputation_score": 4.6
+  },
+  {
+    "id": "w-4120",
+    "kesco_code": "4120",
+    "label": "Office Secretarie",
+    "skills": [
+      "Office Secretarie",
+      "Requests",
+      "Leave",
+      "Systems"
+    ],
+    "bio": "Office Secretaries use type writers or word-processing equipment to check and transcribe correspondence and other documents, record oral or written matter to produce documents, check and format documents prepared by other staff, deal with",
+    "location": "Nairobi",
+    "reputation_score": 3.9
+  },
+  {
+    "id": "w-4132",
+    "kesco_code": "4132",
+    "label": "Data Entry Clerk",
+    "skills": [
+      "Data Entry Clerk",
+      "Accuracy",
+      "Machines",
+      "Data Between Different"
+    ],
+    "bio": "Data Entry Clerks enter coded, statistical, financial and other numerical data into electronic equipment, computerized databases, spread sheets or other data repositories using a keyboard, mouse, or optical scanner, speech recognition",
+    "location": "Machakos",
+    "reputation_score": 4.4
+  },
+  {
+    "id": "w-4222",
+    "kesco_code": "4222",
+    "label": "Contact Centre Agent",
+    "skills": [
+      "Contact Centre Information",
+      "Payments",
+      "Letters Information Sheets",
+      "Clients"
+    ],
+    "bio": "Contact Centre Information Clerks provide advice and information to clients",
+    "location": "Nairobi",
+    "reputation_score": 3.7
+  },
+  {
+    "id": "w-4227",
+    "kesco_code": "4227",
+    "label": "Market Research Interviewer",
+    "skills": [
+      "Survey Market Research",
+      "Responses",
+      "Inconsistencies",
+      "Feedback"
+    ],
+    "bio": "Survey and Market Research Interviewers interview people and record their responses to survey and market research questions on a range of topics",
+    "location": "Eldoret",
+    "reputation_score": 3.3
+  },
+  {
+    "id": "w-4311",
+    "kesco_code": "4311",
+    "label": "Book-keeping Clerk",
+    "skills": [
+      "Accounting Book Keeping",
+      "Numerical",
+      "Bills Invoices Account",
+      "Statistical Financial Accounting"
+    ],
+    "bio": "Accounting and Book Keeping Clerks compute, classify, and record numerical data to keep financial records complete. They perform any combination of routine calculating, posting, and verifying duties to obtain primary financial data for use",
+    "location": "Nairobi",
+    "reputation_score": 4.1
   }
 ]
