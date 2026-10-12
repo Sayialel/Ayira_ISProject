@@ -182,10 +182,25 @@ def title_case(text: str) -> str:
     return " ".join(out)
 
 
+# Some task lists end with an index of the job titles filed under the code —
+# "Occupational titles classified in this unit group are: 2642-11 Journalist
+# …". That is cataloguing, not work, and left in it produces skill tags like
+# "Occupational Titles Classified".
+BOILERPLATE = re.compile(
+    r"occupational titles|classified (?:in this|here)|examples of the occupations"
+    r"|cognate occupation|related occupations",
+    re.I,
+)
+
+
 def split_sentences(text: str) -> list[str]:
     """Task lists are semicolon-delimited in this document."""
     parts = re.split(r";|\.\s+", text)
-    return [p.strip(" .;-") for p in parts if len(p.strip()) > 15]
+    return [
+        p.strip(" .;-")
+        for p in parts
+        if len(p.strip()) > 15 and not BOILERPLATE.search(p)
+    ]
 
 
 def parse(text: str) -> list[dict]:

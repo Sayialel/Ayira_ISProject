@@ -178,10 +178,10 @@
     "label": "Journalist",
     "skills": [
       "Journalist",
+      "Editorials",
       "Critical Reviews",
       "Material",
-      "Publicity Material",
-      "Occupational Titles Classified"
+      "Publicity Material"
     ],
     "bio": "Journalists, collect information and comment on news and current affairs for publication in bulletins, newspapers and periodicals or broadcasting through radio or television",
     "location": "Nakuru",
@@ -223,8 +223,7 @@
       "Film Stage Director",
       "Scripts",
       "Industry Experience Is",
-      "Key Skills Required",
-      "Occupational Titles Classified"
+      "Key Skills Required"
     ],
     "bio": "Film, Stage and Related Directors And Producers oversee and control the technical and artistic aspects of motion pictures, television or radio productions and stage shows",
     "location": "Nairobi",
