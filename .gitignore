@@ -18,3 +18,6 @@ supabase/.temp/
 # Python virtualenv
 apps/ai-engine/.venv/
 apps/ai-engine/**/__pycache__/
+
+# KeSCO source PDF — 6.6MB, freely downloadable, fetched by parse_kesco.py
+apps/ai-engine/eval/corpus_sources/*.pdf
