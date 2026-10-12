@@ -126,7 +126,9 @@ def repair_split_words(text: str, vocabulary: set[str]) -> str:
                 if (
                     joined in vocabulary
                     and (lw not in vocabulary or rw not in vocabulary)
-                    and len(joined) > 3
+                    # Three characters is the shortest worth rejoining: it
+                    # catches "a nd" -> "and", which is frequent here.
+                    and len(joined) >= 3
                 ):
                     # Preserve the first fragment's capitalisation.
                     out.append(left + right if left.islower() else left + right.lower())

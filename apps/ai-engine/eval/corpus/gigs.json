@@ -3,7 +3,7 @@
     "id": "g-2411-1",
     "kesco_code": "2411",
     "title": "Accountant needed — advising, planning and installing budgetary, accounts",
-    "description": "We are looking for someone to take on advising, planning and installing budgetary, accounts controlling and other accounting policies and systems. The work also covers preparing and certifying financial statements for presentation to management, shareholders and statutory or other bodies. The work also covers preparing tax returns, advising on taxation problems and c ontesting disputed claims before tax officials.",
+    "description": "We are looking for someone to take on advising, planning and installing budgetary, accounts controlling and other accounting policies and systems. The work also covers preparing and certifying financial statements for presentation to management, shareholders and statutory or other bodies.",
     "category": "Business",
     "required_skills": [
       "Accountant",
@@ -35,7 +35,7 @@
     "id": "g-2421-1",
     "kesco_code": "2421",
     "title": "Management Analyst needed — assisting in the development of objectives",
-    "description": "We are looking for someone to take on assisting in the development of objectives, strategies and plans aimed at achieving customer satisfaction and the efficient use of organizations’ resources. The work also covers analyzing and evaluating current systems and structures. The work also covers discussing current systems with staff and observing systems at all levels of organization.",
+    "description": "We are looking for someone to take on assisting in the development of objectives, strategies and plans aimed at achieving customer satisfaction and the efficient use of organizations’ resources. The work also covers analyzing and evaluating current systems and structures.",
     "category": "Business",
     "required_skills": [
       "Management Organization Analyst",
@@ -67,7 +67,7 @@
     "id": "g-2431-1",
     "kesco_code": "2431",
     "title": "Advertising and Marketing Professional needed — planning, developing and organizing advertising",
-    "description": "We are looking for someone to take on planning, developing and organizing advertising policies and campaigns to support sales objectives. The work also covers advising managers and clients on strategies and campaigns to reach target markets, creating consumer awareness and effectively promoting the attributes of goods and services. The work also covers writing advertising copy and media scripts, and arranging television and film production and media placement.",
+    "description": "We are looking for someone to take on planning, developing and organizing advertising policies and campaigns to support sales objectives.",
     "category": "Marketing",
     "required_skills": [
       "Advertising Marketing Professional",
@@ -82,8 +82,8 @@
   {
     "id": "g-2431-2",
     "kesco_code": "2431",
-    "title": "Advertising and Marketing Professional needed — writing advertising copy and media scripts, and",
-    "description": "We are looking for someone to take on writing advertising copy and media scripts, and arranging television and film production and media placement.",
+    "title": "Advertising and Marketing Professional needed — advising managers and clients on strategies and",
+    "description": "We are looking for someone to take on advising managers and clients on strategies and campaigns to reach target markets, creating consumer awareness and effectively promoting the attributes of goods and services.",
     "category": "Marketing",
     "required_skills": [
       "Advertising Marketing Professional",
@@ -99,7 +99,7 @@
     "id": "g-2432-1",
     "kesco_code": "2432",
     "title": "Public Relations Professional needed — planning and organizing publicity campaigns and",
-    "description": "We are looking for someone to take on planning and organizing publicity campaigns and communication strategies. The work also covers advising executives on the public relations implications of their policies, programmes and practices, and preparing and controlling the issue of news and press release s. The work also covers undertaking and commissioning public opinion research, analysing the findings and planning public relations and promotional campaigns.",
+    "description": "We are looking for someone to take on planning and organizing publicity campaigns and communication strategies. The work also covers advising executives on the public relations implications of their policies, programmes and practices, and preparing and controlling the issue of news and press release s.",
     "category": "Marketing",
     "required_skills": [
       "Public Relations Professional",
@@ -131,7 +131,7 @@
     "id": "g-2434-1",
     "kesco_code": "2434",
     "title": "ICT Sales Professional needed — soliciting orders and selling goods to retail",
-    "description": "We are looking for someone to take on soliciting orders and selling goods to retail, industrial, wholesale and other establishments. The work also covers selling technical equipment, supplies and related services to business establishments or individuals. The work also covers discussing the needs of new and existing customers and providing specialized information about how particular equipment, supplies and services meet those needs.",
+    "description": "We are looking for someone to take on soliciting orders and selling goods to retail, industrial, wholesale and other establishments.",
     "category": "Marketing",
     "required_skills": [
       "Information Communications Technology",
@@ -146,8 +146,8 @@
   {
     "id": "g-2434-2",
     "kesco_code": "2434",
-    "title": "ICT Sales Professional needed — discussing the needs of new and existing customers",
-    "description": "We are looking for someone to take on discussing the needs of new and existing customers and providing specialized information about how particular equipment, supplies and services meet those needs.",
+    "title": "ICT Sales Professional needed — selling technical equipment, supplies and related",
+    "description": "We are looking for someone to take on selling technical equipment, supplies and related services to business establishments or individuals.",
     "category": "Marketing",
     "required_skills": [
       "Information Communications Technology",
@@ -163,7 +163,7 @@
     "id": "g-2511-1",
     "kesco_code": "2511",
     "title": "Systems Analyst needed — researching Information Communication Technology use",
-    "description": "We are looking for someone to take on researching Information Communication Technology use in business functions and identifying areas in which improvements could be made to maximize effectiveness and efficiency. The work also covers conducting research into the theoretical aspects of and operational methods for the use of computers.",
+    "description": "We are looking for someone to take on researching Information Communication Technology use in business functions and identifying areas in which improvements could be made to maximize effectiveness and efficiency.",
     "category": "Technology",
     "required_skills": [
       "Systems Analyst",
@@ -177,8 +177,8 @@
   {
     "id": "g-2511-2",
     "kesco_code": "2511",
-    "title": "Systems Analyst needed — researching Information Communication Technology use",
-    "description": "We are looking for someone to take on researching Information Communication Technology use in business functions and identifying areas in which improvements could be made to maximize effectiveness and efficiency. The work also covers conducting research into the theoretical aspects of and operational methods for the use of computers.",
+    "title": "Systems Analyst needed — conducting research into the theoretical aspects of",
+    "description": "We are looking for someone to take on conducting research into the theoretical aspects of and operational methods for the use of computers.",
     "category": "Technology",
     "required_skills": [
       "Systems Analyst",
@@ -208,8 +208,8 @@
   {
     "id": "g-2512-2",
     "kesco_code": "2512",
-    "title": "Software Developer needed — create models and diagrams to show programmers the",
-    "description": "We are looking for someone to take on create models and diagrams to show programmers the code needed for applications. The work also covers monitor quality and performance of applications through testing and maintenance. The work also covers researching, analysing and evaluating requirements for software applications and operating systems.",
+    "title": "Software Developer needed — monitor quality and performance of applications",
+    "description": "We are looking for someone to take on monitor quality and performance of applications through testing and maintenance. The work also covers researching, analysing and evaluating requirements for software applications and operating systems. The work also covers designing and developing computer software systems.",
     "category": "Technology",
     "required_skills": [
       "Software Developer",
@@ -225,7 +225,7 @@
     "id": "g-2513-1",
     "kesco_code": "2513",
     "title": "Web and Multimedia Developer needed — analyzing, designing and developing Internet sites by",
-    "description": "We are looking for someone to take on analyzing, designing and developing Internet sites by applying a mixture of artistry and creativity with software programming and scripting languages and interfacing with operating environments. The work also covers designing and developing digital animations, imaging, presentations, games, audio and video clips and Internet applications using multimedia software, tools and utilities, interactive graphics and programming languages.",
+    "description": "We are looking for someone to take on analyzing, designing and developing Internet sites by applying a mixture of artistry and creativity with software programming and scripting languages and interfacing with operating environments.",
     "category": "Technology",
     "required_skills": [
       "Web Multimedia Developer",
@@ -240,8 +240,8 @@
   {
     "id": "g-2513-2",
     "kesco_code": "2513",
-    "title": "Web and Multimedia Developer needed — analyzing, designing and developing Internet sites by",
-    "description": "We are looking for someone to take on analyzing, designing and developing Internet sites by applying a mixture of artistry and creativity with software programming and scripting languages and interfacing with operating environments. The work also covers designing and developing digital animations, imaging, presentations, games, audio and video clips and Internet applications using multimedia software, tools and utilities, interactive graphics and programming languages.",
+    "title": "Web and Multimedia Developer needed — designing and developing digital animations, imaging",
+    "description": "We are looking for someone to take on designing and developing digital animations, imaging, presentations, games, audio and video clips and Internet applications using multimedia software, tools and utilities, interactive graphics and programming languages.",
     "category": "Technology",
     "required_skills": [
       "Web Multimedia Developer",
@@ -257,7 +257,7 @@
     "id": "g-2514-1",
     "kesco_code": "2514",
     "title": "Applications Programmer needed — , writing and maintaining program code outlined in",
-    "description": "We are looking for someone to take on , writing and maintaining program code outlined in instructions and specifications in accordance with quality accredited standards. The work also covers revising, repairing or expanding existing programs to increase operating efficiency or adapt to new requirements.",
+    "description": "We are looking for someone to take on , writing and maintaining program code outlined in instructions and specifications in accordance with quality accredited standards.",
     "category": "Technology",
     "required_skills": [
       "Applications Programmer",
@@ -272,8 +272,8 @@
   {
     "id": "g-2514-2",
     "kesco_code": "2514",
-    "title": "Applications Programmer needed — , writing and maintaining program code outlined in",
-    "description": "We are looking for someone to take on , writing and maintaining program code outlined in instructions and specifications in accordance with quality accredited standards. The work also covers revising, repairing or expanding existing programs to increase operating efficiency or adapt to new requirements.",
+    "title": "Applications Programmer needed — revising, repairing or expanding existing programs to",
+    "description": "We are looking for someone to take on revising, repairing or expanding existing programs to increase operating efficiency or adapt to new requirements.",
     "category": "Technology",
     "required_skills": [
       "Applications Programmer",
@@ -289,7 +289,7 @@
     "id": "g-2521-1",
     "kesco_code": "2521",
     "title": "Database Administrator needed — , defining the detailed database design, including",
-    "description": "We are looking for someone to take on , defining the detailed database design, including tables, indexes, vi ews, constraints, triggers, stored procedures, and other database-specific constructs needed to store, retrieve, and delete persistent objects. The work also covers designing and developing database architecture, data structures, tables, dictionaries and naming conventions for information systems projects. The work also covers designing, constructing, modifying, integrating, implementing and testing database management systems.",
+    "description": "We are looking for someone to take on , defining the detailed database design, including tables, indexes, vi ews, constraints, triggers, stored procedures, and other database-specific constructs needed to store, retrieve, and delete persistent objects.",
     "category": "Technology",
     "required_skills": [
       "Database Designers Administrator",
@@ -304,8 +304,8 @@
   {
     "id": "g-2521-2",
     "kesco_code": "2521",
-    "title": "Database Administrator needed — designing, constructing, modifying, integrating",
-    "description": "We are looking for someone to take on designing, constructing, modifying, integrating, implementing and testing database management systems.",
+    "title": "Database Administrator needed — designing and developing database architecture, data",
+    "description": "We are looking for someone to take on designing and developing database architecture, data structures, tables, dictionaries and naming conventions for information systems projects.",
     "category": "Technology",
     "required_skills": [
       "Database Designers Administrator",
@@ -321,7 +321,7 @@
     "id": "g-2523-1",
     "kesco_code": "2523",
     "title": "Computer Network Professional needed — , analyzing, developing, interpreting and evaluating",
-    "description": "We are looking for someone to take on , analyzing, developing, interpreting and evaluating complex system design and architecture specifications, data models and diagrams in the development, configuration and integration of computer systems. The work also covers researching, analysing, evaluating and monitoring network infrastructure to ensure that networks are configured to operate at optimal performance. The work also covers assessing and recommending improvements to network operations and integrated hardware, software, communications and operating systems.",
+    "description": "We are looking for someone to take on , analyzing, developing, interpreting and evaluating complex system design and architecture specifications, data models and diagrams in the development, configuration and integration of computer systems.",
     "category": "Technology",
     "required_skills": [
       "Computer Network Professional",
@@ -336,8 +336,8 @@
   {
     "id": "g-2523-2",
     "kesco_code": "2523",
-    "title": "Computer Network Professional needed — assessing and recommending improvements to network",
-    "description": "We are looking for someone to take on assessing and recommending improvements to network operations and integrated hardware, software, communications and operating systems.",
+    "title": "Computer Network Professional needed — researching, analysing, evaluating and monitoring",
+    "description": "We are looking for someone to take on researching, analysing, evaluating and monitoring network infrastructure to ensure that networks are configured to operate at optimal performance.",
     "category": "Technology",
     "required_skills": [
       "Computer Network Professional",
@@ -353,7 +353,7 @@
     "id": "g-2641-1",
     "kesco_code": "2641",
     "title": "Writer needed — conceiving, writing and editing novels, plays",
-    "description": "We are looking for someone to take on conceiving, writing and editing novels, plays, scripts, poetry and other material for publication or presentation. The work also covers conducting research to establish factual content and to obtain other necessary information. The work also covers writing scripts and continuities and preparing programmes for stage, film, radio and television productions.",
+    "description": "We are looking for someone to take on conceiving, writing and editing novels, plays, scripts, poetry and other material for publication or presentation.",
     "category": "Writing",
     "required_skills": [
       "Authors Writer",
@@ -368,8 +368,8 @@
   {
     "id": "g-2641-2",
     "kesco_code": "2641",
-    "title": "Writer needed — writing scripts and continuities and preparing",
-    "description": "We are looking for someone to take on writing scripts and continuities and preparing programmes for stage, film, radio and television productions.",
+    "title": "Writer needed — conducting research to establish factual content and",
+    "description": "We are looking for someone to take on conducting research to establish factual content and to obtain other necessary information.",
     "category": "Writing",
     "required_skills": [
       "Authors Writer",
@@ -385,7 +385,7 @@
     "id": "g-2642-1",
     "kesco_code": "2642",
     "title": "Journalist needed — collecting local, national and international news",
-    "description": "We are looking for someone to take on collecting local, national and international news through interviews, investigation and observation, attending public events to seek information, reviewing records and other written works, attending film and stage performances record events. The work also covers collecting, reporting and commenting on news and current affairs fo r publication in newspapers and periodicals, or for broadcasting by radio, television or webcast media. The work also covers receiving, analyzing and verifying news and other copy for accuracy.",
+    "description": "We are looking for someone to take on collecting local, national and international news through interviews, investigation and observation, attending public events to seek information, reviewing records and other written works, attending film and stage performances record events. The work also covers collecting, reporting and commenting on news and current affairs for publication in newspapers and periodicals, or for broadcasting by radio, television or webcast media.",
     "category": "Writing",
     "required_skills": [
       "Journalist",
@@ -401,7 +401,7 @@
     "id": "g-2642-2",
     "kesco_code": "2642",
     "title": "Journalist needed — receiving, analyzing and verifying news and other",
-    "description": "We are looking for someone to take on receiving, analyzing and verifying news and other copy for accuracy. The work also covers interviewing individuals at press conferences and record for radio, television or webcast media. The work also covers researching and reporting on developments in specialized fields such as medicine, science and technology.",
+    "description": "We are looking for someone to take on receiving, analyzing and verifying news and other copy for accuracy. The work also covers interviewing individuals at press conferences and record for radio, television or webcast media.",
     "category": "Writing",
     "required_skills": [
       "Journalist",
@@ -417,7 +417,7 @@
     "id": "g-2643-1",
     "kesco_code": "2643",
     "title": "Translator and Interpreter needed — studying relationships between ancient parent",
-    "description": "We are looking for someone to take on studying relationships between ancient parent languages and modern language groups, tracing the origin and evolution of words, grammar and language forms, and presenting findings. The work also covers advising on or preparing language classification systems, grammars, dictionaries and similar materials. The work also covers translating from one language into another and ensuring that the correct meaning of the original is retained, that legal, technical or scientific works are correctly rendered, and that the phraseology and terminology of the spirit and style of literary works are conveyed as far as possible.",
+    "description": "We are looking for someone to take on studying relationships between ancient parent languages and modern language groups, tracing the origin and evolution of words, grammar and language forms, and presenting findings.",
     "category": "Writing",
     "required_skills": [
       "Translators Interpreters Linguist",
@@ -431,8 +431,8 @@
   {
     "id": "g-2643-2",
     "kesco_code": "2643",
-    "title": "Translator and Interpreter needed — translating from one language into another and",
-    "description": "We are looking for someone to take on translating from one language into another and ensuring that the correct meaning of the original is retained, that legal, technical or scientific works are correctly rendered, and that the phraseology and terminology of the spirit and style of literary works are conveyed as far as possible.",
+    "title": "Translator and Interpreter needed — advising on or preparing language classification",
+    "description": "We are looking for someone to take on advising on or preparing language classification systems, grammars, dictionaries and similar materials.",
     "category": "Writing",
     "required_skills": [
       "Translators Interpreters Linguist",
@@ -447,7 +447,7 @@
     "id": "g-2651-1",
     "kesco_code": "2651",
     "title": "Visual Artist needed — conceiving and developing ideas, designs and styles",
-    "description": "We are looking for someone to take on conceiving and developing ideas, designs and styles for paintings, drawings and sculptures. The work also covers arranging objects, positioning models, and selecting landscapes and other visual forms according to chosen subject matter. The work also covers selecting artistic media, method and materials.",
+    "description": "We are looking for someone to take on conceiving and developing ideas, designs and styles for paintings, drawings and sculptures. The work also covers arranging objects, positioning models, and selecting landscapes and other visual forms according to chosen subject matter.",
     "category": "Design",
     "required_skills": [
       "Visual Artist",
@@ -479,7 +479,7 @@
     "id": "g-2654-1",
     "kesco_code": "2654",
     "title": "Film and Video Producer needed — choosing writers, studying scripts to determine",
-    "description": "We are looking for someone to take on choosing writers, studying scripts to determine artistic interpretation, and instructing actors on acting methods. The work also covers directing all aspects of dramatic productions on stage, television, radio or in motion pictures, including choice of actors, and final decisions concerning costumes, set designs, sound or lighting effects. The work also covers planning, organizing and controlling the various stages and scheduling involved in the production of presentations, motion pictures, television shows and radio programmes.",
+    "description": "We are looking for someone to take on choosing writers, studying scripts to determine artistic interpretation, and instructing actors on acting methods. The work also covers directing all aspects of dramatic productions on stage, television, radio or in motion pictures, including choice of actors, and final decisions concerning costumes, set designs, sound or lighting effects.",
     "category": "Design",
     "required_skills": [
       "Film Stage Director",
@@ -495,7 +495,7 @@
     "id": "g-2654-2",
     "kesco_code": "2654",
     "title": "Film and Video Producer needed — planning, organizing and controlling the various",
-    "description": "We are looking for someone to take on planning, organizing and controlling the various stages and scheduling involved in the production of presentations, motion pictures, television shows and radio programmes. The work also covers engaging and supervising all technical pers onnel, and determining the treatment, scope and scheduling of production. The work also covers maintaining production archives and negotiating royalties.",
+    "description": "We are looking for someone to take on planning, organizing and controlling the various stages and scheduling involved in the production of presentations, motion pictures, television shows and radio programmes. The work also covers engaging and supervising all technical pers onnel, and determining the treatment, scope and scheduling of production.",
     "category": "Design",
     "required_skills": [
       "Film Stage Director",
@@ -511,7 +511,7 @@
     "id": "g-3431-1",
     "kesco_code": "3431",
     "title": "Photographer needed — taking photographs for advertising, or other",
-    "description": "We are looking for someone to take on taking photographs for advertising, or other commercial, industrial or scientific purposes and to illustrate stories and articles in newspapers, magazines and other publications. The work also covers taking portrait photographs of persons and groups of persons. The work also covers studying requirements of a particular assignment and decide on type of camera, film, lighting and background accessories to be used.",
+    "description": "We are looking for someone to take on taking photographs for advertising, or other commercial, industrial or scientific purposes and to illustrate stories and articles in newspapers, magazines and other publications.",
     "category": "Design",
     "required_skills": [
       "Photographer",
@@ -526,8 +526,8 @@
   {
     "id": "g-3431-2",
     "kesco_code": "3431",
-    "title": "Photographer needed — studying requirements of a particular assignment and",
-    "description": "We are looking for someone to take on studying requirements of a particular assignment and decide on type of camera, film, lighting and background accessories to be used.",
+    "title": "Photographer needed — taking portrait photographs of persons and groups of",
+    "description": "We are looking for someone to take on taking portrait photographs of persons and groups of persons.",
     "category": "Design",
     "required_skills": [
       "Photographer",
@@ -543,7 +543,7 @@
     "id": "g-3432-1",
     "kesco_code": "3432",
     "title": "Interior Designer needed — determining the objectives and constraints of the",
-    "description": "We are looking for someone to take on determining the objectives and constraints of the design brief by consulting with clients and stakeholders. The work also covers researching and analysing spatial, functional, efficiency, safety and aesthetic requirements. The work also covers formulating design concepts for the interiors of buildings.",
+    "description": "We are looking for someone to take on determining the objectives and constraints of the design brief by consulting with clients and stakeholders. The work also covers researching and analysing spatial, functional, efficiency, safety and aesthetic requirements.",
     "category": "Design",
     "required_skills": [
       "Interior Designers Decorator",
@@ -559,7 +559,7 @@
     "id": "g-3432-2",
     "kesco_code": "3432",
     "title": "Interior Designer needed — formulating design concepts for the interiors of",
-    "description": "We are looking for someone to take on formulating design concepts for the interiors of buildings. The work also covers preparing sketches, diagrams, illustrations and plans to communicate design concepts. The work also covers negotiating design solutions with clients, management, suppliers and construction staff.",
+    "description": "We are looking for someone to take on formulating design concepts for the interiors of buildings. The work also covers preparing sketches, diagrams, illustrations and plans to communicate design concepts.",
     "category": "Design",
     "required_skills": [
       "Interior Designers Decorator",
@@ -575,7 +575,7 @@
     "id": "g-3514-1",
     "kesco_code": "3514",
     "title": "Web Technician needed — installing, monitoring and supporting the reliability",
-    "description": "We are looking for someone to take on installing, monitoring and supporting the reliability and usability of Internet and Intranet websites or web server hardware or software. The work also covers developing and maintaining documentation, policies and instructions, recording operational procedures and system logs. The work also covers developing, coordinating, implementing and monitoring security measures.",
+    "description": "We are looking for someone to take on installing, monitoring and supporting the reliability and usability of Internet and Intranet websites or web server hardware or software.",
     "category": "Technology",
     "required_skills": [
       "Web Technician",
@@ -590,8 +590,8 @@
   {
     "id": "g-3514-2",
     "kesco_code": "3514",
-    "title": "Web Technician needed — developing, coordinating, implementing and monitoring",
-    "description": "We are looking for someone to take on developing, coordinating, implementing and monitoring security measures.",
+    "title": "Web Technician needed — developing and maintaining documentation, policies",
+    "description": "We are looking for someone to take on developing and maintaining documentation, policies and instructions, recording operational procedures and system logs.",
     "category": "Technology",
     "required_skills": [
       "Web Technician",
@@ -607,7 +607,7 @@
     "id": "g-3521-1",
     "kesco_code": "3521",
     "title": "Audio-Visual Technician needed — controlling equipment to record sound",
-    "description": "We are looking for someone to take on controlling equipment to record sound. The work also covers controlling equipment to edit and mix image and sound recordings to ensure satisfactory quality and to create special image and sound effects. The work also covers applying knowledge of principles and practices of image and sound recording and editing in order to identify and solve problems.",
+    "description": "We are looking for someone to take on controlling equipment to record sound.",
     "category": "Design",
     "required_skills": [
       "Broadcasting Audio-Visual Technician",
@@ -622,8 +622,8 @@
   {
     "id": "g-3521-2",
     "kesco_code": "3521",
-    "title": "Audio-Visual Technician needed — applying knowledge of principles and practices of",
-    "description": "We are looking for someone to take on applying knowledge of principles and practices of image and sound recording and editing in order to identify and solve problems.",
+    "title": "Audio-Visual Technician needed — controlling equipment to edit and mix image and sound",
+    "description": "We are looking for someone to take on controlling equipment to edit and mix image and sound recordings to ensure satisfactory quality and to create special image and sound effects.",
     "category": "Design",
     "required_skills": [
       "Broadcasting Audio-Visual Technician",
@@ -639,7 +639,7 @@
     "id": "g-4120-1",
     "kesco_code": "4120",
     "title": "Office Secretarie needed — checking, formatting and transcribing correspondence",
-    "description": "We are looking for someone to take on checking, formatting and transcribing correspondence, minutes and reports from dictation, electronic documents or written drafts to conform to office standards, using typewriter, personal computer or other word processing equipment. The work also covers using various computer software packages including spreadsheets to provide administrative support. The work also covers dealing with incoming or outgoing mail.",
+    "description": "We are looking for someone to take on checking, formatting and transcribing correspondence, minutes and reports from dictation, electronic documents or written drafts to conform to office standards, using typewriter, personal computer or other word processing equipment. The work also covers using various computer software packages including spreadsheets to provide administrative support.",
     "category": "Business",
     "required_skills": [
       "Office Secretarie",
@@ -671,7 +671,7 @@
     "id": "g-4132-1",
     "kesco_code": "4132",
     "title": "Data Entry Clerk needed — receiving and registering invoices, forms, records",
-    "description": "We are looking for someone to take on receiving and registering invoices, forms, records and other documents for data capture. The work also covers entering numerical data, codes a nd text from source material into computer-compatible storage and processing devices.",
+    "description": "We are looking for someone to take on receiving and registering invoices, forms, records and other documents for data capture.",
     "category": "Business",
     "required_skills": [
       "Data Entry Clerk",
@@ -686,8 +686,8 @@
   {
     "id": "g-4132-2",
     "kesco_code": "4132",
-    "title": "Data Entry Clerk needed — receiving and registering invoices, forms, records",
-    "description": "We are looking for someone to take on receiving and registering invoices, forms, records and other documents for data capture. The work also covers entering numerical data, codes a nd text from source material into computer-compatible storage and processing devices.",
+    "title": "Data Entry Clerk needed — entering numerical data, codes and text from source",
+    "description": "We are looking for someone to take on entering numerical data, codes and text from source material into computer-compatible storage and processing devices.",
     "category": "Business",
     "required_skills": [
       "Data Entry Clerk",
@@ -703,7 +703,7 @@
     "id": "g-4222-1",
     "kesco_code": "4222",
     "title": "Contact Centre Agent needed — dealing with incoming calls and messages from",
-    "description": "We are looking for someone to take on dealing with incoming calls and messages from clients, whether to answer queries, handle calls for service or sort out complaints. The work also covers identifying requirements and entering events into a computer system. The work also covers dispatching tasks to other units, when relevant.",
+    "description": "We are looking for someone to take on dealing with incoming calls and messages from clients, whether to answer queries, handle calls for service or sort out complaints.",
     "category": "Business",
     "required_skills": [
       "Contact Centre Information",
@@ -718,8 +718,8 @@
   {
     "id": "g-4222-2",
     "kesco_code": "4222",
-    "title": "Contact Centre Agent needed — dispatching tasks to other units, when relevant",
-    "description": "We are looking for someone to take on dispatching tasks to other units, when relevant.",
+    "title": "Contact Centre Agent needed — identifying requirements and entering events into a",
+    "description": "We are looking for someone to take on identifying requirements and entering events into a computer system.",
     "category": "Business",
     "required_skills": [
       "Contact Centre Information",
@@ -735,7 +735,7 @@
     "id": "g-4227-1",
     "kesco_code": "4227",
     "title": "Market Research Interviewer needed — contacting individuals by telephone or in person and",
-    "description": "We are looking for someone to take on contacting individuals by telephone or in person and explaining the purpose of the interview. The work also covers asking questions following the outlines of questionnaires and surveys.",
+    "description": "We are looking for someone to take on contacting individuals by telephone or in person and explaining the purpose of the interview.",
     "category": "Marketing",
     "required_skills": [
       "Survey Market Research",
@@ -750,8 +750,8 @@
   {
     "id": "g-4227-2",
     "kesco_code": "4227",
-    "title": "Market Research Interviewer needed — contacting individuals by telephone or in person and",
-    "description": "We are looking for someone to take on contacting individuals by telephone or in person and explaining the purpose of the interview. The work also covers asking questions following the outlines of questionnaires and surveys.",
+    "title": "Market Research Interviewer needed — asking questions following the outlines of",
+    "description": "We are looking for someone to take on asking questions following the outlines of questionnaires and surveys.",
     "category": "Marketing",
     "required_skills": [
       "Survey Market Research",
@@ -767,7 +767,7 @@
     "id": "g-4311-1",
     "kesco_code": "4311",
     "title": "Book-keeping Clerk needed — checking figures, postings, and documents for correct",
-    "description": "We are looking for someone to take on checking figures, postings, and documents for correct entry, mathematical accuracy, and proper codes. The work also covers operating computers programmed with accounting software to record, store, and analyze information.",
+    "description": "We are looking for someone to take on checking figures, postings, and documents for correct entry, mathematical accuracy, and proper codes.",
     "category": "Business",
     "required_skills": [
       "Accounting Book Keeping",
@@ -782,8 +782,8 @@
   {
     "id": "g-4311-2",
     "kesco_code": "4311",
-    "title": "Book-keeping Clerk needed — checking figures, postings, and documents for correct",
-    "description": "We are looking for someone to take on checking figures, postings, and documents for correct entry, mathematical accuracy, and proper codes. The work also covers operating computers programmed with accounting software to record, store, and analyze information.",
+    "title": "Book-keeping Clerk needed — operating computers programmed with accounting",
+    "description": "We are looking for someone to take on operating computers programmed with accounting software to record, store, and analyze information.",
     "category": "Business",
     "required_skills": [
       "Accounting Book Keeping",

@@ -267,11 +267,17 @@ def build_gigs(occ: dict, rng: random.Random, count: int = 2) -> list[dict]:
     tasks = gig_tasks(occ)
     gigs = []
 
+    # Partition the tasks into disjoint chunks, one per gig, so two gigs from
+    # the same occupation are genuinely different pieces of work. The previous
+    # slicing wrapped around with a modulo and silently produced identical
+    # gigs whenever an occupation had two tasks or fewer — duplicates that then
+    # collided on title and corrupted the end-to-end measurement.
+    chunk = max(1, len(tasks) // count)
+
     for index in range(count):
-        slice_start = (index * 2) % max(1, len(tasks))
-        chosen = tasks[slice_start: slice_start + 3] or tasks[:3]
+        chosen = tasks[index * chunk: (index + 1) * chunk][:3]
         if not chosen:
-            continue
+            break
 
         lead = chosen[0]
 
@@ -329,6 +335,15 @@ def main() -> None:
     gigs: list[dict] = []
     for occ in occupations:
         gigs.extend(build_gigs(occ, rng))
+
+    # Titles are how live_eval maps a service response back to a corpus gig,
+    # so a collision silently drops results from the measurement.
+    seen: dict[str, str] = {}
+    for gig in gigs:
+        clash = seen.get(gig["title"])
+        if clash:
+            raise SystemExit(f"duplicate gig title: {gig['id']} and {clash} share \"{gig['title']}\"")
+        seen[gig["title"]] = gig["id"]
 
     overrides = json.loads(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
     extra_gigs = overrides.get("gigs", [])
