@@ -207,7 +207,10 @@ def trim_title(task: str, width: int = 54) -> str:
     dangling apostrophe where the source said "customers' needs", which reads
     as a bug rather than a style.
     """
-    text = task.lstrip(" –—-")
+    # Leading punctuation as well as dashes: some task statements begin with a
+    # stray comma where the source had a line-break list marker, which would
+    # otherwise render as "needed — , writing and maintaining…".
+    text = task.lstrip(" ,;:.–—-")
     text = text[0].lower() + text[1:] if text else text
     if len(text) <= width:
         return text.rstrip(" ,;:.’‘'\"")
@@ -282,7 +285,7 @@ def build_gigs(occ: dict, rng: random.Random, count: int = 2) -> list[dict]:
         lead = chosen[0]
 
         def sentence(text: str) -> str:
-            text = text.lstrip(" –—-")
+            text = text.lstrip(" ,;:.–—-")
             return text[0].lower() + text[1:] if text else text
 
         description = (
