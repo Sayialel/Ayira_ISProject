@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Tabular figures wherever money or counts are compared down a column. */
+    font-variant-numeric: tabular-nums;
+  }
+
+  body {
+    @apply font-sans;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings get tighter tracking; at display sizes the default looks loose. */
+  h1, h2, h3 {
+    @apply tracking-tight;
+    text-wrap: balance;
+  }
+
+  /* One focus treatment everywhere, rather than the browser default on some
+     controls and nothing on others. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ayira-500 ring-offset-2 ring-offset-slate-50;
+  }
+
+  /* Honour a reduced-motion preference globally rather than per component. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Skeletons sweep rather than blink: a pulse reads as something broken,
+     a sweep reads as something loading. */
+  .skeleton {
+    @apply relative overflow-hidden bg-slate-200/70;
+  }
+  .skeleton::after {
+    @apply absolute inset-0;
+    content: '';
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.55) 60%,
+      rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 1.6s infinite;
+  }
+}

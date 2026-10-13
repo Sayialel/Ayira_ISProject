@@ -1,5 +1,5 @@
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
-import { Home, Briefcase, User, LogOut, Sparkles, FileText, Plus, LayoutList } from 'lucide-react';
+import { Home, Briefcase, User, LogOut, Sparkles, FileText, Plus, LayoutList, Wallet } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface NavItem {
@@ -15,6 +15,7 @@ const WORKER_NAV: NavItem[] = [
   { to: '/app/gigs', label: 'Gigs', icon: Briefcase },
   { to: '/app/matches', label: 'Matches', icon: Sparkles },
   { to: '/app/applications', label: 'Applied', icon: FileText },
+  { to: '/app/escrow', label: 'Payments', icon: Wallet },
   { to: '/app/profile', label: 'Profile', icon: User },
 ];
 
@@ -23,6 +24,7 @@ const EMPLOYER_NAV: NavItem[] = [
   { to: '/app/gigs', label: 'Gigs', icon: Briefcase },
   { to: '/app/my-gigs', label: 'My gigs', icon: LayoutList },
   { to: '/app/gigs/create', label: 'Post', icon: Plus },
+  { to: '/app/escrow', label: 'Payments', icon: Wallet },
   { to: '/app/profile', label: 'Profile', icon: User },
 ];
 

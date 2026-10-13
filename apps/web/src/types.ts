@@ -91,6 +91,55 @@ export interface PublicProfileData extends UserProfile {
   total_reviews: number;
 }
 
+export type EscrowStatus =
+  | 'pending'
+  | 'funded'
+  | 'released'
+  | 'disputed'
+  | 'refunded'
+  | 'partial_release'
+  | 'cancelled';
+
+export interface EscrowEvent {
+  id: string;
+  from_status: string | null;
+  to_status: string;
+  detail: string | null;
+  created_at: string;
+}
+
+export interface Escrow {
+  id: string;
+  gig_id: string;
+  employer_id: string;
+  worker_id: string;
+  amount: number;
+  currency: string;
+  mpesa_checkout_id: string | null;
+  mpesa_receipt: string | null;
+  status: EscrowStatus;
+  funded_at: string | null;
+  released_at: string | null;
+  created_at: string;
+  gig?: { id: string; title: string; status: GigStatus } | null;
+  employer?: { id: string; full_name: string; avatar_url: string | null } | null;
+  worker?: { id: string; full_name: string; avatar_url: string | null } | null;
+  events?: EscrowEvent[];
+}
+
+export interface EscrowListResponse extends Paginated {
+  escrow: Escrow[];
+  /** False when the server has no Daraja credentials, so funding is unavailable. */
+  mpesa_configured: boolean;
+}
+
+export interface FundResponse {
+  escrow_id: string;
+  checkout_request_id: string;
+  amount: number;
+  message: string;
+}
+
 export interface SkillCategory {
   id: string;
   name: string;

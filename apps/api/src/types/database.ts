@@ -127,6 +127,16 @@ export type AiMatchLogRow = {
   created_at: string;
 }
 
+export type EscrowEventRow = {
+  id: string;
+  escrow_id: string;
+  from_status: string | null;
+  to_status: string;
+  actor_id: string | null;
+  detail: string | null;
+  created_at: string;
+};
+
 export type SkillCategoryRow = {
   id: string;
   name: string;
@@ -228,6 +238,15 @@ export interface Database {
           FkTo<'ai_match_logs_gig_id_fkey', 'gig_id', 'gigs'>,
         ];
       };
+      escrow_events: {
+        Row: EscrowEventRow;
+        Insert: Insertable<EscrowEventRow, 'escrow_id' | 'to_status'>;
+        Update: Partial<Omit<EscrowEventRow, 'id'>>;
+        Relationships: [
+          FkTo<'escrow_events_escrow_id_fkey', 'escrow_id', 'escrow'>,
+          FkTo<'escrow_events_actor_id_fkey', 'actor_id', 'users'>,
+        ];
+      };
       skill_categories: {
         Row: SkillCategoryRow;
         Insert: Insertable<SkillCategoryRow, 'name'>;
@@ -245,6 +264,33 @@ export interface Database {
       accept_application: {
         Args: { p_application_id: string };
         Returns: ApplicationRow;
+      };
+      /**
+       * Escrow mutation, all defined in migration 016 and executable only by
+       * the service role. Clients have no write access to the escrow table at
+       * all, so these are the only way its state can change.
+       */
+      open_escrow: {
+        Args: {
+          p_gig_id: string;
+          p_employer_id: string;
+          p_worker_id: string;
+          p_amount: number;
+        };
+        Returns: EscrowRow;
+      };
+      mark_escrow_funded: {
+        Args: { p_checkout_id: string; p_receipt: string | null };
+        Returns: EscrowRow;
+      };
+      transition_escrow: {
+        Args: {
+          p_escrow_id: string;
+          p_actor_id: string;
+          p_to_status: string;
+          p_detail?: string | null;
+        };
+        Returns: EscrowRow;
       };
     };
   };

@@ -9,7 +9,7 @@ import { authRouter } from './routes/auth';
 import { gigRouter } from './routes/gigs';
 import { workerRouter } from './routes/workers';
 import { applicationRouter } from './routes/applications';
-import { escrowRouter } from './routes/escrow';
+import { escrowRouter, escrowCallbackRouter } from './routes/escrow';
 import { adminRouter } from './routes/admin';
 import { matchingRouter } from './routes/matching';
 import { errorHandler } from './middleware/errorHandler';
@@ -40,6 +40,11 @@ app.get('/health', (_req, res) => {
 // Public routes — the only ones reachable without a token, so the strictest
 // budget applies here.
 app.use('/api/auth', authLimiter, authRouter);
+
+// Safaricom calls this and carries no credential of ours, so it must sit
+// outside authMiddleware. It is secured by only acting on a CheckoutRequestID
+// that already exists on a pending escrow — see the handler.
+app.use('/api/escrow/callback', escrowCallbackRouter);
 
 // Protected routes
 app.use('/api', apiLimiter);

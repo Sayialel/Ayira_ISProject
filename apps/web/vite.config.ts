@@ -12,4 +12,18 @@ export default defineConfig({
     alias: { '@': path.resolve(__dirname, './src') },
   },
   server: { port: 5173, proxy: { '/api': 'http://localhost:3001' } },
+  build: {
+    rollupOptions: {
+      output: {
+        // Vendor code changes far less often than ours, so splitting it lets a
+        // returning visitor re-download only what actually changed. Supabase
+        // is separated again because it is large and only the auth flow needs
+        // it on first paint.
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          supabase: ['@supabase/supabase-js'],
+        },
+      },
+    },
+  },
 });

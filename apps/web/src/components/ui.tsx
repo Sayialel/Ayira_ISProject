@@ -1,61 +1,126 @@
 import { ReactNode, useEffect } from 'react';
 import { Loader2, AlertCircle, Inbox, CheckCircle2 } from 'lucide-react';
 import { initialsOf } from '@/lib/format';
-import type { ApplicationStatus, GigStatus } from '@/types';
+import type { ApplicationStatus, EscrowStatus, GigStatus } from '@/types';
 
 /* -------------------------------------------------------------------------- */
 /* Status badges                                                              */
 /* -------------------------------------------------------------------------- */
 
+const BADGE =
+  'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset';
+
 const GIG_STATUS_STYLES: Record<GigStatus, string> = {
-  draft: 'bg-gray-100 text-gray-700',
-  open: 'bg-green-100 text-green-700',
-  in_progress: 'bg-blue-100 text-blue-700',
-  completed: 'bg-ayira-100 text-ayira-700',
-  cancelled: 'bg-red-100 text-red-700',
+  draft: 'bg-slate-100 text-slate-600 ring-slate-200',
+  open: 'bg-green-50 text-green-700 ring-green-200',
+  in_progress: 'bg-ayira-50 text-ayira-700 ring-ayira-200',
+  completed: 'bg-slate-100 text-slate-700 ring-slate-200',
+  cancelled: 'bg-red-50 text-red-700 ring-red-200',
 };
 
 const APPLICATION_STATUS_STYLES: Record<ApplicationStatus, string> = {
-  pending: 'bg-amber-100 text-amber-800',
-  shortlisted: 'bg-blue-100 text-blue-700',
-  accepted: 'bg-green-100 text-green-700',
-  rejected: 'bg-red-100 text-red-700',
-  withdrawn: 'bg-gray-100 text-gray-600',
+  pending: 'bg-amber-50 text-amber-700 ring-amber-200',
+  shortlisted: 'bg-ayira-50 text-ayira-700 ring-ayira-200',
+  accepted: 'bg-green-50 text-green-700 ring-green-200',
+  rejected: 'bg-red-50 text-red-700 ring-red-200',
+  withdrawn: 'bg-slate-100 text-slate-600 ring-slate-200',
+};
+
+// Money states get their own scale, anchored on gold, so a payment state is
+// never mistaken for a gig state at a glance.
+const ESCROW_STATUS_STYLES: Record<EscrowStatus, string> = {
+  pending: 'bg-gold-50 text-gold-700 ring-gold-100',
+  funded: 'bg-ayira-50 text-ayira-700 ring-ayira-200',
+  released: 'bg-green-50 text-green-700 ring-green-200',
+  disputed: 'bg-red-50 text-red-700 ring-red-200',
+  refunded: 'bg-slate-100 text-slate-700 ring-slate-200',
+  partial_release: 'bg-gold-50 text-gold-700 ring-gold-100',
+  cancelled: 'bg-slate-100 text-slate-500 ring-slate-200',
 };
 
 const STATUS_LABELS: Record<string, string> = {
   in_progress: 'In progress',
+  partial_release: 'Partly released',
+  pending: 'Awaiting payment',
 };
 
-function labelFor(status: string): string {
-  return STATUS_LABELS[status] ?? status.charAt(0).toUpperCase() + status.slice(1);
+function labelFor(status: string, override?: Record<string, string>): string {
+  return (
+    override?.[status] ??
+    STATUS_LABELS[status] ??
+    status.charAt(0).toUpperCase() + status.slice(1)
+  );
 }
 
 export function GigStatusBadge({ status }: { status: GigStatus }) {
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${GIG_STATUS_STYLES[status]}`}
-    >
-      {labelFor(status)}
+    <span className={`${BADGE} ${GIG_STATUS_STYLES[status]}`}>
+      {labelFor(status, { pending: 'Pending' })}
     </span>
   );
 }
 
 export function ApplicationStatusBadge({ status }: { status: ApplicationStatus }) {
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${APPLICATION_STATUS_STYLES[status]}`}
-    >
-      {labelFor(status)}
+    <span className={`${BADGE} ${APPLICATION_STATUS_STYLES[status]}`}>
+      {labelFor(status, { pending: 'Pending' })}
     </span>
   );
 }
 
+export function EscrowStatusBadge({ status }: { status: EscrowStatus }) {
+  return <span className={`${BADGE} ${ESCROW_STATUS_STYLES[status]}`}>{labelFor(status)}</span>;
+}
+
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-md bg-ayira-50 px-2 py-0.5 text-xs font-medium text-ayira-700">
+    <span className="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">
       {children}
     </span>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Surfaces                                                                   */
+/* -------------------------------------------------------------------------- */
+
+export function Card({
+  children,
+  className = '',
+  interactive = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  interactive?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-xl border border-slate-200 bg-white shadow-card ${
+        interactive ? 'transition-all hover:border-ayira-200 hover:shadow-lift' : ''
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function SectionHeading({
+  title,
+  description,
+  action,
+}: {
+  title: string;
+  description?: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
+      <div className="min-w-0">
+        <h1 className="text-2xl font-bold text-slate-900">{title}</h1>
+        {description && <p className="mt-1 text-sm text-slate-500">{description}</p>}
+      </div>
+      {action && <div className="shrink-0">{action}</div>}
+    </div>
   );
 }
 
@@ -69,25 +134,25 @@ export function Spinner({ className = '' }: { className?: string }) {
 
 export function LoadingBlock({ label = 'Loading…' }: { label?: string }) {
   return (
-    <div
-      role="status"
-      className="flex items-center justify-center gap-2 py-12 text-sm text-gray-500"
-    >
+    <div role="status" className="flex items-center justify-center gap-2.5 py-16 text-sm text-slate-500">
       <Spinner />
       {label}
     </div>
   );
 }
 
-/** Grey placeholder rows shown while a list loads. */
 export function SkeletonList({ rows = 3 }: { rows?: number }) {
   return (
     <div className="space-y-3" aria-hidden>
       {Array.from({ length: rows }).map((_, i) => (
-        <div key={i} className="animate-pulse rounded-lg border border-gray-200 bg-white p-4">
-          <div className="h-4 w-1/3 rounded bg-gray-200" />
-          <div className="mt-3 h-3 w-2/3 rounded bg-gray-100" />
-          <div className="mt-2 h-3 w-1/2 rounded bg-gray-100" />
+        <div key={i} className="rounded-xl border border-slate-200 bg-white p-5 shadow-card">
+          <div className="skeleton h-4 w-1/3 rounded" />
+          <div className="skeleton mt-3 h-3 w-2/3 rounded" />
+          <div className="skeleton mt-2 h-3 w-1/2 rounded" />
+          <div className="mt-4 flex gap-2">
+            <div className="skeleton h-6 w-16 rounded-md" />
+            <div className="skeleton h-6 w-20 rounded-md" />
+          </div>
         </div>
       ))}
     </div>
@@ -98,16 +163,16 @@ export function ErrorMessage({ message, onRetry }: { message: string; onRetry?: 
   return (
     <div
       role="alert"
-      className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800"
+      className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800"
     >
       <AlertCircle size={18} className="mt-0.5 shrink-0" aria-hidden />
       <div className="flex-1">
-        <p>{message}</p>
+        <p className="font-medium">{message}</p>
         {onRetry && (
           <button
             type="button"
             onClick={onRetry}
-            className="mt-2 font-medium underline underline-offset-2 hover:no-underline"
+            className="mt-2 font-semibold underline underline-offset-2 hover:no-underline"
           >
             Try again
           </button>
@@ -121,10 +186,10 @@ export function SuccessMessage({ message }: { message: string }) {
   return (
     <div
       role="status"
-      className="flex items-start gap-3 rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-800"
+      className="flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-800"
     >
       <CheckCircle2 size={18} className="mt-0.5 shrink-0" aria-hidden />
-      <p>{message}</p>
+      <p className="font-medium">{message}</p>
     </div>
   );
 }
@@ -133,17 +198,23 @@ export function EmptyState({
   title,
   description,
   action,
+  icon,
 }: {
   title: string;
   description?: string;
   action?: ReactNode;
+  icon?: ReactNode;
 }) {
   return (
-    <div className="rounded-lg border border-dashed border-gray-300 bg-white px-6 py-12 text-center">
-      <Inbox className="mx-auto text-gray-300" size={36} aria-hidden />
-      <h3 className="mt-3 font-medium text-gray-900">{title}</h3>
-      {description && <p className="mt-1 text-sm text-gray-500">{description}</p>}
-      {action && <div className="mt-4">{action}</div>}
+    <div className="rounded-xl border border-dashed border-slate-300 bg-white/60 px-6 py-14 text-center">
+      <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+        {icon ?? <Inbox size={22} aria-hidden />}
+      </div>
+      <h3 className="font-semibold text-slate-900">{title}</h3>
+      {description && (
+        <p className="mx-auto mt-1.5 max-w-sm text-sm text-slate-500">{description}</p>
+      )}
+      {action && <div className="mt-5">{action}</div>}
     </div>
   );
 }
@@ -168,7 +239,7 @@ export function Avatar({
         alt=""
         width={size}
         height={size}
-        className="shrink-0 rounded-full object-cover"
+        className="shrink-0 rounded-full object-cover ring-1 ring-slate-200"
         style={{ width: size, height: size }}
       />
     );
@@ -177,7 +248,7 @@ export function Avatar({
   return (
     <div
       aria-hidden
-      className="flex shrink-0 items-center justify-center rounded-full bg-ayira-100 font-semibold text-ayira-700"
+      className="flex shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-ayira-100 to-ayira-200 font-bold text-ayira-800 ring-1 ring-ayira-200"
       style={{ width: size, height: size, fontSize: size * 0.36 }}
     >
       {initialsOf(name) || '?'}
@@ -196,24 +267,22 @@ export function Pagination({
 }) {
   if (totalPages <= 1) return null;
 
+  const btn =
+    'rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-card transition-colors hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none';
+
   return (
-    <nav className="flex items-center justify-between pt-4" aria-label="Pagination">
-      <button
-        type="button"
-        onClick={() => onChange(page - 1)}
-        disabled={page <= 1}
-        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:opacity-40"
-      >
+    <nav className="flex items-center justify-between pt-6" aria-label="Pagination">
+      <button type="button" onClick={() => onChange(page - 1)} disabled={page <= 1} className={btn}>
         Previous
       </button>
-      <span className="text-sm text-gray-500">
-        Page {page} of {totalPages}
+      <span className="text-sm text-slate-500">
+        Page <span className="font-semibold text-slate-700">{page}</span> of {totalPages}
       </span>
       <button
         type="button"
         onClick={() => onChange(page + 1)}
         disabled={page >= totalPages}
-        className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm disabled:opacity-40"
+        className={btn}
       >
         Next
       </button>

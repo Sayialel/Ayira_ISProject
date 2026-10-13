@@ -17,6 +17,7 @@ import {
   usePageTitle,
 } from '@/components/ui';
 import { formatBudgetRange, formatDate, formatRelative, isPastDeadline } from '@/lib/format';
+import FundEscrow from '@/components/FundEscrow';
 import type { Application, ApplicationListResponse, ApplicationStatus, GigDetail } from '@/types';
 
 const MIN_COVER_LETTER = 20;
@@ -256,6 +257,21 @@ export default function GigDetailPage() {
           )}
         </section>
       )}
+
+      {/* Employer: fund the worker they hired */}
+      {isOwner && gig.status === 'in_progress' && (() => {
+        const hired = applications.find((a) => a.status === 'accepted');
+        if (!hired?.worker) return null;
+        return (
+          <FundEscrow
+            gigId={gig.id}
+            workerId={hired.worker.id}
+            workerName={hired.worker.full_name}
+            suggestedAmount={hired.proposed_amount}
+            onFunded={applicationsQuery.refetch}
+          />
+        );
+      })()}
 
       {/* Employer: applicant list */}
       {isOwner && (
