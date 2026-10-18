@@ -1,0 +1,65 @@
+{
+  "run_id": "20261018T215323Z__baselines-validation__4c277de",
+  "name": "baselines-validation",
+  "started_at": "2026-10-18T21:53:23.119269+00:00",
+  "finished_at": "2026-10-18T21:54:00.446991+00:00",
+  "git": {
+    "commit": "4c277de90b13c07a7d6537772ac129d072652db0",
+    "short_commit": "4c277de",
+    "branch": "main",
+    "dirty": false,
+    "uncommitted_files": 0,
+    "uncommitted_paths": []
+  },
+  "dataset_version": "140a66f39f04",
+  "seeds": {
+    "random_baseline": 0,
+    "split": 20261018
+  },
+  "parameters": {
+    "split": "validation",
+    "weights_shipped": {
+      "semantic": 0.45,
+      "tfidf": 0.25,
+      "location": 0.15,
+      "reputation": 0.15
+    },
+    "weights_tuned": {
+      "semantic": 0.6,
+      "tfidf": 0.2,
+      "location": 0.05,
+      "reputation": 0.15
+    },
+    "tfidf_fitted_on": "train",
+    "tfidf_vocabulary_size": 1160,
+    "metrics_at_k": {
+      "precision": [
+        5,
+        10
+      ],
+      "recall": [
+        10
+      ],
+      "ndcg": [
+        10
+      ]
+    }
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": "Phase A audit: baseline reproduction."
+}
