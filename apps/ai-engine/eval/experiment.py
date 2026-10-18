@@ -75,13 +75,25 @@ def runs_root() -> Path:
     return LOCAL_RUNS
 
 
+# Evidence written by runs themselves. Changes here say nothing about whether
+# the code could be rebuilt from its commit, so they are excluded from the
+# dirty assessment below.
+EVIDENCE_PREFIXES = ("apps/ai-engine/eval/results/",)
+
+
 def git_state() -> dict[str, Any]:
     """
     The commit the code came from, and whether it had uncommitted edits.
 
     `dirty` matters more than it looks: a run made from a modified working tree
     cannot be reproduced from its commit, and saying so is the difference
-    between evidence and an anecdote.
+    between evidence and an anecdote. `eval.promote` refuses to deploy an
+    artefact from a dirty run for exactly that reason.
+
+    Which is why the run's own output folder must not count. Runs write their
+    evidence into the repository, so a local run would otherwise observe the
+    directory it had just created and report itself as unreproducible --
+    marking every run dirty and making the flag useless.
     """
     repo = HERE.parents[2]
 
@@ -97,13 +109,38 @@ def git_state() -> dict[str, Any]:
     commit = git("rev-parse", "HEAD")
     status = git("status", "--porcelain")
 
+    changed: list[str] | None = None
+    if status is not None:
+        changed = [
+            path
+            for path in (_porcelain_path(line) for line in status.splitlines())
+            if path and not path.startswith(EVIDENCE_PREFIXES)
+        ]
+
     return {
         "commit": commit,
         "short_commit": commit[:7] if commit else None,
         "branch": git("rev-parse", "--abbrev-ref", "HEAD"),
-        "dirty": bool(status) if status is not None else None,
-        "uncommitted_files": len(status.splitlines()) if status else 0,
+        "dirty": bool(changed) if changed is not None else None,
+        "uncommitted_files": len(changed) if changed else 0,
+        "uncommitted_paths": sorted(changed or [])[:20],
     }
+
+
+def _porcelain_path(line: str) -> str | None:
+    """
+    The path out of one `git status --porcelain` line.
+
+    Split on whitespace rather than slicing a fixed column: the status field is
+    two characters, but the surrounding output gets stripped before it reaches
+    here, so a leading space may or may not still be present and a fixed offset
+    silently loses the first character of the path.
+    """
+    parts = line.split(maxsplit=1)
+    if len(parts) < 2:
+        return None
+    # A rename reads "old -> new"; the new path is the one that exists.
+    return parts[1].split(" -> ")[-1].strip().strip('"')
 
 
 def dependency_versions() -> dict[str, str]:
@@ -132,13 +169,18 @@ class Run:
     run_id: str = field(init=False)
     directory: Path = field(init=False)
     started_at: str = field(init=False)
+    # Captured once, before the run folder exists, and reused in the manifest.
+    # Re-reading it at finish would describe the tree *after* the run wrote its
+    # own outputs, not the code that produced the result.
+    git: dict = field(init=False, default_factory=dict)
     _log: list[str] = field(init=False, default_factory=list)
 
     def __post_init__(self) -> None:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        self.git = git_state()
         # The id carries the name and the commit, so a folder is identifiable
         # from its name alone without opening anything.
-        commit = git_state().get("short_commit") or "nocommit"
+        commit = self.git.get("short_commit") or "nocommit"
         self.run_id = f"{stamp}__{self.name}__{commit}"
         self.started_at = datetime.now(timezone.utc).isoformat()
         self.directory = runs_root() / self.run_id
@@ -174,7 +216,7 @@ class Run:
             "name": self.name,
             "started_at": self.started_at,
             "finished_at": datetime.now(timezone.utc).isoformat(),
-            "git": git_state(),
+            "git": self.git,
             "dataset_version": self.dataset_version,
             "seeds": self.seeds,
             "parameters": self.params,
