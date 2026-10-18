@@ -107,8 +107,17 @@ def _stratified(profiles: list[dict]) -> tuple[list[str], list[str], list[str]]:
     train, which would make the validation and test figures measure something
     different from each other. Stratifying removes that accident.
 
-    Assignment is by a hash of the profile id rather than a shuffle, so adding a
-    profile later moves only that profile rather than reshuffling everyone.
+    Ordering within a category is by a hash of the profile id rather than a
+    shuffle, so the order is stable across machines and Python versions and
+    does not depend on the order of the corpus file.
+
+    That bounds the churn from adding a profile but does not eliminate it: the
+    *order* is preserved, yet the cut points move with the count, so a profile
+    sitting on a boundary can change split. Expect a couple of profiles to move
+    when the corpus grows, and treat figures from before and after as measured
+    on different splits -- which the dataset version makes visible. True
+    per-profile stability would need hash bucketing, which at this corpus size
+    would give splits too uneven to keep every category in each one.
     """
     by_category: dict[str, list[str]] = {}
     for profile in profiles:

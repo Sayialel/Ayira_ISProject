@@ -28,6 +28,7 @@ whether the *rule* holds, rather than grading hundreds of pairs from scratch.
 """
 
 import csv
+import hashlib
 import json
 import math
 import random
@@ -261,6 +262,71 @@ def build_profile(occ: dict, rng: random.Random) -> dict:
     }
 
 
+# Employers posting the work. A pool rather than one per gig, because two gigs
+# from the same employer must share a reputation -- that is what makes the
+# signal informative about *who* is hiring rather than noise attached to each
+# listing.
+EMPLOYER_COUNT = 25
+
+# Share of employers who have never been reviewed. New employers are a real and
+# permanent feature of a marketplace, not an edge case, and the engine has to
+# rank their gigs without punishing them for being new.
+UNREVIEWED_SHARE = 0.20
+
+
+def build_employers(rng: random.Random) -> list[dict]:
+    """
+    The employer pool, with reputations on the platform's 1-5 review scale.
+
+    Ratings are drawn high and tight because that is what review distributions
+    on real marketplaces look like -- almost everything clusters between 3.5
+    and 5, and a mean near the midpoint would be unrealistic. The consequence
+    is a signal with genuinely little spread, which is worth knowing before
+    reading much into its weight.
+
+    An unreviewed employer is recorded exactly as the database records one:
+    reputation_score 0.00 with a review count of 0. Writing it this way keeps
+    the corpus honest about the ambiguity the scorer has to resolve, instead of
+    hiding it behind a None.
+    """
+    employers = []
+    for index in range(EMPLOYER_COUNT):
+        if rng.random() < UNREVIEWED_SHARE:
+            reputation, reviews = 0.0, 0
+        else:
+            reviews = rng.randint(1, 40)
+            reputation = round(min(5.0, rng.gauss(4.3, 0.45)), 2)
+            # A 1-5 scale cannot produce anything below 1.
+            reputation = max(1.0, reputation)
+        employers.append(
+            {
+                "id": f"e-{index + 1:02d}",
+                "employer_reputation": reputation,
+                "employer_review_count": reviews,
+            }
+        )
+    return employers
+
+
+def assign_employers(gigs: list[dict], employers: list[dict]) -> None:
+    """
+    Attaches an employer to every gig, in place.
+
+    Assignment is by a hash of the gig id rather than by drawing from the
+    shared RNG. Drawing here would advance the same stream that generates
+    locations, budgets and remote flags, so adding employers would have
+    silently rewritten every gig's text and budget and churned the whole
+    corpus. Hashing leaves the existing gigs byte-identical and only adds
+    fields.
+    """
+    for gig in gigs:
+        digest = hashlib.sha256(gig["id"].encode("utf-8")).hexdigest()
+        employer = employers[int(digest, 16) % len(employers)]
+        gig["employer_id"] = employer["id"]
+        gig["employer_reputation"] = employer["employer_reputation"]
+        gig["employer_review_count"] = employer["employer_review_count"]
+
+
 def build_gigs(occ: dict, rng: random.Random, count: int = 2) -> list[dict]:
     """
     Builds gigs from the occupation's task statements.
@@ -339,6 +405,9 @@ def main() -> None:
     occupations = load_occupations()
 
     profiles = [build_profile(o, rng) for o in occupations]
+    # A separate stream, for the same reason assign_employers hashes: it must
+    # not shift the draws that generate the gigs themselves.
+    employers = build_employers(random.Random(SEED + 1))
     gigs: list[dict] = []
     for occ in occupations:
         gigs.extend(build_gigs(occ, rng))
@@ -355,6 +424,8 @@ def main() -> None:
     overrides = json.loads(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
     extra_gigs = overrides.get("gigs", [])
     gigs.extend(extra_gigs)
+
+    assign_employers(gigs, employers)
 
     # Derived baseline over every real pair.
     graded: dict[tuple[str, str], tuple[int, str, str]] = {}

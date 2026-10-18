@@ -1,0 +1,5 @@
+2026-10-18T22:22:23.854665+00:00  run 20261018T222223Z__ablation-validation__48629e0 started
+2026-10-18T22:22:23.854665+00:00  validation: 9 profiles x 104 gigs, 88 graded pairs
+2026-10-18T22:22:23.854665+00:00  dataset version bba966c0214e
+2026-10-18T22:22:23.854665+00:00  Extracting features...
+2026-10-18T22:24:29.105701+00:00  run 20261018T222223Z__ablation-validation__48629e0 finished

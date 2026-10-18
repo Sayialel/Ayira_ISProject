@@ -35,7 +35,10 @@ const gigScoreSchema = z.object({
     semantic: z.number().optional(),
     tfidf: z.number().optional(),
     location: z.boolean().optional(),
-    reputation: z.number().optional(),
+    // The *employer's* reputation, not the worker's. The engine used to score
+    // the worker's own, which is identical for every candidate gig and so
+    // could not affect the ranking at all.
+    employer_reputation: z.number().optional(),
   }),
 });
 

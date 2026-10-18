@@ -13,11 +13,15 @@ import { formatBudgetRange, formatRelative, toPercent } from '@/lib/format';
 import type { GigMatch, MatchBreakdown, MatchResponse } from '@/types';
 
 /** The weights the AI engine applies in composite_score(). */
+// Must match DEFAULT_WEIGHTS in apps/ai-engine/app/services/scoring.py. These
+// had drifted badly -- they still showed the weights the project first shipped
+// (0.45/0.25/0.15/0.15), long after the engine had moved on, so the panel was
+// explaining the ranking with numbers the ranking no longer used.
 const WEIGHTS: { key: keyof MatchBreakdown; label: string; weight: number }[] = [
-  { key: 'semantic', label: 'Skills & description fit', weight: 0.45 },
-  { key: 'tfidf', label: 'Keyword overlap', weight: 0.25 },
-  { key: 'location', label: 'Location', weight: 0.15 },
-  { key: 'reputation', label: 'Reputation', weight: 0.15 },
+  { key: 'semantic', label: 'Skills & description fit', weight: 0.72 },
+  { key: 'tfidf', label: 'Keyword overlap', weight: 0.22 },
+  { key: 'location', label: 'Location', weight: 0.03 },
+  { key: 'employer_reputation', label: 'Employer reputation', weight: 0.03 },
 ];
 
 export default function AIMatches() {
@@ -181,10 +185,11 @@ function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
         {WEIGHTS.map(({ key, label, weight }) => {
           const raw = breakdown[key];
 
-          // location arrives as a boolean; reputation is on a 0–5 scale.
+          // location arrives as a boolean; employer reputation is 0–5.
           let value: number;
           if (key === 'location') value = raw ? 1 : 0;
-          else if (key === 'reputation') value = Math.min(Number(raw ?? 0) / 5, 1);
+          else if (key === 'employer_reputation')
+            value = Math.min(Number(raw ?? 0) / 5, 1);
           else value = Math.max(0, Math.min(Number(raw ?? 0), 1));
 
           return (

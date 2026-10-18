@@ -33,8 +33,10 @@ from app.services import tfidf_model
 from app.services.embeddings import compute_semantic_similarities
 from app.services.scoring import (
     DEFAULT_WEIGHTS,
+    REPUTATION_SCALE,
     SHIPPED_WEIGHTS,
     Weights,
+    employer_reputation,
     gig_text,
     is_location_match,
     profile_text,
@@ -132,7 +134,6 @@ def extract_features(corpus: Corpus) -> FeatureMatrix:
     for profile in corpus.profiles:
         text = profile_text(profile)
         location = (profile.get("location") or "").strip()
-        reputation = min(max(float(profile.get("reputation_score") or 0), 0.0) / 5.0, 1.0)
 
         semantic = compute_semantic_similarities(text, texts)
         tfidf = tfidf_model.similarities(corpus.vectorizer, text, texts)
@@ -145,7 +146,15 @@ def extract_features(corpus: Corpus) -> FeatureMatrix:
                     np.array(
                         [1.0 if is_location_match(location, g) else 0.0 for g in corpus.gigs]
                     ),
-                    np.full(len(gig_ids), reputation),
+                    # Per gig, not per worker: this is the employer's
+                    # reputation, which is what varies across the candidates
+                    # and so what can actually reorder them.
+                    np.array(
+                        [
+                            min(employer_reputation(g) / REPUTATION_SCALE, 1.0)
+                            for g in corpus.gigs
+                        ]
+                    ),
                 ]
             )
         )

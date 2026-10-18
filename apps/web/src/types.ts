@@ -188,7 +188,8 @@ export interface MatchBreakdown {
   semantic?: number;
   tfidf?: number;
   location?: boolean;
-  reputation?: number;
+  /** The employer's reputation on the 0-5 review scale, not the worker's. */
+  employer_reputation?: number;
 }
 
 export interface GigMatch {
