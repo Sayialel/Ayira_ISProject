@@ -1,0 +1,6 @@
+2026-10-18T18:41:02.773347+00:00  run 20261018T184102Z__retrieval-validation__fdd0ee6 started
+2026-10-18T18:41:02.773347+00:00  validation: 9 profiles x 104 gigs, 88 graded pairs
+2026-10-18T18:41:02.773347+00:00  dataset version 140a66f39f04
+2026-10-18T18:41:02.773347+00:00  Extracting features...
+2026-10-18T18:41:13.851513+00:00  smallest lossless shortlist on this corpus: 10
+2026-10-18T18:41:14.149815+00:00  run 20261018T184102Z__retrieval-validation__fdd0ee6 finished

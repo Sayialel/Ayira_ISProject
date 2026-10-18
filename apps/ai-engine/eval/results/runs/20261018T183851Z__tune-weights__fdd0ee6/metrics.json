@@ -1,0 +1,55 @@
+{
+  "rank_invariant_signals": [
+    "reputation"
+  ],
+  "label_uninformative_signals": {
+    "location": -0.00331563016470003,
+    "reputation": 0.007170516487514732
+  },
+  "searched_signals": [
+    "semantic",
+    "tfidf"
+  ],
+  "fixed_weights": {
+    "reputation": 0.15,
+    "location": 0.05
+  },
+  "train": {
+    "current": {
+      "weights": {
+        "semantic": 0.6,
+        "tfidf": 0.2,
+        "location": 0.05,
+        "reputation": 0.15
+      },
+      "ndcg_at_10": 0.805326175004347
+    },
+    "best_found": {
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.25,
+        "location": 0.05,
+        "reputation": 0.15
+      },
+      "ndcg_at_10": 0.8131702606754729
+    }
+  },
+  "validation": {
+    "current_ndcg_at_10": 0.8783752417178952,
+    "best_found_ndcg_at_10": 0.8783487618730508,
+    "gain": -2.6479844844384814e-05,
+    "adopt_margin": 0.005,
+    "adopted": false
+  },
+  "test": {
+    "chosen_weights": {
+      "semantic": 0.6,
+      "tfidf": 0.2,
+      "location": 0.05,
+      "reputation": 0.15
+    },
+    "chosen_ndcg_at_10": 0.8457237857882638,
+    "current_ndcg_at_10": 0.8457237857882638,
+    "gain": 0.0
+  }
+}
