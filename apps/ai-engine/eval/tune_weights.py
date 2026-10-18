@@ -38,7 +38,7 @@ from app.services.scoring import (
     Weights,
     employer_reputation,
     gig_text,
-    is_location_match,
+    location_affinity,
     profile_text,
 )
 from eval import experiment, metrics, plots, splits
@@ -143,9 +143,7 @@ def extract_features(corpus: Corpus) -> FeatureMatrix:
                 [
                     np.asarray(semantic, dtype=float),
                     np.asarray(tfidf, dtype=float),
-                    np.array(
-                        [1.0 if is_location_match(location, g) else 0.0 for g in corpus.gigs]
-                    ),
+                    np.array([location_affinity(location, g) for g in corpus.gigs]),
                     # Per gig, not per worker: this is the employer's
                     # reputation, which is what varies across the candidates
                     # and so what can actually reorder them.

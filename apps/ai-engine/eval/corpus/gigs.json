@@ -29,7 +29,7 @@
       "Personnel",
       "Procedures"
     ],
-    "location": "Eldoret",
+    "location": "Nakuru",
     "is_remote": false,
     "budget_min": 26700,
     "budget_max": 51600,
@@ -67,7 +67,7 @@
       "Special Sales",
       "Price Lists Discount"
     ],
-    "location": "Thika",
+    "location": "Nakuru",
     "is_remote": false,
     "budget_min": 3600,
     "budget_max": 6900,
@@ -200,7 +200,7 @@
       "Level",
       "Lessons"
     ],
-    "location": "Nakuru",
+    "location": "Kisumu",
     "is_remote": false,
     "budget_min": 2600,
     "budget_max": 5100,
@@ -276,7 +276,7 @@
       "Budgetary Accounts Controlling",
       "Financial Statements"
     ],
-    "location": "Nairobi",
+    "location": "Machakos",
     "is_remote": false,
     "budget_min": 5700,
     "budget_max": 11100,
@@ -295,7 +295,7 @@
       "Budgetary Accounts Controlling",
       "Financial Statements"
     ],
-    "location": "Kisumu",
+    "location": "Kilifi",
     "is_remote": false,
     "budget_min": 2080,
     "budget_max": 3000,
@@ -485,7 +485,7 @@
       "Policies",
       "Managers"
     ],
-    "location": "Machakos",
+    "location": "Kericho",
     "is_remote": false,
     "budget_min": 3500,
     "budget_max": 6800,
@@ -542,7 +542,7 @@
       "Orders",
       "Technical Equipment Supplies"
     ],
-    "location": "Nairobi",
+    "location": "Thika",
     "is_remote": false,
     "budget_min": 5400,
     "budget_max": 10400,
@@ -597,7 +597,7 @@
       "Systems Analyst",
       "Research"
     ],
-    "location": "Nakuru",
+    "location": "Kakamega",
     "is_remote": false,
     "budget_min": 9200,
     "budget_max": 17700,
@@ -616,7 +616,7 @@
       "Software",
       "Recommend"
     ],
-    "location": "Kisumu",
+    "location": "Kilifi",
     "is_remote": false,
     "budget_min": 2080,
     "budget_max": 3000,
@@ -635,7 +635,7 @@
       "Software",
       "Recommend"
     ],
-    "location": "Nairobi",
+    "location": "Ruiru",
     "is_remote": false,
     "budget_min": 22500,
     "budget_max": 43500,
@@ -654,7 +654,7 @@
       "Internet Sites",
       "Digital Animations Imaging"
     ],
-    "location": "Nairobi",
+    "location": "Machakos",
     "is_remote": false,
     "budget_min": 4100,
     "budget_max": 7900,
@@ -673,7 +673,7 @@
       "Internet Sites",
       "Digital Animations Imaging"
     ],
-    "location": "Nairobi",
+    "location": "Machakos",
     "is_remote": false,
     "budget_min": 6100,
     "budget_max": 11900,
@@ -730,7 +730,7 @@
       "Software Testing Plans",
       "Software"
     ],
-    "location": "Machakos",
+    "location": "Nyeri",
     "is_remote": false,
     "budget_min": 7800,
     "budget_max": 15100,
@@ -787,7 +787,7 @@
       "Detailed Database Design",
       "Database Architecture Data"
     ],
-    "location": "Nairobi",
+    "location": "Kikuyu",
     "is_remote": false,
     "budget_min": 2500,
     "budget_max": 4900,
@@ -939,7 +939,7 @@
       "Cloud Computing Applications",
       "End-To-End Lifecycle"
     ],
-    "location": "Kisumu",
+    "location": "Malindi",
     "is_remote": false,
     "budget_min": 7000,
     "budget_max": 13500,
@@ -1051,7 +1051,7 @@
       "Translators Interpreters Linguist",
       "Relationships Between Ancient"
     ],
-    "location": "Nairobi",
+    "location": "Thika",
     "is_remote": false,
     "budget_min": 4300,
     "budget_max": 8400,
@@ -1108,7 +1108,7 @@
       "Melodic Harmonic",
       "Ideas"
     ],
-    "location": "Eldoret",
+    "location": "Nakuru",
     "is_remote": false,
     "budget_min": 8700,
     "budget_max": 16900,
@@ -1222,7 +1222,7 @@
       "Legal Documents",
       "Documents"
     ],
-    "location": "Nakuru",
+    "location": "Kakamega",
     "is_remote": false,
     "budget_min": 4200,
     "budget_max": 8200,
@@ -1279,7 +1279,7 @@
       "Photographs",
       "Portrait Photographs"
     ],
-    "location": "Nakuru",
+    "location": "Kisii",
     "is_remote": false,
     "budget_min": 2700,
     "budget_max": 5200,
@@ -1450,7 +1450,7 @@
       "Completed Work",
       "Material"
     ],
-    "location": "Thika",
+    "location": "Nakuru",
     "is_remote": false,
     "budget_min": 4700,
     "budget_max": 9000,
@@ -1563,7 +1563,7 @@
       "Inquiry Clerk",
       "Inquiries"
     ],
-    "location": "Nyeri",
+    "location": "Naivasha",
     "is_remote": false,
     "budget_min": 3200,
     "budget_max": 6200,
@@ -1600,7 +1600,7 @@
       "Individuals",
       "Questions Following The"
     ],
-    "location": "Machakos",
+    "location": "Kericho",
     "is_remote": false,
     "budget_min": 2600,
     "budget_max": 5100,
@@ -1731,7 +1731,7 @@
       "Records",
       "Statements"
     ],
-    "location": "Thika",
+    "location": "Nakuru",
     "is_remote": false,
     "budget_min": 2100,
     "budget_max": 4100,

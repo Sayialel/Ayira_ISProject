@@ -7,6 +7,7 @@ import pytest
 
 from app.services.scoring import (
     DEFAULT_WEIGHTS,
+    DIFFERENT_COUNTY,
     NEUTRAL_REPUTATION,
     REPUTATION_SCALE,
     SHIPPED_WEIGHTS,
@@ -15,8 +16,13 @@ from app.services.scoring import (
     employer_reputation,
     gig_text,
     is_location_match,
+    location_affinity,
     profile_text,
     score_gigs,
+    SAME_COUNTY,
+    SAME_METRO,
+    SAME_TOWN,
+    UNKNOWN_LOCATION,
 )
 
 
@@ -38,8 +44,13 @@ def test_score_stays_in_unit_range(worker, gigs):
 
 
 def test_composite_is_bounded_at_the_extremes():
-    assert composite_score(0.0, 0.0, False, 0.0) == pytest.approx(0.0)
-    assert composite_score(1.0, 1.0, True, REPUTATION_SCALE) == pytest.approx(1.0)
+    assert composite_score(0.0, 0.0, 0.0, 0.0) == pytest.approx(0.0)
+    assert composite_score(1.0, 1.0, 1.0, REPUTATION_SCALE) == pytest.approx(1.0)
+
+
+def test_composite_clamps_out_of_range_inputs():
+    assert composite_score(1.0, 1.0, 5.0, 99.0) == pytest.approx(1.0)
+    assert composite_score(0.0, 0.0, -3.0, -3.0) == pytest.approx(0.0)
 
 
 # --- employer reputation -------------------------------------------------
@@ -116,6 +127,78 @@ def test_unreviewed_employer_beats_a_badly_reviewed_one():
 
 
 # --- location ------------------------------------------------------------
+#
+# The engine previously compared town names for exact equality, so Thika and
+# Nairobi (about 40 km apart) scored identically to Mombasa and Nairobi (about
+# 490 km), and a missing location was indistinguishable from the wrong side of
+# the country.
+
+
+def test_same_town_scores_full_marks():
+    assert location_affinity("Nairobi", {"location": "Nairobi"}) == SAME_TOWN
+
+
+def test_same_county_scores_above_a_different_county():
+    """Thika and Ruiru are both in Kiambu; Mombasa is not."""
+    near = location_affinity("Thika", {"location": "Ruiru"})
+    far = location_affinity("Thika", {"location": "Mombasa"})
+
+    assert near == SAME_COUNTY
+    assert far == DIFFERENT_COUNTY
+    assert near > far
+
+
+def test_commuter_belt_is_not_treated_as_a_distant_town():
+    """
+    The case that motivated the change: Thika to Nairobi is a daily commute,
+    Mombasa to Nairobi is a flight.
+
+    County tiering alone does not cover this -- Thika is in Kiambu and Nairobi
+    is its own county -- which is why the metropolitan grouping exists.
+    """
+    commute = location_affinity("Thika", {"location": "Nairobi"})
+    distant = location_affinity("Mombasa", {"location": "Nairobi"})
+
+    assert commute == SAME_METRO
+    assert distant == DIFFERENT_COUNTY
+    assert commute > distant
+
+
+def test_tiers_are_strictly_ordered():
+    """
+    The ordering is the whole design, so it is asserted rather than assumed.
+
+    Unknown must sit below every confirmed-reachable tier and above a
+    confirmed mismatch.
+    """
+    assert SAME_TOWN > SAME_COUNTY > SAME_METRO > UNKNOWN_LOCATION > DIFFERENT_COUNTY
+
+
+def test_unknown_location_is_neutral_not_a_mismatch():
+    """
+    Either side may simply not be filled in. Scoring that 0 punished such gigs
+    as though they were on the wrong side of the country.
+    """
+    assert location_affinity("", {"location": "Nairobi"}) == UNKNOWN_LOCATION
+    assert location_affinity("Nairobi", {"location": None}) == UNKNOWN_LOCATION
+    assert location_affinity("Nairobi", {}) == UNKNOWN_LOCATION
+    assert UNKNOWN_LOCATION > DIFFERENT_COUNTY
+
+
+def test_unrecognised_town_is_unknown_not_a_mismatch():
+    assert location_affinity("Nairobi", {"location": "Atlantis"}) == UNKNOWN_LOCATION
+
+
+def test_address_with_a_county_suffix_resolves():
+    assert location_affinity("Ruiru, Kiambu", {"location": "Thika"}) == SAME_COUNTY
+
+
+def test_affinity_is_always_in_unit_range():
+    cases = ["Nairobi", "", None, "Atlantis", "Thika"]
+    for worker in cases:
+        for gig in cases:
+            value = location_affinity(worker, {"location": gig})
+            assert 0.0 <= value <= 1.0
 
 
 def test_remote_gig_matches_any_location():
@@ -193,7 +276,9 @@ def test_mismatched_semantic_scores_are_rejected(worker, gigs):
 def test_breakdown_matches_the_scored_fields(worker, gigs):
     for scored in score_gigs(worker, gigs):
         breakdown = scored.breakdown()
-        assert breakdown["location"] == scored.location_match
+        assert breakdown["location"] == pytest.approx(
+            round(scored.location_affinity, 2)
+        )
         assert breakdown["employer_reputation"] == pytest.approx(
             round(scored.employer_reputation, 2)
         )

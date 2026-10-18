@@ -127,14 +127,37 @@ SKILL_LEVEL_MULTIPLIER: dict[str, float] = {
 # Kenyan towns, weighted toward where platform work concentrates. Used so the
 # location signal has something to distinguish; a corpus set entirely in
 # Nairobi cannot measure it.
+#
+# Several counties appear more than once on purpose. The earlier list of nine
+# towns gave every town its own county, which left the "same county, different
+# town" tier in app/services/scoring.location_affinity unreachable -- the tier
+# existed but nothing in the corpus could exercise it. Weights are rough
+# shares of where Kenyan online work concentrates, not measured figures.
 LOCATIONS: list[tuple[str, float]] = [
-    ("Nairobi", 0.45),
-    ("Mombasa", 0.13),
-    ("Kisumu", 0.10),
-    ("Nakuru", 0.09),
-    ("Eldoret", 0.07),
-    ("Thika", 0.05),
-    ("Nyeri", 0.04),
-    ("Machakos", 0.04),
+    # Nairobi and its commuter belt, which is one labour market in practice
+    ("Nairobi", 0.30),
+    ("Thika", 0.05),        # Kiambu
+    ("Ruiru", 0.04),        # Kiambu
+    ("Kikuyu", 0.03),       # Kiambu
+    ("Machakos", 0.03),
+    ("Athi River", 0.02),   # Machakos
+    # Coast
+    ("Mombasa", 0.10),
+    ("Malindi", 0.03),      # Kilifi
+    ("Kilifi", 0.02),
+    # Nyanza and Western
+    ("Kisumu", 0.08),
+    ("Kisii", 0.03),
     ("Kakamega", 0.03),
+    ("Mumias", 0.02),       # Kakamega
+    ("Bungoma", 0.02),
+    # Rift Valley
+    ("Nakuru", 0.07),
+    ("Naivasha", 0.03),     # Nakuru
+    ("Eldoret", 0.04),      # Uasin Gishu
+    ("Kericho", 0.02),
+    # Central and Eastern
+    ("Nyeri", 0.02),
+    ("Karatina", 0.01),     # Nyeri
+    ("Meru", 0.01),
 ]

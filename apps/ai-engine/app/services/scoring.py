@@ -13,7 +13,7 @@ from app.services.embeddings import (
     compute_semantic_similarities,
     compute_tfidf_similarities,
 )
-from app.services import tfidf_model
+from app.services import kenya_geography, tfidf_model
 
 
 @dataclass(frozen=True)
@@ -91,14 +91,19 @@ class ScoredGig:
     score: float
     semantic: float
     tfidf: float
-    location_match: bool
+    location_affinity: float
     employer_reputation: float
+
+    @property
+    def location_match(self) -> bool:
+        """The tier as a yes/no, for the breakdown shown to workers."""
+        return self.location_affinity >= SAME_COUNTY
 
     def breakdown(self) -> dict:
         return {
             "semantic": round(self.semantic, 4),
             "tfidf": round(self.tfidf, 4),
-            "location": self.location_match,
+            "location": round(self.location_affinity, 2),
             "employer_reputation": round(self.employer_reputation, 2),
         }
 
@@ -134,15 +139,77 @@ def gig_text(gig: dict) -> str:
     ).strip()
 
 
-def is_location_match(worker_location: str, gig: dict) -> bool:
-    """A remote gig can be done from anywhere, so it always counts as a match."""
-    if gig.get("is_remote"):
-        return True
+# How well a gig's location suits a worker, by tier.
+#
+# Replaces an exact string comparison, under which Thika and Nairobi (about
+# 40 km apart) scored identically to Mombasa and Nairobi (about 490 km).
+# Counties are the granularity the data supports -- see
+# app/services/kenya_geography.py for why, and for what is deliberately not
+# modelled.
+SAME_TOWN = 1.0
+SAME_COUNTY = 0.6
+# Different county, but the same commuter region -- Thika to Nairobi, say.
+# Without this tier that pair scored identically to Mombasa to Nairobi, since
+# Thika is in Kiambu and Nairobi is its own county.
+SAME_METRO = 0.45
+# An unknown location is not a mismatch. Either side may simply not have been
+# filled in, and scoring that 0 punished such a gig as though it were on the
+# wrong side of the country.
+#
+# It sits below every confirmed-reachable tier and above a confirmed mismatch,
+# which is the only ordering that treats missing data as missing: absence of
+# information is neither good news nor bad news, so it must not outrank a
+# commute we have actually verified, nor be grouped with one we have ruled out.
+UNKNOWN_LOCATION = 0.3
+DIFFERENT_COUNTY = 0.0
 
-    gig_location = _text(gig.get("location"))
-    if not worker_location or not gig_location:
-        return False
-    return worker_location.casefold() == gig_location.casefold()
+
+def location_affinity(worker_location: str | None, gig: dict) -> float:
+    """
+    How reachable this gig is for this worker, from 0 to 1.
+
+    Remote work scores full marks regardless of either location: a remote gig
+    cannot be a bad commute, and penalising it for having no town -- which the
+    exact-match version effectively did unless `is_remote` was set -- is
+    backwards.
+    """
+    if gig.get("is_remote"):
+        return SAME_TOWN
+
+    worker_place = _text(worker_location)
+    gig_place = _text(gig.get("location"))
+
+    if not worker_place or not gig_place:
+        return UNKNOWN_LOCATION
+
+    if kenya_geography.same_town(worker_place, gig_place):
+        return SAME_TOWN
+
+    worker_county = kenya_geography.county_of(worker_place)
+    gig_county = kenya_geography.county_of(gig_place)
+
+    # A town absent from the map tells us nothing, so it must not be reported
+    # as a mismatch.
+    if worker_county is None or gig_county is None:
+        return UNKNOWN_LOCATION
+
+    if worker_county == gig_county:
+        return SAME_COUNTY
+
+    if kenya_geography.share_metro(worker_county, gig_county):
+        return SAME_METRO
+
+    return DIFFERENT_COUNTY
+
+
+def is_location_match(worker_location: str, gig: dict) -> bool:
+    """
+    Whether the gig counts as local at all.
+
+    Kept for the breakdown shown to workers, which reads better as a yes or no
+    than as a number. The ranking uses `location_affinity`.
+    """
+    return location_affinity(worker_location, gig) >= SAME_COUNTY
 
 
 # An employer with no reviews yet must not be ranked as though they had been
@@ -186,19 +253,20 @@ def employer_reputation(gig: dict) -> float:
 def composite_score(
     semantic: float,
     tfidf: float,
-    location_match: bool,
+    location: float,
     reputation: float,
     weights: Weights = DEFAULT_WEIGHTS,
 ) -> float:
     """
     Combines the four signals into one 0-1 score.
 
+    `location` is already 0-1 and comes from `location_affinity(worker, gig)`.
     `reputation` is the *employer's*, on the platform's 0-5 review scale, and
-    is normalised here, so every term entering the sum is already 0-1 and the
-    weights alone decide influence. Use `employer_reputation(gig)` to obtain
-    it, which resolves the unreviewed case.
+    is normalised here, so every term entering the sum is 0-1 and the weights
+    alone decide influence. Use `employer_reputation(gig)` to obtain it, which
+    resolves the unreviewed case.
     """
-    loc = 1.0 if location_match else 0.0
+    loc = min(max(location, 0.0), 1.0)
     rep = min(max(reputation, 0.0) / REPUTATION_SCALE, 1.0)
 
     return (
@@ -256,7 +324,7 @@ def score_gigs(
     for gig, sem, tfidf in zip(gigs, semantic_scores, tfidf_scores):
         # Computed once per gig rather than inline twice, so the score and the
         # breakdown can never disagree about the same gig.
-        location_match = is_location_match(worker_location, gig)
+        affinity = location_affinity(worker_location, gig)
         reputation = employer_reputation(gig)
 
         scored.append(
@@ -264,11 +332,11 @@ def score_gigs(
                 gig_id=gig["id"],
                 title=gig.get("title") or "",
                 score=round(
-                    composite_score(sem, tfidf, location_match, reputation, weights), 4
+                    composite_score(sem, tfidf, affinity, reputation, weights), 4
                 ),
                 semantic=sem,
                 tfidf=tfidf,
-                location_match=location_match,
+                location_affinity=affinity,
                 employer_reputation=reputation,
             )
         )
