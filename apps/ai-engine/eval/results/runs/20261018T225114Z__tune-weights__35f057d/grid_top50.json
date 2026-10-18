@@ -1,0 +1,182 @@
+[
+  {
+    "weights": {
+      "semantic": 0.65,
+      "tfidf": 0.3,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8153974131679165
+  },
+  {
+    "weights": {
+      "semantic": 0.5,
+      "tfidf": 0.45,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8148210703065012
+  },
+  {
+    "weights": {
+      "semantic": 0.55,
+      "tfidf": 0.4,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8148015449671336
+  },
+  {
+    "weights": {
+      "semantic": 0.6,
+      "tfidf": 0.35,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8146808864814479
+  },
+  {
+    "weights": {
+      "semantic": 0.45,
+      "tfidf": 0.5,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8144190608365873
+  },
+  {
+    "weights": {
+      "semantic": 0.35,
+      "tfidf": 0.6,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8121572019568404
+  },
+  {
+    "weights": {
+      "semantic": 0.4,
+      "tfidf": 0.55,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8104961552498944
+  },
+  {
+    "weights": {
+      "semantic": 0.7,
+      "tfidf": 0.25,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8091034098894702
+  },
+  {
+    "weights": {
+      "semantic": 0.75,
+      "tfidf": 0.2,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8079923321953261
+  },
+  {
+    "weights": {
+      "semantic": 0.8,
+      "tfidf": 0.15,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8065264156829014
+  },
+  {
+    "weights": {
+      "semantic": 0.85,
+      "tfidf": 0.1,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8050131941022636
+  },
+  {
+    "weights": {
+      "semantic": 0.9,
+      "tfidf": 0.05,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.8020917631459871
+  },
+  {
+    "weights": {
+      "semantic": 0.95,
+      "tfidf": 0.0,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.801427604413146
+  },
+  {
+    "weights": {
+      "semantic": 0.3,
+      "tfidf": 0.65,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.79721446785335
+  },
+  {
+    "weights": {
+      "semantic": 0.25,
+      "tfidf": 0.7,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.7906685608172342
+  },
+  {
+    "weights": {
+      "semantic": 0.2,
+      "tfidf": 0.75,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.780383376308006
+  },
+  {
+    "weights": {
+      "semantic": 0.15,
+      "tfidf": 0.8,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.7723039148726374
+  },
+  {
+    "weights": {
+      "semantic": 0.1,
+      "tfidf": 0.85,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.7608491734253624
+  },
+  {
+    "weights": {
+      "semantic": 0.05,
+      "tfidf": 0.9,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.7403538074202478
+  },
+  {
+    "weights": {
+      "semantic": 0.0,
+      "tfidf": 0.95,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "train_ndcg_at_10": 0.7303234399555285
+  }
+]

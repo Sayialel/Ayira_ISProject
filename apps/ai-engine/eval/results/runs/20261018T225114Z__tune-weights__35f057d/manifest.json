@@ -1,0 +1,70 @@
+{
+  "run_id": "20261018T225114Z__tune-weights__35f057d",
+  "name": "tune-weights",
+  "started_at": "2026-10-18T22:51:14.343814+00:00",
+  "finished_at": "2026-10-18T22:52:13.657488+00:00",
+  "git": {
+    "commit": "35f057d77a93a637afb6b512cb950ea948828467",
+    "short_commit": "35f057d",
+    "branch": "main",
+    "dirty": false,
+    "uncommitted_files": 0,
+    "uncommitted_paths": []
+  },
+  "dataset_version": "2368a76d3430",
+  "seeds": {
+    "split": 20261018
+  },
+  "parameters": {
+    "grid_step": 0.05,
+    "metric": "ndcg_at_10",
+    "search_split": "train",
+    "selection_split": "validation",
+    "reporting_split": "test",
+    "adopt_margin": 0.005,
+    "shipped_weights": {
+      "semantic": 0.45,
+      "tfidf": 0.25,
+      "location": 0.15,
+      "reputation": 0.15
+    },
+    "current_weights": {
+      "semantic": 0.72,
+      "tfidf": 0.22,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "tfidf_fitted_on": "train",
+    "fixed_weights": {
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "rank_invariant_signals": [],
+    "label_uninformative_signals": {
+      "location": -0.024125236117294634,
+      "reputation": -0.0071303075217417165
+    },
+    "searched_signals": [
+      "semantic",
+      "tfidf"
+    ],
+    "combinations": 20
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": "Final weights check."
+}

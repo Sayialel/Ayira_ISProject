@@ -1,0 +1,188 @@
+{
+  "split": "validation",
+  "full_ndcg_at_10": 0.892104104799436,
+  "rows": [
+    {
+      "label": "semantic alone",
+      "signals": [
+        "semantic"
+      ],
+      "weights": {
+        "semantic": 1.0,
+        "tfidf": 0.0,
+        "location": 0.0,
+        "reputation": 0.0
+      },
+      "ndcg_at_10": 0.8914257216156928,
+      "ndcg_at_5": 0.8576106465621945,
+      "precision_at_5": 0.5555555555555556,
+      "recall_at_10": 0.9040404040404041,
+      "mrr": 1.0
+    },
+    {
+      "label": "tfidf alone",
+      "signals": [
+        "tfidf"
+      ],
+      "weights": {
+        "semantic": 0.0,
+        "tfidf": 1.0,
+        "location": 0.0,
+        "reputation": 0.0
+      },
+      "ndcg_at_10": 0.8123595531332606,
+      "ndcg_at_5": 0.8482930684646828,
+      "precision_at_5": 0.5333333333333333,
+      "recall_at_10": 0.6355218855218855,
+      "mrr": 1.0
+    },
+    {
+      "label": "location alone",
+      "signals": [
+        "location"
+      ],
+      "weights": {
+        "semantic": 0.0,
+        "tfidf": 0.0,
+        "location": 1.0,
+        "reputation": 0.0
+      },
+      "ndcg_at_10": 0.052992693901348954,
+      "ndcg_at_5": 0.054286004834016376,
+      "precision_at_5": 0.06666666666666667,
+      "recall_at_10": 0.08333333333333333,
+      "mrr": 0.037037037037037035
+    },
+    {
+      "label": "reputation alone",
+      "signals": [
+        "reputation"
+      ],
+      "weights": {
+        "semantic": 0.0,
+        "tfidf": 0.0,
+        "location": 0.0,
+        "reputation": 1.0
+      },
+      "ndcg_at_10": 0.08115432065228834,
+      "ndcg_at_5": 0.03724759824947169,
+      "precision_at_5": 0.044444444444444446,
+      "recall_at_10": 0.1675084175084175,
+      "mrr": 0.16895943562610227
+    },
+    {
+      "label": "full",
+      "signals": [
+        "semantic",
+        "tfidf",
+        "location",
+        "reputation"
+      ],
+      "weights": {
+        "semantic": 0.72,
+        "tfidf": 0.22,
+        "location": 0.03,
+        "reputation": 0.03
+      },
+      "ndcg_at_10": 0.892104104799436,
+      "ndcg_at_5": 0.8693854343170228,
+      "precision_at_5": 0.5777777777777778,
+      "recall_at_10": 0.867003367003367,
+      "mrr": 1.0
+    },
+    {
+      "label": "without semantic",
+      "signals": [
+        "tfidf",
+        "location",
+        "reputation"
+      ],
+      "weights": {
+        "semantic": 0.0,
+        "tfidf": 0.7857142857142857,
+        "location": 0.10714285714285712,
+        "reputation": 0.10714285714285712
+      },
+      "ndcg_at_10": 0.7957408609339913,
+      "ndcg_at_5": 0.8019267268925651,
+      "precision_at_5": 0.4444444444444444,
+      "recall_at_10": 0.6430976430976432,
+      "mrr": 1.0
+    },
+    {
+      "label": "without tfidf",
+      "signals": [
+        "semantic",
+        "location",
+        "reputation"
+      ],
+      "weights": {
+        "semantic": 0.923076923076923,
+        "tfidf": 0.0,
+        "location": 0.03846153846153846,
+        "reputation": 0.03846153846153846
+      },
+      "ndcg_at_10": 0.8814723417579775,
+      "ndcg_at_5": 0.8677494356865428,
+      "precision_at_5": 0.5777777777777778,
+      "recall_at_10": 0.8484848484848485,
+      "mrr": 1.0
+    },
+    {
+      "label": "without location",
+      "signals": [
+        "semantic",
+        "tfidf",
+        "reputation"
+      ],
+      "weights": {
+        "semantic": 0.7422680412371134,
+        "tfidf": 0.2268041237113402,
+        "location": 0.0,
+        "reputation": 0.030927835051546393
+      },
+      "ndcg_at_10": 0.9039550643458285,
+      "ndcg_at_5": 0.8798382127679715,
+      "precision_at_5": 0.6000000000000001,
+      "recall_at_10": 0.9040404040404041,
+      "mrr": 1.0
+    },
+    {
+      "label": "without reputation",
+      "signals": [
+        "semantic",
+        "tfidf",
+        "location"
+      ],
+      "weights": {
+        "semantic": 0.7422680412371134,
+        "tfidf": 0.2268041237113402,
+        "location": 0.030927835051546393,
+        "reputation": 0.0
+      },
+      "ndcg_at_10": 0.8945353973735322,
+      "ndcg_at_5": 0.8798382127679715,
+      "precision_at_5": 0.6000000000000001,
+      "recall_at_10": 0.867003367003367,
+      "mrr": 1.0
+    },
+    {
+      "label": "text only",
+      "signals": [
+        "semantic",
+        "tfidf"
+      ],
+      "weights": {
+        "semantic": 0.7659574468085106,
+        "tfidf": 0.23404255319148937,
+        "location": 0.0,
+        "reputation": 0.0
+      },
+      "ndcg_at_10": 0.907852826243595,
+      "ndcg_at_5": 0.8815207342944683,
+      "precision_at_5": 0.6000000000000001,
+      "recall_at_10": 0.9040404040404041,
+      "mrr": 1.0
+    }
+  ]
+}
