@@ -1,0 +1,5 @@
+2026-10-18T17:54:15.910087+00:00  run 20261018T175415Z__baselines-validation__78c9f5c started
+2026-10-18T17:54:15.910087+00:00  validation: 9 profiles x 104 gigs, 88 graded pairs
+2026-10-18T17:54:15.910087+00:00  splits: 29 train / 9 validation / 9 test  (by profile)
+2026-10-18T17:54:15.910087+00:00  dataset version 140a66f39f04
+2026-10-18T17:56:01.268220+00:00  run 20261018T175415Z__baselines-validation__78c9f5c finished

@@ -1,0 +1,8 @@
+2026-10-18T18:00:44.890846+00:00  run 20261018T180044Z__tune-weights__78c9f5c started
+2026-10-18T18:00:44.890846+00:00  dataset version 140a66f39f04
+2026-10-18T18:00:44.890846+00:00  Extracting features (the embedding model runs once per profile)...
+2026-10-18T18:03:16.309271+00:00  profiles: 29 train / 9 validation / 9 test
+2026-10-18T18:03:16.312305+00:00  fast NDCG agrees with eval.metrics to 1.11e-16
+2026-10-18T18:03:16.312305+00:00  Searching 1771 weight combinations on the train split...
+2026-10-18T18:03:17.759871+00:00  decision: adopt the searched weights
+2026-10-18T18:03:18.603483+00:00  run 20261018T180044Z__tune-weights__78c9f5c finished

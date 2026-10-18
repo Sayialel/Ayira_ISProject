@@ -21,3 +21,9 @@ apps/ai-engine/**/__pycache__/
 
 # KeSCO source PDF — 6.6MB, freely downloadable, fetched by parse_kesco.py
 apps/ai-engine/eval/corpus_sources/*.pdf
+
+# Experiment evidence. Run folders are committed deliberately: the workflow
+# requires unsuccessful runs to be preserved, and a run is only evidence while
+# its log sits beside its metrics. The blanket *.log rule above would drop
+# exactly that file, so it is re-included here.
+!apps/ai-engine/eval/results/runs/**/run.log

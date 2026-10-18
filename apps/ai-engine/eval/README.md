@@ -10,10 +10,16 @@ python -m eval.corpus_sources.build_corpus    # JSON -> the corpus
 python -m eval.run_eval                       # baselines vs the live system
 python -m eval.tune_weights                   # grid search over the weights
 python -m eval.retrieval_eval                 # what the shortlist costs
+python -m eval.compare --list                 # recorded runs
+python -m eval.promote --status               # what the service is serving
 ```
 
-Each writes a timestamped JSON file to `eval/results/`, committed so runs can
-be compared over time.
+Each writes a folder to `eval/results/runs/` holding its metrics, manifest,
+predictions, artefacts and plots, so runs can be compared over time.
+
+**See [WORKFLOW.md](WORKFLOW.md)** for how this maps onto the required
+experiment workflow, the provenance recorded for each run, and the findings
+and limitations so far.
 
 ---
 
@@ -24,7 +30,9 @@ production — the harness calls `app.services.scoring.score_gigs()`, the same
 function that serves live requests, so the evaluation cannot drift from the
 system it claims to describe.
 
-What *is* fitted is four numbers: the weights of the composite formula.
+What *is* fitted is the TF-IDF vocabulary and document frequencies
+(`app/services/tfidf_model.py`, fitted on the training split only), and the
+four weights of the composite formula.
 
 ## The corpus
 
@@ -32,9 +40,11 @@ Generated, not written. `eval/corpus_sources/` holds the generator and the
 sources it draws on; `eval/corpus/` holds its output and is regenerated rather
 than edited. See `corpus_sources/README.md` for provenance and licensing.
 
-- **25 worker profiles**, one per occupation
-- **60 gigs** — 50 generated, 10 hand-authored
-- **237 graded pairs**; the remaining 1,263 are implicitly grade 0
+- **47 worker profiles**, one per occupation
+- **104 gigs** — 94 generated, 10 hand-authored
+- **565 graded pairs** (33 hand-authored, 532 derived from the KeSCO
+  hierarchy); the remaining 4,323 are implicitly grade 0
+- split **by profile** into 29 train / 9 validation / 9 test
 
 Occupations, skills and the language describing work come from the **Kenya
 Standard Classification of Occupations (KeSCO-2022)**. Pay is drawn from a

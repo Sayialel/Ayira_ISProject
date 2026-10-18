@@ -1,8 +1,118 @@
 [
   {
+    "id": "w-1212",
+    "kesco_code": "1212",
+    "label": "Human Resource Manager",
+    "category": "Business",
+    "skills": [
+      "Human Resource Manager",
+      "Operational",
+      "Development",
+      "Compliance",
+      "Selection Training"
+    ],
+    "bio": "Human Resource Managers plan, direct and co-ordinate the industrial relations activities of an organization. Participate in formulating, planning and organizing procedures for the recruitment, training, promotion or discharge from",
+    "location": "Nairobi",
+    "reputation_score": 4.5
+  },
+  {
+    "id": "w-1221",
+    "kesco_code": "1221",
+    "label": "Sales and Marketing Manager",
+    "category": "Marketing",
+    "skills": [
+      "Sales Marketing Manager",
+      "Enterprise",
+      "Activities",
+      "Local Demand",
+      "Documentation"
+    ],
+    "bio": "Sales and Marketing Managers plan, direct and coordinate the sales and marketing activities of an organization, or of enterprises that provide sales and marketing services to other enterprises and organizations",
+    "location": "Nairobi",
+    "reputation_score": 3.3
+  },
+  {
+    "id": "w-1222",
+    "kesco_code": "1222",
+    "label": "Public Relations and Advertising Manager",
+    "category": "Marketing",
+    "skills": [
+      "Public Relations Advertising",
+      "Information Programmes",
+      "Welfare Activities",
+      "Organization"
+    ],
+    "bio": "Public Relations and Advertising Managers plan, direct and coordinate the advertising, public relations and public information activities of enterprises and organizations or of enterprises that provide related services to other enterprises",
+    "location": "Eldoret",
+    "reputation_score": 4.1
+  },
+  {
+    "id": "w-2120",
+    "kesco_code": "2120",
+    "label": "Statistician",
+    "category": "Technology",
+    "skills": [
+      "Mathematicians Actuaries Statistician",
+      "Surveys",
+      "Statistical Data",
+      "Scientific Papers",
+      "Work O F"
+    ],
+    "bio": "Mathematicians, Actuaries and Statisticians conduct research, improve and/or develop mathematical, actuarial and statistical concepts, principles, theories and operational models and techniques and apply this knowledge to a wide range of",
+    "location": "Nairobi",
+    "reputation_score": 3.6
+  },
+  {
+    "id": "w-2172",
+    "kesco_code": "2172",
+    "label": "Surveyor and Cartographer",
+    "category": "Technology",
+    "skills": [
+      "Surveyors Cartographer",
+      "Maps",
+      "Research",
+      "Technical Liaison"
+    ],
+    "bio": "Surveyors and cartographers apply surveying methods and techniques to determine the exact position of natural and constructed features and boundaries of land, seas, underground areas and celestial bodies, and prepare or revise digital,",
+    "location": "Nairobi",
+    "reputation_score": 3.6
+  },
+  {
+    "id": "w-2353",
+    "kesco_code": "2353",
+    "label": "Language Teacher",
+    "category": "Writing",
+    "skills": [
+      "Language Teacher",
+      "Students",
+      "Assistance",
+      "Work"
+    ],
+    "bio": "Other Language Teachers teach non-native languages to adults and children who are learning a language for reasons of migration, to fulfill employment requirements or opportunities, to facilitate participation in educational programmes",
+    "location": "Thika",
+    "reputation_score": 4.2
+  },
+  {
+    "id": "w-2356",
+    "kesco_code": "2356",
+    "label": "ICT Trainer",
+    "category": "Business",
+    "skills": [
+      "Information Communication Technology",
+      "Demonstrations",
+      "Evaluation",
+      "Background Materials",
+      "Up-To-Date"
+    ],
+    "bio": "Information Communication Technology Trainers develop, schedule and conduct training programs and courses for computer and other Information Communication Technology users outside the mainstream primary, secondary and higher education",
+    "location": "Nairobi",
+    "reputation_score": 4.1
+  },
+  {
     "id": "w-2411",
     "kesco_code": "2411",
     "label": "Accountant",
+    "category": "Business",
     "skills": [
       "Accountant",
       "Financial Investigations",
@@ -11,13 +121,28 @@
       "Systems"
     ],
     "bio": "Accountants Plan and administer accounting services and advises on accountancy issues pertaining to private persons, enterprises, institutions and governmental organizations",
-    "location": "Nairobi",
-    "reputation_score": 4.5
+    "location": "Kisumu",
+    "reputation_score": 3.9
+  },
+  {
+    "id": "w-2412",
+    "kesco_code": "2412",
+    "label": "Financial Adviser",
+    "category": "Business",
+    "skills": [
+      "Financial Investment Adviser",
+      "Financial O Bjectives",
+      "Investment Performance"
+    ],
+    "bio": "Financial and investment advisers develop financial plan for individuals and organizations, and invest and manage funds on their behalf",
+    "location": "Nakuru",
+    "reputation_score": 3.4
   },
   {
     "id": "w-2421",
     "kesco_code": "2421",
     "label": "Management Analyst",
+    "category": "Business",
     "skills": [
       "Management Organization Analyst",
       "Work Studies",
@@ -26,13 +151,45 @@
       "Procedures"
     ],
     "bio": "Management and organization analysts assist organizations to achieve greater efficiency and solve organizational problems. They study organizational structures, methods, systems and pro cedures. They are responsible for conducting and",
-    "location": "Nairobi",
+    "location": "Thika",
+    "reputation_score": 4.6
+  },
+  {
+    "id": "w-2423",
+    "kesco_code": "2423",
+    "label": "HR and Careers Professional",
+    "category": "Business",
+    "skills": [
+      "Human Resource Career",
+      "Staff Welfare",
+      "Wage",
+      "Guidance",
+      "Plans Develops Implements"
+    ],
+    "bio": "Human Resource and careers professionals provide professional business services related to personnel policies such as employee recruitment or development, occupational analysis and vocational guidance",
+    "location": "Kisumu",
+    "reputation_score": 4.4
+  },
+  {
+    "id": "w-2424",
+    "kesco_code": "2424",
+    "label": "Training and Development Professional",
+    "category": "Business",
+    "skills": [
+      "Training Staff Development",
+      "Internal",
+      "Evaluation",
+      "Background Materials"
+    ],
+    "bio": "Training and staff development professionals plan, develop, implement and evaluate training needs and develop programmes to ensure management and staff acquire the relevant skills and competencies required by organizations to meet",
+    "location": "Mombasa",
     "reputation_score": 3.3
   },
   {
     "id": "w-2431",
     "kesco_code": "2431",
     "label": "Advertising and Marketing Professional",
+    "category": "Marketing",
     "skills": [
       "Advertising Marketing Professional",
       "Data Regarding Consumer",
@@ -41,13 +198,14 @@
       "Market Research"
     ],
     "bio": "Advertising and Marketing Professionals, Conduct research, determine and advise on existing level of sales for particular products and or services, and assesses potential markets and future trends",
-    "location": "Eldoret",
-    "reputation_score": 4.1
+    "location": "Nakuru",
+    "reputation_score": 3.4
   },
   {
     "id": "w-2432",
     "kesco_code": "2432",
     "label": "Public Relations Professional",
+    "category": "Marketing",
     "skills": [
       "Public Relations Professional",
       "Organizations",
@@ -57,12 +215,13 @@
     ],
     "bio": "Public Relations Professionals Plans Organizes and Carry out programmes of information dissemination to influence the public to view favorably an organization, products or services. Receives and provides hospitality services to clients of",
     "location": "Nairobi",
-    "reputation_score": 3.6
+    "reputation_score": 4.0
   },
   {
     "id": "w-2434",
     "kesco_code": "2434",
     "label": "ICT Sales Professional",
+    "category": "Marketing",
     "skills": [
       "Information Communications Technology",
       "Prices",
@@ -71,13 +230,14 @@
       "Customers Reactions"
     ],
     "bio": "Information and communications technology (ICT) sales professionals sell, at wholesale level, a range of computer hardware, software and other information and communications technology goods and services including installations, and",
-    "location": "Nairobi",
-    "reputation_score": 3.6
+    "location": "Thika",
+    "reputation_score": 3.8
   },
   {
     "id": "w-2511",
     "kesco_code": "2511",
     "label": "Systems Analyst",
+    "category": "Technology",
     "skills": [
       "Systems Analyst",
       "Hardware",
@@ -85,13 +245,14 @@
       "Internet Intranet"
     ],
     "bio": "System Analysts analyze data-processing needs of clients",
-    "location": "Thika",
-    "reputation_score": 4.2
+    "location": "Nairobi",
+    "reputation_score": 3.3
   },
   {
     "id": "w-2512",
     "kesco_code": "2512",
     "label": "Software Developer",
+    "category": "Technology",
     "skills": [
       "Software Developer",
       "Software Testing",
@@ -101,24 +262,26 @@
     ],
     "bio": "Software developers research, analyze and evaluate requirements for existing or new software applications and operating systems, and design, develop, test and maintain software solutions to meet these requirements",
     "location": "Nairobi",
-    "reputation_score": 4.1
+    "reputation_score": 3.4
   },
   {
     "id": "w-2513",
     "kesco_code": "2513",
     "label": "Web and Multimedia Developer",
+    "category": "Technology",
     "skills": [
       "Web Multimedia Developer",
       "Computer Code"
     ],
     "bio": "Web and multimedia development professionals combine design and technical knowledge to research, analyze, evaluate, design, programme and modify websites, and applications that draw together text, graphics, animations, imaging, audio and",
-    "location": "Kisumu",
-    "reputation_score": 3.9
+    "location": "Nairobi",
+    "reputation_score": 4.1
   },
   {
     "id": "w-2514",
     "kesco_code": "2514",
     "label": "Applications Programmer",
+    "category": "Technology",
     "skills": [
       "Applications Programmer",
       "Trial Runs",
@@ -126,13 +289,28 @@
       "Technical Problems Processes"
     ],
     "bio": "Application Programmer's role is to assist in the definition, development, testing, analysis, and maintenance of new or existing software applications in support of the achievement of business requirements. This includes writing, coding,",
-    "location": "Nakuru",
-    "reputation_score": 3.4
+    "location": "Nairobi",
+    "reputation_score": 4.4
+  },
+  {
+    "id": "w-2515",
+    "kesco_code": "2515",
+    "label": "Software Auditor",
+    "category": "Technology",
+    "skills": [
+      "Software Auditor",
+      "Results",
+      "Software"
+    ],
+    "bio": "Software Auditors specialize in quality assurance in conducting software testing and configuration",
+    "location": "Nairobi",
+    "reputation_score": 4.6
   },
   {
     "id": "w-2521",
     "kesco_code": "2521",
     "label": "Database Administrator",
+    "category": "Technology",
     "skills": [
       "Database Designers Administrator",
       "Research",
@@ -141,13 +319,29 @@
       "Operational Establishment"
     ],
     "bio": "Database designers and administrators design, develop, control, maintain and support the optimal performance and security of databases. Controls computer database by maintaining data dictionaries and data management systems, and ensuring",
-    "location": "Thika",
-    "reputation_score": 4.6
+    "location": "Nairobi",
+    "reputation_score": 3.9
+  },
+  {
+    "id": "w-2522",
+    "kesco_code": "2522",
+    "label": "Systems Administrator",
+    "category": "Technology",
+    "skills": [
+      "Systems Administrator",
+      "Hardware",
+      "Data Backups",
+      "Master Consoles"
+    ],
+    "bio": "Systems Administrators are responsible for the upkeep, configuration and reliable operation of computer systems especially multi-user computers such as servers",
+    "location": "Machakos",
+    "reputation_score": 4.4
   },
   {
     "id": "w-2523",
     "kesco_code": "2523",
     "label": "Computer Network Professional",
+    "category": "Technology",
     "skills": [
       "Computer Network Professional",
       "Specialist Skills",
@@ -155,13 +349,45 @@
       "Network Traffic"
     ],
     "bio": "Computer Network Professionals research, analyze, design, test and recommend strategies for network architecture and development. They implement, manage, maintain and configure network hardware and software, and monitor, troubleshoot and",
-    "location": "Kisumu",
-    "reputation_score": 4.4
+    "location": "Nairobi",
+    "reputation_score": 3.7
+  },
+  {
+    "id": "w-2531",
+    "kesco_code": "2531",
+    "label": "Database and Network Security Professional",
+    "category": "Technology",
+    "skills": [
+      "Database Network Security",
+      "Computer Security Files",
+      "Risk Assessments",
+      "Data Transmissions"
+    ],
+    "bio": "Database and Network Security Professionals are responsible for ensuring secure internet gateway, encryption of electronic data transfer, and development of protocols and Controls to ensure safe storage of sensitive and confidential",
+    "location": "Eldoret",
+    "reputation_score": 3.3
+  },
+  {
+    "id": "w-2543",
+    "kesco_code": "2543",
+    "label": "Cloud Computing Professional",
+    "category": "Technology",
+    "skills": [
+      "Cloud Computing Professional",
+      "Cloud Platforms",
+      "Design",
+      "Support Windows Cloud",
+      "Technical Assistance"
+    ],
+    "bio": "Cloud Computing Professionals plan, design, develop, manage and monitor cloud computing applications",
+    "location": "Nairobi",
+    "reputation_score": 4.1
   },
   {
     "id": "w-2641",
     "kesco_code": "2641",
     "label": "Writer",
+    "category": "Writing",
     "skills": [
       "Authors Writer",
       "Material Such",
@@ -169,13 +395,14 @@
       "Material"
     ],
     "bio": "Authors and Related writers plan, research and write books, scripts, storyboards, plays, essays, speeches, manuals, specifications and other non-journalistic articles (excluding material for newspapers, magazines and other periodicals) for",
-    "location": "Mombasa",
-    "reputation_score": 3.3
+    "location": "Nakuru",
+    "reputation_score": 3.5
   },
   {
     "id": "w-2642",
     "kesco_code": "2642",
     "label": "Journalist",
+    "category": "Writing",
     "skills": [
       "Journalist",
       "Editorials",
@@ -184,26 +411,28 @@
       "Publicity Material"
     ],
     "bio": "Journalists, collect information and comment on news and current affairs for publication in bulletins, newspapers and periodicals or broadcasting through radio or television",
-    "location": "Nakuru",
-    "reputation_score": 3.4
+    "location": "Thika",
+    "reputation_score": 3.9
   },
   {
     "id": "w-2643",
     "kesco_code": "2643",
     "label": "Translator and Interpreter",
+    "category": "Writing",
     "skills": [
       "Translators Interpreters Linguist",
       "Methods",
       "Translated Material"
     ],
     "bio": "Translators and interpreters study the origin, development and structure of languages, and translate or interpret them from one language to another",
-    "location": "Nairobi",
+    "location": "Nakuru",
     "reputation_score": 4.0
   },
   {
     "id": "w-2651",
     "kesco_code": "2651",
     "label": "Visual Artist",
+    "category": "Design",
     "skills": [
       "Visual Artist",
       "Representational",
@@ -212,13 +441,27 @@
       "Damaged Soiled"
     ],
     "bio": "Visual artists are involved in the arts of painting, sculpting, photography, drawing, printmaking, ceramics, photography, video, filmmaking, design, crafts and architecture as opposed to music, drama, and literature",
-    "location": "Thika",
-    "reputation_score": 3.8
+    "location": "Nairobi",
+    "reputation_score": 3.3
+  },
+  {
+    "id": "w-2652",
+    "kesco_code": "2652",
+    "label": "Musician and Composer",
+    "category": "Design",
+    "skills": [
+      "Musicians Singers Composer",
+      "Music"
+    ],
+    "bio": "Musicians, Singers and Composers write, arrange, conduct and perform musical compositions and participate in performances",
+    "location": "Nairobi",
+    "reputation_score": 4.1
   },
   {
     "id": "w-2654",
     "kesco_code": "2654",
     "label": "Film and Video Producer",
+    "category": "Design",
     "skills": [
       "Film Stage Director",
       "Scripts",
@@ -227,12 +470,43 @@
     ],
     "bio": "Film, Stage and Related Directors And Producers oversee and control the technical and artistic aspects of motion pictures, television or radio productions and stage shows",
     "location": "Nairobi",
-    "reputation_score": 3.3
+    "reputation_score": 4.7
+  },
+  {
+    "id": "w-2655",
+    "kesco_code": "2655",
+    "label": "Actor",
+    "category": "Design",
+    "skills": [
+      "Actor",
+      "Auditions",
+      "Scripts",
+      "Parts"
+    ],
+    "bio": "Actors portray roles in motion pictures, television or radio productions and stage shows",
+    "location": "Kakamega",
+    "reputation_score": 3.4
+  },
+  {
+    "id": "w-3342",
+    "kesco_code": "3342",
+    "label": "Legal Secretarie",
+    "category": "Writing",
+    "skills": [
+      "Legal Secretarie",
+      "Documents Case Files",
+      "Requests",
+      "Work"
+    ],
+    "bio": "Legal Secretaries apply specialized knowledge of legal terminology and procedures in providing support to legal professionals with communication, documentation and internal managerial coordination activities, in law offices, legal",
+    "location": "Mombasa",
+    "reputation_score": 3.6
   },
   {
     "id": "w-3431",
     "kesco_code": "3431",
     "label": "Photographer",
+    "category": "Design",
     "skills": [
       "Photographer",
       "Picture Composition Making",
@@ -241,13 +515,14 @@
       "Airbrush Computer"
     ],
     "bio": "Photographers operate still cameras to photograph people, events , scenes, places, merchandise, materials, products and other subjects",
-    "location": "Nairobi",
-    "reputation_score": 3.4
+    "location": "Machakos",
+    "reputation_score": 3.5
   },
   {
     "id": "w-3432",
     "kesco_code": "3432",
     "label": "Interior Designer",
+    "category": "Design",
     "skills": [
       "Interior Designers Decorator",
       "Functional",
@@ -256,13 +531,14 @@
       "Stage Scenery"
     ],
     "bio": "Interior designers and decorators plan and design commercial, industrial, public, retail and residential building interiors to produce an environment tailored to a purpose, taking into consideration factors that enhance living and working",
-    "location": "Nairobi",
-    "reputation_score": 4.1
+    "location": "Eldoret",
+    "reputation_score": 3.3
   },
   {
     "id": "w-3514",
     "kesco_code": "3514",
     "label": "Web Technician",
+    "category": "Technology",
     "skills": [
       "Web Technician",
       "Recommendations",
@@ -270,13 +546,14 @@
       "Web Server Backup"
     ],
     "bio": "Web Technicians maintain, monitor and support the optimal functioning of Internet and Intranet websites and web server hardware and software",
-    "location": "Nairobi",
-    "reputation_score": 4.4
+    "location": "Mombasa",
+    "reputation_score": 3.6
   },
   {
     "id": "w-3521",
     "kesco_code": "3521",
     "label": "Audio-Visual Technician",
+    "category": "Design",
     "skills": [
       "Broadcasting Audio-Visual Technician",
       "Broadcast Systems",
@@ -285,13 +562,14 @@
       "Emergency Repairs"
     ],
     "bio": "Broadcasting and audio-visual technicians control technical functioning of equipment to record and edit images and sound and for transmitting radio and television broadcasts of images and sounds, as well as other types of telecommunication",
-    "location": "Nairobi",
-    "reputation_score": 4.6
+    "location": "Nakuru",
+    "reputation_score": 3.4
   },
   {
     "id": "w-4120",
     "kesco_code": "4120",
     "label": "Office Secretarie",
+    "category": "Business",
     "skills": [
       "Office Secretarie",
       "Requests",
@@ -300,12 +578,29 @@
     ],
     "bio": "Office Secretaries use type writers or word-processing equipment to check and transcribe correspondence and other documents, record oral or written matter to produce documents, check and format documents prepared by other staff, deal with",
     "location": "Nairobi",
-    "reputation_score": 3.9
+    "reputation_score": 3.2
+  },
+  {
+    "id": "w-4131",
+    "kesco_code": "4131",
+    "label": "Typist and Word Processing Operator",
+    "category": "Writing",
+    "skills": [
+      "Typists Word Processing",
+      "Completed Documents",
+      "Dictation",
+      "Spoken Word Environmental",
+      "Information Recorded"
+    ],
+    "bio": "Typists and Word Processing Operators transcribe type, edit and print using typewriter, tele-printer, braille, personal computer or other word processor, and record oral or written matter in shorthand",
+    "location": "Machakos",
+    "reputation_score": 4.5
   },
   {
     "id": "w-4132",
     "kesco_code": "4132",
     "label": "Data Entry Clerk",
+    "category": "Business",
     "skills": [
       "Data Entry Clerk",
       "Accuracy",
@@ -313,13 +608,14 @@
       "Data Between Different"
     ],
     "bio": "Data Entry Clerks enter coded, statistical, financial and other numerical data into electronic equipment, computerized databases, spread sheets or other data repositories using a keyboard, mouse, or optical scanner, speech recognition",
-    "location": "Machakos",
-    "reputation_score": 4.4
+    "location": "Nakuru",
+    "reputation_score": 4.7
   },
   {
     "id": "w-4222",
     "kesco_code": "4222",
     "label": "Contact Centre Agent",
+    "category": "Business",
     "skills": [
       "Contact Centre Information",
       "Payments",
@@ -327,13 +623,29 @@
       "Clients"
     ],
     "bio": "Contact Centre Information Clerks provide advice and information to clients",
-    "location": "Nairobi",
-    "reputation_score": 3.7
+    "location": "Mombasa",
+    "reputation_score": 4.8
+  },
+  {
+    "id": "w-4225",
+    "kesco_code": "4225",
+    "label": "Inquiry Clerk",
+    "category": "Business",
+    "skills": [
+      "Inquiry Clerk",
+      "Information",
+      "Complex Enquiries",
+      "Relevant Forms Information"
+    ],
+    "bio": "Enquiry clerks respond to personal, written, electronic mail, and telephone enquiries and complaints about the organization’s goods, services and policies, provide information and refer people to other sources",
+    "location": "Kisumu",
+    "reputation_score": 4.2
   },
   {
     "id": "w-4227",
     "kesco_code": "4227",
     "label": "Market Research Interviewer",
+    "category": "Marketing",
     "skills": [
       "Survey Market Research",
       "Responses",
@@ -341,13 +653,14 @@
       "Feedback"
     ],
     "bio": "Survey and Market Research Interviewers interview people and record their responses to survey and market research questions on a range of topics",
-    "location": "Eldoret",
-    "reputation_score": 3.3
+    "location": "Nairobi",
+    "reputation_score": 4.3
   },
   {
     "id": "w-4311",
     "kesco_code": "4311",
     "label": "Book-keeping Clerk",
+    "category": "Business",
     "skills": [
       "Accounting Book Keeping",
       "Numerical",
@@ -355,7 +668,53 @@
       "Statistical Financial Accounting"
     ],
     "bio": "Accounting and Book Keeping Clerks compute, classify, and record numerical data to keep financial records complete. They perform any combination of routine calculating, posting, and verifying duties to obtain primary financial data for use",
-    "location": "Nairobi",
-    "reputation_score": 4.1
+    "location": "Kisumu",
+    "reputation_score": 4.6
+  },
+  {
+    "id": "w-4312",
+    "kesco_code": "4312",
+    "label": "Statistical and Insurance Clerk",
+    "category": "Business",
+    "skills": [
+      "Statistical Finance Insurance",
+      "Totals Averages Percentages",
+      "Financial Documents",
+      "Records"
+    ],
+    "bio": "Statistical, Finance and Insurance Clerks obtain, compile and compute statistical or actuarial data or perform clerical tasks relating to the transactions of insurance establishments, banks and other financial establishments",
+    "location": "Mombasa",
+    "reputation_score": 3.6
+  },
+  {
+    "id": "w-4313",
+    "kesco_code": "4313",
+    "label": "Payroll Clerk",
+    "category": "Business",
+    "skills": [
+      "Payroll Clerk",
+      "Employee Payments",
+      "Time Sheets Work",
+      "Attendance Hours Worked"
+    ],
+    "bio": "Payroll Clerks collect, verify and process payroll information and compute pay and benefit entitlements for employees within a department, company or other establishment",
+    "location": "Thika",
+    "reputation_score": 4.0
+  },
+  {
+    "id": "w-4416",
+    "kesco_code": "4416",
+    "label": "Personnel Clerk",
+    "category": "Business",
+    "skills": [
+      "Personnel Clerk",
+      "Inquiries",
+      "Out Job Applications",
+      "Manual",
+      "Personnel Records"
+    ],
+    "bio": "Personnel Clerks Personnel clerks maintain and update personnel records such as information on transfers and promotions, performance evaluations, employee leave taken and accumulated, salaries, qualifications and training",
+    "location": "Kakamega",
+    "reputation_score": 3.8
   }
 ]

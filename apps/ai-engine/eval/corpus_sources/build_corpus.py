@@ -33,6 +33,7 @@ import math
 import random
 from pathlib import Path
 
+from eval import splits
 from eval.corpus_sources.category_map import (
     CATEGORY_MAP,
     LOCATIONS,
@@ -250,6 +251,9 @@ def build_profile(occ: dict, rng: random.Random) -> dict:
         "id": f"w-{occ['code']}",
         "kesco_code": occ["code"],
         "label": title,
+        # Carried so splits can be stratified by category, and so a reader can
+        # see the balance of the corpus without joining back to the map.
+        "category": CATEGORY_MAP[occ["code"]],
         "skills": skills_from(occ, profile_tasks(occ)),
         "bio": summary,
         "location": pick_location(rng),
@@ -397,6 +401,16 @@ def main() -> None:
         for (worker_id, gig_id), (grade, layer, note) in sorted(graded.items()):
             writer.writerow([worker_id, gig_id, grade, layer, note])
 
+    # Splits are derived from the corpus that was just written, and hashed
+    # against it, so a split file can never silently describe different data.
+    version = splits.dataset_version(
+        CORPUS_DIR / "profiles.json",
+        CORPUS_DIR / "gigs.json",
+        CORPUS_DIR / "relevance.csv",
+    )
+    assignment = splits.build(profiles, version)
+    splits.write(assignment)
+
     by_layer: dict[str, int] = {}
     for _, (_, layer, _) in graded.items():
         by_layer[layer] = by_layer.get(layer, 0) + 1
@@ -409,6 +423,11 @@ def main() -> None:
     print(f"graded    {len(graded)} pairs  " + ", ".join(f"{k}:{v}" for k, v in sorted(by_layer.items())))
     print(f"          {len(profiles) * len(gigs) - len(graded)} pairs implicitly grade 0")
     print(f"budgets   median floor KES {median:,}  range {budgets[0]:,}-{budgets[-1]:,}")
+    print(
+        f"splits    train {len(assignment.train)} | "
+        f"validation {len(assignment.validation)} | test {len(assignment.test)}"
+    )
+    print(f"dataset   version {version}")
     print(f"\nwritten to {CORPUS_DIR}\n")
 
 

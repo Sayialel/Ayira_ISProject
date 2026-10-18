@@ -27,21 +27,34 @@ CATEGORY_MAP: dict[str, str] = {
     "2521": "Technology",   # Database Designers and Administrators
     "2523": "Technology",   # Computer Network Professionals
     "3514": "Technology",   # Web Technicians
+    "2515": "Technology",   # Software Auditors
+    "2522": "Technology",   # Systems Administrators
+    "2531": "Technology",   # Database and Network Security Professionals
+    "2543": "Technology",   # Cloud Computing Professionals
+    "2120": "Technology",   # Mathematicians, Actuaries and Statisticians
+    "2172": "Technology",   # Surveyors and Cartographers
     # --- Writing ----------------------------------------------------------
     "2641": "Writing",      # Authors and Related Writers
     "2642": "Writing",      # Journalists
     "2643": "Writing",      # Translators, Interpreters and Other Linguists
+    "2353": "Writing",      # Other Language Teachers
+    "4131": "Writing",      # Typists and Word Processing Operators
+    "3342": "Writing",      # Legal Secretaries
     # --- Design -----------------------------------------------------------
     "2651": "Design",       # Visual Artists
     "2654": "Design",       # Film, Stage and Related Directors and Producers
     "3431": "Design",       # Photographers
     "3432": "Design",       # Interior Designers and Decorators
     "3521": "Design",       # Broadcasting and Audio-Visual Technicians
+    "2652": "Design",       # Musicians, Singers and Composers
+    "2655": "Design",       # Actors
     # --- Marketing --------------------------------------------------------
     "2431": "Marketing",    # Advertising and Marketing Professionals
     "2432": "Marketing",    # Public Relations Professionals
     "2434": "Marketing",    # ICT Sales Professionals
     "4227": "Marketing",    # Survey and Market Research Interviewers
+    "1221": "Marketing",    # Sales and Marketing Managers
+    "1222": "Marketing",    # Public Relations and Advertising Managers
     # --- Business ---------------------------------------------------------
     "2411": "Business",     # Accountants
     "2421": "Business",     # Management and Organization Analysts
@@ -49,12 +62,33 @@ CATEGORY_MAP: dict[str, str] = {
     "4132": "Business",     # Data Entry Clerks
     "4222": "Business",     # Contact Centre Information Clerks
     "4311": "Business",     # Accounting and Book Keeping Clerks
+    "1212": "Business",     # Human Resource Managers
+    "2412": "Business",     # Financial and Investment Advisers
+    "2423": "Business",     # Human Resource and Careers Professionals
+    "2424": "Business",     # Training and Staff Development Professionals
+    "2356": "Business",     # Information Communication Technology Trainers
+    "4225": "Business",     # Inquiry Clerks
+    "4312": "Business",     # Statistical, Finance and Insurance Clerks
+    "4313": "Business",     # Payroll Clerks
+    "4416": "Business",     # Personnel Clerks
 }
 
 # Where a KeSCO title is a formal classification label rather than something a
 # worker would write about themselves, a plainer name is used in generated
 # text. The code still carries the provenance.
 PLAIN_TITLES: dict[str, str] = {
+    "2120": "Statistician",
+    "2172": "Surveyor and Cartographer",
+    "2353": "Language Teacher",
+    "2356": "ICT Trainer",
+    "2412": "Financial Adviser",
+    "2423": "HR and Careers Professional",
+    "2424": "Training and Development Professional",
+    "2531": "Database and Network Security Professional",
+    "2543": "Cloud Computing Professional",
+    "2652": "Musician and Composer",
+    "4131": "Typist and Word Processing Operator",
+    "4312": "Statistical and Insurance Clerk",
     "2513": "Web and Multimedia Developer",
     "2514": "Applications Programmer",
     "2521": "Database Administrator",

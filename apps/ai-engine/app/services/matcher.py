@@ -11,6 +11,7 @@ from app.services.embedding_store import (
     to_pgvector,
     worker_embedding,
 )
+from app.services import tfidf_model
 from app.services.scoring import gig_text, profile_text, score_gigs
 
 logger = logging.getLogger(__name__)
@@ -128,7 +129,16 @@ async def match_worker_to_gigs(worker_id: str, limit: int = 10) -> list[GigScore
     gigs = candidates.data
     semantic = [_similarity_from_distance(g.get("distance")) for g in gigs]
 
-    ranked = score_gigs(profile, gigs, semantic_scores=semantic)
+    # The TF-IDF artefact fitted on the training split. If none has been
+    # promoted this is None and score_gigs falls back to fitting over the
+    # candidates, which still works but makes the score depend on which gigs
+    # are open -- see tfidf_model.load_serving().
+    ranked = score_gigs(
+        profile,
+        gigs,
+        semantic_scores=semantic,
+        vectorizer=tfidf_model.load_serving(),
+    )
 
     return [
         GigScore(

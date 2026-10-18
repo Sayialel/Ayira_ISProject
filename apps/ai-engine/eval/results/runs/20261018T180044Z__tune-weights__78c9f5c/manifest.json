@@ -1,0 +1,56 @@
+{
+  "run_id": "20261018T180044Z__tune-weights__78c9f5c",
+  "name": "tune-weights",
+  "started_at": "2026-10-18T18:00:44.880553+00:00",
+  "finished_at": "2026-10-18T18:03:18.265622+00:00",
+  "git": {
+    "commit": "78c9f5c187ebd26a0ba772dbc4c3ce43453c56ae",
+    "short_commit": "78c9f5c",
+    "branch": "main",
+    "dirty": true,
+    "uncommitted_files": 16
+  },
+  "dataset_version": "140a66f39f04",
+  "seeds": {
+    "split": 20261018
+  },
+  "parameters": {
+    "grid_step": 0.05,
+    "combinations": 1771,
+    "metric": "ndcg_at_10",
+    "search_split": "train",
+    "selection_split": "validation",
+    "reporting_split": "test",
+    "adopt_margin": 0.005,
+    "shipped_weights": {
+      "semantic": 0.45,
+      "tfidf": 0.25,
+      "location": 0.15,
+      "reputation": 0.15
+    },
+    "current_weights": {
+      "semantic": 0.6,
+      "tfidf": 0.2,
+      "location": 0.05,
+      "reputation": 0.15
+    },
+    "tfidf_fitted_on": "train"
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": "First tuning run under train/validation/test discipline."
+}

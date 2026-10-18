@@ -7,10 +7,13 @@ reimplementation of it that could drift.
 
 from dataclasses import dataclass
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 from app.services.embeddings import (
     compute_semantic_similarities,
     compute_tfidf_similarities,
 )
+from app.services import tfidf_model
 
 
 @dataclass(frozen=True)
@@ -148,6 +151,7 @@ def score_gigs(
     gigs: list[dict],
     weights: Weights = DEFAULT_WEIGHTS,
     semantic_scores: list[float] | None = None,
+    vectorizer: TfidfVectorizer | None = None,
 ) -> list[ScoredGig]:
     """
     Scores every gig against one worker profile, ranked best first.
@@ -157,6 +161,13 @@ def score_gigs(
     runs during an ordinary request. Left out, they are computed here, which is
     what the evaluation harness does so it measures the scoring itself rather
     than the cache.
+
+    `vectorizer` supplies a TF-IDF model fitted on training documents. Passing
+    one is the correct path: it keeps document frequencies fixed, so scores are
+    reproducible across runs and no validation or test document influences the
+    weighting. Omitting it falls back to fitting over the candidates at scoring
+    time, which is how the system behaved before the artefact existed and which
+    remains the behaviour when no artefact has been built.
     """
     if not gigs:
         return []
@@ -174,7 +185,10 @@ def score_gigs(
             f"semantic_scores has {len(semantic_scores)} entries for {len(gigs)} gigs"
         )
 
-    tfidf_scores = compute_tfidf_similarities(worker_profile, texts)
+    if vectorizer is not None:
+        tfidf_scores = tfidf_model.similarities(vectorizer, worker_profile, texts)
+    else:
+        tfidf_scores = compute_tfidf_similarities(worker_profile, texts)
 
     scored = [
         ScoredGig(

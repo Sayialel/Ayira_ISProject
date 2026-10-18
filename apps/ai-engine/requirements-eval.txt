@@ -1,0 +1,15 @@
+# Dependencies for running experiments, not for serving the API.
+#
+# Kept separate so the deployed service stays small: the matching endpoint does
+# not plot anything. This is also the file a Colab notebook installs, which is
+# why the versions are pinned — an experiment whose dependency versions drift
+# between runs is not reproducible, and the manifest records what was actually
+# resolved.
+-r requirements.txt
+
+matplotlib==3.9.2
+joblib==1.6.0
+
+# Transitive, pinned deliberately: matplotlib pulls the newest contourpy, which
+# requires numpy>=2 and so silently upgrades away from the numpy pin above.
+contourpy==1.2.1

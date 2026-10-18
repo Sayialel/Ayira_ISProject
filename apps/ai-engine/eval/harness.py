@@ -1,27 +1,34 @@
 """
-Shared plumbing for the evaluation: loading the corpus, running a ranking
-strategy over every profile, and reporting the averaged metrics.
+Shared plumbing for the evaluation: loading the corpus, fitting preprocessing
+on the training split, running a ranking strategy over a split, and reporting
+the averaged metrics.
+
+The split discipline lives here rather than in each script, so no experiment
+can quietly evaluate on the wrong rows:
+
+    corpus = load_corpus()                   # fits TF-IDF on train only
+    dev    = corpus.for_split("validation")  # development decisions
+    final  = corpus.for_split("test")        # reported once
 """
 
 import csv
 import json
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
-from app.services.embeddings import (
-    compute_semantic_similarities,
-    compute_tfidf_similarities,
-)
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+from app.services import tfidf_model
+from app.services.embeddings import compute_semantic_similarities
 from app.services.scoring import (
     DEFAULT_WEIGHTS,
     Weights,
     gig_text,
-    is_location_match,
     profile_text,
     score_gigs,
 )
-from eval import metrics
+from eval import metrics, splits
 
 CORPUS_DIR = Path(__file__).resolve().parent / "corpus"
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
@@ -33,9 +40,41 @@ class Corpus:
     gigs: list[dict]
     # worker_id -> {gig_id: grade}
     grades: dict[str, dict[str, int]]
+    assignment: splits.SplitAssignment
+    vectorizer: TfidfVectorizer | None = None
+    split: str = "all"
+
+    @property
+    def dataset_version(self) -> str:
+        return self.assignment.dataset_version
+
+    def for_split(self, split: str) -> "Corpus":
+        """
+        The same corpus restricted to one split's profiles.
+
+        The gig collection is not restricted: it is the thing being searched,
+        and a held-out worker searches the whole catalogue in production. What
+        is held out is the query and its judgements.
+        """
+        wanted = set(self.assignment.ids(split))
+        return Corpus(
+            profiles=[p for p in self.profiles if p["id"] in wanted],
+            gigs=self.gigs,
+            grades=self.grades,
+            assignment=self.assignment,
+            vectorizer=self.vectorizer,
+            split=split,
+        )
+
+    def describe(self) -> str:
+        judged = sum(len(self.grades.get(p["id"], {})) for p in self.profiles)
+        return (
+            f"{self.split}: {len(self.profiles)} profiles x {len(self.gigs)} gigs, "
+            f"{judged} graded pairs"
+        )
 
 
-def load_corpus() -> Corpus:
+def load_corpus(fit_preprocessing: bool = True) -> Corpus:
     profiles = json.loads((CORPUS_DIR / "profiles.json").read_text(encoding="utf-8"))
     gigs = json.loads((CORPUS_DIR / "gigs.json").read_text(encoding="utf-8"))
 
@@ -49,7 +88,45 @@ def load_corpus() -> Corpus:
         grades.setdefault(row["worker_id"], {})[row["gig_id"]] = int(row["grade"])
 
     _validate(profiles, gigs, grades)
-    return Corpus(profiles=profiles, gigs=gigs, grades=grades)
+
+    assignment = splits.load()
+    _validate_splits(profiles, assignment)
+
+    vectorizer = (
+        fit_training_vectorizer(profiles, gigs, grades, assignment)
+        if fit_preprocessing
+        else None
+    )
+
+    return Corpus(
+        profiles=profiles,
+        gigs=gigs,
+        grades=grades,
+        assignment=assignment,
+        vectorizer=vectorizer,
+    )
+
+
+def fit_training_vectorizer(
+    profiles: list[dict],
+    gigs: list[dict],
+    grades: dict[str, dict[str, int]],
+    assignment: splits.SplitAssignment,
+) -> TfidfVectorizer:
+    """
+    Fits the TF-IDF vocabulary and document frequencies on training data only.
+
+    Both sides of the comparison contribute, because a vocabulary fitted on
+    gigs alone would treat the words workers use to describe themselves as out
+    of vocabulary. Both are drawn strictly from the training split.
+    """
+    scoped_gigs = splits.fit_scope(gigs, assignment, grades)
+    train_ids = set(assignment.train)
+
+    documents = [gig_text(g) for g in scoped_gigs]
+    documents += [profile_text(p) for p in profiles if p["id"] in train_ids]
+
+    return tfidf_model.fit(documents)
 
 
 def _validate(profiles: list[dict], gigs: list[dict], grades: dict[str, dict[str, int]]) -> None:
@@ -65,6 +142,27 @@ def _validate(profiles: list[dict], gigs: list[dict], grades: dict[str, dict[str
                 raise ValueError(f"relevance.csv references unknown gig '{gig_id}'")
 
 
+def _validate_splits(profiles: list[dict], assignment: splits.SplitAssignment) -> None:
+    """
+    The splits file and the corpus must describe the same profiles.
+
+    Regenerating the corpus without regenerating the splits would otherwise
+    evaluate on a stale assignment, which is the kind of error that produces a
+    plausible-looking number for the wrong reason.
+    """
+    corpus_ids = {p["id"] for p in profiles}
+    assigned = set(assignment.train) | set(assignment.validation) | set(assignment.test)
+
+    missing = corpus_ids - assigned
+    extra = assigned - corpus_ids
+    if missing or extra:
+        raise SystemExit(
+            "splits.json does not match the corpus "
+            f"({len(missing)} unassigned profiles, {len(extra)} assigned but absent).\n"
+            "Rebuild both: python -m eval.corpus_sources.build_corpus"
+        )
+
+
 # ---------------------------------------------------------------------------
 # Ranking strategies. Each takes a profile and the gig list, and returns gig
 # ids best-first.
@@ -78,9 +176,11 @@ def rank_random(profile: dict, gigs: list[dict], seed: int = 0) -> list[str]:
     return ids
 
 
-def rank_tfidf_only(profile: dict, gigs: list[dict]) -> list[str]:
+def rank_tfidf_only(profile: dict, gigs: list[dict], vectorizer: TfidfVectorizer) -> list[str]:
     """Keyword overlap alone — the classic pre-neural baseline."""
-    scores = compute_tfidf_similarities(profile_text(profile), [gig_text(g) for g in gigs])
+    scores = tfidf_model.similarities(
+        vectorizer, profile_text(profile), [gig_text(g) for g in gigs]
+    )
     return [g["id"] for g, _ in sorted(zip(gigs, scores), key=lambda p: p[1], reverse=True)]
 
 
@@ -90,9 +190,14 @@ def rank_semantic_only(profile: dict, gigs: list[dict]) -> list[str]:
     return [g["id"] for g, _ in sorted(zip(gigs, scores), key=lambda p: p[1], reverse=True)]
 
 
-def rank_composite(profile: dict, gigs: list[dict], weights: Weights = DEFAULT_WEIGHTS) -> list[str]:
+def rank_composite(
+    profile: dict,
+    gigs: list[dict],
+    weights: Weights = DEFAULT_WEIGHTS,
+    vectorizer: TfidfVectorizer | None = None,
+) -> list[str]:
     """The live system: the full weighted composite."""
-    return [s.gig_id for s in score_gigs(profile, gigs, weights)]
+    return [s.gig_id for s in score_gigs(profile, gigs, weights, vectorizer=vectorizer)]
 
 
 # ---------------------------------------------------------------------------
@@ -108,6 +213,8 @@ class Result:
     recall_at_10: float
     mrr: float
     ndcg_at_10: float
+    # Kept out of the metrics table; written separately as the run's predictions.
+    predictions: dict[str, list[str]] = field(default_factory=dict, repr=False)
 
     def as_row(self) -> list[str]:
         return [
@@ -119,10 +226,21 @@ class Result:
             f"{self.ndcg_at_10:.3f}",
         ]
 
+    def as_metrics(self) -> dict:
+        return {
+            "name": self.name,
+            "precision_at_5": self.precision_at_5,
+            "precision_at_10": self.precision_at_10,
+            "recall_at_10": self.recall_at_10,
+            "mrr": self.mrr,
+            "ndcg_at_10": self.ndcg_at_10,
+        }
 
-def evaluate(name: str, rank_fn, corpus: Corpus) -> Result:
-    """Runs one strategy across every profile and averages the metrics."""
+
+def evaluate(name: str, rank_fn, corpus: Corpus, keep: int = 10) -> Result:
+    """Runs one strategy across every profile in the corpus and averages the metrics."""
     p5, p10, r10, rr, ndcg = [], [], [], [], []
+    predictions: dict[str, list[str]] = {}
 
     for profile in corpus.profiles:
         ranked = rank_fn(profile, corpus.gigs)
@@ -134,6 +252,9 @@ def evaluate(name: str, rank_fn, corpus: Corpus) -> Result:
         rr.append(metrics.reciprocal_rank(ranked, grades))
         ndcg.append(metrics.ndcg_at_k(ranked, grades, 10))
 
+        # The top of each ranking, so a reviewer can see what the numbers mean.
+        predictions[profile["id"]] = ranked[:keep]
+
     return Result(
         name=name,
         precision_at_5=metrics.mean(p5),
@@ -141,22 +262,26 @@ def evaluate(name: str, rank_fn, corpus: Corpus) -> Result:
         recall_at_10=metrics.mean(r10),
         mrr=metrics.mean(rr),
         ndcg_at_10=metrics.mean(ndcg),
+        predictions=predictions,
     )
 
 
 HEADERS = ["strategy", "P@5", "P@10", "R@10", "MRR", "NDCG@10"]
 
 
-def print_table(results: list[Result]) -> None:
+def format_table(results: list[Result]) -> str:
     rows = [HEADERS] + [r.as_row() for r in results]
     widths = [max(len(row[i]) for row in rows) for i in range(len(HEADERS))]
 
-    def line(row: list[str]) -> str:
+    out = []
+    for index, row in enumerate(rows):
         cells = [row[0].ljust(widths[0])]
         cells += [row[i].rjust(widths[i]) for i in range(1, len(row))]
-        return "  ".join(cells)
+        out.append("  ".join(cells))
+        if index == 0:
+            out.append("  ".join("-" * w for w in widths))
+    return "\n".join(out) + "\n"
 
-    print(line(rows[0]))
-    print("  ".join("-" * w for w in widths))
-    for row in rows[1:]:
-        print(line(row))
+
+def print_table(results: list[Result]) -> None:
+    print(format_table(results), end="")
