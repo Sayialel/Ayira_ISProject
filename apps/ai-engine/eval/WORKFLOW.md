@@ -179,6 +179,18 @@ Until an artefact is promoted, `tfidf_model.load_serving()` returns `None`,
 `score_gigs()` falls back to per-request fitting, and a warning is logged. The
 fallback works, but figures measured offline will not reproduce live.
 
+**Currently deployed:** `artifacts/tfidf_vectorizer.joblib`, 1,160 terms, from
+run `20261018T183641Z__baselines-validation__92d821c` on dataset
+`140a66f39f04`. Verified to produce rankings identical to the offline harness,
+so the evaluation and the service now measure the same system.
+
+The promote step also surfaced a defect in the provenance capture itself. Runs
+write their evidence into the repository, so `git_state()` saw the folder the
+run had just created and reported `dirty: true` — which made `promote` refuse
+every artefact and reduced the flag to noise. The dirty assessment now ignores
+paths under `eval/results/`, and the state is captured at run start rather than
+re-read at finish.
+
 ---
 
 ## Step 6 — Investigate, then verify against the code

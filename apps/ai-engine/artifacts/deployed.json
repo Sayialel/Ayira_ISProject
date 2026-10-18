@@ -1,0 +1,10 @@
+{
+  "run_id": "20261018T183641Z__baselines-validation__92d821c",
+  "artefact": "tfidf_vectorizer.joblib",
+  "artefact_version": 1,
+  "git_commit": "92d821c48acc7a6d3a0e817292c1e39d94ddb935",
+  "git_dirty": false,
+  "dataset_version": "140a66f39f04",
+  "fitted_on": "train",
+  "deployed_at": "2026-10-18T18:37:19.892187+00:00"
+}
