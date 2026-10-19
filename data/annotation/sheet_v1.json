@@ -1,0 +1,3031 @@
+{
+  "guideline_version": "1.0",
+  "generated_at": "2026-10-19T10:30:58.501464+00:00",
+  "seed": 20261019,
+  "dataset_version": "6ac4675ae766",
+  "instructions": "See docs/ANNOTATION_GUIDE.md. Do not open the key file.",
+  "pairs": [
+    {
+      "pair_id": "v1-0001",
+      "worker": {
+        "label": "Training and Development Professional",
+        "bio": "Training and staff development professionals plan, develop, implement and evaluate training needs and develop programmes to ensure management and staff acquire the relevant skills and competencies required by organizations to meet",
+        "skills": [
+          "Training Staff Development",
+          "Internal",
+          "Evaluation",
+          "Background Materials"
+        ],
+        "location": "Athi River"
+      },
+      "gig": {
+        "title": "Language Teacher needed — assessing the level of ability and the extent of",
+        "description": "We are looking for someone to take on assessing the level of ability and the extent of language difficulties of students, and establishing students' needs and learning goals. The work also covers planning, preparing and delivering lessons and workshops for groups and individuals with content and rate of progression adapted to students’ abilities and needs.",
+        "required_skills": [
+          "Language Teacher",
+          "Level",
+          "Lessons"
+        ],
+        "location": "Kisumu",
+        "is_remote": false,
+        "budget_min": 2600,
+        "budget_max": 5100,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0002",
+      "worker": {
+        "label": "Legal Secretarie",
+        "bio": "Legal Secretaries apply specialized knowledge of legal terminology and procedures in providing support to legal professionals with communication, documentation and internal managerial coordination activities, in law offices, legal",
+        "skills": [
+          "Legal Secretarie",
+          "Documents Case Files",
+          "Requests",
+          "Work"
+        ],
+        "location": "Mombasa"
+      },
+      "gig": {
+        "title": "Accountant needed — advising, planning and installing budgetary, accounts",
+        "description": "We are looking for someone to take on advising, planning and installing budgetary, accounts controlling and other accounting policies and systems. The work also covers preparing and certifying financial statements for presentation to management, shareholders and statutory or other bodies.",
+        "required_skills": [
+          "Accountant",
+          "Budgetary Accounts Controlling",
+          "Financial Statements"
+        ],
+        "location": "Machakos",
+        "is_remote": false,
+        "budget_min": 5700,
+        "budget_max": 11100,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0003",
+      "worker": {
+        "label": "Accountant",
+        "bio": "Accountants Plan and administer accounting services and advises on accountancy issues pertaining to private persons, enterprises, institutions and governmental organizations",
+        "skills": [
+          "Accountant",
+          "Financial Investigations",
+          "Accounts",
+          "Investigations",
+          "Systems"
+        ],
+        "location": "Kisumu"
+      },
+      "gig": {
+        "title": "Audio-Visual Technician needed — controlling equipment to record sound",
+        "description": "We are looking for someone to take on controlling equipment to record sound.",
+        "required_skills": [
+          "Broadcasting Audio-Visual Technician",
+          "Equipment",
+          "Knowledge"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2000,
+        "budget_max": 3900,
+        "currency": "KES",
+        "employer_reputation": 4.22,
+        "employer_review_count": 36
+      }
+    },
+    {
+      "pair_id": "v1-0004",
+      "worker": {
+        "label": "Legal Secretarie",
+        "bio": "Legal Secretaries apply specialized knowledge of legal terminology and procedures in providing support to legal professionals with communication, documentation and internal managerial coordination activities, in law offices, legal",
+        "skills": [
+          "Legal Secretarie",
+          "Documents Case Files",
+          "Requests",
+          "Work"
+        ],
+        "location": "Mombasa"
+      },
+      "gig": {
+        "title": "Inquiry Clerk needed — answering inquiries about goods, services, and policy",
+        "description": "We are looking for someone to take on answering inquiries about goods, services, and policy and providing information about their availability, location, price and related issues.",
+        "required_skills": [
+          "Inquiry Clerk",
+          "Inquiries"
+        ],
+        "location": "Naivasha",
+        "is_remote": false,
+        "budget_min": 3200,
+        "budget_max": 6200,
+        "currency": "KES",
+        "employer_reputation": 4.07,
+        "employer_review_count": 15
+      }
+    },
+    {
+      "pair_id": "v1-0005",
+      "worker": {
+        "label": "Public Relations Professional",
+        "bio": "Public Relations Professionals Plans Organizes and Carry out programmes of information dissemination to influence the public to view favorably an organization, products or services. Receives and provides hospitality services to clients of",
+        "skills": [
+          "Public Relations Professional",
+          "Organizations",
+          "Business Social",
+          "Photographs",
+          "Material Submitted"
+        ],
+        "location": "Kikuyu"
+      },
+      "gig": {
+        "title": "Public Relations and Advertising Manager needed — participating in the policy formulation of the",
+        "description": "We are looking for someone to take on participating in the policy formulation of the organization's advertising and public relations.",
+        "required_skills": [
+          "Public Relations Advertising",
+          "Public Relations Activities",
+          "Negotiations"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 8300,
+        "budget_max": 16100,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0006",
+      "worker": {
+        "label": "Legal Secretarie",
+        "bio": "Legal Secretaries apply specialized knowledge of legal terminology and procedures in providing support to legal professionals with communication, documentation and internal managerial coordination activities, in law offices, legal",
+        "skills": [
+          "Legal Secretarie",
+          "Documents Case Files",
+          "Requests",
+          "Work"
+        ],
+        "location": "Mombasa"
+      },
+      "gig": {
+        "title": "Language Teacher needed — assessing the level of ability and the extent of",
+        "description": "We are looking for someone to take on assessing the level of ability and the extent of language difficulties of students, and establishing students' needs and learning goals. The work also covers planning, preparing and delivering lessons and workshops for groups and individuals with content and rate of progression adapted to students’ abilities and needs.",
+        "required_skills": [
+          "Language Teacher",
+          "Level",
+          "Lessons"
+        ],
+        "location": "Kisumu",
+        "is_remote": false,
+        "budget_min": 2600,
+        "budget_max": 5100,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0007",
+      "worker": {
+        "label": "HR and Careers Professional",
+        "bio": "Human Resource and careers professionals provide professional business services related to personnel policies such as employee recruitment or development, occupational analysis and vocational guidance",
+        "skills": [
+          "Human Resource Career",
+          "Staff Welfare",
+          "Wage",
+          "Guidance",
+          "Plans Develops Implements"
+        ],
+        "location": "Malindi"
+      },
+      "gig": {
+        "title": "Inquiry Clerk needed — responding to enquiries about problems and providing",
+        "description": "We are looking for someone to take on responding to enquiries about problems and providing advice, information and assistance.",
+        "required_skills": [
+          "Inquiry Clerk",
+          "Inquiries"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 800,
+        "budget_max": 1400,
+        "currency": "KES",
+        "employer_reputation": 4.07,
+        "employer_review_count": 15
+      }
+    },
+    {
+      "pair_id": "v1-0008",
+      "worker": {
+        "label": "Legal Secretarie",
+        "bio": "Legal Secretaries apply specialized knowledge of legal terminology and procedures in providing support to legal professionals with communication, documentation and internal managerial coordination activities, in law offices, legal",
+        "skills": [
+          "Legal Secretarie",
+          "Documents Case Files",
+          "Requests",
+          "Work"
+        ],
+        "location": "Mombasa"
+      },
+      "gig": {
+        "title": "Public Relations Professional needed — undertaking and commissioning public opinion",
+        "description": "We are looking for someone to take on undertaking and commissioning public opinion research, analysing the findings and planning public relations and promotional campaigns. The work also covers organizing special events, seminars, entertainment, competitions and social functions to promote goodwill and favourable publicity.",
+        "required_skills": [
+          "Public Relations Professional",
+          "Publicity Campaigns",
+          "Executives"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2700,
+        "budget_max": 5100,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0009",
+      "worker": {
+        "label": "HR and Careers Professional",
+        "bio": "Human Resource and careers professionals provide professional business services related to personnel policies such as employee recruitment or development, occupational analysis and vocational guidance",
+        "skills": [
+          "Human Resource Career",
+          "Staff Welfare",
+          "Wage",
+          "Guidance",
+          "Plans Develops Implements"
+        ],
+        "location": "Malindi"
+      },
+      "gig": {
+        "title": "Training and Development Professional needed — identifying training needs and requirements of",
+        "description": "We are looking for someone to take on identifying training needs and requirements of individuals and organizations. The work also covers setting human resource development objectives and evaluating learning outcomes.",
+        "required_skills": [
+          "Training Staff Development",
+          "Needs",
+          "Human Resource Development"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 3700,
+        "budget_max": 7100,
+        "currency": "KES",
+        "employer_reputation": 4.11,
+        "employer_review_count": 35
+      }
+    },
+    {
+      "pair_id": "v1-0010",
+      "worker": {
+        "label": "Inquiry Clerk",
+        "bio": "Enquiry clerks respond to personal, written, electronic mail, and telephone enquiries and complaints about the organization’s goods, services and policies, provide information and refer people to other sources",
+        "skills": [
+          "Inquiry Clerk",
+          "Information",
+          "Complex Enquiries",
+          "Relevant Forms Information"
+        ],
+        "location": "Kilifi"
+      },
+      "gig": {
+        "title": "Journalist needed — collecting local, national and international news",
+        "description": "We are looking for someone to take on collecting local, national and international news through interviews, investigation and observation, attending public events to seek information, reviewing records and other written works, attending film and stage performances record events. The work also covers collecting, reporting and commenting on news and current affairs for publication in newspapers and periodicals, or for broadcasting by radio, television or webcast media.",
+        "required_skills": [
+          "Journalist",
+          "Local National",
+          "News"
+        ],
+        "location": "Mombasa",
+        "is_remote": false,
+        "budget_min": 13700,
+        "budget_max": 26500,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0011",
+      "worker": {
+        "label": "Language Teacher",
+        "bio": "Other Language Teachers teach non-native languages to adults and children who are learning a language for reasons of migration, to fulfill employment requirements or opportunities, to facilitate participation in educational programmes",
+        "skills": [
+          "Language Teacher",
+          "Students",
+          "Assistance",
+          "Work"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Visual Artist needed — selecting artistic media, method and materials",
+        "description": "We are looking for someone to take on selecting artistic media, method and materials. The work also covers creating representational or abstract three-dimensional or relief forms by shaping, carving and working and combining materials such as wood, stone, clay, metal, ice or paper.",
+        "required_skills": [
+          "Visual Artist",
+          "Ideas Designs",
+          "Objects Positioning Models"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0012",
+      "worker": {
+        "label": "Computer Network Professional",
+        "bio": "Computer Network Professionals research, analyze, design, test and recommend strategies for network architecture and development. They implement, manage, maintain and configure network hardware and software, and monitor, troubleshoot and",
+        "skills": [
+          "Computer Network Professional",
+          "Specialist Skills",
+          "Procedures",
+          "Network Traffic"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Systems Administrator needed — recommending changes to improve systems and network",
+        "description": "We are looking for someone to take on recommending changes to improve systems and network configurations, and determining hardware or software requirements related to such changes.",
+        "required_skills": [
+          "Systems Administrator",
+          "Computer Networks",
+          "Changes"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 5400,
+        "budget_max": 10400,
+        "currency": "KES",
+        "employer_reputation": 4.68,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0013",
+      "worker": {
+        "label": "Musician and Composer",
+        "bio": "Musicians, Singers and Composers write, arrange, conduct and perform musical compositions and participate in performances",
+        "skills": [
+          "Musicians Singers Composer",
+          "Music"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Photographer needed — taking portrait photographs of persons and groups of",
+        "description": "We are looking for someone to take on taking portrait photographs of persons and groups of persons.",
+        "required_skills": [
+          "Photographer",
+          "Photographs",
+          "Portrait Photographs"
+        ],
+        "location": "Kisii",
+        "is_remote": false,
+        "budget_min": 2700,
+        "budget_max": 5200,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0014",
+      "worker": {
+        "label": "Accountant",
+        "bio": "Accountants Plan and administer accounting services and advises on accountancy issues pertaining to private persons, enterprises, institutions and governmental organizations",
+        "skills": [
+          "Accountant",
+          "Financial Investigations",
+          "Accounts",
+          "Investigations",
+          "Systems"
+        ],
+        "location": "Kisumu"
+      },
+      "gig": {
+        "title": "Accountant needed — advising, planning and installing budgetary, accounts",
+        "description": "We are looking for someone to take on advising, planning and installing budgetary, accounts controlling and other accounting policies and systems. The work also covers preparing and certifying financial statements for presentation to management, shareholders and statutory or other bodies.",
+        "required_skills": [
+          "Accountant",
+          "Budgetary Accounts Controlling",
+          "Financial Statements"
+        ],
+        "location": "Machakos",
+        "is_remote": false,
+        "budget_min": 5700,
+        "budget_max": 11100,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0015",
+      "worker": {
+        "label": "Visual Artist",
+        "bio": "Visual artists are involved in the arts of painting, sculpting, photography, drawing, printmaking, ceramics, photography, video, filmmaking, design, crafts and architecture as opposed to music, drama, and literature",
+        "skills": [
+          "Visual Artist",
+          "Representational",
+          "Drawings",
+          "Cartoons",
+          "Damaged Soiled"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Film and Video Producer needed — choosing writers, studying scripts to determine",
+        "description": "We are looking for someone to take on choosing writers, studying scripts to determine artistic interpretation, and instructing actors on acting methods. The work also covers directing all aspects of dramatic productions on stage, television, radio or in motion pictures, including choice of actors, and final decisions concerning costumes, set designs, sound or lighting effects.",
+        "required_skills": [
+          "Film Stage Director",
+          "Writers Studying Scripts",
+          "All Aspects"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 3700,
+        "budget_max": 7100,
+        "currency": "KES",
+        "employer_reputation": 4.24,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0016",
+      "worker": {
+        "label": "Interior Designer",
+        "bio": "Interior designers and decorators plan and design commercial, industrial, public, retail and residential building interiors to produce an environment tailored to a purpose, taking into consideration factors that enhance living and working",
+        "skills": [
+          "Interior Designers Decorator",
+          "Functional",
+          "Selected Design",
+          "Construction",
+          "Stage Scenery"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Interior Designer needed — formulating design concepts for the interiors of",
+        "description": "We are looking for someone to take on formulating design concepts for the interiors of buildings. The work also covers preparing sketches, diagrams, illustrations and plans to communicate design concepts.",
+        "required_skills": [
+          "Interior Designers Decorator",
+          "Objectives",
+          "Spatial Functional Efficiency"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 1440,
+        "budget_max": 2100,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0017",
+      "worker": {
+        "label": "Actor",
+        "bio": "Actors portray roles in motion pictures, television or radio productions and stage shows",
+        "skills": [
+          "Actor",
+          "Auditions",
+          "Scripts",
+          "Parts"
+        ],
+        "location": "Karatina"
+      },
+      "gig": {
+        "title": "Public Relations Professional needed — undertaking and commissioning public opinion",
+        "description": "We are looking for someone to take on undertaking and commissioning public opinion research, analysing the findings and planning public relations and promotional campaigns. The work also covers organizing special events, seminars, entertainment, competitions and social functions to promote goodwill and favourable publicity.",
+        "required_skills": [
+          "Public Relations Professional",
+          "Publicity Campaigns",
+          "Executives"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2700,
+        "budget_max": 5100,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0018",
+      "worker": {
+        "label": "Software Developer",
+        "bio": "Software developers research, analyze and evaluate requirements for existing or new software applications and operating systems, and design, develop, test and maintain software solutions to meet these requirements",
+        "skills": [
+          "Software Developer",
+          "Software Testing",
+          "Software",
+          "Software Programming",
+          "Maintenance Procedures"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Software Auditor needed — developing and documenting software testing plans",
+        "description": "We are looking for someone to take on developing and documenting software testing plans.",
+        "required_skills": [
+          "Software Auditor",
+          "Software Testing Plans",
+          "Software"
+        ],
+        "location": "Nyeri",
+        "is_remote": false,
+        "budget_min": 7800,
+        "budget_max": 15100,
+        "currency": "KES",
+        "employer_reputation": 4.06,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0019",
+      "worker": {
+        "label": "Systems Analyst",
+        "bio": "System Analysts analyze data-processing needs of clients",
+        "skills": [
+          "Systems Analyst",
+          "Hardware",
+          "Computer Programs",
+          "Internet Intranet"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Systems Analyst needed — researching Information Communication Technology use",
+        "description": "We are looking for someone to take on researching Information Communication Technology use in business functions and identifying areas in which improvements could be made to maximize effectiveness and efficiency.",
+        "required_skills": [
+          "Systems Analyst",
+          "Research"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 20
+      }
+    },
+    {
+      "pair_id": "v1-0020",
+      "worker": {
+        "label": "Writer",
+        "bio": "Authors and Related writers plan, research and write books, scripts, storyboards, plays, essays, speeches, manuals, specifications and other non-journalistic articles (excluding material for newspapers, magazines and other periodicals) for",
+        "skills": [
+          "Authors Writer",
+          "Material Such",
+          "Brochures Handbooks",
+          "Material"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Typist and Word Processing Operator needed — checking completed work for proper spelling, grammar",
+        "description": "We are looking for someone to take on checking completed work for proper spelling, grammar, punctuation and formatting.",
+        "required_skills": [
+          "Typists Word Processing",
+          "Completed Work",
+          "Material"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 30100,
+        "budget_max": 58100,
+        "currency": "KES",
+        "employer_reputation": 4.68,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0021",
+      "worker": {
+        "label": "Musician and Composer",
+        "bio": "Musicians, Singers and Composers write, arrange, conduct and perform musical compositions and participate in performances",
+        "skills": [
+          "Musicians Singers Composer",
+          "Music"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Web and Multimedia Developer needed — analyzing, designing and developing Internet sites by",
+        "description": "We are looking for someone to take on analyzing, designing and developing Internet sites by applying a mixture of artistry and creativity with software programming and scripting languages and interfacing with operating environments.",
+        "required_skills": [
+          "Web Multimedia Developer",
+          "Internet Sites",
+          "Digital Animations Imaging"
+        ],
+        "location": "Machakos",
+        "is_remote": false,
+        "budget_min": 4100,
+        "budget_max": 7900,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0022",
+      "worker": {
+        "label": "Legal Secretarie",
+        "bio": "Legal Secretaries apply specialized knowledge of legal terminology and procedures in providing support to legal professionals with communication, documentation and internal managerial coordination activities, in law offices, legal",
+        "skills": [
+          "Legal Secretarie",
+          "Documents Case Files",
+          "Requests",
+          "Work"
+        ],
+        "location": "Mombasa"
+      },
+      "gig": {
+        "title": "Personnel Clerk needed — updating information on, employment history",
+        "description": "We are looking for someone to take on updating information on, employment history, salaries, performance evaluations, qualifications and training and leave taken and accumulated.",
+        "required_skills": [
+          "Personnel Clerk",
+          "Information",
+          "Records"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 1900,
+        "budget_max": 3700,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0023",
+      "worker": {
+        "label": "Musician and Composer",
+        "bio": "Musicians, Singers and Composers write, arrange, conduct and perform musical compositions and participate in performances",
+        "skills": [
+          "Musicians Singers Composer",
+          "Music"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Musician and Composer needed — creating melodic, harmonic and rhythmic structures to",
+        "description": "We are looking for someone to take on creating melodic, harmonic and rhythmic structures to express ideas and emotions in musical form. The work also covers translating ideas and concepts into standard musical signs and symbols for reproduction and performance.",
+        "required_skills": [
+          "Musicians Singers Composer",
+          "Melodic Harmonic",
+          "Ideas"
+        ],
+        "location": "Nakuru",
+        "is_remote": false,
+        "budget_min": 8700,
+        "budget_max": 16900,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0024",
+      "worker": {
+        "label": "Public Relations and Advertising Manager",
+        "bio": "Public Relations and Advertising Managers plan, direct and coordinate the advertising, public relations and public information activities of enterprises and organizations or of enterprises that provide related services to other enterprises",
+        "skills": [
+          "Public Relations Advertising",
+          "Information Programmes",
+          "Welfare Activities",
+          "Organization"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Web Technician needed — installing, monitoring and supporting the reliability",
+        "description": "We are looking for someone to take on installing, monitoring and supporting the reliability and usability of Internet and Intranet websites or web server hardware or software.",
+        "required_skills": [
+          "Web Technician",
+          "Reliability",
+          "Documentation Policies"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 2000,
+        "budget_max": 3900,
+        "currency": "KES",
+        "employer_reputation": 4.0,
+        "employer_review_count": 12
+      }
+    },
+    {
+      "pair_id": "v1-0025",
+      "worker": {
+        "label": "Visual Artist",
+        "bio": "Visual artists are involved in the arts of painting, sculpting, photography, drawing, printmaking, ceramics, photography, video, filmmaking, design, crafts and architecture as opposed to music, drama, and literature",
+        "skills": [
+          "Visual Artist",
+          "Representational",
+          "Drawings",
+          "Cartoons",
+          "Damaged Soiled"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Legal Secretarie needed — preparing and processing legal documents and papers",
+        "description": "We are looking for someone to take on preparing and processing legal documents and papers, such as deeds, wills, affidavits and briefs.",
+        "required_skills": [
+          "Legal Secretarie",
+          "Legal Documents",
+          "Documents"
+        ],
+        "location": "Kakamega",
+        "is_remote": false,
+        "budget_min": 4200,
+        "budget_max": 8200,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 24
+      }
+    },
+    {
+      "pair_id": "v1-0026",
+      "worker": {
+        "label": "Personnel Clerk",
+        "bio": "Personnel Clerks Personnel clerks maintain and update personnel records such as information on transfers and promotions, performance evaluations, employee leave taken and accumulated, salaries, qualifications and training",
+        "skills": [
+          "Personnel Clerk",
+          "Inquiries",
+          "Out Job Applications",
+          "Manual",
+          "Personnel Records"
+        ],
+        "location": "Nyeri"
+      },
+      "gig": {
+        "title": "Words for our new product pages",
+        "description": "Our pages read like an instruction manual. We want them rewritten so an ordinary person understands what we sell within ten seconds, in a warm and plain tone, without the jargon we have accumulated.",
+        "required_skills": [
+          "Editorial"
+        ],
+        "location": "Nairobi",
+        "is_remote": true,
+        "budget_min": 18000,
+        "budget_max": 36000,
+        "currency": "KES",
+        "employer_reputation": 4.75,
+        "employer_review_count": 4
+      }
+    },
+    {
+      "pair_id": "v1-0027",
+      "worker": {
+        "label": "Statistical and Insurance Clerk",
+        "bio": "Statistical, Finance and Insurance Clerks obtain, compile and compute statistical or actuarial data or perform clerical tasks relating to the transactions of insurance establishments, banks and other financial establishments",
+        "skills": [
+          "Statistical Finance Insurance",
+          "Totals Averages Percentages",
+          "Financial Documents",
+          "Records"
+        ],
+        "location": "Mombasa"
+      },
+      "gig": {
+        "title": "Accountant needed — preparing tax returns, advising on taxation problems",
+        "description": "We are looking for someone to take on preparing tax returns, advising on taxation problems and c ontesting disputed claims before tax officials. The work also covers preparing or reporting on profit forecasts and budgets.",
+        "required_skills": [
+          "Accountant",
+          "Budgetary Accounts Controlling",
+          "Financial Statements"
+        ],
+        "location": "Kilifi",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 20
+      }
+    },
+    {
+      "pair_id": "v1-0028",
+      "worker": {
+        "label": "Market Research Interviewer",
+        "bio": "Survey and Market Research Interviewers interview people and record their responses to survey and market research questions on a range of topics",
+        "skills": [
+          "Survey Market Research",
+          "Responses",
+          "Inconsistencies",
+          "Feedback"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Market Research Interviewer needed — contacting individuals by telephone or in person and",
+        "description": "We are looking for someone to take on contacting individuals by telephone or in person and explaining the purpose of the interview.",
+        "required_skills": [
+          "Survey Market Research",
+          "Individuals",
+          "Questions Following The"
+        ],
+        "location": "Kericho",
+        "is_remote": false,
+        "budget_min": 2600,
+        "budget_max": 5100,
+        "currency": "KES",
+        "employer_reputation": 3.8,
+        "employer_review_count": 5
+      }
+    },
+    {
+      "pair_id": "v1-0029",
+      "worker": {
+        "label": "Cloud Computing Professional",
+        "bio": "Cloud Computing Professionals plan, design, develop, manage and monitor cloud computing applications",
+        "skills": [
+          "Cloud Computing Professional",
+          "Cloud Platforms",
+          "Design",
+          "Support Windows Cloud",
+          "Technical Assistance"
+        ],
+        "location": "Ruiru"
+      },
+      "gig": {
+        "title": "Training and Development Professional needed — preparing and developing instructional training",
+        "description": "We are looking for someone to take on preparing and developing instructional training material and aids such as handbooks, visual aids, online tutorials, demonstration models and supporting training reference documentation. The work also covers designing, coordinating, scheduling and conducting training and development programmes that can be delivered in the form of individual and group instructi on, and facilitating workshops, meetings, demonstrations and conferences.",
+        "required_skills": [
+          "Training Staff Development",
+          "Needs",
+          "Human Resource Development"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0030",
+      "worker": {
+        "label": "Cloud Computing Professional",
+        "bio": "Cloud Computing Professionals plan, design, develop, manage and monitor cloud computing applications",
+        "skills": [
+          "Cloud Computing Professional",
+          "Cloud Platforms",
+          "Design",
+          "Support Windows Cloud",
+          "Technical Assistance"
+        ],
+        "location": "Ruiru"
+      },
+      "gig": {
+        "title": "Cloud Computing Professional needed — planning, designing, developing, managing and",
+        "description": "We are looking for someone to take on planning, designing, developing, managing and monitoring cloud computing applications.",
+        "required_skills": [
+          "Cloud Computing Professional",
+          "Cloud Computing Applications",
+          "End-To-End Lifecycle"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 5000,
+        "budget_max": 9600,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 24
+      }
+    },
+    {
+      "pair_id": "v1-0031",
+      "worker": {
+        "label": "Human Resource Manager",
+        "bio": "Human Resource Managers plan, direct and co-ordinate the industrial relations activities of an organization. Participate in formulating, planning and organizing procedures for the recruitment, training, promotion or discharge from",
+        "skills": [
+          "Human Resource Manager",
+          "Operational",
+          "Development",
+          "Compliance",
+          "Selection Training"
+        ],
+        "location": "Kikuyu"
+      },
+      "gig": {
+        "title": "Human Resource Manager needed — planning and organizing negotiations and procedures",
+        "description": "We are looking for someone to take on planning and organizing negotiations and procedures for determination of wage structures and level and for consultation with workers on conditions of employment. The work also covers overseeing safety, health and related programmes and activities.",
+        "required_skills": [
+          "Human Resource Manager",
+          "Personnel",
+          "Procedures"
+        ],
+        "location": "Nakuru",
+        "is_remote": false,
+        "budget_min": 26700,
+        "budget_max": 51600,
+        "currency": "KES",
+        "employer_reputation": 4.47,
+        "employer_review_count": 40
+      }
+    },
+    {
+      "pair_id": "v1-0032",
+      "worker": {
+        "label": "Management Analyst",
+        "bio": "Management and organization analysts assist organizations to achieve greater efficiency and solve organizational problems. They study organizational structures, methods, systems and pro cedures. They are responsible for conducting and",
+        "skills": [
+          "Management Organization Analyst",
+          "Work Studies",
+          "Organizations Workflow Charts",
+          "Proposals",
+          "Procedures"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Office Secretarie needed — checking, formatting and transcribing correspondence",
+        "description": "We are looking for someone to take on checking, formatting and transcribing correspondence, minutes and reports from dictation, electronic documents or written drafts to conform to office standards, using typewriter, personal computer or other word processing equipment. The work also covers using various computer software packages including spreadsheets to provide administrative support.",
+        "required_skills": [
+          "Office Secretarie",
+          "Correspondence Minutes",
+          "Various Computer Software"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 3600,
+        "budget_max": 7000,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 20
+      }
+    },
+    {
+      "pair_id": "v1-0033",
+      "worker": {
+        "label": "Audio-Visual Technician",
+        "bio": "Broadcasting and audio-visual technicians control technical functioning of equipment to record and edit images and sound and for transmitting radio and television broadcasts of images and sounds, as well as other types of telecommunication",
+        "skills": [
+          "Broadcasting Audio-Visual Technician",
+          "Broadcast Systems",
+          "Radio Communications Systems",
+          "Knowledge",
+          "Emergency Repairs"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Systems Administrator needed — maintaining and administering computer networks and",
+        "description": "We are looking for someone to take on maintaining and administering computer networks and related computing environments, including computer hardware, systems software, applications software and all configurations.",
+        "required_skills": [
+          "Systems Administrator",
+          "Computer Networks",
+          "Changes"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 5000,
+        "budget_max": 9700,
+        "currency": "KES",
+        "employer_reputation": 4.06,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0034",
+      "worker": {
+        "label": "Payroll Clerk",
+        "bio": "Payroll Clerks collect, verify and process payroll information and compute pay and benefit entitlements for employees within a department, company or other establishment",
+        "skills": [
+          "Payroll Clerk",
+          "Employee Payments",
+          "Time Sheets Work",
+          "Attendance Hours Worked"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Keep our books straight and close each month",
+        "description": "Match our bank lines against what the three shops recorded, keep the ledger tidy, and give us a short monthly summary of where the money actually went. We are two months behind.",
+        "required_skills": [
+          "Financial Records"
+        ],
+        "location": "Nairobi",
+        "is_remote": true,
+        "budget_min": 22000,
+        "budget_max": 44000,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0035",
+      "worker": {
+        "label": "Visual Artist",
+        "bio": "Visual artists are involved in the arts of painting, sculpting, photography, drawing, printmaking, ceramics, photography, video, filmmaking, design, crafts and architecture as opposed to music, drama, and literature",
+        "skills": [
+          "Visual Artist",
+          "Representational",
+          "Drawings",
+          "Cartoons",
+          "Damaged Soiled"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Visual Artist needed — selecting artistic media, method and materials",
+        "description": "We are looking for someone to take on selecting artistic media, method and materials. The work also covers creating representational or abstract three-dimensional or relief forms by shaping, carving and working and combining materials such as wood, stone, clay, metal, ice or paper.",
+        "required_skills": [
+          "Visual Artist",
+          "Ideas Designs",
+          "Objects Positioning Models"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0036",
+      "worker": {
+        "label": "Translator and Interpreter",
+        "bio": "Translators and interpreters study the origin, development and structure of languages, and translate or interpret them from one language to another",
+        "skills": [
+          "Translators Interpreters Linguist",
+          "Methods",
+          "Translated Material"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Statistical and Insurance Clerk needed — obtaining and compiling statistical or actuarial data",
+        "description": "We are looking for someone to take on obtaining and compiling statistical or actuarial data based on routine or special sources of information.",
+        "required_skills": [
+          "Statistical Finance Insurance",
+          "Statistical"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 800,
+        "budget_max": 1200,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0037",
+      "worker": {
+        "label": "Sales and Marketing Manager",
+        "bio": "Sales and Marketing Managers plan, direct and coordinate the sales and marketing activities of an organization, or of enterprises that provide sales and marketing services to other enterprises and organizations",
+        "skills": [
+          "Sales Marketing Manager",
+          "Enterprise",
+          "Activities",
+          "Local Demand",
+          "Documentation"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Systems Administrator needed — maintaining and administering computer networks and",
+        "description": "We are looking for someone to take on maintaining and administering computer networks and related computing environments, including computer hardware, systems software, applications software and all configurations.",
+        "required_skills": [
+          "Systems Administrator",
+          "Computer Networks",
+          "Changes"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 5000,
+        "budget_max": 9700,
+        "currency": "KES",
+        "employer_reputation": 4.06,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0038",
+      "worker": {
+        "label": "Inquiry Clerk",
+        "bio": "Enquiry clerks respond to personal, written, electronic mail, and telephone enquiries and complaints about the organization’s goods, services and policies, provide information and refer people to other sources",
+        "skills": [
+          "Inquiry Clerk",
+          "Information",
+          "Complex Enquiries",
+          "Relevant Forms Information"
+        ],
+        "location": "Kilifi"
+      },
+      "gig": {
+        "title": "Legal Secretarie needed — preparing and processing legal documents and papers",
+        "description": "We are looking for someone to take on preparing and processing legal documents and papers, such as deeds, wills, affidavits and briefs.",
+        "required_skills": [
+          "Legal Secretarie",
+          "Legal Documents",
+          "Documents"
+        ],
+        "location": "Kakamega",
+        "is_remote": false,
+        "budget_min": 4200,
+        "budget_max": 8200,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 24
+      }
+    },
+    {
+      "pair_id": "v1-0039",
+      "worker": {
+        "label": "Web and Multimedia Developer",
+        "bio": "Web and multimedia development professionals combine design and technical knowledge to research, analyze, evaluate, design, programme and modify websites, and applications that draw together text, graphics, animations, imaging, audio and",
+        "skills": [
+          "Web Multimedia Developer",
+          "Computer Code"
+        ],
+        "location": "Thika"
+      },
+      "gig": {
+        "title": "Applications Programmer needed — writing and maintaining program code outlined in",
+        "description": "We are looking for someone to take on writing and maintaining program code outlined in instructions and specifications in accordance with quality accredited standards.",
+        "required_skills": [
+          "Applications Programmer",
+          "Program Code Outlined",
+          "Programs"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3700,
+        "currency": "KES",
+        "employer_reputation": 4.0,
+        "employer_review_count": 12
+      }
+    },
+    {
+      "pair_id": "v1-0040",
+      "worker": {
+        "label": "Public Relations Professional",
+        "bio": "Public Relations Professionals Plans Organizes and Carry out programmes of information dissemination to influence the public to view favorably an organization, products or services. Receives and provides hospitality services to clients of",
+        "skills": [
+          "Public Relations Professional",
+          "Organizations",
+          "Business Social",
+          "Photographs",
+          "Material Submitted"
+        ],
+        "location": "Kikuyu"
+      },
+      "gig": {
+        "title": "ICT Trainer needed — identifying the Information Communication Technology",
+        "description": "We are looking for someone to take on identifying the Information Communication Technology training needs and requirements of individual users and organizations.",
+        "required_skills": [
+          "Information Communication Technology",
+          "Instructional Training Material",
+          "Development Programs"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2500,
+        "budget_max": 4900,
+        "currency": "KES",
+        "employer_reputation": 4.0,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0041",
+      "worker": {
+        "label": "Interior Designer",
+        "bio": "Interior designers and decorators plan and design commercial, industrial, public, retail and residential building interiors to produce an environment tailored to a purpose, taking into consideration factors that enhance living and working",
+        "skills": [
+          "Interior Designers Decorator",
+          "Functional",
+          "Selected Design",
+          "Construction",
+          "Stage Scenery"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Market Research Interviewer needed — asking questions following the outlines of",
+        "description": "We are looking for someone to take on asking questions following the outlines of questionnaires and surveys.",
+        "required_skills": [
+          "Survey Market Research",
+          "Individuals",
+          "Questions Following The"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 4900,
+        "budget_max": 9500,
+        "currency": "KES",
+        "employer_reputation": 4.75,
+        "employer_review_count": 4
+      }
+    },
+    {
+      "pair_id": "v1-0042",
+      "worker": {
+        "label": "Sales and Marketing Manager",
+        "bio": "Sales and Marketing Managers plan, direct and coordinate the sales and marketing activities of an organization, or of enterprises that provide sales and marketing services to other enterprises and organizations",
+        "skills": [
+          "Sales Marketing Manager",
+          "Enterprise",
+          "Activities",
+          "Local Demand",
+          "Documentation"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Legal Secretarie needed — preparing and processing legal documents and papers",
+        "description": "We are looking for someone to take on preparing and processing legal documents and papers, such as deeds, wills, affidavits and briefs.",
+        "required_skills": [
+          "Legal Secretarie",
+          "Legal Documents",
+          "Documents"
+        ],
+        "location": "Kakamega",
+        "is_remote": false,
+        "budget_min": 4200,
+        "budget_max": 8200,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 24
+      }
+    },
+    {
+      "pair_id": "v1-0043",
+      "worker": {
+        "label": "Public Relations Professional",
+        "bio": "Public Relations Professionals Plans Organizes and Carry out programmes of information dissemination to influence the public to view favorably an organization, products or services. Receives and provides hospitality services to clients of",
+        "skills": [
+          "Public Relations Professional",
+          "Organizations",
+          "Business Social",
+          "Photographs",
+          "Material Submitted"
+        ],
+        "location": "Kikuyu"
+      },
+      "gig": {
+        "title": "Photographer needed — taking photographs for advertising, or other",
+        "description": "We are looking for someone to take on taking photographs for advertising, or other commercial, industrial or scientific purposes and to illustrate stories and articles in newspapers, magazines and other publications.",
+        "required_skills": [
+          "Photographer",
+          "Photographs",
+          "Portrait Photographs"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 1440,
+        "budget_max": 2100,
+        "currency": "KES",
+        "employer_reputation": 3.8,
+        "employer_review_count": 5
+      }
+    },
+    {
+      "pair_id": "v1-0044",
+      "worker": {
+        "label": "Software Auditor",
+        "bio": "Software Auditors specialize in quality assurance in conducting software testing and configuration",
+        "skills": [
+          "Software Auditor",
+          "Results",
+          "Software"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Database and Network Security Professional needed — conferring with users to discuss issues such as",
+        "description": "We are looking for someone to take on conferring with users to discuss issues such as computer data access needs, security violations and programming changes. The work also covers monitoring current reports of computer viruses to determine when to update virus protection systems.",
+        "required_skills": [
+          "Database Network Security",
+          "Plans",
+          "Users"
+        ],
+        "location": "Mombasa",
+        "is_remote": false,
+        "budget_min": 5400,
+        "budget_max": 10400,
+        "currency": "KES",
+        "employer_reputation": 4.68,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0045",
+      "worker": {
+        "label": "Translator and Interpreter",
+        "bio": "Translators and interpreters study the origin, development and structure of languages, and translate or interpret them from one language to another",
+        "skills": [
+          "Translators Interpreters Linguist",
+          "Methods",
+          "Translated Material"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Language Teacher needed — assessing the level of ability and the extent of",
+        "description": "We are looking for someone to take on assessing the level of ability and the extent of language difficulties of students, and establishing students' needs and learning goals. The work also covers planning, preparing and delivering lessons and workshops for groups and individuals with content and rate of progression adapted to students’ abilities and needs.",
+        "required_skills": [
+          "Language Teacher",
+          "Level",
+          "Lessons"
+        ],
+        "location": "Kisumu",
+        "is_remote": false,
+        "budget_min": 2600,
+        "budget_max": 5100,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0046",
+      "worker": {
+        "label": "Software Developer",
+        "bio": "Software developers research, analyze and evaluate requirements for existing or new software applications and operating systems, and design, develop, test and maintain software solutions to meet these requirements",
+        "skills": [
+          "Software Developer",
+          "Software Testing",
+          "Software",
+          "Software Programming",
+          "Maintenance Procedures"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Software Developer needed — monitor quality and performance of applications",
+        "description": "We are looking for someone to take on monitor quality and performance of applications through testing and maintenance. The work also covers researching, analysing and evaluating requirements for software applications and operating systems. The work also covers designing and developing computer software systems.",
+        "required_skills": [
+          "Software Developer",
+          "Software",
+          "Recommend"
+        ],
+        "location": "Ruiru",
+        "is_remote": false,
+        "budget_min": 22500,
+        "budget_max": 43500,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0047",
+      "worker": {
+        "label": "Public Relations Professional",
+        "bio": "Public Relations Professionals Plans Organizes and Carry out programmes of information dissemination to influence the public to view favorably an organization, products or services. Receives and provides hospitality services to clients of",
+        "skills": [
+          "Public Relations Professional",
+          "Organizations",
+          "Business Social",
+          "Photographs",
+          "Material Submitted"
+        ],
+        "location": "Kikuyu"
+      },
+      "gig": {
+        "title": "Sales and Marketing Manager needed — planning and organizing special sales and marketing",
+        "description": "We are looking for someone to take on planning and organizing special sales and marketing programmes based on sales records and market assessments. The work also covers determining price lists, discount and delivery terms, sales promotion budgets, sales methods, special incentives and campaigns. The work also covers establishing and directing operational and administrative procedures related to sales and marketing activ ities.",
+        "required_skills": [
+          "Sales Marketing Manager",
+          "Special Sales",
+          "Price Lists Discount"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 68300,
+        "budget_max": 132000,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0048",
+      "worker": {
+        "label": "Writer",
+        "bio": "Authors and Related writers plan, research and write books, scripts, storyboards, plays, essays, speeches, manuals, specifications and other non-journalistic articles (excluding material for newspapers, magazines and other periodicals) for",
+        "skills": [
+          "Authors Writer",
+          "Material Such",
+          "Brochures Handbooks",
+          "Material"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Writer needed — conceiving, writing and editing novels, plays",
+        "description": "We are looking for someone to take on conceiving, writing and editing novels, plays, scripts, poetry and other material for publication or presentation.",
+        "required_skills": [
+          "Authors Writer",
+          "Novels Plays Scripts",
+          "Research"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 9000,
+        "budget_max": 17300,
+        "currency": "KES",
+        "employer_reputation": 4.68,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0049",
+      "worker": {
+        "label": "Systems Administrator",
+        "bio": "Systems Administrators are responsible for the upkeep, configuration and reliable operation of computer systems especially multi-user computers such as servers",
+        "skills": [
+          "Systems Administrator",
+          "Hardware",
+          "Data Backups",
+          "Master Consoles"
+        ],
+        "location": "Eldoret"
+      },
+      "gig": {
+        "title": "Software Developer needed — monitor quality and performance of applications",
+        "description": "We are looking for someone to take on monitor quality and performance of applications through testing and maintenance. The work also covers researching, analysing and evaluating requirements for software applications and operating systems. The work also covers designing and developing computer software systems.",
+        "required_skills": [
+          "Software Developer",
+          "Software",
+          "Recommend"
+        ],
+        "location": "Ruiru",
+        "is_remote": false,
+        "budget_min": 22500,
+        "budget_max": 43500,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0050",
+      "worker": {
+        "label": "Public Relations Professional",
+        "bio": "Public Relations Professionals Plans Organizes and Carry out programmes of information dissemination to influence the public to view favorably an organization, products or services. Receives and provides hospitality services to clients of",
+        "skills": [
+          "Public Relations Professional",
+          "Organizations",
+          "Business Social",
+          "Photographs",
+          "Material Submitted"
+        ],
+        "location": "Kikuyu"
+      },
+      "gig": {
+        "title": "Make our health materials work for a rural audience",
+        "description": "Our guidance is written in formal English and nobody upcountry reads it. We need it rendered into the everyday language people actually speak, keeping the meaning exact, for print, radio and SMS.",
+        "required_skills": [
+          "Localisation"
+        ],
+        "location": "Kisumu",
+        "is_remote": true,
+        "budget_min": 24000,
+        "budget_max": 46000,
+        "currency": "KES",
+        "employer_reputation": 4.22,
+        "employer_review_count": 36
+      }
+    },
+    {
+      "pair_id": "v1-0051",
+      "worker": {
+        "label": "Typist and Word Processing Operator",
+        "bio": "Typists and Word Processing Operators transcribe type, edit and print using typewriter, tele-printer, braille, personal computer or other word processor, and record oral or written matter in shorthand",
+        "skills": [
+          "Typists Word Processing",
+          "Completed Documents",
+          "Dictation",
+          "Spoken Word Environmental",
+          "Information Recorded"
+        ],
+        "location": "Kericho"
+      },
+      "gig": {
+        "title": "Management Analyst needed — discussing current systems with staff and observing",
+        "description": "We are looking for someone to take on discussing current systems with staff and observing systems at all levels of organization. The work also covers directing clients towards more efficient organization and developing solutions to organizational problems.",
+        "required_skills": [
+          "Management Organization Analyst",
+          "Current Systems",
+          "Clients Towards More"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 4500,
+        "budget_max": 8700,
+        "currency": "KES",
+        "employer_reputation": 4.11,
+        "employer_review_count": 35
+      }
+    },
+    {
+      "pair_id": "v1-0052",
+      "worker": {
+        "label": "Typist and Word Processing Operator",
+        "bio": "Typists and Word Processing Operators transcribe type, edit and print using typewriter, tele-printer, braille, personal computer or other word processor, and record oral or written matter in shorthand",
+        "skills": [
+          "Typists Word Processing",
+          "Completed Documents",
+          "Dictation",
+          "Spoken Word Environmental",
+          "Information Recorded"
+        ],
+        "location": "Kericho"
+      },
+      "gig": {
+        "title": "Software Developer needed — developing and testing software to meet customers",
+        "description": "We are looking for someone to take on developing and testing software to meet customers’ and client’s needs. The work also covers recommend and develop upgrades for existing applications. The work also covers create models and diagrams to show programmers the code needed for applications.",
+        "required_skills": [
+          "Software Developer",
+          "Software",
+          "Recommend"
+        ],
+        "location": "Kilifi",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.0,
+        "employer_review_count": 12
+      }
+    },
+    {
+      "pair_id": "v1-0053",
+      "worker": {
+        "label": "Language Teacher",
+        "bio": "Other Language Teachers teach non-native languages to adults and children who are learning a language for reasons of migration, to fulfill employment requirements or opportunities, to facilitate participation in educational programmes",
+        "skills": [
+          "Language Teacher",
+          "Students",
+          "Assistance",
+          "Work"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Typist and Word Processing Operator needed — checking completed work for proper spelling, grammar",
+        "description": "We are looking for someone to take on checking completed work for proper spelling, grammar, punctuation and formatting.",
+        "required_skills": [
+          "Typists Word Processing",
+          "Completed Work",
+          "Material"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 30100,
+        "budget_max": 58100,
+        "currency": "KES",
+        "employer_reputation": 4.68,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0054",
+      "worker": {
+        "label": "Web Technician",
+        "bio": "Web Technicians maintain, monitor and support the optimal functioning of Internet and Intranet websites and web server hardware and software",
+        "skills": [
+          "Web Technician",
+          "Recommendations",
+          "Web Pages",
+          "Web Server Backup"
+        ],
+        "location": "Malindi"
+      },
+      "gig": {
+        "title": "Book-keeping Clerk needed — operating computers programmed with accounting",
+        "description": "We are looking for someone to take on operating computers programmed with accounting software to record, store, and analyze information.",
+        "required_skills": [
+          "Accounting Book Keeping",
+          "Figures Postings",
+          "Computers Programmed"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 800,
+        "budget_max": 1200,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0055",
+      "worker": {
+        "label": "Cloud Computing Professional",
+        "bio": "Cloud Computing Professionals plan, design, develop, manage and monitor cloud computing applications",
+        "skills": [
+          "Cloud Computing Professional",
+          "Cloud Platforms",
+          "Design",
+          "Support Windows Cloud",
+          "Technical Assistance"
+        ],
+        "location": "Ruiru"
+      },
+      "gig": {
+        "title": "Office Secretarie needed — checking, formatting and transcribing correspondence",
+        "description": "We are looking for someone to take on checking, formatting and transcribing correspondence, minutes and reports from dictation, electronic documents or written drafts to conform to office standards, using typewriter, personal computer or other word processing equipment. The work also covers using various computer software packages including spreadsheets to provide administrative support.",
+        "required_skills": [
+          "Office Secretarie",
+          "Correspondence Minutes",
+          "Various Computer Software"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 3600,
+        "budget_max": 7000,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 20
+      }
+    },
+    {
+      "pair_id": "v1-0056",
+      "worker": {
+        "label": "Market Research Interviewer",
+        "bio": "Survey and Market Research Interviewers interview people and record their responses to survey and market research questions on a range of topics",
+        "skills": [
+          "Survey Market Research",
+          "Responses",
+          "Inconsistencies",
+          "Feedback"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Public Relations Professional needed — planning and organizing publicity campaigns and",
+        "description": "We are looking for someone to take on planning and organizing publicity campaigns and communication strategies. The work also covers advising executives on the public relations implications of their policies, programmes and practices, and preparing and controlling the issue of news and press release s.",
+        "required_skills": [
+          "Public Relations Professional",
+          "Publicity Campaigns",
+          "Executives"
+        ],
+        "location": "Mombasa",
+        "is_remote": false,
+        "budget_min": 4800,
+        "budget_max": 9200,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0057",
+      "worker": {
+        "label": "Journalist",
+        "bio": "Journalists, collect information and comment on news and current affairs for publication in bulletins, newspapers and periodicals or broadcasting through radio or television",
+        "skills": [
+          "Journalist",
+          "Editorials",
+          "Critical Reviews",
+          "Material",
+          "Publicity Material"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Legal Secretarie needed — preparing and processing legal documents and papers",
+        "description": "We are looking for someone to take on preparing and processing legal documents and papers, such as deeds, wills, affidavits and briefs.",
+        "required_skills": [
+          "Legal Secretarie",
+          "Legal Documents",
+          "Documents"
+        ],
+        "location": "Kakamega",
+        "is_remote": false,
+        "budget_min": 4200,
+        "budget_max": 8200,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 24
+      }
+    },
+    {
+      "pair_id": "v1-0058",
+      "worker": {
+        "label": "Actor",
+        "bio": "Actors portray roles in motion pictures, television or radio productions and stage shows",
+        "skills": [
+          "Actor",
+          "Auditions",
+          "Scripts",
+          "Parts"
+        ],
+        "location": "Karatina"
+      },
+      "gig": {
+        "title": "Web and Multimedia Developer needed — designing and developing digital animations, imaging",
+        "description": "We are looking for someone to take on designing and developing digital animations, imaging, presentations, games, audio and video clips and Internet applications using multimedia software, tools and utilities, interactive graphics and programming languages.",
+        "required_skills": [
+          "Web Multimedia Developer",
+          "Internet Sites",
+          "Digital Animations Imaging"
+        ],
+        "location": "Machakos",
+        "is_remote": false,
+        "budget_min": 6100,
+        "budget_max": 11900,
+        "currency": "KES",
+        "employer_reputation": 4.07,
+        "employer_review_count": 15
+      }
+    },
+    {
+      "pair_id": "v1-0059",
+      "worker": {
+        "label": "Typist and Word Processing Operator",
+        "bio": "Typists and Word Processing Operators transcribe type, edit and print using typewriter, tele-printer, braille, personal computer or other word processor, and record oral or written matter in shorthand",
+        "skills": [
+          "Typists Word Processing",
+          "Completed Documents",
+          "Dictation",
+          "Spoken Word Environmental",
+          "Information Recorded"
+        ],
+        "location": "Kericho"
+      },
+      "gig": {
+        "title": "Web Technician needed — developing and maintaining documentation, policies",
+        "description": "We are looking for someone to take on developing and maintaining documentation, policies and instructions, recording operational procedures and system logs.",
+        "required_skills": [
+          "Web Technician",
+          "Reliability",
+          "Documentation Policies"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 17300,
+        "budget_max": 33500,
+        "currency": "KES",
+        "employer_reputation": 4.33,
+        "employer_review_count": 12
+      }
+    },
+    {
+      "pair_id": "v1-0060",
+      "worker": {
+        "label": "Musician and Composer",
+        "bio": "Musicians, Singers and Composers write, arrange, conduct and perform musical compositions and participate in performances",
+        "skills": [
+          "Musicians Singers Composer",
+          "Music"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Legal Secretarie needed — reviewing and proofreading documents and",
+        "description": "We are looking for someone to take on reviewing and proofreading documents and correspondence to ensure compliance with legal procedures.",
+        "required_skills": [
+          "Legal Secretarie",
+          "Legal Documents",
+          "Documents"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 6000,
+        "budget_max": 11600,
+        "currency": "KES",
+        "employer_reputation": 4.31,
+        "employer_review_count": 13
+      }
+    },
+    {
+      "pair_id": "v1-0061",
+      "worker": {
+        "label": "Contact Centre Agent",
+        "bio": "Contact Centre Information Clerks provide advice and information to clients",
+        "skills": [
+          "Contact Centre Information",
+          "Payments",
+          "Letters Information Sheets",
+          "Clients"
+        ],
+        "location": "Mombasa"
+      },
+      "gig": {
+        "title": "Data Entry Clerk needed — receiving and registering invoices, forms, records",
+        "description": "We are looking for someone to take on receiving and registering invoices, forms, records and other documents for data capture.",
+        "required_skills": [
+          "Data Entry Clerk",
+          "Invoices Forms Records",
+          "Numerical Data Codes"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 3500,
+        "budget_max": 6800,
+        "currency": "KES",
+        "employer_reputation": 4.16,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0062",
+      "worker": {
+        "label": "Language Teacher",
+        "bio": "Other Language Teachers teach non-native languages to adults and children who are learning a language for reasons of migration, to fulfill employment requirements or opportunities, to facilitate participation in educational programmes",
+        "skills": [
+          "Language Teacher",
+          "Students",
+          "Assistance",
+          "Work"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Translator and Interpreter needed — studying relationships between ancient parent",
+        "description": "We are looking for someone to take on studying relationships between ancient parent languages and modern language groups, tracing the origin and evolution of words, grammar and language forms, and presenting findings.",
+        "required_skills": [
+          "Translators Interpreters Linguist",
+          "Relationships Between Ancient"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2900,
+        "budget_max": 5700,
+        "currency": "KES",
+        "employer_reputation": 3.8,
+        "employer_review_count": 5
+      }
+    },
+    {
+      "pair_id": "v1-0063",
+      "worker": {
+        "label": "ICT Sales Professional",
+        "bio": "Information and communications technology (ICT) sales professionals sell, at wholesale level, a range of computer hardware, software and other information and communications technology goods and services including installations, and",
+        "skills": [
+          "Information Communications Technology",
+          "Prices",
+          "Customer Records",
+          "Delivery",
+          "Customers Reactions"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Systems Analyst needed — researching Information Communication Technology use",
+        "description": "We are looking for someone to take on researching Information Communication Technology use in business functions and identifying areas in which improvements could be made to maximize effectiveness and efficiency.",
+        "required_skills": [
+          "Systems Analyst",
+          "Research"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 20
+      }
+    },
+    {
+      "pair_id": "v1-0064",
+      "worker": {
+        "label": "Actor",
+        "bio": "Actors portray roles in motion pictures, television or radio productions and stage shows",
+        "skills": [
+          "Actor",
+          "Auditions",
+          "Scripts",
+          "Parts"
+        ],
+        "location": "Karatina"
+      },
+      "gig": {
+        "title": "Audio-Visual Technician needed — controlling equipment to record sound",
+        "description": "We are looking for someone to take on controlling equipment to record sound.",
+        "required_skills": [
+          "Broadcasting Audio-Visual Technician",
+          "Equipment",
+          "Knowledge"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2000,
+        "budget_max": 3900,
+        "currency": "KES",
+        "employer_reputation": 4.22,
+        "employer_review_count": 36
+      }
+    },
+    {
+      "pair_id": "v1-0065",
+      "worker": {
+        "label": "Photographer",
+        "bio": "Photographers operate still cameras to photograph people, events , scenes, places, merchandise, materials, products and other subjects",
+        "skills": [
+          "Photographer",
+          "Picture Composition Making",
+          "Scanners",
+          "Photographic Images",
+          "Airbrush Computer"
+        ],
+        "location": "Kericho"
+      },
+      "gig": {
+        "title": "Computer Network Professional needed — analyzing, developing, interpreting and evaluating",
+        "description": "We are looking for someone to take on analyzing, developing, interpreting and evaluating complex system design and architecture specifications, data models and diagrams in the development, configuration and integration of computer systems.",
+        "required_skills": [
+          "Computer Network Professional",
+          "Complex System Design",
+          "Network Infrastructure"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 21700,
+        "budget_max": 42000,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0066",
+      "worker": {
+        "label": "Surveyor and Cartographer",
+        "bio": "Surveyors and cartographers apply surveying methods and techniques to determine the exact position of natural and constructed features and boundaries of land, seas, underground areas and celestial bodies, and prepare or revise digital,",
+        "skills": [
+          "Surveyors Cartographer",
+          "Maps",
+          "Research",
+          "Technical Liaison"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Financial Adviser needed — interviewing clients to determine financial status",
+        "description": "We are looking for someone to take on interviewing clients to determine financial status and objectives, risk tolerance and other information needed to develop financial plans and investment strategies.",
+        "required_skills": [
+          "Financial Investment Adviser",
+          "Client Base",
+          "Clients"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.06,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0067",
+      "worker": {
+        "label": "Film and Video Producer",
+        "bio": "Film, Stage and Related Directors And Producers oversee and control the technical and artistic aspects of motion pictures, television or radio productions and stage shows",
+        "skills": [
+          "Film Stage Director",
+          "Scripts",
+          "Industry Experience Is",
+          "Key Skills Required"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Film and Video Producer needed — choosing writers, studying scripts to determine",
+        "description": "We are looking for someone to take on choosing writers, studying scripts to determine artistic interpretation, and instructing actors on acting methods. The work also covers directing all aspects of dramatic productions on stage, television, radio or in motion pictures, including choice of actors, and final decisions concerning costumes, set designs, sound or lighting effects.",
+        "required_skills": [
+          "Film Stage Director",
+          "Writers Studying Scripts",
+          "All Aspects"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 3700,
+        "budget_max": 7100,
+        "currency": "KES",
+        "employer_reputation": 4.24,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0068",
+      "worker": {
+        "label": "Writer",
+        "bio": "Authors and Related writers plan, research and write books, scripts, storyboards, plays, essays, speeches, manuals, specifications and other non-journalistic articles (excluding material for newspapers, magazines and other periodicals) for",
+        "skills": [
+          "Authors Writer",
+          "Material Such",
+          "Brochures Handbooks",
+          "Material"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Language Teacher needed — designing and producing teaching materials and",
+        "description": "We are looking for someone to take on designing and producing teaching materials and adapting existing materials. The work also covers assessing students' progress.",
+        "required_skills": [
+          "Language Teacher",
+          "Level",
+          "Lessons"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 4700,
+        "budget_max": 9100,
+        "currency": "KES",
+        "employer_reputation": 4.0,
+        "employer_review_count": 12
+      }
+    },
+    {
+      "pair_id": "v1-0069",
+      "worker": {
+        "label": "Personnel Clerk",
+        "bio": "Personnel Clerks Personnel clerks maintain and update personnel records such as information on transfers and promotions, performance evaluations, employee leave taken and accumulated, salaries, qualifications and training",
+        "skills": [
+          "Personnel Clerk",
+          "Inquiries",
+          "Out Job Applications",
+          "Manual",
+          "Personnel Records"
+        ],
+        "location": "Nyeri"
+      },
+      "gig": {
+        "title": "Payroll Clerk needed — maintaining records of employee attendance, leave and",
+        "description": "We are looking for someone to take on maintaining records of employee attendance, leave and overtime to calculate pay and benefit entitlements, using manual or computerized s ystems.",
+        "required_skills": [
+          "Payroll Clerk",
+          "Records",
+          "Statements"
+        ],
+        "location": "Mombasa",
+        "is_remote": false,
+        "budget_min": 800,
+        "budget_max": 1200,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0070",
+      "worker": {
+        "label": "Photographer",
+        "bio": "Photographers operate still cameras to photograph people, events , scenes, places, merchandise, materials, products and other subjects",
+        "skills": [
+          "Photographer",
+          "Picture Composition Making",
+          "Scanners",
+          "Photographic Images",
+          "Airbrush Computer"
+        ],
+        "location": "Kericho"
+      },
+      "gig": {
+        "title": "Database Administrator needed — designing and developing database architecture, data",
+        "description": "We are looking for someone to take on designing and developing database architecture, data structures, tables, dictionaries and naming conventions for information systems projects.",
+        "required_skills": [
+          "Database Designers Administrator",
+          "Detailed Database Design",
+          "Database Architecture Data"
+        ],
+        "location": "Kikuyu",
+        "is_remote": false,
+        "budget_min": 2500,
+        "budget_max": 4900,
+        "currency": "KES",
+        "employer_reputation": 4.06,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0071",
+      "worker": {
+        "label": "Sales and Marketing Manager",
+        "bio": "Sales and Marketing Managers plan, direct and coordinate the sales and marketing activities of an organization, or of enterprises that provide sales and marketing services to other enterprises and organizations",
+        "skills": [
+          "Sales Marketing Manager",
+          "Enterprise",
+          "Activities",
+          "Local Demand",
+          "Documentation"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Computer Network Professional needed — researching, analysing, evaluating and monitoring",
+        "description": "We are looking for someone to take on researching, analysing, evaluating and monitoring network infrastructure to ensure that networks are configured to operate at optimal performance.",
+        "required_skills": [
+          "Computer Network Professional",
+          "Complex System Design",
+          "Network Infrastructure"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 7100,
+        "budget_max": 13700,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 20
+      }
+    },
+    {
+      "pair_id": "v1-0072",
+      "worker": {
+        "label": "Payroll Clerk",
+        "bio": "Payroll Clerks collect, verify and process payroll information and compute pay and benefit entitlements for employees within a department, company or other establishment",
+        "skills": [
+          "Payroll Clerk",
+          "Employee Payments",
+          "Time Sheets Work",
+          "Attendance Hours Worked"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Human Resource Manager needed — planning, directing and coordinating the personnel",
+        "description": "We are looking for someone to take on planning, directing and coordinating the personnel and industrial relations activities, policies and practices of an enterprise or organization. The work also covers planning and organizing procedures for recruitment, training, promotion, transfer and dismissal of staff.",
+        "required_skills": [
+          "Human Resource Manager",
+          "Personnel",
+          "Procedures"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 21100,
+        "budget_max": 40800,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0073",
+      "worker": {
+        "label": "Database and Network Security Professional",
+        "bio": "Database and Network Security Professionals are responsible for ensuring secure internet gateway, encryption of electronic data transfer, and development of protocols and Controls to ensure safe storage of sensitive and confidential",
+        "skills": [
+          "Database Network Security",
+          "Computer Security Files",
+          "Risk Assessments",
+          "Data Transmissions"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Cut our conference footage into something people will watch",
+        "description": "We filmed two days of a conference and have hours of raw material nobody will sit through. We want short highlight pieces for social channels, with subtitles and music, delivered weekly.",
+        "required_skills": [
+          "Post-production"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 28000,
+        "budget_max": 52000,
+        "currency": "KES",
+        "employer_reputation": 4.22,
+        "employer_review_count": 36
+      }
+    },
+    {
+      "pair_id": "v1-0074",
+      "worker": {
+        "label": "Translator and Interpreter",
+        "bio": "Translators and interpreters study the origin, development and structure of languages, and translate or interpret them from one language to another",
+        "skills": [
+          "Translators Interpreters Linguist",
+          "Methods",
+          "Translated Material"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Typist and Word Processing Operator needed — transcribing in typewritten form, letters, reports",
+        "description": "We are looking for someone to take on transcribing in typewritten form, letters, reports, documents, accounts and other material from rough drafts, corrected copies, voice recordings, or shorthand using a computer, word processor or typewriter, tele-printer, braille.",
+        "required_skills": [
+          "Typists Word Processing",
+          "Completed Work",
+          "Material"
+        ],
+        "location": "Nakuru",
+        "is_remote": false,
+        "budget_min": 4700,
+        "budget_max": 9000,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0075",
+      "worker": {
+        "label": "HR and Careers Professional",
+        "bio": "Human Resource and careers professionals provide professional business services related to personnel policies such as employee recruitment or development, occupational analysis and vocational guidance",
+        "skills": [
+          "Human Resource Career",
+          "Staff Welfare",
+          "Wage",
+          "Guidance",
+          "Plans Develops Implements"
+        ],
+        "location": "Malindi"
+      },
+      "gig": {
+        "title": "Sales and Marketing Manager needed — leading and managing the activities of sales and",
+        "description": "We are looking for someone to take on leading and managing the activities of sales and marketing staff. The work also covers planning and directing daily operations. The work also covers establishing and managing budgets and controlling expenditure to ensure efficient use of resources.",
+        "required_skills": [
+          "Sales Marketing Manager",
+          "Special Sales",
+          "Price Lists Discount"
+        ],
+        "location": "Nakuru",
+        "is_remote": false,
+        "budget_min": 3600,
+        "budget_max": 6900,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0076",
+      "worker": {
+        "label": "Database Administrator",
+        "bio": "Database designers and administrators design, develop, control, maintain and support the optimal performance and security of databases. Controls computer database by maintaining data dictionaries and data management systems, and ensuring",
+        "skills": [
+          "Database Designers Administrator",
+          "Research",
+          "Data Administration Policy",
+          "Policies",
+          "Operational Establishment"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Public Relations and Advertising Manager needed — participating in the policy formulation of the",
+        "description": "We are looking for someone to take on participating in the policy formulation of the organization's advertising and public relations.",
+        "required_skills": [
+          "Public Relations Advertising",
+          "Public Relations Activities",
+          "Negotiations"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 8300,
+        "budget_max": 16100,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0077",
+      "worker": {
+        "label": "Typist and Word Processing Operator",
+        "bio": "Typists and Word Processing Operators transcribe type, edit and print using typewriter, tele-printer, braille, personal computer or other word processor, and record oral or written matter in shorthand",
+        "skills": [
+          "Typists Word Processing",
+          "Completed Documents",
+          "Dictation",
+          "Spoken Word Environmental",
+          "Information Recorded"
+        ],
+        "location": "Kericho"
+      },
+      "gig": {
+        "title": "Payroll Clerk needed — maintaining records of employee attendance, leave and",
+        "description": "We are looking for someone to take on maintaining records of employee attendance, leave and overtime to calculate pay and benefit entitlements, using manual or computerized s ystems.",
+        "required_skills": [
+          "Payroll Clerk",
+          "Records",
+          "Statements"
+        ],
+        "location": "Mombasa",
+        "is_remote": false,
+        "budget_min": 800,
+        "budget_max": 1200,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    },
+    {
+      "pair_id": "v1-0078",
+      "worker": {
+        "label": "Market Research Interviewer",
+        "bio": "Survey and Market Research Interviewers interview people and record their responses to survey and market research questions on a range of topics",
+        "skills": [
+          "Survey Market Research",
+          "Responses",
+          "Inconsistencies",
+          "Feedback"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Surveyor and Cartographer needed — surveying, measuring and describing land surfac es",
+        "description": "We are looking for someone to take on surveying, measuring and describing land surfac es, mines, underground surfaces, sea, river and lake beds. The work also covers noting exact position of various features and recording survey data in digital form.",
+        "required_skills": [
+          "Surveyors Cartographer",
+          "Land Surfac Es",
+          "Exact Position"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0079",
+      "worker": {
+        "label": "Photographer",
+        "bio": "Photographers operate still cameras to photograph people, events , scenes, places, merchandise, materials, products and other subjects",
+        "skills": [
+          "Photographer",
+          "Picture Composition Making",
+          "Scanners",
+          "Photographic Images",
+          "Airbrush Computer"
+        ],
+        "location": "Kericho"
+      },
+      "gig": {
+        "title": "Journalist needed — receiving, analyzing and verifying news and other",
+        "description": "We are looking for someone to take on receiving, analyzing and verifying news and other copy for accuracy. The work also covers interviewing individuals at press conferences and record for radio, television or webcast media.",
+        "required_skills": [
+          "Journalist",
+          "Local National",
+          "News"
+        ],
+        "location": "Kisumu",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0080",
+      "worker": {
+        "label": "ICT Trainer",
+        "bio": "Information Communication Technology Trainers develop, schedule and conduct training programs and courses for computer and other Information Communication Technology users outside the mainstream primary, secondary and higher education",
+        "skills": [
+          "Information Communication Technology",
+          "Demonstrations",
+          "Evaluation",
+          "Background Materials",
+          "Up-To-Date"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "ICT Trainer needed — identifying the Information Communication Technology",
+        "description": "We are looking for someone to take on identifying the Information Communication Technology training needs and requirements of individual users and organizations.",
+        "required_skills": [
+          "Information Communication Technology",
+          "Instructional Training Material",
+          "Development Programs"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2500,
+        "budget_max": 4900,
+        "currency": "KES",
+        "employer_reputation": 4.0,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0081",
+      "worker": {
+        "label": "Computer Network Professional",
+        "bio": "Computer Network Professionals research, analyze, design, test and recommend strategies for network architecture and development. They implement, manage, maintain and configure network hardware and software, and monitor, troubleshoot and",
+        "skills": [
+          "Computer Network Professional",
+          "Specialist Skills",
+          "Procedures",
+          "Network Traffic"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Contact Centre Agent needed — dealing with incoming calls and messages from",
+        "description": "We are looking for someone to take on dealing with incoming calls and messages from clients, whether to answer queries, handle calls for service or sort out complaints.",
+        "required_skills": [
+          "Contact Centre Information",
+          "Requirements",
+          "Tasks"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 800,
+        "budget_max": 1200,
+        "currency": "KES",
+        "employer_reputation": 4.68,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0082",
+      "worker": {
+        "label": "Actor",
+        "bio": "Actors portray roles in motion pictures, television or radio productions and stage shows",
+        "skills": [
+          "Actor",
+          "Auditions",
+          "Scripts",
+          "Parts"
+        ],
+        "location": "Karatina"
+      },
+      "gig": {
+        "title": "Human Resource Manager needed — planning, directing and coordinating the personnel",
+        "description": "We are looking for someone to take on planning, directing and coordinating the personnel and industrial relations activities, policies and practices of an enterprise or organization. The work also covers planning and organizing procedures for recruitment, training, promotion, transfer and dismissal of staff.",
+        "required_skills": [
+          "Human Resource Manager",
+          "Personnel",
+          "Procedures"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 21100,
+        "budget_max": 40800,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 2
+      }
+    },
+    {
+      "pair_id": "v1-0083",
+      "worker": {
+        "label": "ICT Sales Professional",
+        "bio": "Information and communications technology (ICT) sales professionals sell, at wholesale level, a range of computer hardware, software and other information and communications technology goods and services including installations, and",
+        "skills": [
+          "Information Communications Technology",
+          "Prices",
+          "Customer Records",
+          "Delivery",
+          "Customers Reactions"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Typist and Word Processing Operator needed — transcribing in typewritten form, letters, reports",
+        "description": "We are looking for someone to take on transcribing in typewritten form, letters, reports, documents, accounts and other material from rough drafts, corrected copies, voice recordings, or shorthand using a computer, word processor or typewriter, tele-printer, braille.",
+        "required_skills": [
+          "Typists Word Processing",
+          "Completed Work",
+          "Material"
+        ],
+        "location": "Nakuru",
+        "is_remote": false,
+        "budget_min": 4700,
+        "budget_max": 9000,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0084",
+      "worker": {
+        "label": "Database Administrator",
+        "bio": "Database designers and administrators design, develop, control, maintain and support the optimal performance and security of databases. Controls computer database by maintaining data dictionaries and data management systems, and ensuring",
+        "skills": [
+          "Database Designers Administrator",
+          "Research",
+          "Data Administration Policy",
+          "Policies",
+          "Operational Establishment"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Cloud Computing Professional needed — planning, designing, developing, managing and",
+        "description": "We are looking for someone to take on planning, designing, developing, managing and monitoring cloud computing applications.",
+        "required_skills": [
+          "Cloud Computing Professional",
+          "Cloud Computing Applications",
+          "End-To-End Lifecycle"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 5000,
+        "budget_max": 9600,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 24
+      }
+    },
+    {
+      "pair_id": "v1-0085",
+      "worker": {
+        "label": "Statistician",
+        "bio": "Mathematicians, Actuaries and Statisticians conduct research, improve and/or develop mathematical, actuarial and statistical concepts, principles, theories and operational models and techniques and apply this knowledge to a wide range of",
+        "skills": [
+          "Mathematicians Actuaries Statistician",
+          "Surveys",
+          "Statistical Data",
+          "Scientific Papers",
+          "Work O F"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Writer needed — conducting research to establish factual content and",
+        "description": "We are looking for someone to take on conducting research to establish factual content and to obtain other necessary information.",
+        "required_skills": [
+          "Authors Writer",
+          "Novels Plays Scripts",
+          "Research"
+        ],
+        "location": "Mombasa",
+        "is_remote": false,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.75,
+        "employer_review_count": 4
+      }
+    },
+    {
+      "pair_id": "v1-0086",
+      "worker": {
+        "label": "Systems Administrator",
+        "bio": "Systems Administrators are responsible for the upkeep, configuration and reliable operation of computer systems especially multi-user computers such as servers",
+        "skills": [
+          "Systems Administrator",
+          "Hardware",
+          "Data Backups",
+          "Master Consoles"
+        ],
+        "location": "Eldoret"
+      },
+      "gig": {
+        "title": "Database Administrator needed — defining the detailed database design, including",
+        "description": "We are looking for someone to take on defining the detailed database design, including tables, indexes, vi ews, constraints, triggers, stored procedures, and other database-specific constructs needed to store, retrieve, and delete persistent objects.",
+        "required_skills": [
+          "Database Designers Administrator",
+          "Detailed Database Design",
+          "Database Architecture Data"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.22,
+        "employer_review_count": 36
+      }
+    },
+    {
+      "pair_id": "v1-0087",
+      "worker": {
+        "label": "Database Administrator",
+        "bio": "Database designers and administrators design, develop, control, maintain and support the optimal performance and security of databases. Controls computer database by maintaining data dictionaries and data management systems, and ensuring",
+        "skills": [
+          "Database Designers Administrator",
+          "Research",
+          "Data Administration Policy",
+          "Policies",
+          "Operational Establishment"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Statistician needed — conducting logical analyses of management problems",
+        "description": "We are looking for someone to take on conducting logical analyses of management problems, especially in terms of input-output effectiveness, and formulating mathematical models of each problem usually for programming and solution by computer. The work also covers designing and putting into operation pension schemes and life, health, social and other types of insurance systems.",
+        "required_skills": [
+          "Mathematicians Actuaries Statistician",
+          "Mathematical Actuarial",
+          "Logical Analyses"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 5100,
+        "budget_max": 9900,
+        "currency": "KES",
+        "employer_reputation": 4.16,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0088",
+      "worker": {
+        "label": "Sales and Marketing Manager",
+        "bio": "Sales and Marketing Managers plan, direct and coordinate the sales and marketing activities of an organization, or of enterprises that provide sales and marketing services to other enterprises and organizations",
+        "skills": [
+          "Sales Marketing Manager",
+          "Enterprise",
+          "Activities",
+          "Local Demand",
+          "Documentation"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Management Analyst needed — discussing current systems with staff and observing",
+        "description": "We are looking for someone to take on discussing current systems with staff and observing systems at all levels of organization. The work also covers directing clients towards more efficient organization and developing solutions to organizational problems.",
+        "required_skills": [
+          "Management Organization Analyst",
+          "Current Systems",
+          "Clients Towards More"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 4500,
+        "budget_max": 8700,
+        "currency": "KES",
+        "employer_reputation": 4.11,
+        "employer_review_count": 35
+      }
+    },
+    {
+      "pair_id": "v1-0089",
+      "worker": {
+        "label": "Office Secretarie",
+        "bio": "Office Secretaries use type writers or word-processing equipment to check and transcribe correspondence and other documents, record oral or written matter to produce documents, check and format documents prepared by other staff, deal with",
+        "skills": [
+          "Office Secretarie",
+          "Requests",
+          "Leave",
+          "Systems"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Office Secretarie needed — checking, formatting and transcribing correspondence",
+        "description": "We are looking for someone to take on checking, formatting and transcribing correspondence, minutes and reports from dictation, electronic documents or written drafts to conform to office standards, using typewriter, personal computer or other word processing equipment. The work also covers using various computer software packages including spreadsheets to provide administrative support.",
+        "required_skills": [
+          "Office Secretarie",
+          "Correspondence Minutes",
+          "Various Computer Software"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 3600,
+        "budget_max": 7000,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 20
+      }
+    },
+    {
+      "pair_id": "v1-0090",
+      "worker": {
+        "label": "Public Relations and Advertising Manager",
+        "bio": "Public Relations and Advertising Managers plan, direct and coordinate the advertising, public relations and public information activities of enterprises and organizations or of enterprises that provide related services to other enterprises",
+        "skills": [
+          "Public Relations Advertising",
+          "Information Programmes",
+          "Welfare Activities",
+          "Organization"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "HR and Careers Professional needed — arranging staff transfers",
+        "description": "We are looking for someone to take on arranging staff transfers. The work also covers plans and organizes training of employees.",
+        "required_skills": [
+          "Human Resource Career",
+          "Employee Recruitment Placement",
+          "Manpower Requirements Undertaking"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2080,
+        "budget_max": 3000,
+        "currency": "KES",
+        "employer_reputation": 4.16,
+        "employer_review_count": 25
+      }
+    },
+    {
+      "pair_id": "v1-0091",
+      "worker": {
+        "label": "ICT Sales Professional",
+        "bio": "Information and communications technology (ICT) sales professionals sell, at wholesale level, a range of computer hardware, software and other information and communications technology goods and services including installations, and",
+        "skills": [
+          "Information Communications Technology",
+          "Prices",
+          "Customer Records",
+          "Delivery",
+          "Customers Reactions"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Web and Multimedia Developer needed — designing and developing digital animations, imaging",
+        "description": "We are looking for someone to take on designing and developing digital animations, imaging, presentations, games, audio and video clips and Internet applications using multimedia software, tools and utilities, interactive graphics and programming languages.",
+        "required_skills": [
+          "Web Multimedia Developer",
+          "Internet Sites",
+          "Digital Animations Imaging"
+        ],
+        "location": "Machakos",
+        "is_remote": false,
+        "budget_min": 6100,
+        "budget_max": 11900,
+        "currency": "KES",
+        "employer_reputation": 4.07,
+        "employer_review_count": 15
+      }
+    },
+    {
+      "pair_id": "v1-0092",
+      "worker": {
+        "label": "Sales and Marketing Manager",
+        "bio": "Sales and Marketing Managers plan, direct and coordinate the sales and marketing activities of an organization, or of enterprises that provide sales and marketing services to other enterprises and organizations",
+        "skills": [
+          "Sales Marketing Manager",
+          "Enterprise",
+          "Activities",
+          "Local Demand",
+          "Documentation"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Advertising and Marketing Professional needed — planning, developing and organizing advertising",
+        "description": "We are looking for someone to take on planning, developing and organizing advertising policies and campaigns to support sales objectives.",
+        "required_skills": [
+          "Advertising Marketing Professional",
+          "Policies",
+          "Managers"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 2100,
+        "budget_max": 4000,
+        "currency": "KES",
+        "employer_reputation": 0.0,
+        "employer_review_count": 0
+      }
+    },
+    {
+      "pair_id": "v1-0093",
+      "worker": {
+        "label": "Language Teacher",
+        "bio": "Other Language Teachers teach non-native languages to adults and children who are learning a language for reasons of migration, to fulfill employment requirements or opportunities, to facilitate participation in educational programmes",
+        "skills": [
+          "Language Teacher",
+          "Students",
+          "Assistance",
+          "Work"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Language Teacher needed — designing and producing teaching materials and",
+        "description": "We are looking for someone to take on designing and producing teaching materials and adapting existing materials. The work also covers assessing students' progress.",
+        "required_skills": [
+          "Language Teacher",
+          "Level",
+          "Lessons"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 4700,
+        "budget_max": 9100,
+        "currency": "KES",
+        "employer_reputation": 4.0,
+        "employer_review_count": 12
+      }
+    },
+    {
+      "pair_id": "v1-0094",
+      "worker": {
+        "label": "Interior Designer",
+        "bio": "Interior designers and decorators plan and design commercial, industrial, public, retail and residential building interiors to produce an environment tailored to a purpose, taking into consideration factors that enhance living and working",
+        "skills": [
+          "Interior Designers Decorator",
+          "Functional",
+          "Selected Design",
+          "Construction",
+          "Stage Scenery"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Statistician needed — studying, improving and developing mathematical",
+        "description": "We are looking for someone to take on studying, improving and developing mathematical, actuarial and statistical theories and techniques. The work also covers advising on or applying mathematical principles, models and techniques to a wide range of tasks in the fields of engineering, natural, social or life sciences.",
+        "required_skills": [
+          "Mathematicians Actuaries Statistician",
+          "Mathematical Actuarial",
+          "Logical Analyses"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 7900,
+        "budget_max": 15300,
+        "currency": "KES",
+        "employer_reputation": 4.07,
+        "employer_review_count": 15
+      }
+    },
+    {
+      "pair_id": "v1-0095",
+      "worker": {
+        "label": "Accountant",
+        "bio": "Accountants Plan and administer accounting services and advises on accountancy issues pertaining to private persons, enterprises, institutions and governmental organizations",
+        "skills": [
+          "Accountant",
+          "Financial Investigations",
+          "Accounts",
+          "Investigations",
+          "Systems"
+        ],
+        "location": "Kisumu"
+      },
+      "gig": {
+        "title": "Personnel Clerk needed — updating information on, employment history",
+        "description": "We are looking for someone to take on updating information on, employment history, salaries, performance evaluations, qualifications and training and leave taken and accumulated.",
+        "required_skills": [
+          "Personnel Clerk",
+          "Information",
+          "Records"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 1900,
+        "budget_max": 3700,
+        "currency": "KES",
+        "employer_reputation": 4.5,
+        "employer_review_count": 18
+      }
+    },
+    {
+      "pair_id": "v1-0096",
+      "worker": {
+        "label": "Film and Video Producer",
+        "bio": "Film, Stage and Related Directors And Producers oversee and control the technical and artistic aspects of motion pictures, television or radio productions and stage shows",
+        "skills": [
+          "Film Stage Director",
+          "Scripts",
+          "Industry Experience Is",
+          "Key Skills Required"
+        ],
+        "location": "Nairobi"
+      },
+      "gig": {
+        "title": "Cloud Computing Professional needed — planning, designing, developing, managing and",
+        "description": "We are looking for someone to take on planning, designing, developing, managing and monitoring cloud computing applications.",
+        "required_skills": [
+          "Cloud Computing Professional",
+          "Cloud Computing Applications",
+          "End-To-End Lifecycle"
+        ],
+        "location": "Nairobi",
+        "is_remote": false,
+        "budget_min": 5000,
+        "budget_max": 9600,
+        "currency": "KES",
+        "employer_reputation": 4.25,
+        "employer_review_count": 24
+      }
+    },
+    {
+      "pair_id": "v1-0097",
+      "worker": {
+        "label": "Public Relations and Advertising Manager",
+        "bio": "Public Relations and Advertising Managers plan, direct and coordinate the advertising, public relations and public information activities of enterprises and organizations or of enterprises that provide related services to other enterprises",
+        "skills": [
+          "Public Relations Advertising",
+          "Information Programmes",
+          "Welfare Activities",
+          "Organization"
+        ],
+        "location": "Nakuru"
+      },
+      "gig": {
+        "title": "Systems Administrator needed — maintaining and administering computer networks and",
+        "description": "We are looking for someone to take on maintaining and administering computer networks and related computing environments, including computer hardware, systems software, applications software and all configurations.",
+        "required_skills": [
+          "Systems Administrator",
+          "Computer Networks",
+          "Changes"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 5000,
+        "budget_max": 9700,
+        "currency": "KES",
+        "employer_reputation": 4.06,
+        "employer_review_count": 34
+      }
+    },
+    {
+      "pair_id": "v1-0098",
+      "worker": {
+        "label": "Systems Administrator",
+        "bio": "Systems Administrators are responsible for the upkeep, configuration and reliable operation of computer systems especially multi-user computers such as servers",
+        "skills": [
+          "Systems Administrator",
+          "Hardware",
+          "Data Backups",
+          "Master Consoles"
+        ],
+        "location": "Eldoret"
+      },
+      "gig": {
+        "title": "Web Technician needed — developing and maintaining documentation, policies",
+        "description": "We are looking for someone to take on developing and maintaining documentation, policies and instructions, recording operational procedures and system logs.",
+        "required_skills": [
+          "Web Technician",
+          "Reliability",
+          "Documentation Policies"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 17300,
+        "budget_max": 33500,
+        "currency": "KES",
+        "employer_reputation": 4.33,
+        "employer_review_count": 12
+      }
+    },
+    {
+      "pair_id": "v1-0099",
+      "worker": {
+        "label": "Advertising and Marketing Professional",
+        "bio": "Advertising and Marketing Professionals, Conduct research, determine and advise on existing level of sales for particular products and or services, and assesses potential markets and future trends",
+        "skills": [
+          "Advertising Marketing Professional",
+          "Data Regarding Consumer",
+          "Potential Demand",
+          "Business Growth",
+          "Market Research"
+        ],
+        "location": "Kisii"
+      },
+      "gig": {
+        "title": "Market Research Interviewer needed — contacting individuals by telephone or in person and",
+        "description": "We are looking for someone to take on contacting individuals by telephone or in person and explaining the purpose of the interview.",
+        "required_skills": [
+          "Survey Market Research",
+          "Individuals",
+          "Questions Following The"
+        ],
+        "location": "Kericho",
+        "is_remote": false,
+        "budget_min": 2600,
+        "budget_max": 5100,
+        "currency": "KES",
+        "employer_reputation": 3.8,
+        "employer_review_count": 5
+      }
+    },
+    {
+      "pair_id": "v1-0100",
+      "worker": {
+        "label": "Management Analyst",
+        "bio": "Management and organization analysts assist organizations to achieve greater efficiency and solve organizational problems. They study organizational structures, methods, systems and pro cedures. They are responsible for conducting and",
+        "skills": [
+          "Management Organization Analyst",
+          "Work Studies",
+          "Organizations Workflow Charts",
+          "Proposals",
+          "Procedures"
+        ],
+        "location": "Naivasha"
+      },
+      "gig": {
+        "title": "Book-keeping Clerk needed — operating computers programmed with accounting",
+        "description": "We are looking for someone to take on operating computers programmed with accounting software to record, store, and analyze information.",
+        "required_skills": [
+          "Accounting Book Keeping",
+          "Figures Postings",
+          "Computers Programmed"
+        ],
+        "location": null,
+        "is_remote": true,
+        "budget_min": 800,
+        "budget_max": 1200,
+        "currency": "KES",
+        "employer_reputation": 4.42,
+        "employer_review_count": 19
+      }
+    }
+  ]
+}
