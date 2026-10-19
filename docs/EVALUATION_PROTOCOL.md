@@ -154,7 +154,7 @@ assumed useful.
   constraint let an inert term absorb the remainder.
 
 - Currently held fixed: **location** (r = −0.024) and **reputation**
-  (r = −0.007). Their weights are an explicit product prior of 0.03 each, not
+  (r = −0.039). Their weights are an explicit product prior of 0.03 each, not
   a measurement.
 
 ## Adoption criteria
@@ -179,27 +179,27 @@ Criterion 2 is not hypothetical. An early run showed +0.027 validation and
 
 ## Current results
 
-Validation, 9 profiles over 104 gigs, corpus `2368a76d3430`:
+Validation, 9 profiles over 104 gigs, corpus `6ac4675ae766`:
 
 | strategy | P@5 | P@10 | R@10 | MRR | NDCG@10 |
 |---|---|---|---|---|---|
 | random | 0.044 | 0.056 | 0.117 | 0.142 | 0.081 |
 | tfidf only | 0.533 | 0.300 | 0.636 | 1.000 | 0.812 |
 | semantic only | 0.556 | 0.456 | 0.904 | 1.000 | 0.891 |
-| composite, as first shipped | 0.556 | 0.389 | 0.774 | 1.000 | 0.849 |
-| **composite, current** | 0.578 | 0.433 | 0.867 | 1.000 | **0.892** |
+| composite, as first shipped | 0.556 | 0.356 | 0.717 | 1.000 | 0.846 |
+| **composite, current** | 0.600 | 0.433 | 0.867 | 1.000 | **0.897** |
 
 Ablation (validation, weights renormalised within each subset):
 
 | subset | NDCG@10 | vs full |
 |---|---|---|
-| full | 0.8921 | — |
-| text only (semantic + tfidf) | 0.9079 | +0.0157 |
-| semantic alone | 0.8914 | −0.0007 |
-| without semantic | 0.7957 | −0.0964 |
-| without tfidf | 0.8815 | −0.0106 |
-| without location | 0.9040 | +0.0119 |
-| without reputation | 0.8945 | +0.0024 |
+| full | 0.8977 | — |
+| text only (semantic + tfidf) | 0.9079 | +0.0101 |
+| semantic alone | 0.8914 | −0.0063 |
+| without semantic | 0.7753 | −0.1224 |
+| without tfidf | 0.8817 | −0.0160 |
+| without location | 0.9046 | +0.0069 |
+| without reputation | 0.8945 | −0.0032 |
 
 Reading: semantic carries the result. TF-IDF adds ~0.011 on top of it. The two
 unjudgeable signals cost 0.016 together — the price of not overfitting to a
@@ -208,7 +208,7 @@ blind spot in the labels, down from 0.035 before the weights were reduced.
 Weight tuning: train best 0.8154 against 0.8081 for the incumbent, but
 validation gain **−0.0001**, so the incumbent stands.
 
-**Final test figure, read once: NDCG@10 0.8405.**
+**Final test figure, read once: NDCG@10 0.8499.**
 
 Two-stage retrieval (validation): shortlists of 15 and above are exact on this
 corpus; 10 scores marginally higher; 3 and 5 cost 0.137 and 0.098.

@@ -30,9 +30,10 @@ Each guards a defect this project has actually shipped or nearly shipped.
 
 - The live Supabase path end to end. `eval/live_eval.py` exercises it but needs
   a running service and a seeded database, so it is manual.
-- `eval/seed_db.py` creates **one** employer for all gigs, so a seeded database
-  would make employer reputation constant again and live rankings would diverge
-  from offline. **Must be fixed before any live run** is used as evidence.
+- `eval/seed_db.py` now creates one account per corpus employer and seeds the
+  individual ratings, letting the `update_reputation` trigger derive the same
+  score the corpus holds. **Not yet executed against a database**, so the live
+  path remains unverified since the reputation redesign.
 - The API and web layers have no tests; they typecheck only.
 
 ## Artefacts
@@ -58,8 +59,9 @@ Verified and automated, without needing a database:
 - Rows typed as Postgres `NUMERIC`/`BIGINT` (which some drivers return as
   strings) score identically to corpus rows.
 
-**Not verified:** a real request against the deployed service, because of the
-`seed_db` single-employer problem above.
+**Not verified:** a real request against the deployed service. The seeder is
+now correct but has not been run, so no live figure exists for the current
+engine.
 
 ## Fallbacks, and whether they are observable
 
@@ -101,7 +103,8 @@ Enforced by process, not code:
 - [ ] **Human-labelled validation evidence.** Validation is 95.5% rule-derived
       (4 of 88 labels authored). Blocking.
 - [ ] **Inter-annotator agreement.** One annotator; no κ. Blocking.
-- [ ] **Live parity on a seeded database.** Blocked by `seed_db`.
+- [ ] **Live parity on a seeded database.** No longer blocked; needs a
+      Supabase instance and one seed-and-measure run.
 - [ ] **Monitoring in place.** Planned only, below.
 
 ## Monitoring plan
@@ -167,7 +170,8 @@ projects typecheck clean.
    tuned to a number the labels cannot support.
 4. **The production shortlist size has never been evaluated** — the corpus is
    smaller than the pool.
-5. **No live end-to-end verification** since the reputation redesign.
+5. **No live end-to-end verification** since the reputation redesign. The
+   seeder is fixed but unrun.
 6. **No recency signal**, so stale gigs rank equal to fresh ones.
 7. **M-Pesa escrow is unvalidated** against real Daraja credentials.
 8. **Small splits** — differences under 0.005 NDCG are noise.

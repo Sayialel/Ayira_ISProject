@@ -85,7 +85,7 @@ weights alone decide influence.
 | `semantic` | cosine of MiniLM embeddings | 0–1 | yes | **+0.557** |
 | `tfidf` | cosine of TF-IDF vectors, fitted on train only | 0–1 | yes | **+0.618** |
 | `location` | `location_affinity()` | 0–1, five tiers | yes | −0.024 |
-| `reputation` | `employer_reputation()` ÷ 5 | 0–1 | yes | −0.007 |
+| `reputation` | `employer_reputation()` ÷ 5 | 0–1 | yes | −0.039 |
 
 Location tiers: same town 1.0 · same county 0.6 · same metro 0.45 · unknown 0.3
 · different county 0.0.
@@ -114,6 +114,11 @@ independent evidence.
 
 A pair absent from the file is grade 0 by implication. Current counts: 565
 graded, of which **532 derived and 33 authored**; 4,323 implicit zeros.
+
+The employer pool, including the individual integer ratings behind each
+reputation, is in `eval/corpus/employers.json`. Reputation is their mean, not
+a drawn aggregate, so a seeded database reaches the same value through the
+`update_reputation` trigger.
 
 `layer` is what makes it possible to report human-labelled and rule-derived
 results separately. **Not yet surfaced by the harness** — an open item.

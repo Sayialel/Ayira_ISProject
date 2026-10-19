@@ -5,7 +5,7 @@ and what is still open.
 
 Audit run at commit `48629e0`; fixes land in `8184fc4` (reputation, tests) and
 `35f057d` (location). Figures below are from the runs in
-`apps/ai-engine/eval/results/runs/`, on corpus `2368a76d3430` unless stated.
+`apps/ai-engine/eval/results/runs/`, on corpus `6ac4675ae766` unless stated.
 
 Severity is about consequence, not effort:
 
@@ -169,7 +169,7 @@ relevance grades:
 | tfidf | **+0.618** |
 | semantic | **+0.557** |
 | location | −0.024 |
-| reputation | −0.007 |
+| reputation | −0.039 |
 
 Grades are derived from distance in the KeSCO occupational hierarchy, and towns
 and employers are assigned independently of them. So no weighting for either
@@ -245,15 +245,18 @@ Validation, 9 profiles over 104 gigs:
 | random | 0.081 |
 | tfidf only | 0.812 |
 | semantic only | 0.891 |
-| composite, as first shipped | 0.849 |
-| **composite, current weights** | **0.892** |
+| composite, as first shipped | 0.846 |
+| **composite, current weights** | **0.897** |
 
-Final test figure, read once: **0.8405**.
+Final test figure, read once: **0.8499**.
 
-The composite now matches semantic-only rather than trailing it, which it did
-before these fixes (0.878 against 0.891). The remaining gap to "text only"
-(0.908 on validation) is the cost of the two signals the labels cannot judge,
-and is the price of not overfitting to that blind spot.
+The composite now **beats** semantic-only (0.8977 against 0.8914 in the
+ablation), where before these fixes it trailed it (0.878 against 0.891).
+Removing the employer-reputation term now costs 0.0032 rather than gaining
+0.0053, so that signal has gone from inert to mildly useful. The remaining gap
+to "text only" (0.9079) is the cost of location, the one signal still carrying
+weight the labels cannot judge, and is the price of not overfitting to that
+blind spot.
 
 ## Next
 
