@@ -29,4 +29,16 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(message);
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    // These are the library defaults, set explicitly because the whole session
+    // depends on them and a future version changing a default should be a
+    // visible edit here rather than a silent regression.
+    persistSession: true,
+    autoRefreshToken: true,
+    // Refreshes only fire while the tab is awake, so a suspended machine still
+    // returns to an expired token. lib/api.ts recovers from that on the first
+    // 401 rather than leaving the page erroring.
+    detectSessionInUrl: true,
+  },
+});

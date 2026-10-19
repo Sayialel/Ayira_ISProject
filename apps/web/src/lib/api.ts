@@ -49,16 +49,26 @@ export class ApiError extends Error {
  * `{ data }` envelope, so callers work with the payload directly.
  */
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const headers = await getAuthHeaders();
+  let res = await send(path, options);
 
-  let res: Response;
-  try {
-    res = await fetch(`${API_BASE}${path}`, {
-      ...options,
-      headers: { ...headers, ...options.headers },
-    });
-  } catch {
-    throw new ApiError('Could not reach the server. Check your connection.', 0);
+  // An access token lasts about an hour. The Supabase client refreshes in the
+  // background, but it cannot while the tab is asleep or the machine is
+  // suspended, so a session left open overnight comes back with a token the
+  // gateway rejects.
+  //
+  // Without this the page did not recover: every request failed with "Invalid
+  // or expired token" and the only way out was to sign out and back in, which
+  // looks like the app has broken rather than like a session that lapsed.
+  if (res.status === 401) {
+    const recovered = await refreshSession();
+    if (recovered) {
+      res = await send(path, options);
+    } else {
+      // The refresh token is spent too. End the session deliberately so the
+      // app shows the sign-in page instead of a wall of errors.
+      await supabase.auth.signOut();
+      throw new ApiError('Your session has expired. Please sign in again.', 401);
+    }
   }
 
   if (res.status === 204) return undefined as T;
@@ -75,6 +85,36 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
   }
 
   return (body as ApiEnvelope<T>)?.data as T;
+}
+
+async function send(path: string, options: RequestInit): Promise<Response> {
+  const headers = await getAuthHeaders();
+  try {
+    return await fetch(`${API_BASE}${path}`, {
+      ...options,
+      headers: { ...headers, ...options.headers },
+    });
+  } catch {
+    throw new ApiError('Could not reach the server. Check your connection.', 0);
+  }
+}
+
+// Several requests usually fail together when a token lapses -- a page loads
+// three endpoints at once -- and each must not start its own refresh. They
+// share this one promise instead, so the refresh token is spent once.
+let refreshInFlight: Promise<boolean> | null = null;
+
+async function refreshSession(): Promise<boolean> {
+  if (!refreshInFlight) {
+    refreshInFlight = supabase.auth
+      .refreshSession()
+      .then(({ data, error }) => Boolean(data.session) && !error)
+      .catch(() => false)
+      .finally(() => {
+        refreshInFlight = null;
+      });
+  }
+  return refreshInFlight;
 }
 
 /** Serialises query params, dropping empty values so filters stay optional. */
