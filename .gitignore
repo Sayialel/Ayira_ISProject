@@ -41,3 +41,9 @@ apps/ai-engine/artifacts/*.previous
 # run is reproducible without committing the payload.
 data/raw/
 data/interim/
+
+# Regenerable pipeline output. The manifests in data/manifests/ are the record
+# of what a run produced; the payloads are rebuilt by rerunning the script, and
+# committing a partial or inspect-mode output invites reading it as a dataset.
+data/processed/*.jsonl
+data/synthetic/*.jsonl
