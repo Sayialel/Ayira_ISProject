@@ -187,7 +187,8 @@ export type DashboardStats = WorkerStats | EmployerStats;
 export interface MatchBreakdown {
   semantic?: number;
   tfidf?: number;
-  location?: boolean;
+  /** Location affinity 0-1, not a yes/no: see scoring.location_affinity. */
+  location?: number;
   /** The employer's reputation on the 0-5 review scale, not the worker's. */
   employer_reputation?: number;
 }

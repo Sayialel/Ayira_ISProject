@@ -122,7 +122,7 @@ export type AiMatchLogRow = {
   gig_id: string;
   semantic_score: number | null;
   tfidf_score: number | null;
-  location_match: boolean | null;
+  location_affinity: number | null;
   composite_score: number | null;
   created_at: string;
 }

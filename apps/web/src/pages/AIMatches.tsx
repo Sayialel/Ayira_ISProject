@@ -185,10 +185,9 @@ function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
         {WEIGHTS.map(({ key, label, weight }) => {
           const raw = breakdown[key];
 
-          // location arrives as a boolean; employer reputation is 0–5.
+          // location is an affinity from 0 to 1, employer reputation is 0–5.
           let value: number;
-          if (key === 'location') value = raw ? 1 : 0;
-          else if (key === 'employer_reputation')
+          if (key === 'employer_reputation')
             value = Math.min(Number(raw ?? 0) / 5, 1);
           else value = Math.max(0, Math.min(Number(raw ?? 0), 1));
 

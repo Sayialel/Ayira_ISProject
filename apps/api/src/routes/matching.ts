@@ -34,7 +34,10 @@ const gigScoreSchema = z.object({
   breakdown: z.object({
     semantic: z.number().optional(),
     tfidf: z.number().optional(),
-    location: z.boolean().optional(),
+    // A number, not a boolean, since migration-era location tiering: the
+    // engine returns an affinity (same town 1.0, same county 0.6, same metro
+    // 0.45, unknown 0.3, different county 0.0) rather than a yes/no.
+    location: z.number().optional(),
     // The *employer's* reputation, not the worker's. The engine used to score
     // the worker's own, which is identical for every candidate gig and so
     // could not affect the ranking at all.
@@ -103,7 +106,7 @@ async function logMatches(workerId: string, matches: GigScore[]) {
       gig_id: match.gig_id,
       semantic_score: match.breakdown.semantic ?? null,
       tfidf_score: match.breakdown.tfidf ?? null,
-      location_match: match.breakdown.location ?? null,
+      location_affinity: match.breakdown.location ?? null,
       composite_score: match.score,
     }))
   );
