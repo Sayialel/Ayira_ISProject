@@ -1,0 +1,184 @@
+[
+  {
+    "label": "semantic alone",
+    "signals": [
+      "semantic"
+    ],
+    "weights": {
+      "semantic": 1.0,
+      "tfidf": 0.0,
+      "location": 0.0,
+      "reputation": 0.0
+    },
+    "ndcg_at_10": 0.8914257216156928,
+    "ndcg_at_5": 0.8576106465621945,
+    "precision_at_5": 0.5555555555555556,
+    "recall_at_10": 0.9040404040404041,
+    "mrr": 1.0
+  },
+  {
+    "label": "tfidf alone",
+    "signals": [
+      "tfidf"
+    ],
+    "weights": {
+      "semantic": 0.0,
+      "tfidf": 1.0,
+      "location": 0.0,
+      "reputation": 0.0
+    },
+    "ndcg_at_10": 0.8123595531332606,
+    "ndcg_at_5": 0.8482930684646828,
+    "precision_at_5": 0.5333333333333333,
+    "recall_at_10": 0.6355218855218855,
+    "mrr": 1.0
+  },
+  {
+    "label": "location alone",
+    "signals": [
+      "location"
+    ],
+    "weights": {
+      "semantic": 0.0,
+      "tfidf": 0.0,
+      "location": 1.0,
+      "reputation": 0.0
+    },
+    "ndcg_at_10": 0.052992693901348954,
+    "ndcg_at_5": 0.054286004834016376,
+    "precision_at_5": 0.06666666666666667,
+    "recall_at_10": 0.08333333333333333,
+    "mrr": 0.037037037037037035
+  },
+  {
+    "label": "reputation alone",
+    "signals": [
+      "reputation"
+    ],
+    "weights": {
+      "semantic": 0.0,
+      "tfidf": 0.0,
+      "location": 0.0,
+      "reputation": 1.0
+    },
+    "ndcg_at_10": 0.07849823691283861,
+    "ndcg_at_5": 0.04275373430130638,
+    "precision_at_5": 0.044444444444444446,
+    "recall_at_10": 0.07491582491582491,
+    "mrr": 0.09012345679012346
+  },
+  {
+    "label": "full",
+    "signals": [
+      "semantic",
+      "tfidf",
+      "location",
+      "reputation"
+    ],
+    "weights": {
+      "semantic": 0.72,
+      "tfidf": 0.22,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "ndcg_at_10": 0.8977162737230349,
+    "ndcg_at_5": 0.8787745840428389,
+    "precision_at_5": 0.6000000000000001,
+    "recall_at_10": 0.867003367003367,
+    "mrr": 1.0
+  },
+  {
+    "label": "without semantic",
+    "signals": [
+      "tfidf",
+      "location",
+      "reputation"
+    ],
+    "weights": {
+      "semantic": 0.0,
+      "tfidf": 0.7857142857142857,
+      "location": 0.10714285714285712,
+      "reputation": 0.10714285714285712
+    },
+    "ndcg_at_10": 0.7753022352873516,
+    "ndcg_at_5": 0.806100106418702,
+    "precision_at_5": 0.4444444444444444,
+    "recall_at_10": 0.5774410774410774,
+    "mrr": 1.0
+  },
+  {
+    "label": "without tfidf",
+    "signals": [
+      "semantic",
+      "location",
+      "reputation"
+    ],
+    "weights": {
+      "semantic": 0.923076923076923,
+      "tfidf": 0.0,
+      "location": 0.03846153846153846,
+      "reputation": 0.03846153846153846
+    },
+    "ndcg_at_10": 0.8817472026206297,
+    "ndcg_at_5": 0.8593591612922197,
+    "precision_at_5": 0.5555555555555556,
+    "recall_at_10": 0.82996632996633,
+    "mrr": 1.0
+  },
+  {
+    "label": "without location",
+    "signals": [
+      "semantic",
+      "tfidf",
+      "reputation"
+    ],
+    "weights": {
+      "semantic": 0.7422680412371134,
+      "tfidf": 0.2268041237113402,
+      "location": 0.0,
+      "reputation": 0.030927835051546393
+    },
+    "ndcg_at_10": 0.9046446617586555,
+    "ndcg_at_5": 0.878140935124094,
+    "precision_at_5": 0.6000000000000001,
+    "recall_at_10": 0.9040404040404041,
+    "mrr": 1.0
+  },
+  {
+    "label": "without reputation",
+    "signals": [
+      "semantic",
+      "tfidf",
+      "location"
+    ],
+    "weights": {
+      "semantic": 0.7422680412371134,
+      "tfidf": 0.2268041237113402,
+      "location": 0.030927835051546393,
+      "reputation": 0.0
+    },
+    "ndcg_at_10": 0.8945353973735322,
+    "ndcg_at_5": 0.8798382127679715,
+    "precision_at_5": 0.6000000000000001,
+    "recall_at_10": 0.867003367003367,
+    "mrr": 1.0
+  },
+  {
+    "label": "text only",
+    "signals": [
+      "semantic",
+      "tfidf"
+    ],
+    "weights": {
+      "semantic": 0.7659574468085106,
+      "tfidf": 0.23404255319148937,
+      "location": 0.0,
+      "reputation": 0.0
+    },
+    "ndcg_at_10": 0.907852826243595,
+    "ndcg_at_5": 0.8815207342944683,
+    "precision_at_5": 0.6000000000000001,
+    "recall_at_10": 0.9040404040404041,
+    "mrr": 1.0
+  }
+]

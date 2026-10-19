@@ -278,31 +278,46 @@ def build_employers(rng: random.Random) -> list[dict]:
     """
     The employer pool, with reputations on the platform's 1-5 review scale.
 
-    Ratings are drawn high and tight because that is what review distributions
-    on real marketplaces look like -- almost everything clusters between 3.5
-    and 5, and a mean near the midpoint would be unrealistic. The consequence
-    is a signal with genuinely little spread, which is worth knowing before
-    reading much into its weight.
+    Reputation is built as the *mean of individual integer ratings*, not drawn
+    directly, because that is exactly what the database stores: the
+    update_reputation() trigger sets reputation_score to AVG(reviews.rating),
+    and ratings are integers constrained to 1-5. Generating the aggregate
+    directly would have produced values the live system could never hold, and
+    seeding the database would then have disagreed with the corpus on the
+    reputation term. Keeping the ratings lets eval/seed_db.py reproduce the
+    score exactly.
+
+    Ratings are drawn high because that is what review distributions on real
+    marketplaces look like -- almost everything clusters between 4 and 5. The
+    consequence is a signal with genuinely little spread, which is worth
+    knowing before reading much into its weight.
 
     An unreviewed employer is recorded exactly as the database records one:
-    reputation_score 0.00 with a review count of 0. Writing it this way keeps
-    the corpus honest about the ambiguity the scorer has to resolve, instead of
-    hiding it behind a None.
+    reputation_score 0.00 with no reviews. Writing it this way keeps the corpus
+    honest about the ambiguity the scorer has to resolve, rather than hiding it
+    behind a None.
     """
     employers = []
     for index in range(EMPLOYER_COUNT):
         if rng.random() < UNREVIEWED_SHARE:
-            reputation, reviews = 0.0, 0
+            ratings: list[int] = []
+            reputation = 0.0
         else:
-            reviews = rng.randint(1, 40)
-            reputation = round(min(5.0, rng.gauss(4.3, 0.45)), 2)
-            # A 1-5 scale cannot produce anything below 1.
-            reputation = max(1.0, reputation)
+            count = rng.randint(1, 40)
+            # Weighted toward 4 and 5, with a thin tail of poor reviews.
+            ratings = rng.choices(
+                [1, 2, 3, 4, 5], weights=[2, 3, 10, 35, 50], k=count
+            )
+            # NUMERIC(3,2), matching what AVG() would store.
+            reputation = round(sum(ratings) / len(ratings), 2)
+
         employers.append(
             {
                 "id": f"e-{index + 1:02d}",
                 "employer_reputation": reputation,
-                "employer_review_count": reviews,
+                "employer_review_count": len(ratings),
+                # Kept so a seeded database can reproduce the score exactly.
+                "ratings": ratings,
             }
         )
     return employers
@@ -325,6 +340,8 @@ def assign_employers(gigs: list[dict], employers: list[dict]) -> None:
         gig["employer_id"] = employer["id"]
         gig["employer_reputation"] = employer["employer_reputation"]
         gig["employer_review_count"] = employer["employer_review_count"]
+        # `ratings` stays in employers.json; a gig carries only what the
+        # retrieval function returns.
 
 
 def build_gigs(occ: dict, rng: random.Random, count: int = 2) -> list[dict]:
@@ -456,6 +473,15 @@ def main() -> None:
     )
     (CORPUS_DIR / "gigs.json").write_text(
         json.dumps(gigs, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+
+    # The employer pool, including the individual ratings behind each
+    # reputation. Kept out of the dataset hash below: it is seeding input,
+    # not data any metric is computed from, and the aggregate each gig
+    # carries is already hashed with gigs.json.
+    (CORPUS_DIR / "employers.json").write_text(
+        json.dumps(employers, indent=2, ensure_ascii=False) + chr(10),
+        encoding="utf-8",
     )
 
     with (CORPUS_DIR / "relevance.csv").open("w", encoding="utf-8", newline="") as fh:

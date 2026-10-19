@@ -27,3 +27,11 @@ apps/ai-engine/eval/corpus_sources/*.pdf
 # its log sits beside its metrics. The blanket *.log rule above would drop
 # exactly that file, so it is re-included here.
 !apps/ai-engine/eval/results/runs/**/run.log
+
+# Test runner cache
+.pytest_cache/
+apps/ai-engine/.pytest_cache/
+
+# Rollback copies of the deployed artefact. Transient local deployment state,
+# not evidence: every artefact that backs a reported figure is in its run folder.
+apps/ai-engine/artifacts/*.previous

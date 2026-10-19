@@ -21,6 +21,7 @@ the artefact so the deployed state can always be traced back to its evidence.
 
 import argparse
 import json
+import pathlib
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -30,6 +31,12 @@ from eval import experiment
 
 ARTEFACT_NAME = "tfidf_vectorizer.joblib"
 RECORD_PATH = tfidf_model.SERVING_PATH.parent / "deployed.json"
+
+# The artefact that was serving before the current one, kept so a bad
+# promotion can be undone without rebuilding anything. One generation is
+# enough: every older artefact is still in its own run folder.
+PREVIOUS_PATH = tfidf_model.SERVING_PATH.with_suffix(".joblib.previous")
+PREVIOUS_RECORD_PATH = RECORD_PATH.with_suffix(".json.previous")
 
 
 def runs_with_artefact() -> list[Path]:
@@ -57,9 +64,42 @@ def show_status() -> None:
         print(f"  commit   : {record.get('git_commit')}")
         print(f"  dataset  : {record.get('dataset_version')}")
         print(f"  deployed : {record.get('deployed_at')}")
+        _warn_if_stale(record)
     else:
-        print("  (no deployment record — provenance unknown)")
+        print("  (no deployment record - provenance unknown)")
+
+    if PREVIOUS_PATH.exists():
+        print(f"  rollback : available ({PREVIOUS_PATH.name})")
     print()
+
+
+def _current_dataset_version() -> str | None:
+    try:
+        from eval import splits
+
+        return splits.load().dataset_version
+    except SystemExit:
+        return None
+
+
+def _warn_if_stale(record: dict) -> None:
+    """
+    Warns when the deployed artefact was fitted on a corpus that no longer
+    exists.
+
+    This is the quiet failure the whole mechanism exists to prevent: the
+    offline figures would be describing data the live engine was never fitted
+    on, and nothing else would report it.
+    """
+    current = _current_dataset_version()
+    deployed = record.get("dataset_version")
+    if not current or deployed == current:
+        return
+
+    print()
+    print(f"  STALE: the corpus is now {current}, but this artefact was fitted")
+    print(f"  on {deployed}. Re-run the evaluation and promote again, or the")
+    print("  offline figures do not describe what is serving.")
 
 
 def list_candidates() -> None:
@@ -118,6 +158,14 @@ def promote(run_id: str, allow_dirty: bool = False) -> None:
         )
 
     tfidf_model.SERVING_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    # Keep what is serving now, so a promotion that turns out to be wrong can
+    # be undone without rebuilding it.
+    if tfidf_model.SERVING_PATH.exists():
+        shutil.copy2(tfidf_model.SERVING_PATH, PREVIOUS_PATH)
+        if RECORD_PATH.exists():
+            shutil.copy2(RECORD_PATH, PREVIOUS_RECORD_PATH)
+
     shutil.copy2(source, tfidf_model.SERVING_PATH)
 
     RECORD_PATH.write_text(
@@ -144,10 +192,54 @@ def promote(run_id: str, allow_dirty: bool = False) -> None:
     print("\nRestart the engine for it to take effect.\n")
 
 
+def _swap(a: pathlib.Path, b: pathlib.Path) -> None:
+    """Exchanges two files, so the operation can itself be undone."""
+    if not a.exists() or not b.exists():
+        return
+    spare = a.with_suffix(a.suffix + ".swap")
+    shutil.move(str(a), str(spare))
+    shutil.move(str(b), str(a))
+    shutil.move(str(spare), str(b))
+
+
+def rollback() -> None:
+    """
+    Restores the artefact that was serving before the last promotion.
+
+    Swaps rather than overwrites, so a rollback can be undone too --
+    discovering that the previous artefact was the broken one should not
+    leave the only good copy unreachable.
+    """
+    if not PREVIOUS_PATH.exists():
+        raise SystemExit(
+            "No previous artefact to roll back to. Promote one from a run "
+            "instead: python -m eval.promote <run-id>"
+        )
+
+    if tfidf_model.load(PREVIOUS_PATH) is None:
+        raise SystemExit(
+            f"{PREVIOUS_PATH} did not load as a version "
+            f"{tfidf_model.ARTEFACT_VERSION} artefact; refusing to roll back."
+        )
+
+    _swap(tfidf_model.SERVING_PATH, PREVIOUS_PATH)
+    _swap(RECORD_PATH, PREVIOUS_RECORD_PATH)
+
+    print()
+    print("Rolled back to the previously deployed artefact.")
+    print("Restart the engine for it to take effect.")
+    show_status()
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run_id", nargs="?", help="the run whose artefact to deploy")
     parser.add_argument("--status", action="store_true", help="show what is deployed")
+    parser.add_argument(
+        "--rollback",
+        action="store_true",
+        help="restore the artefact that was serving before the last promotion",
+    )
     parser.add_argument(
         "--allow-dirty",
         action="store_true",
@@ -155,7 +247,9 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    if args.status:
+    if args.rollback:
+        rollback()
+    elif args.status:
         show_status()
     elif args.run_id:
         promote(args.run_id, allow_dirty=args.allow_dirty)

@@ -1,0 +1,71 @@
+{
+  "run_id": "20261019T062445Z__retrieval-validation__0298b68",
+  "name": "retrieval-validation",
+  "started_at": "2026-10-19T06:24:45.478805+00:00",
+  "finished_at": "2026-10-19T06:24:54.581608+00:00",
+  "git": {
+    "commit": "0298b687faa0d4a230a30828b069fad6350736c7",
+    "short_commit": "0298b68",
+    "branch": "main",
+    "dirty": true,
+    "uncommitted_files": 15,
+    "uncommitted_paths": [
+      ".gitignore",
+      "README.md",
+      "apps/ai-engine/artifacts/deployed.json",
+      "apps/ai-engine/artifacts/deployed.json.previous",
+      "apps/ai-engine/artifacts/tfidf_vectorizer.joblib",
+      "apps/ai-engine/artifacts/tfidf_vectorizer.joblib.previous",
+      "apps/ai-engine/eval/WORKFLOW.md",
+      "apps/ai-engine/eval/corpus/employers.json",
+      "apps/ai-engine/eval/corpus/gigs.json",
+      "apps/ai-engine/eval/corpus/splits.json",
+      "apps/ai-engine/eval/corpus_sources/build_corpus.py",
+      "apps/ai-engine/eval/promote.py",
+      "apps/ai-engine/eval/seed_db.py",
+      "apps/ai-engine/tests/test_promote.py",
+      "docs/"
+    ]
+  },
+  "dataset_version": "6ac4675ae766",
+  "seeds": {
+    "split": 20261018
+  },
+  "parameters": {
+    "split": "validation",
+    "pool_sizes": [
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      "exhaustive"
+    ],
+    "weights": {
+      "semantic": 0.72,
+      "tfidf": 0.22,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "metric": "ndcg_at_10",
+    "tfidf_fitted_on": "train"
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": "Final shortlist sizing."
+}

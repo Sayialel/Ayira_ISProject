@@ -1,0 +1,86 @@
+{
+  "run_id": "20261019T062341Z__tune-weights__0298b68",
+  "name": "tune-weights",
+  "started_at": "2026-10-19T06:23:41.523918+00:00",
+  "finished_at": "2026-10-19T06:24:22.892976+00:00",
+  "git": {
+    "commit": "0298b687faa0d4a230a30828b069fad6350736c7",
+    "short_commit": "0298b68",
+    "branch": "main",
+    "dirty": true,
+    "uncommitted_files": 15,
+    "uncommitted_paths": [
+      ".gitignore",
+      "README.md",
+      "apps/ai-engine/artifacts/deployed.json",
+      "apps/ai-engine/artifacts/deployed.json.previous",
+      "apps/ai-engine/artifacts/tfidf_vectorizer.joblib",
+      "apps/ai-engine/artifacts/tfidf_vectorizer.joblib.previous",
+      "apps/ai-engine/eval/WORKFLOW.md",
+      "apps/ai-engine/eval/corpus/employers.json",
+      "apps/ai-engine/eval/corpus/gigs.json",
+      "apps/ai-engine/eval/corpus/splits.json",
+      "apps/ai-engine/eval/corpus_sources/build_corpus.py",
+      "apps/ai-engine/eval/promote.py",
+      "apps/ai-engine/eval/seed_db.py",
+      "apps/ai-engine/tests/test_promote.py",
+      "docs/"
+    ]
+  },
+  "dataset_version": "6ac4675ae766",
+  "seeds": {
+    "split": 20261018
+  },
+  "parameters": {
+    "grid_step": 0.05,
+    "metric": "ndcg_at_10",
+    "search_split": "train",
+    "selection_split": "validation",
+    "reporting_split": "test",
+    "adopt_margin": 0.005,
+    "shipped_weights": {
+      "semantic": 0.45,
+      "tfidf": 0.25,
+      "location": 0.15,
+      "reputation": 0.15
+    },
+    "current_weights": {
+      "semantic": 0.72,
+      "tfidf": 0.22,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "tfidf_fitted_on": "train",
+    "fixed_weights": {
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "rank_invariant_signals": [],
+    "label_uninformative_signals": {
+      "location": -0.024125236117294634,
+      "reputation": -0.03888236496839541
+    },
+    "searched_signals": [
+      "semantic",
+      "tfidf"
+    ],
+    "combinations": 20
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": "x"
+}

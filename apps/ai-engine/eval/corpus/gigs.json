@@ -15,8 +15,8 @@
     "budget_min": 21100,
     "budget_max": 40800,
     "employer_id": "e-03",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
   },
   {
     "id": "g-1212-2",
@@ -34,8 +34,8 @@
     "budget_min": 26700,
     "budget_max": 51600,
     "employer_id": "e-06",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.47,
+    "employer_review_count": 40
   },
   {
     "id": "g-1221-1",
@@ -53,8 +53,8 @@
     "budget_min": 68300,
     "budget_max": 132000,
     "employer_id": "e-04",
-    "employer_reputation": 4.98,
-    "employer_review_count": 39
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-1221-2",
@@ -72,8 +72,8 @@
     "budget_min": 3600,
     "budget_max": 6900,
     "employer_id": "e-04",
-    "employer_reputation": 4.98,
-    "employer_review_count": 39
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-1222-1",
@@ -91,8 +91,8 @@
     "budget_min": 13400,
     "budget_max": 25800,
     "employer_id": "e-18",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
   },
   {
     "id": "g-1222-2",
@@ -110,8 +110,8 @@
     "budget_min": 8300,
     "budget_max": 16100,
     "employer_id": "e-14",
-    "employer_reputation": 3.83,
-    "employer_review_count": 38
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
   },
   {
     "id": "g-2120-1",
@@ -129,8 +129,8 @@
     "budget_min": 7900,
     "budget_max": 15300,
     "employer_id": "e-05",
-    "employer_reputation": 4.54,
-    "employer_review_count": 38
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
   },
   {
     "id": "g-2120-2",
@@ -148,8 +148,8 @@
     "budget_min": 5100,
     "budget_max": 9900,
     "employer_id": "e-09",
-    "employer_reputation": 4.28,
-    "employer_review_count": 32
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
   },
   {
     "id": "g-2172-1",
@@ -167,8 +167,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-2172-2",
@@ -186,8 +186,8 @@
     "budget_min": 3800,
     "budget_max": 7400,
     "employer_id": "e-07",
-    "employer_reputation": 4.39,
-    "employer_review_count": 37
+    "employer_reputation": 4.0,
+    "employer_review_count": 2
   },
   {
     "id": "g-2353-1",
@@ -205,8 +205,8 @@
     "budget_min": 2600,
     "budget_max": 5100,
     "employer_id": "e-14",
-    "employer_reputation": 3.83,
-    "employer_review_count": 38
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
   },
   {
     "id": "g-2353-2",
@@ -224,8 +224,8 @@
     "budget_min": 4700,
     "budget_max": 9100,
     "employer_id": "e-20",
-    "employer_reputation": 3.91,
-    "employer_review_count": 31
+    "employer_reputation": 4.0,
+    "employer_review_count": 12
   },
   {
     "id": "g-2356-1",
@@ -243,8 +243,8 @@
     "budget_min": 2500,
     "budget_max": 4900,
     "employer_id": "e-07",
-    "employer_reputation": 4.39,
-    "employer_review_count": 37
+    "employer_reputation": 4.0,
+    "employer_review_count": 2
   },
   {
     "id": "g-2356-2",
@@ -262,8 +262,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-04",
-    "employer_reputation": 4.98,
-    "employer_review_count": 39
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2411-1",
@@ -281,8 +281,8 @@
     "budget_min": 5700,
     "budget_max": 11100,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-2411-2",
@@ -300,8 +300,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-21",
-    "employer_reputation": 4.65,
-    "employer_review_count": 29
+    "employer_reputation": 4.25,
+    "employer_review_count": 20
   },
   {
     "id": "g-2412-1",
@@ -319,8 +319,8 @@
     "budget_min": 2600,
     "budget_max": 5000,
     "employer_id": "e-23",
-    "employer_reputation": 3.67,
-    "employer_review_count": 14
+    "employer_reputation": 4.33,
+    "employer_review_count": 12
   },
   {
     "id": "g-2412-2",
@@ -338,8 +338,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-18",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
   },
   {
     "id": "g-2421-1",
@@ -357,8 +357,8 @@
     "budget_min": 2700,
     "budget_max": 5100,
     "employer_id": "e-16",
-    "employer_reputation": 4.55,
-    "employer_review_count": 20
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2421-2",
@@ -376,8 +376,8 @@
     "budget_min": 4500,
     "budget_max": 8700,
     "employer_id": "e-12",
-    "employer_reputation": 3.7,
-    "employer_review_count": 21
+    "employer_reputation": 4.11,
+    "employer_review_count": 35
   },
   {
     "id": "g-2423-1",
@@ -414,8 +414,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-09",
-    "employer_reputation": 4.28,
-    "employer_review_count": 32
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
   },
   {
     "id": "g-2424-1",
@@ -433,8 +433,8 @@
     "budget_min": 3700,
     "budget_max": 7100,
     "employer_id": "e-12",
-    "employer_reputation": 3.7,
-    "employer_review_count": 21
+    "employer_reputation": 4.11,
+    "employer_review_count": 35
   },
   {
     "id": "g-2424-2",
@@ -452,8 +452,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-04",
-    "employer_reputation": 4.98,
-    "employer_review_count": 39
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2431-1",
@@ -490,8 +490,8 @@
     "budget_min": 3500,
     "budget_max": 6800,
     "employer_id": "e-22",
-    "employer_reputation": 4.73,
-    "employer_review_count": 2
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
   },
   {
     "id": "g-2432-1",
@@ -509,8 +509,8 @@
     "budget_min": 4800,
     "budget_max": 9200,
     "employer_id": "e-16",
-    "employer_reputation": 4.55,
-    "employer_review_count": 20
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2432-2",
@@ -528,8 +528,8 @@
     "budget_min": 2700,
     "budget_max": 5100,
     "employer_id": "e-13",
-    "employer_reputation": 4.76,
-    "employer_review_count": 31
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2434-1",
@@ -547,8 +547,8 @@
     "budget_min": 5400,
     "budget_max": 10400,
     "employer_id": "e-03",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
   },
   {
     "id": "g-2434-2",
@@ -584,8 +584,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-21",
-    "employer_reputation": 4.65,
-    "employer_review_count": 29
+    "employer_reputation": 4.25,
+    "employer_review_count": 20
   },
   {
     "id": "g-2511-2",
@@ -621,8 +621,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-20",
-    "employer_reputation": 3.91,
-    "employer_review_count": 31
+    "employer_reputation": 4.0,
+    "employer_review_count": 12
   },
   {
     "id": "g-2512-2",
@@ -640,8 +640,8 @@
     "budget_min": 22500,
     "budget_max": 43500,
     "employer_id": "e-16",
-    "employer_reputation": 4.55,
-    "employer_review_count": 20
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2513-1",
@@ -678,8 +678,8 @@
     "budget_min": 6100,
     "budget_max": 11900,
     "employer_id": "e-05",
-    "employer_reputation": 4.54,
-    "employer_review_count": 38
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
   },
   {
     "id": "g-2514-1",
@@ -697,8 +697,8 @@
     "budget_min": 2080,
     "budget_max": 3700,
     "employer_id": "e-20",
-    "employer_reputation": 3.91,
-    "employer_review_count": 31
+    "employer_reputation": 4.0,
+    "employer_review_count": 12
   },
   {
     "id": "g-2514-2",
@@ -716,8 +716,8 @@
     "budget_min": 7900,
     "budget_max": 15200,
     "employer_id": "e-24",
-    "employer_reputation": 4.93,
-    "employer_review_count": 15
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
   },
   {
     "id": "g-2515-1",
@@ -735,8 +735,8 @@
     "budget_min": 7800,
     "budget_max": 15100,
     "employer_id": "e-18",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
   },
   {
     "id": "g-2515-2",
@@ -754,8 +754,8 @@
     "budget_min": 3000,
     "budget_max": 5800,
     "employer_id": "e-10",
-    "employer_reputation": 4.16,
-    "employer_review_count": 15
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-2521-1",
@@ -773,8 +773,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-02",
-    "employer_reputation": 3.78,
-    "employer_review_count": 31
+    "employer_reputation": 4.22,
+    "employer_review_count": 36
   },
   {
     "id": "g-2521-2",
@@ -792,8 +792,8 @@
     "budget_min": 2500,
     "budget_max": 4900,
     "employer_id": "e-18",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
   },
   {
     "id": "g-2522-1",
@@ -811,8 +811,8 @@
     "budget_min": 5000,
     "budget_max": 9700,
     "employer_id": "e-18",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
   },
   {
     "id": "g-2522-2",
@@ -830,8 +830,8 @@
     "budget_min": 5400,
     "budget_max": 10400,
     "employer_id": "e-10",
-    "employer_reputation": 4.16,
-    "employer_review_count": 15
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-2523-1",
@@ -849,8 +849,8 @@
     "budget_min": 21700,
     "budget_max": 42000,
     "employer_id": "e-16",
-    "employer_reputation": 4.55,
-    "employer_review_count": 20
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2523-2",
@@ -868,8 +868,8 @@
     "budget_min": 7100,
     "budget_max": 13700,
     "employer_id": "e-21",
-    "employer_reputation": 4.65,
-    "employer_review_count": 29
+    "employer_reputation": 4.25,
+    "employer_review_count": 20
   },
   {
     "id": "g-2531-1",
@@ -887,8 +887,8 @@
     "budget_min": 18500,
     "budget_max": 35700,
     "employer_id": "e-22",
-    "employer_reputation": 4.73,
-    "employer_review_count": 2
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
   },
   {
     "id": "g-2531-2",
@@ -906,8 +906,8 @@
     "budget_min": 5400,
     "budget_max": 10400,
     "employer_id": "e-19",
-    "employer_reputation": 4.0,
-    "employer_review_count": 3
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-2543-1",
@@ -925,8 +925,8 @@
     "budget_min": 5000,
     "budget_max": 9600,
     "employer_id": "e-15",
-    "employer_reputation": 4.11,
-    "employer_review_count": 26
+    "employer_reputation": 4.25,
+    "employer_review_count": 24
   },
   {
     "id": "g-2543-2",
@@ -944,8 +944,8 @@
     "budget_min": 7000,
     "budget_max": 13500,
     "employer_id": "e-18",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
   },
   {
     "id": "g-2641-1",
@@ -963,8 +963,8 @@
     "budget_min": 9000,
     "budget_max": 17300,
     "employer_id": "e-10",
-    "employer_reputation": 4.16,
-    "employer_review_count": 15
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-2641-2",
@@ -982,8 +982,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-25",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.75,
+    "employer_review_count": 4
   },
   {
     "id": "g-2642-1",
@@ -1001,8 +1001,8 @@
     "budget_min": 13700,
     "budget_max": 26500,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-2642-2",
@@ -1020,8 +1020,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-08",
-    "employer_reputation": 4.11,
-    "employer_review_count": 9
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2643-1",
@@ -1038,8 +1038,8 @@
     "budget_min": 2900,
     "budget_max": 5700,
     "employer_id": "e-22",
-    "employer_reputation": 4.73,
-    "employer_review_count": 2
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
   },
   {
     "id": "g-2643-2",
@@ -1056,8 +1056,8 @@
     "budget_min": 4300,
     "budget_max": 8400,
     "employer_id": "e-07",
-    "employer_reputation": 4.39,
-    "employer_review_count": 37
+    "employer_reputation": 4.0,
+    "employer_review_count": 2
   },
   {
     "id": "g-2651-1",
@@ -1075,8 +1075,8 @@
     "budget_min": 2080,
     "budget_max": 3700,
     "employer_id": "e-16",
-    "employer_reputation": 4.55,
-    "employer_review_count": 20
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2651-2",
@@ -1094,8 +1094,8 @@
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-03",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
   },
   {
     "id": "g-2652-1",
@@ -1113,8 +1113,8 @@
     "budget_min": 8700,
     "budget_max": 16900,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-2652-2",
@@ -1132,8 +1132,8 @@
     "budget_min": 8500,
     "budget_max": 16400,
     "employer_id": "e-13",
-    "employer_reputation": 4.76,
-    "employer_review_count": 31
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2654-1",
@@ -1151,8 +1151,8 @@
     "budget_min": 3700,
     "budget_max": 7100,
     "employer_id": "e-24",
-    "employer_reputation": 4.93,
-    "employer_review_count": 15
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
   },
   {
     "id": "g-2654-2",
@@ -1170,8 +1170,8 @@
     "budget_min": 4100,
     "budget_max": 7900,
     "employer_id": "e-18",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
   },
   {
     "id": "g-2655-1",
@@ -1189,8 +1189,8 @@
     "budget_min": 11000,
     "budget_max": 21200,
     "employer_id": "e-24",
-    "employer_reputation": 4.93,
-    "employer_review_count": 15
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
   },
   {
     "id": "g-2655-2",
@@ -1208,7 +1208,7 @@
     "budget_min": 26100,
     "budget_max": 50400,
     "employer_id": "e-01",
-    "employer_reputation": 3.29,
+    "employer_reputation": 4.31,
     "employer_review_count": 13
   },
   {
@@ -1227,8 +1227,8 @@
     "budget_min": 4200,
     "budget_max": 8200,
     "employer_id": "e-15",
-    "employer_reputation": 4.11,
-    "employer_review_count": 26
+    "employer_reputation": 4.25,
+    "employer_review_count": 24
   },
   {
     "id": "g-3342-2",
@@ -1246,7 +1246,7 @@
     "budget_min": 6000,
     "budget_max": 11600,
     "employer_id": "e-01",
-    "employer_reputation": 3.29,
+    "employer_reputation": 4.31,
     "employer_review_count": 13
   },
   {
@@ -1265,8 +1265,8 @@
     "budget_min": 1440,
     "budget_max": 2100,
     "employer_id": "e-22",
-    "employer_reputation": 4.73,
-    "employer_review_count": 2
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
   },
   {
     "id": "g-3431-2",
@@ -1284,8 +1284,8 @@
     "budget_min": 2700,
     "budget_max": 5200,
     "employer_id": "e-03",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
   },
   {
     "id": "g-3432-1",
@@ -1303,8 +1303,8 @@
     "budget_min": 26200,
     "budget_max": 50600,
     "employer_id": "e-20",
-    "employer_reputation": 3.91,
-    "employer_review_count": 31
+    "employer_reputation": 4.0,
+    "employer_review_count": 12
   },
   {
     "id": "g-3432-2",
@@ -1322,8 +1322,8 @@
     "budget_min": 1440,
     "budget_max": 2100,
     "employer_id": "e-03",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
   },
   {
     "id": "g-3514-1",
@@ -1341,8 +1341,8 @@
     "budget_min": 2000,
     "budget_max": 3900,
     "employer_id": "e-20",
-    "employer_reputation": 3.91,
-    "employer_review_count": 31
+    "employer_reputation": 4.0,
+    "employer_review_count": 12
   },
   {
     "id": "g-3514-2",
@@ -1360,8 +1360,8 @@
     "budget_min": 17300,
     "budget_max": 33500,
     "employer_id": "e-23",
-    "employer_reputation": 3.67,
-    "employer_review_count": 14
+    "employer_reputation": 4.33,
+    "employer_review_count": 12
   },
   {
     "id": "g-3521-1",
@@ -1379,8 +1379,8 @@
     "budget_min": 2000,
     "budget_max": 3900,
     "employer_id": "e-02",
-    "employer_reputation": 3.78,
-    "employer_review_count": 31
+    "employer_reputation": 4.22,
+    "employer_review_count": 36
   },
   {
     "id": "g-3521-2",
@@ -1398,8 +1398,8 @@
     "budget_min": 3300,
     "budget_max": 6300,
     "employer_id": "e-05",
-    "employer_reputation": 4.54,
-    "employer_review_count": 38
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
   },
   {
     "id": "g-4120-1",
@@ -1417,8 +1417,8 @@
     "budget_min": 3600,
     "budget_max": 7000,
     "employer_id": "e-21",
-    "employer_reputation": 4.65,
-    "employer_review_count": 29
+    "employer_reputation": 4.25,
+    "employer_review_count": 20
   },
   {
     "id": "g-4120-2",
@@ -1436,8 +1436,8 @@
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-14",
-    "employer_reputation": 3.83,
-    "employer_review_count": 38
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
   },
   {
     "id": "g-4131-1",
@@ -1455,8 +1455,8 @@
     "budget_min": 4700,
     "budget_max": 9000,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-4131-2",
@@ -1474,8 +1474,8 @@
     "budget_min": 30100,
     "budget_max": 58100,
     "employer_id": "e-19",
-    "employer_reputation": 4.0,
-    "employer_review_count": 3
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-4132-1",
@@ -1493,8 +1493,8 @@
     "budget_min": 3500,
     "budget_max": 6800,
     "employer_id": "e-09",
-    "employer_reputation": 4.28,
-    "employer_review_count": 32
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
   },
   {
     "id": "g-4132-2",
@@ -1512,8 +1512,8 @@
     "budget_min": 3100,
     "budget_max": 6000,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-4222-1",
@@ -1531,8 +1531,8 @@
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-19",
-    "employer_reputation": 4.0,
-    "employer_review_count": 3
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-4222-2",
@@ -1550,8 +1550,8 @@
     "budget_min": 4200,
     "budget_max": 8200,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-4225-1",
@@ -1568,8 +1568,8 @@
     "budget_min": 3200,
     "budget_max": 6200,
     "employer_id": "e-05",
-    "employer_reputation": 4.54,
-    "employer_review_count": 38
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
   },
   {
     "id": "g-4225-2",
@@ -1586,8 +1586,8 @@
     "budget_min": 800,
     "budget_max": 1400,
     "employer_id": "e-05",
-    "employer_reputation": 4.54,
-    "employer_review_count": 38
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
   },
   {
     "id": "g-4227-1",
@@ -1605,8 +1605,8 @@
     "budget_min": 2600,
     "budget_max": 5100,
     "employer_id": "e-22",
-    "employer_reputation": 4.73,
-    "employer_review_count": 2
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
   },
   {
     "id": "g-4227-2",
@@ -1624,8 +1624,8 @@
     "budget_min": 4900,
     "budget_max": 9500,
     "employer_id": "e-25",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.75,
+    "employer_review_count": 4
   },
   {
     "id": "g-4311-1",
@@ -1643,8 +1643,8 @@
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-24",
-    "employer_reputation": 4.93,
-    "employer_review_count": 15
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
   },
   {
     "id": "g-4311-2",
@@ -1662,8 +1662,8 @@
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-14",
-    "employer_reputation": 3.83,
-    "employer_review_count": 38
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
   },
   {
     "id": "g-4312-1",
@@ -1680,8 +1680,8 @@
     "budget_min": 1300,
     "budget_max": 2500,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-4312-2",
@@ -1698,8 +1698,8 @@
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-13",
-    "employer_reputation": 4.76,
-    "employer_review_count": 31
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-4313-1",
@@ -1717,8 +1717,8 @@
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-14",
-    "employer_reputation": 3.83,
-    "employer_review_count": 38
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
   },
   {
     "id": "g-4313-2",
@@ -1736,8 +1736,8 @@
     "budget_min": 2100,
     "budget_max": 4100,
     "employer_id": "e-25",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.75,
+    "employer_review_count": 4
   },
   {
     "id": "g-4416-1",
@@ -1755,8 +1755,8 @@
     "budget_min": 1900,
     "budget_max": 3700,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-4416-2",
@@ -1774,8 +1774,8 @@
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-24",
-    "employer_reputation": 4.93,
-    "employer_review_count": 15
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
   },
   {
     "id": "g-para-dev",
@@ -1790,8 +1790,8 @@
     "budget_min": 42000,
     "budget_max": 78000,
     "employer_id": "e-14",
-    "employer_reputation": 3.83,
-    "employer_review_count": 38
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
   },
   {
     "id": "g-para-db",
@@ -1806,8 +1806,8 @@
     "budget_min": 55000,
     "budget_max": 95000,
     "employer_id": "e-17",
-    "employer_reputation": 4.32,
-    "employer_review_count": 16
+    "employer_reputation": 4.5,
+    "employer_review_count": 18
   },
   {
     "id": "g-para-writer",
@@ -1822,8 +1822,8 @@
     "budget_min": 18000,
     "budget_max": 36000,
     "employer_id": "e-25",
-    "employer_reputation": 0.0,
-    "employer_review_count": 0
+    "employer_reputation": 4.75,
+    "employer_review_count": 4
   },
   {
     "id": "g-para-translate",
@@ -1838,8 +1838,8 @@
     "budget_min": 24000,
     "budget_max": 46000,
     "employer_id": "e-02",
-    "employer_reputation": 3.78,
-    "employer_review_count": 31
+    "employer_reputation": 4.22,
+    "employer_review_count": 36
   },
   {
     "id": "g-para-photo",
@@ -1854,8 +1854,8 @@
     "budget_min": 26000,
     "budget_max": 48000,
     "employer_id": "e-04",
-    "employer_reputation": 4.98,
-    "employer_review_count": 39
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-para-video",
@@ -1870,8 +1870,8 @@
     "budget_min": 28000,
     "budget_max": 52000,
     "employer_id": "e-02",
-    "employer_reputation": 3.78,
-    "employer_review_count": 31
+    "employer_reputation": 4.22,
+    "employer_review_count": 36
   },
   {
     "id": "g-para-marketing",
@@ -1886,8 +1886,8 @@
     "budget_min": 32000,
     "budget_max": 68000,
     "employer_id": "e-23",
-    "employer_reputation": 3.67,
-    "employer_review_count": 14
+    "employer_reputation": 4.33,
+    "employer_review_count": 12
   },
   {
     "id": "g-para-books",
@@ -1918,8 +1918,8 @@
     "budget_min": 16000,
     "budget_max": 32000,
     "employer_id": "e-10",
-    "employer_reputation": 4.16,
-    "employer_review_count": 15
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-para-dataentry",
@@ -1934,7 +1934,7 @@
     "budget_min": 9000,
     "budget_max": 18000,
     "employer_id": "e-10",
-    "employer_reputation": 4.16,
-    "employer_review_count": 15
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   }
 ]

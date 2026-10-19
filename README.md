@@ -157,5 +157,20 @@ writes such as accepting an applicant.
 ---
 
 
+## Documentation
+
+The matching engine's machine-learning work is documented separately,
+because it is assessed separately:
+
+| document | what it covers |
+|---|---|
+| [docs/EVALUATION_PROTOCOL.md](docs/EVALUATION_PROTOCOL.md) | splits, labels, metrics, baselines, tuning boundaries, adoption criteria, current results and limitations |
+| [docs/REPAIR_PLAN.md](docs/REPAIR_PLAN.md) | what was wrong with the engine, the evidence, what was fixed, what is open |
+| [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) | every data source, its access terms and licence, and the ones investigated and rejected |
+| [docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md) | every field: type, units, normalisation, missing-value behaviour, privacy class |
+| [docs/SPRINT_II_WORKFLOW.md](docs/SPRINT_II_WORKFLOW.md) | the Local IDE → GitHub → Colab → Drive → Local loop, with commands |
+| [docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md) | tests, artefacts, parity, monitoring, rollback, promotion gates |
+| [apps/ai-engine/eval/WORKFLOW.md](apps/ai-engine/eval/WORKFLOW.md) | how the above maps onto the required seven-step workflow |
+
 ## Conventions
 

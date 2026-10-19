@@ -25,7 +25,7 @@ CORPUS_DIR = Path(__file__).resolve().parent / "corpus"
 # Every seeded account carries this suffix. Nothing else is ever deleted.
 SEED_SUFFIX = "@ayira-eval.invalid"
 SEED_PASSWORD = "EvalSeed12345!"
-EMPLOYER_EMAIL = f"eval-employer{SEED_SUFFIX}"
+NEWLINE = chr(10)
 
 
 def _headers() -> dict:
@@ -66,15 +66,28 @@ def _create_user(client: httpx.Client, email: str, name: str, role: str) -> str:
 def seed() -> None:
     profiles = json.loads((CORPUS_DIR / "profiles.json").read_text(encoding="utf-8"))
     gigs = json.loads((CORPUS_DIR / "gigs.json").read_text(encoding="utf-8"))
+    employers = json.loads((CORPUS_DIR / "employers.json").read_text(encoding="utf-8"))
 
-    with httpx.Client(timeout=60) as client:
+    with httpx.Client(timeout=120) as client:
         if _list_seed_users(client):
             print("Seed data already present. Run 'clear' first.")
             return
 
-        employer_id = _create_user(client, EMPLOYER_EMAIL, "Eval Employer", "employer")
-        print(f"employer {employer_id}")
+        # One account per corpus employer, not one for everything.
+        #
+        # A single shared employer would give every gig the same employer
+        # reputation, which is constant across a worker's candidates and so
+        # cannot reorder them -- reintroducing live exactly the defect the
+        # employer-specific redesign fixed, and making live rankings disagree
+        # with the offline figures.
+        employer_ids: dict[str, str] = {}
+        for employer in employers:
+            email = f"eval-{employer['id']}{SEED_SUFFIX}"
+            user_id = _create_user(client, email, f"Eval Employer {employer['id']}", "employer")
+            employer_ids[employer["id"]] = user_id
+        print(f"{len(employer_ids)} employers")
 
+        worker_ids: list[str] = []
         for profile in profiles:
             email = f"eval-{profile['id']}{SEED_SUFFIX}"
             user_id = _create_user(client, email, profile["label"], "worker")
@@ -89,11 +102,12 @@ def seed() -> None:
                     "reputation_score": profile["reputation_score"],
                 },
             ).raise_for_status()
+            worker_ids.append(user_id)
             print(f"  worker {profile['id']:<18} {user_id}")
 
         rows = [
             {
-                "employer_id": employer_id,
+                "employer_id": employer_ids[gig["employer_id"]],
                 "title": gig["title"],
                 "description": gig["description"],
                 "category": gig["category"],
@@ -108,9 +122,83 @@ def seed() -> None:
             }
             for gig in gigs
         ]
-        response = client.post(_rest_url("/gigs"), headers=_headers(), json=rows)
+        # return=representation so the inserted ids come back; reviews need them.
+        response = client.post(
+            _rest_url("/gigs"),
+            headers={**_headers(), "Prefer": "return=representation"},
+            json=rows,
+        )
         response.raise_for_status()
-        print(f"\n{len(profiles)} workers and {len(rows)} open gigs seeded.")
+        inserted = response.json()
+
+        # corpus employer id -> the gigs now in the database for that employer
+        gigs_by_employer: dict[str, list[str]] = {}
+        for gig, row in zip(gigs, inserted):
+            gigs_by_employer.setdefault(gig["employer_id"], []).append(row["id"])
+
+        reviews = _seed_reviews(client, employers, employer_ids, gigs_by_employer, worker_ids)
+
+        print(f"{NEWLINE}{len(profiles)} workers, {len(employer_ids)} employers, "
+              f"{len(rows)} open gigs and {reviews} reviews seeded.")
+
+
+def _seed_reviews(
+    client: httpx.Client,
+    employers: list[dict],
+    employer_ids: dict[str, str],
+    gigs_by_employer: dict[str, list[str]],
+    worker_ids: list[str],
+) -> int:
+    """
+    Writes the individual ratings behind each employer's reputation.
+
+    reputation_score is not set directly. The update_reputation() trigger
+    recomputes it as AVG(reviews.rating), so inserting the corpus's exact
+    integer ratings makes the database arrive at the corpus's exact reputation
+    -- which is why build_corpus generates reputations as means of integer
+    ratings rather than drawing the aggregate.
+
+    Setting the column directly would have been overwritten by the trigger on
+    the next review anyway, and would have left employer_review_count at 0, so
+    the engine would have read every employer as unreviewed and fallen back to
+    the neutral prior for all of them.
+    """
+    rows = []
+    for employer in employers:
+        ratings = employer.get("ratings") or []
+        gig_ids = gigs_by_employer.get(employer["id"]) or []
+        if not ratings or not gig_ids:
+            continue
+
+        # reviews is UNIQUE(gig_id, reviewer_id), so each reviewer may appear
+        # once per gig. Spreading the ratings across the employer's gigs keeps
+        # within that, and needs no more reviewers than there are workers.
+        for index, rating in enumerate(ratings):
+            gig_id = gig_ids[index % len(gig_ids)]
+            reviewer = worker_ids[(index // len(gig_ids)) % len(worker_ids)]
+            rows.append(
+                {
+                    "gig_id": gig_id,
+                    "reviewer_id": reviewer,
+                    "reviewee_id": employer_ids[employer["id"]],
+                    "rating": rating,
+                    "comment": "Seeded by eval.seed_db",
+                }
+            )
+
+    if not rows:
+        return 0
+
+    # Inserted in batches: one request with several thousand rows is the kind
+    # of call that times out halfway and leaves the trigger half-applied.
+    inserted = 0
+    for start in range(0, len(rows), 200):
+        batch = rows[start : start + 200]
+        response = client.post(_rest_url("/reviews"), headers=_headers(), json=batch)
+        response.raise_for_status()
+        inserted += len(batch)
+
+    return inserted
 
 
 def clear() -> None:
@@ -123,11 +211,21 @@ def clear() -> None:
         ids = [u["id"] for u in users]
         id_list = ",".join(ids)
 
-        # Match logs and gigs reference users, so they go first.
+        # Order matters, and getting it wrong fails rather than corrupting.
+        # reviews.gig_id and reviews.reviewer_id/reviewee_id reference gigs and
+        # users with no ON DELETE clause, so the referencing rows must go
+        # first: deleting a reviewed gig is restricted by the foreign key.
         client.delete(
             _rest_url(f"/ai_match_logs?worker_id=in.({id_list})"), headers=_headers()
         )
-        client.delete(_rest_url(f"/gigs?employer_id=in.({id_list})"), headers=_headers())
+        for column in ("reviewer_id", "reviewee_id"):
+            client.delete(
+                _rest_url(f"/reviews?{column}=in.({id_list})"), headers=_headers()
+            ).raise_for_status()
+
+        client.delete(
+            _rest_url(f"/gigs?employer_id=in.({id_list})"), headers=_headers()
+        ).raise_for_status()
 
         for user_id in ids:
             client.delete(_auth_url(f"/admin/users/{user_id}"), headers=_headers())
