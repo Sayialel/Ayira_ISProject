@@ -236,3 +236,42 @@ export interface AdminGig extends Gig {
 export interface AdminGigListResponse extends Paginated {
   gigs: AdminGig[];
 }
+
+// --- Reviews -------------------------------------------------------------
+//
+// Reviews are only writable on a completed gig, between the employer and the
+// worker they hired. The database enforces that; these are the shapes the
+// gateway returns.
+
+export interface ReviewReviewer {
+  id: string;
+  full_name: string;
+  avatar_url: string | null;
+  role: UserRole;
+}
+
+export interface Review {
+  id: string;
+  gig_id: string;
+  reviewer_id: string;
+  reviewee_id: string;
+  rating: number;
+  comment: string | null;
+  created_at: string;
+  reviewer: ReviewReviewer | null;
+  gig: { id: string; title: string; category: string } | null;
+}
+
+export interface ReviewListResponse extends Paginated {
+  reviews: Review[];
+  /** Averaged over the returned page only; reputation_score is authoritative. */
+  average_on_page: number | null;
+}
+
+/** A completed gig the caller still owes a review on. */
+export interface PendingReview {
+  gig_id: string;
+  title: string;
+  reviewee_id: string;
+  role: string;
+}

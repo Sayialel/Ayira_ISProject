@@ -292,6 +292,12 @@ export interface Database {
         };
         Returns: EscrowRow;
       };
+      // migration 018 — the only way a gig reaches 'completed', which is what
+      // the reviews policy requires before either side may review the other.
+      complete_gig: {
+        Args: { p_gig_id: string; p_actor_id: string };
+        Returns: GigRow;
+      };
     };
   };
 }

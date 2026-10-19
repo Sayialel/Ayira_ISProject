@@ -375,3 +375,49 @@ gigRouter.delete(
     res.json({ data });
   })
 );
+
+/**
+ * Maps a Postgres exception from complete_gig() onto an HTTP status.
+ *
+ * The rules live in the function, not here, so that completing a gig cannot be
+ * done by any route that forgets to check them. This only translates.
+ */
+function completionError(message: string | undefined): AppError {
+  const text = message ?? '';
+  if (/not found/i.test(text)) return new AppError(text, 404);
+  if (/only the employer/i.test(text)) return new AppError(text, 403);
+  if (text) return new AppError(text, 409);
+  return new AppError('Could not complete the gig', 500);
+}
+
+// POST /api/gigs/:id/complete — the employer confirms the work is finished
+//
+// Completion is what unlocks reviews, which is what gives both sides a
+// reputation. Releasing escrow does this automatically; this route is the path
+// for gigs settled outside escrow, which is most of them.
+gigRouter.post(
+  '/:id/complete',
+  requireRole('employer', 'admin'),
+  asyncHandler(async (req, res) => {
+    const { userId } = requireUser(req);
+    const gigId = parseGigId(req.params.id);
+
+    const { error } = await supabaseAdmin.rpc('complete_gig', {
+      p_gig_id: gigId,
+      p_actor_id: userId,
+    });
+
+    if (error) throw completionError(error.message);
+
+    // Re-read through the normal projection so the response matches every
+    // other gig payload rather than the function's bare row.
+    const { data, error: readError } = await supabaseAdmin
+      .from('gigs')
+      .select(GIG_WITH_EMPLOYER)
+      .eq('id', gigId)
+      .single();
+
+    assertNoDbError(readError, 'Gig completed but could not be re-read');
+    res.json({ data });
+  })
+);

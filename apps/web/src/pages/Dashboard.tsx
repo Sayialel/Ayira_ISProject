@@ -4,7 +4,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { useApi } from '@/hooks/useApi';
 import { ErrorMessage, SkeletonList, usePageTitle } from '@/components/ui';
 import { formatCurrency } from '@/lib/format';
-import type { DashboardStats } from '@/types';
+import { Star } from 'lucide-react';
+import type { DashboardStats, PendingReview } from '@/types';
 
 export default function Dashboard() {
   usePageTitle('Dashboard');
@@ -19,6 +20,8 @@ export default function Dashboard() {
     <div>
       <h1 className="text-2xl font-bold">Welcome, {name}</h1>
       <p className="mb-6 text-sm text-gray-500">Your {role} dashboard</p>
+
+      <PendingReviews />
 
       {loading && <SkeletonList rows={1} />}
       {!loading && error && <ErrorMessage message={error} onRetry={refetch} />}
@@ -120,5 +123,53 @@ function ActionLink({
       {icon}
       {label}
     </Link>
+  );
+}
+
+/**
+ * Nudges the viewer to review people they have finished working with.
+ *
+ * Without this the review feature is effectively invisible: nobody reopens a
+ * gig they finished last week to check whether they left a review, so
+ * reputations would stay empty and the match ranking would keep falling back
+ * to a neutral prior for every employer.
+ *
+ * Renders nothing when there is nothing owed, so it costs no space in the
+ * common case.
+ */
+function PendingReviews() {
+  const { data } = useApi<{ pending: PendingReview[] }>('/reviews/pending');
+  const pending = data?.pending ?? [];
+
+  if (pending.length === 0) return null;
+
+  return (
+    <section className="mb-6 rounded-lg border border-gold-200 bg-gold-50/60 p-4">
+      <h2 className="mb-1 flex items-center gap-2 text-sm font-semibold text-gray-800">
+        <Star size={16} className="fill-gold-400 text-gold-500" />
+        {pending.length === 1
+          ? 'You have a review to leave'
+          : `You have ${pending.length} reviews to leave`}
+      </h2>
+      <p className="mb-3 text-xs text-gray-600">
+        Reviews build reputation on both sides, and feed how gigs are ranked.
+      </p>
+      <ul className="space-y-1.5">
+        {pending.slice(0, 4).map((item) => (
+          <li key={`${item.gig_id}-${item.reviewee_id}`}>
+            <Link
+              to={`/app/gigs/${item.gig_id}`}
+              className="text-sm font-medium text-ayira-700 hover:underline"
+            >
+              {item.title}
+            </Link>
+            <span className="text-xs text-gray-500"> — review the {item.role}</span>
+          </li>
+        ))}
+      </ul>
+      {pending.length > 4 && (
+        <p className="mt-2 text-xs text-gray-500">and {pending.length - 4} more</p>
+      )}
+    </section>
   );
 }

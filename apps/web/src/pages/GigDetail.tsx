@@ -4,6 +4,7 @@ import { MapPin, Wifi, CalendarClock, Users, BadgeCheck, Send } from 'lucide-rea
 import { useAuth } from '@/hooks/useAuth';
 import { useApi } from '@/hooks/useApi';
 import { apiFetch } from '@/lib/api';
+import ReviewSection from '@/components/ReviewSection';
 import {
   Avatar,
   ApplicationStatusBadge,
@@ -78,7 +79,7 @@ export default function GigDetailPage() {
     }
   }
 
-  async function updateGig(action: 'publish' | 'cancel') {
+  async function updateGig(action: 'publish' | 'cancel' | 'complete') {
     // Read from the query rather than the narrowed `gig` above: function
     // declarations are hoisted, so that narrowing does not reach in here.
     const current = gigQuery.data;
@@ -89,6 +90,9 @@ export default function GigDetailPage() {
     try {
       if (action === 'publish') {
         await apiFetch(`/gigs/${current.id}/publish`, { method: 'PATCH' });
+        gigQuery.refetch();
+      } else if (action === 'complete') {
+        await apiFetch(`/gigs/${current.id}/complete`, { method: 'POST' });
         gigQuery.refetch();
       } else {
         await apiFetch(`/gigs/${current.id}`, { method: 'DELETE' });
@@ -217,6 +221,32 @@ export default function GigDetailPage() {
           </button>
         </section>
       )}
+
+      {/* Employer: confirm the work is finished.
+          Completion is what unlocks reviews for both sides, and reviews are
+          what give either party a reputation -- so this button is the hinge
+          the whole trust loop turns on. */}
+      {isOwner && gig.status === 'in_progress' && (
+        <section className="rounded-lg border border-gray-200 bg-white p-5">
+          <h2 className="mb-1 text-sm font-medium text-gray-700">Work finished?</h2>
+          <p className="mb-3 text-sm text-gray-500">
+            Marking this complete lets you and the worker review each other. It
+            cannot be undone.
+          </p>
+          <button
+            type="button"
+            onClick={() => updateGig('complete')}
+            disabled={busyId === 'complete'}
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60"
+          >
+            {busyId === 'complete' && <Spinner />}
+            Mark as complete
+          </button>
+        </section>
+      )}
+
+      {/* Either party: review the other, once the gig is complete */}
+      {gig.status === 'completed' && <ReviewSection gig={gig} isOwner={isOwner} />}
 
       {/* Worker: apply, or track an existing application */}
       {!isOwner && role === 'worker' && (

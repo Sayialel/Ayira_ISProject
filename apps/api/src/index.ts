@@ -11,6 +11,7 @@ import { workerRouter } from './routes/workers';
 import { applicationRouter } from './routes/applications';
 import { escrowRouter, escrowCallbackRouter } from './routes/escrow';
 import { adminRouter } from './routes/admin';
+import { reviewRouter } from './routes/reviews';
 import { matchingRouter } from './routes/matching';
 import { errorHandler } from './middleware/errorHandler';
 import { authMiddleware } from './middleware/auth';
@@ -53,6 +54,7 @@ app.use('/api/workers', authMiddleware, workerRouter);
 app.use('/api/applications', authMiddleware, applicationRouter);
 app.use('/api/escrow', authMiddleware, escrowRouter);
 app.use('/api/admin', authMiddleware, adminRouter);
+app.use('/api/reviews', authMiddleware, reviewRouter);
 app.use('/api/match', authMiddleware, matchingRouter);
 
 // Unknown API paths should be a clean 404 rather than falling through.
