@@ -201,6 +201,18 @@ def _seed_reviews(
     return inserted
 
 
+def _seeded_gig_ids(client: httpx.Client, user_ids: list[str]) -> list[str]:
+    """Every gig owned by a seeded account, so dependants can be cleared first."""
+    if not user_ids:
+        return []
+    response = client.get(
+        _rest_url(f"/gigs?select=id&employer_id=in.({','.join(user_ids)})"),
+        headers=_headers(),
+    )
+    response.raise_for_status()
+    return [row["id"] for row in response.json()]
+
+
 def clear() -> None:
     with httpx.Client(timeout=60) as client:
         users = _list_seed_users(client)
@@ -212,16 +224,56 @@ def clear() -> None:
         id_list = ",".join(ids)
 
         # Order matters, and getting it wrong fails rather than corrupting.
-        # reviews.gig_id and reviews.reviewer_id/reviewee_id reference gigs and
-        # users with no ON DELETE clause, so the referencing rows must go
-        # first: deleting a reviewed gig is restricted by the foreign key.
-        client.delete(
-            _rest_url(f"/ai_match_logs?worker_id=in.({id_list})"), headers=_headers()
-        )
+        #
+        # Most rows that reference a gig or a user do so with ON DELETE NO
+        # ACTION or RESTRICT, so they have to go first. Only applications and
+        # notifications cascade. The chain, verified against the live schema:
+        #
+        #   escrow_events -> escrow -> gigs      (escrow.gig_id is RESTRICT)
+        #   reviews       -> gigs, users         (NO ACTION on all three keys)
+        #   ai_match_logs -> gigs, users         (NO ACTION on both)
+        #   messages      -> gigs, users         (NO ACTION on all three)
+        #
+        # An earlier version deleted reviews and match logs but not escrow, and
+        # tearing down a seed that had ever funded one failed on the foreign
+        # key with a 409 that named a list of user ids and nothing else.
+        gig_ids = _seeded_gig_ids(client, ids)
+
+        if gig_ids:
+            gig_list = ",".join(gig_ids)
+            # escrow_events cascades from escrow, so deleting the escrow takes
+            # its history with it. That also clears escrow_events.actor_id,
+            # which references users with NO ACTION and would otherwise block
+            # removing the accounts below.
+            #
+            # Deleted by gig rather than by party, so an escrow whose
+            # counterpart was removed in an earlier partial run still goes.
+            client.delete(
+                _rest_url(f"/escrow?gig_id=in.({gig_list})"), headers=_headers()
+            ).raise_for_status()
+            client.delete(
+                _rest_url(f"/reviews?gig_id=in.({gig_list})"), headers=_headers()
+            ).raise_for_status()
+            client.delete(
+                _rest_url(f"/ai_match_logs?gig_id=in.({gig_list})"), headers=_headers()
+            ).raise_for_status()
+            client.delete(
+                _rest_url(f"/messages?gig_id=in.({gig_list})"), headers=_headers()
+            )
+
         for column in ("reviewer_id", "reviewee_id"):
             client.delete(
                 _rest_url(f"/reviews?{column}=in.({id_list})"), headers=_headers()
             ).raise_for_status()
+
+        client.delete(
+            _rest_url(f"/ai_match_logs?worker_id=in.({id_list})"), headers=_headers()
+        ).raise_for_status()
+
+        for column in ("sender_id", "receiver_id"):
+            client.delete(
+                _rest_url(f"/messages?{column}=in.({id_list})"), headers=_headers()
+            )
 
         client.delete(
             _rest_url(f"/gigs?employer_id=in.({id_list})"), headers=_headers()
