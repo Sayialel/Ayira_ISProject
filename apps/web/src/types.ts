@@ -203,3 +203,36 @@ export interface MatchResponse {
   matches: GigMatch[];
   generated_at: string;
 }
+
+// --- Admin ---------------------------------------------------------------
+//
+// Only the admin router returns these. The UI gate on them is cosmetic:
+// `user_metadata.role` is user-editable in Supabase, so the real boundary is
+// the gateway, which resolves the role from the users table and never
+// escalates to admin from a token claim. A non-admin reaching these pages
+// gets a 403 rather than data.
+
+export interface AdminDashboardStats {
+  total_users: number;
+  total_workers: number;
+  total_employers: number;
+  total_gigs: number;
+  open_gigs: number;
+  in_progress_gigs: number;
+  total_applications: number;
+  active_escrow_amount: number;
+  total_released_amount: number;
+  total_platform_revenue: number;
+}
+
+export interface AdminUserListResponse extends Paginated {
+  users: UserProfile[];
+}
+
+export interface AdminGig extends Gig {
+  employer: EmployerSummary | null;
+}
+
+export interface AdminGigListResponse extends Paginated {
+  gigs: AdminGig[];
+}

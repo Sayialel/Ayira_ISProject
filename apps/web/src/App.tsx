@@ -22,6 +22,9 @@ const AIMatches = lazy(() => import('@/pages/AIMatches'));
 const EscrowPage = lazy(() => import('@/pages/Escrow'));
 const Profile = lazy(() => import('@/pages/Profile'));
 const PublicProfile = lazy(() => import('@/pages/PublicProfile'));
+const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'));
+const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'));
+const AdminGigs = lazy(() => import('@/pages/admin/AdminGigs'));
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -33,6 +36,21 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     );
   }
   if (!user) return <Navigate to="/signin" replace />;
+  return <>{children}</>;
+}
+
+/**
+ * Hides the admin area from anyone whose token does not claim the admin role.
+ *
+ * This is convenience, not security. `user_metadata` is user-editable in
+ * Supabase, so a determined non-admin can reveal these routes -- and will then
+ * see nothing but 403s, because the gateway resolves the role from the users
+ * table (middleware/auth.resolveRole) and never escalates to admin from a
+ * token claim. The real boundary is the API.
+ */
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+  if (user?.user_metadata?.role !== 'admin') return <Navigate to="/app" replace />;
   return <>{children}</>;
 }
 
@@ -67,6 +85,19 @@ export default function App() {
               <Route path="escrow" element={<Lazy><EscrowPage /></Lazy>} />
               <Route path="profile" element={<Lazy><Profile /></Lazy>} />
               <Route path="users/:id" element={<Lazy><PublicProfile /></Lazy>} />
+
+              <Route
+                path="admin"
+                element={<AdminRoute><Lazy><AdminDashboard /></Lazy></AdminRoute>}
+              />
+              <Route
+                path="admin/users"
+                element={<AdminRoute><Lazy><AdminUsers /></Lazy></AdminRoute>}
+              />
+              <Route
+                path="admin/gigs"
+                element={<AdminRoute><Lazy><AdminGigs /></Lazy></AdminRoute>}
+              />
             </Route>
 
             <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,5 +1,5 @@
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
-import { Home, Briefcase, User, LogOut, Sparkles, FileText, Plus, LayoutList, Wallet } from 'lucide-react';
+import { Home, Briefcase, User, LogOut, Sparkles, FileText, Plus, LayoutList, Wallet, ShieldCheck, Users } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface NavItem {
@@ -28,11 +28,21 @@ const EMPLOYER_NAV: NavItem[] = [
   { to: '/app/profile', label: 'Profile', icon: User },
 ];
 
+// Staff navigation. Reached only through AdminRoute, which the API backs up
+// by resolving the role from the database rather than the token.
+const ADMIN_NAV: NavItem[] = [
+  { to: '/app/admin', label: 'Overview', icon: ShieldCheck, end: true },
+  { to: '/app/admin/users', label: 'Accounts', icon: Users },
+  { to: '/app/admin/gigs', label: 'Gigs', icon: LayoutList },
+  { to: '/app/profile', label: 'Profile', icon: User },
+];
+
 export default function Layout() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const role = (user?.user_metadata?.role as string) ?? 'worker';
-  const navItems = role === 'employer' ? EMPLOYER_NAV : WORKER_NAV;
+  const navItems =
+    role === 'admin' ? ADMIN_NAV : role === 'employer' ? EMPLOYER_NAV : WORKER_NAV;
 
   const handleSignOut = async () => {
     await signOut();
