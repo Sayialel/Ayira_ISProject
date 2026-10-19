@@ -103,3 +103,48 @@ def test_fast_ndcg_agrees_with_the_reference(features, corpus):
     from eval.tune_weights import agreement_with_metrics
 
     assert agreement_with_metrics(features, corpus, DEFAULT_WEIGHTS) < 1e-9
+
+
+# --- uncertainty ---------------------------------------------------------
+
+
+def test_bootstrap_interval_brackets_the_mean():
+    """
+    With 9 profiles the mean alone invites more confidence than the data
+    supports, so every reported NDCG@10 carries an interval.
+    """
+    from eval.harness import Result
+
+    values = [0.6, 0.7, 0.8, 0.9, 1.0, 0.5, 0.75, 0.85, 0.95]
+    result = Result(
+        name="t", precision_at_5=0, precision_at_10=0, recall_at_10=0,
+        mrr=0, ndcg_at_5=0, ndcg_at_10=sum(values) / len(values),
+        per_profile_ndcg=values,
+    )
+    low, high = result.confidence_interval()
+
+    assert low < result.ndcg_at_10 < high
+    assert 0.0 <= low < high <= 1.0
+
+
+def test_bootstrap_interval_is_deterministic():
+    """Seeded, so a reported interval is reproducible like every other figure."""
+    from eval.harness import Result
+
+    values = [0.6, 0.7, 0.8, 0.9, 1.0]
+    make = lambda: Result(
+        name="t", precision_at_5=0, precision_at_10=0, recall_at_10=0,
+        mrr=0, ndcg_at_5=0, ndcg_at_10=0.8, per_profile_ndcg=values,
+    )
+    assert make().confidence_interval() == make().confidence_interval()
+
+
+def test_interval_is_empty_without_enough_profiles():
+    from eval.harness import Result
+
+    result = Result(
+        name="t", precision_at_5=0, precision_at_10=0, recall_at_10=0,
+        mrr=0, ndcg_at_5=0, ndcg_at_10=0.5, per_profile_ndcg=[0.5],
+    )
+    assert result.confidence_interval() == []
+    assert result.interval() == ""

@@ -23,6 +23,7 @@ import argparse
 from app.services import tfidf_model
 from app.services.scoring import DEFAULT_WEIGHTS, SHIPPED_WEIGHTS
 from eval import experiment, plots, splits
+from eval import harness
 from eval.harness import (
     evaluate,
     format_table,
@@ -105,6 +106,13 @@ def main() -> None:
 
     print()
     print_table(results)
+    print()
+    print(harness.THRESHOLD_NOTE)
+    print(
+        "The interval is a 95% bootstrap over profiles. With "
+        f"{len(corpus.profiles)} of them it is wide,"
+    )
+    print("which is the honest reading: small differences here are not resolvable.")
 
     # -- evidence ---------------------------------------------------------
     #

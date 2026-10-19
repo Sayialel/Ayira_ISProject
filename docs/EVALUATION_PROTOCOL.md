@@ -181,13 +181,26 @@ Criterion 2 is not hypothetical. An early run showed +0.027 validation and
 
 Validation, 9 profiles over 104 gigs, corpus `6ac4675ae766`:
 
-| strategy | P@5 | P@10 | R@10 | MRR | NDCG@10 |
-|---|---|---|---|---|---|
-| random | 0.044 | 0.056 | 0.117 | 0.142 | 0.081 |
-| tfidf only | 0.533 | 0.300 | 0.636 | 1.000 | 0.812 |
-| semantic only | 0.556 | 0.456 | 0.904 | 1.000 | 0.891 |
-| composite, as first shipped | 0.556 | 0.356 | 0.717 | 1.000 | 0.846 |
-| **composite, current** | 0.600 | 0.433 | 0.867 | 1.000 | **0.897** |
+| strategy | P@5 | P@10 | R@10 | MRR | NDCG@5 | NDCG@10 | NDCG@10 95% CI |
+|---|---|---|---|---|---|---|---|
+| random | 0.044 | 0.056 | 0.117 | 0.142 | 0.030 | 0.081 | [0.022, 0.151] |
+| tfidf only | 0.533 | 0.300 | 0.636 | 1.000 | 0.848 | 0.812 | [0.742, 0.886] |
+| semantic only | 0.556 | 0.456 | 0.904 | 1.000 | 0.858 | 0.891 | [0.823, 0.950] |
+| composite, as first shipped | 0.556 | 0.356 | 0.717 | 1.000 | 0.851 | 0.846 | [0.788, 0.910] |
+| **composite, current** | 0.600 | 0.433 | 0.867 | 1.000 | 0.879 | **0.897** | [0.843, 0.949] |
+
+**Read the intervals, not just the means.** They are 95% bootstrap intervals
+over profiles, resampling profiles because that is the independent unit — the
+same reason the splits are by profile.
+
+The composite's interval [0.843, 0.949] overlaps almost entirely with
+semantic-only's [0.823, 0.950]. **With nine validation profiles, the
+difference between them is not statistically distinguishable.** What the data
+does support is the separation from random (whose interval does not come close
+to any of the others) and, more weakly, from TF-IDF alone. Claims finer than
+that are not supported by a corpus this size, and the honest statement is that
+the composite is *at least as good as* the best single signal, not better than
+it.
 
 Ablation (validation, weights renormalised within each subset):
 

@@ -212,7 +212,12 @@ class Result:
     precision_at_10: float
     recall_at_10: float
     mrr: float
+    ndcg_at_5: float
     ndcg_at_10: float
+    # Per-profile NDCG@10, kept so a confidence interval can be computed. With
+    # 9 validation profiles the mean alone invites more confidence than the
+    # data supports.
+    per_profile_ndcg: list[float] = field(default_factory=list, repr=False)
     # Kept out of the metrics table; written separately as the run's predictions.
     predictions: dict[str, list[str]] = field(default_factory=dict, repr=False)
 
@@ -223,7 +228,9 @@ class Result:
             f"{self.precision_at_10:.3f}",
             f"{self.recall_at_10:.3f}",
             f"{self.mrr:.3f}",
+            f"{self.ndcg_at_5:.3f}",
             f"{self.ndcg_at_10:.3f}",
+            self.interval(),
         ]
 
     def as_metrics(self) -> dict:
@@ -233,13 +240,42 @@ class Result:
             "precision_at_10": self.precision_at_10,
             "recall_at_10": self.recall_at_10,
             "mrr": self.mrr,
+            "ndcg_at_5": self.ndcg_at_5,
             "ndcg_at_10": self.ndcg_at_10,
+            "ndcg_at_10_ci95": self.confidence_interval(),
         }
+
+    def confidence_interval(self, resamples: int = 2000, seed: int = 11) -> list[float]:
+        """
+        A 95% bootstrap interval for mean NDCG@10 across profiles.
+
+        Resampling profiles, because profiles are the independent unit -- the
+        same reason the splits are by profile. With 9 of them the interval is
+        wide, which is the point: it shows directly that differences of a few
+        thousandths are not resolvable here.
+        """
+        values = self.per_profile_ndcg
+        if len(values) < 2:
+            return []
+
+        rng = random.Random(seed)
+        n = len(values)
+        means = sorted(
+            sum(values[rng.randrange(n)] for _ in range(n)) / n
+            for _ in range(resamples)
+        )
+        lower = means[int(0.025 * resamples)]
+        upper = means[int(0.975 * resamples) - 1]
+        return [round(lower, 4), round(upper, 4)]
+
+    def interval(self) -> str:
+        bounds = self.confidence_interval()
+        return f"[{bounds[0]:.3f}, {bounds[1]:.3f}]" if bounds else ""
 
 
 def evaluate(name: str, rank_fn, corpus: Corpus, keep: int = 10) -> Result:
     """Runs one strategy across every profile in the corpus and averages the metrics."""
-    p5, p10, r10, rr, ndcg = [], [], [], [], []
+    p5, p10, r10, rr, ndcg5, ndcg = [], [], [], [], [], []
     predictions: dict[str, list[str]] = {}
 
     for profile in corpus.profiles:
@@ -250,6 +286,7 @@ def evaluate(name: str, rank_fn, corpus: Corpus, keep: int = 10) -> Result:
         p10.append(metrics.precision_at_k(ranked, grades, 10))
         r10.append(metrics.recall_at_k(ranked, grades, 10))
         rr.append(metrics.reciprocal_rank(ranked, grades))
+        ndcg5.append(metrics.ndcg_at_k(ranked, grades, 5))
         ndcg.append(metrics.ndcg_at_k(ranked, grades, 10))
 
         # The top of each ranking, so a reviewer can see what the numbers mean.
@@ -261,12 +298,24 @@ def evaluate(name: str, rank_fn, corpus: Corpus, keep: int = 10) -> Result:
         precision_at_10=metrics.mean(p10),
         recall_at_10=metrics.mean(r10),
         mrr=metrics.mean(rr),
+        ndcg_at_5=metrics.mean(ndcg5),
         ndcg_at_10=metrics.mean(ndcg),
+        per_profile_ndcg=ndcg,
         predictions=predictions,
     )
 
 
-HEADERS = ["strategy", "P@5", "P@10", "R@10", "MRR", "NDCG@10"]
+HEADERS = [
+    "strategy", "P@5", "P@10", "R@10", "MRR", "NDCG@5", "NDCG@10",
+    "NDCG@10 95% CI",
+]
+
+# Stated with every table, because a precision figure means nothing without it.
+THRESHOLD_NOTE = (
+    "P@k and R@k count a gig as relevant at grade >= 2 (ideal or good); "
+    "grade 1 is marginal and deliberately does not count. "
+    "NDCG uses every grade, weighted 2^grade - 1."
+)
 
 
 def format_table(results: list[Result]) -> str:

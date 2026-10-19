@@ -1,0 +1,68 @@
+{
+  "run_id": "20261019T062941Z__baselines-validation__b8a18c0",
+  "name": "baselines-validation",
+  "started_at": "2026-10-19T06:29:41.101515+00:00",
+  "finished_at": "2026-10-19T06:30:03.852231+00:00",
+  "git": {
+    "commit": "b8a18c05049aee4396e451ed3618a997e85b665d",
+    "short_commit": "b8a18c0",
+    "branch": "main",
+    "dirty": true,
+    "uncommitted_files": 2,
+    "uncommitted_paths": [
+      "apps/ai-engine/eval/harness.py",
+      "apps/ai-engine/eval/run_eval.py"
+    ]
+  },
+  "dataset_version": "6ac4675ae766",
+  "seeds": {
+    "random_baseline": 0,
+    "split": 20261018
+  },
+  "parameters": {
+    "split": "validation",
+    "weights_shipped": {
+      "semantic": 0.45,
+      "tfidf": 0.25,
+      "location": 0.15,
+      "reputation": 0.15
+    },
+    "weights_tuned": {
+      "semantic": 0.72,
+      "tfidf": 0.22,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "tfidf_fitted_on": "train",
+    "tfidf_vocabulary_size": 1160,
+    "metrics_at_k": {
+      "precision": [
+        5,
+        10
+      ],
+      "recall": [
+        10
+      ],
+      "ndcg": [
+        10
+      ]
+    }
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": "NDCG@5, threshold and bootstrap interval."
+}
