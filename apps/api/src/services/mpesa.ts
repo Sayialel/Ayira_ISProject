@@ -16,6 +16,9 @@ const BASE_URL =
 
 const TIMEOUT_MS = Number(process.env.DARAJA_TIMEOUT_MS || 20_000);
 
+/** Values shipped as examples, which must never be sent to Safaricom. */
+const PLACEHOLDER = /your-|example\.com|changeme|<[^>]+>/i;
+
 interface DarajaConfig {
   consumerKey: string;
   consumerSecret: string;
@@ -42,8 +45,15 @@ function config(): DarajaConfig {
 
   // The placeholders shipped in .env.example would otherwise reach Safaricom
   // and come back as an opaque authentication failure.
+  //
+  // Matched anywhere in the value, not just at the start. The callback URL is
+  // why: `https://your-public-url/api/escrow/callback` does not begin with the
+  // placeholder, so a prefix check passed it. Safaricom would then accept the
+  // push, take the customer's money, and deliver the confirmation to a
+  // hostname that does not exist -- leaving the escrow stuck at pending with
+  // the payment already made. A missing callback is worse than a missing key.
   const missing = Object.entries(values)
-    .filter(([, v]) => !v || v.startsWith('your-'))
+    .filter(([, v]) => !v || PLACEHOLDER.test(v))
     .map(([k]) => k);
 
   if (missing.length > 0) {
@@ -122,13 +132,33 @@ export async function getAccessToken(): Promise<string> {
   return cachedToken.value;
 }
 
-/** yyyyMMddHHmmss in the shortcode's own timezone, which Daraja requires. */
+/**
+ * yyyyMMddHHmmss in East Africa Time, which is what Daraja validates against.
+ *
+ * Explicitly Africa/Nairobi rather than the server's own clock. Daraja checks
+ * the password, which is derived from this timestamp, and rejects one that is
+ * far from the shortcode's local time. Reading the local clock happens to work
+ * on a laptop set to Nairobi and fails on a UTC host -- which is exactly where
+ * this gets deployed -- so the bug would appear only in production.
+ */
 function timestamp(): string {
-  const now = new Date();
-  const pad = (n: number) => String(n).padStart(2, '0');
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Africa/Nairobi',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    // h23 rather than hour12:false, which can render midnight as 24.
+    hourCycle: 'h23',
+  }).formatToParts(new Date());
+
+  const part = (type: string) => parts.find((p) => p.type === type)?.value ?? '00';
+
   return (
-    `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}` +
-    `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
+    `${part('year')}${part('month')}${part('day')}` +
+    `${part('hour')}${part('minute')}${part('second')}`
   );
 }
 
