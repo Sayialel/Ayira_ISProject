@@ -76,16 +76,50 @@ export function isConfigured(): boolean {
   }
 }
 
-async function darajaFetch(url: string, init: RequestInit, what: string): Promise<unknown> {
+/**
+ * Daraja error codes that are not failures.
+ *
+ * 500.001.1001 comes back from the STK query while the customer has not yet
+ * acted on the prompt. It arrives as HTTP 500 with an empty errorMessage,
+ * which reads like a server fault and is in fact the normal state of every
+ * push for as long as the handset is still ringing.
+ */
+const STILL_PROCESSING = '500.001.1001';
+
+// Daraja applies a spike arrest of 30 requests a minute with a burst of 3.
+// Hitting it is an ordinary operating condition rather than a fault -- two
+// employers funding escrow in the same second is enough -- so it is retried
+// rather than surfaced.
+const RATE_LIMIT_RETRIES = 3;
+const RATE_LIMIT_BACKOFF_MS = [2_000, 5_000, 12_000];
+
+async function darajaFetch(
+  url: string,
+  init: RequestInit,
+  what: string,
+  /** Error codes to hand back to the caller rather than throwing on. */
+  tolerate: string[] = []
+): Promise<unknown> {
   let response: Response;
-  try {
-    response = await fetch(url, { ...init, signal: AbortSignal.timeout(TIMEOUT_MS) });
-  } catch (err) {
-    console.error(`Daraja ${what} request failed:`, err);
-    throw new AppError('Could not reach M-Pesa. Please try again shortly.', 503);
+  let text: string;
+
+  for (let attempt = 0; ; attempt++) {
+    try {
+      response = await fetch(url, { ...init, signal: AbortSignal.timeout(TIMEOUT_MS) });
+    } catch (err) {
+      console.error(`Daraja ${what} request failed:`, err);
+      throw new AppError('Could not reach M-Pesa. Please try again shortly.', 503);
+    }
+
+    text = await response.text();
+
+    if (response.status !== 429 || attempt >= RATE_LIMIT_RETRIES) break;
+
+    const delay = RATE_LIMIT_BACKOFF_MS[attempt] ?? 12_000;
+    console.warn(`Daraja ${what} rate limited; retrying in ${delay}ms`);
+    await new Promise((r) => setTimeout(r, delay));
   }
 
-  const text = await response.text();
   let body: unknown;
   try {
     body = JSON.parse(text);
@@ -94,6 +128,14 @@ async function darajaFetch(url: string, init: RequestInit, what: string): Promis
   }
 
   if (!response.ok) {
+    const errorCode = String(
+      (body as { errorCode?: unknown })?.errorCode ?? ''
+    ).trim();
+
+    if (errorCode && tolerate.includes(errorCode)) {
+      return body;
+    }
+
     // Safaricom's error bodies carry useful detail but also echo request
     // identifiers, so they are logged rather than returned.
     console.error(`Daraja ${what} returned ${response.status}:`, String(text).slice(0, 400));
@@ -243,7 +285,8 @@ export async function initiateStkPush(
 }
 
 export interface StkStatus {
-  resultCode: string;
+  /** null while Safaricom has no verdict yet -- the prompt is still open. */
+  resultCode: string | null;
   resultDesc: string;
 }
 
@@ -272,8 +315,16 @@ export async function queryStkStatus(checkoutRequestId: string): Promise<StkStat
         CheckoutRequestID: checkoutRequestId,
       }),
     },
-    'status query'
-  )) as { ResultCode?: string; ResultDesc?: string };
+    'status query',
+    [STILL_PROCESSING]
+  )) as { ResultCode?: string; ResultDesc?: string; errorCode?: string };
+
+  // No verdict yet. Reported as pending rather than as an error, so a caller
+  // polling a push that is still ringing does not surface a failure to the
+  // employer -- and, more importantly, does not conclude the payment failed.
+  if (body.errorCode === STILL_PROCESSING) {
+    return { resultCode: null, resultDesc: 'Payment is still being processed.' };
+  }
 
   return {
     resultCode: String(body.ResultCode ?? ''),
