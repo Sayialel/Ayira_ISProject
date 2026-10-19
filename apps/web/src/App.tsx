@@ -25,6 +25,7 @@ const PublicProfile = lazy(() => import('@/pages/PublicProfile'));
 const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'));
 const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'));
 const AdminGigs = lazy(() => import('@/pages/admin/AdminGigs'));
+const AdminEscrow = lazy(() => import('@/pages/admin/AdminEscrow'));
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -97,6 +98,10 @@ export default function App() {
               <Route
                 path="admin/gigs"
                 element={<AdminRoute><Lazy><AdminGigs /></Lazy></AdminRoute>}
+              />
+              <Route
+                path="admin/escrow"
+                element={<AdminRoute><Lazy><AdminEscrow /></Lazy></AdminRoute>}
               />
             </Route>
 

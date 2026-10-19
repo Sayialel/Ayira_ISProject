@@ -276,3 +276,39 @@ export interface PendingReview {
   reviewee_id: string;
   role: string;
 }
+
+// --- Admin escrow --------------------------------------------------------
+
+export interface EscrowParty {
+  id: string;
+  full_name: string;
+  email?: string;
+  avatar_url: string | null;
+}
+
+export interface AdminEscrow extends Escrow {
+  gig: { id: string; title: string; status: GigStatus; category: string } | null;
+  employer: EscrowParty | null;
+  worker: EscrowParty | null;
+}
+
+export interface AdminEscrowListResponse extends Paginated {
+  escrow: AdminEscrow[];
+  /** Surfaced separately so the UI can lead with what needs a decision. */
+  disputed_count: number;
+}
+
+export interface EscrowEventRow {
+  id: string;
+  from_status: EscrowStatus | null;
+  to_status: EscrowStatus;
+  actor_id: string | null;
+  detail: string | null;
+  created_at: string;
+  actor: { id: string; full_name: string; role: UserRole } | null;
+}
+
+export interface AdminEscrowDetail {
+  escrow: AdminEscrow;
+  events: EscrowEventRow[];
+}

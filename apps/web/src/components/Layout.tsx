@@ -34,6 +34,7 @@ const ADMIN_NAV: NavItem[] = [
   { to: '/app/admin', label: 'Overview', icon: ShieldCheck, end: true },
   { to: '/app/admin/users', label: 'Accounts', icon: Users },
   { to: '/app/admin/gigs', label: 'Gigs', icon: LayoutList },
+  { to: '/app/admin/escrow', label: 'Payments', icon: Wallet },
   { to: '/app/profile', label: 'Profile', icon: User },
 ];
 

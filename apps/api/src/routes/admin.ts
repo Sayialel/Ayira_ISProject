@@ -175,3 +175,218 @@ adminRouter.get(
     });
   })
 );
+
+/* -------------------------------------------------------------------------- */
+/* Escrow oversight and dispute resolution                                    */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * A disputed escrow can only be moved by an administrator — transition_escrow
+ * permits disputed → released or disputed → refunded for nobody else. Until
+ * these routes existed no interface could do it, so raising a dispute froze
+ * the money permanently and the only remedy was raw SQL. The escrow page even
+ * promises the user that "an administrator will review it".
+ */
+
+const ESCROW_ADMIN_FIELDS =
+  'id, gig_id, employer_id, worker_id, amount, currency, mpesa_checkout_id, ' +
+  'mpesa_receipt, status, funded_at, released_at, created_at, updated_at';
+
+const ESCROW_ADMIN_WITH_PARTIES =
+  ESCROW_ADMIN_FIELDS +
+  ', gig:gigs!gig_id(id, title, status, category)' +
+  ', employer:users!escrow_employer_id_fkey(id, full_name, email, avatar_url)' +
+  ', worker:users!escrow_worker_id_fkey(id, full_name, email, avatar_url)';
+
+const escrowListQuerySchema = paginationSchema.extend({
+  status: z
+    .enum([
+      'pending',
+      'funded',
+      'released',
+      'disputed',
+      'refunded',
+      'partial_release',
+      'cancelled',
+    ])
+    .optional(),
+});
+
+const resolveSchema = z.object({
+  // Release pays the worker, refund returns the money to the employer. There
+  // is no third option: either the work was delivered or it was not.
+  outcome: z.enum(['released', 'refunded']),
+  // Required, and written onto the escrow event. A decision that moves
+  // someone's money should not be recordable without a reason attached.
+  reason: z
+    .string()
+    .trim()
+    .min(10, 'Give a reason of at least 10 characters')
+    .max(1000),
+});
+
+// GET /api/admin/escrow — every transaction on the platform
+adminRouter.get(
+  '/escrow',
+  asyncHandler(async (req, res) => {
+    const q = escrowListQuerySchema.parse(req.query);
+    const { from, to } = toRange(q.page, q.limit);
+
+    let query = supabaseAdmin
+      .from('escrow')
+      .select(ESCROW_ADMIN_WITH_PARTIES, { count: 'exact' });
+
+    if (q.status) query = query.eq('status', q.status);
+
+    const { data, error, count } = await query
+      .order('created_at', { ascending: false })
+      .range(from, to);
+
+    assertNoDbError(error, 'Failed to load escrow transactions');
+
+    // Counted separately so the UI can lead with what needs a decision rather
+    // than making someone page through settled transactions to find it.
+    const { count: disputed } = await supabaseAdmin
+      .from('escrow')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'disputed');
+
+    res.json({
+      data: {
+        escrow: data ?? [],
+        disputed_count: disputed ?? 0,
+        ...buildPageMeta(count ?? 0, q.page, q.limit),
+      },
+    });
+  })
+);
+
+// GET /api/admin/escrow/:id — one transaction with its full history
+adminRouter.get(
+  '/escrow/:id',
+  asyncHandler(async (req, res) => {
+    const parsed = uuid.safeParse(req.params.id);
+    if (!parsed.success) throw new AppError('Escrow not found', 404);
+
+    const { data, error } = await supabaseAdmin
+      .from('escrow')
+      .select(ESCROW_ADMIN_WITH_PARTIES)
+      .eq('id', parsed.data)
+      .maybeSingle();
+
+    assertNoDbError(error, 'Failed to load the transaction');
+    if (!data) throw new AppError('Escrow not found', 404);
+
+    // The audit trail is the substance of reviewing a dispute: who moved the
+    // money, when, and what they said about it.
+    const { data: events, error: eventsError } = await supabaseAdmin
+      .from('escrow_events')
+      .select(
+        'id, from_status, to_status, actor_id, detail, created_at, ' +
+          'actor:users!actor_id(id, full_name, role)'
+      )
+      .eq('escrow_id', parsed.data)
+      .order('created_at', { ascending: true });
+
+    assertNoDbError(eventsError, 'Failed to load the transaction history');
+
+    res.json({ data: { escrow: data, events: events ?? [] } });
+  })
+);
+
+// POST /api/admin/escrow/:id/resolve — settle a dispute
+adminRouter.post(
+  '/escrow/:id/resolve',
+  asyncHandler(async (req, res) => {
+    const { userId } = requireUser(req);
+    const parsed = uuid.safeParse(req.params.id);
+    if (!parsed.success) throw new AppError('Escrow not found', 404);
+
+    const body = resolveSchema.parse(req.body);
+
+    // The rules stay in transition_escrow, which refuses anything that is not
+    // a disputed escrow moved by an admin. This only translates the refusal,
+    // so the two cannot drift apart.
+    const { error } = await supabaseAdmin.rpc('transition_escrow', {
+      p_escrow_id: parsed.data,
+      p_actor_id: userId,
+      p_to_status: body.outcome,
+      p_detail: `Dispute resolved by an administrator: ${body.reason}`,
+    });
+
+    if (error) {
+      const text = error.message ?? '';
+      if (/not found/i.test(text)) throw new AppError(text, 404);
+      if (/only an administrator|not a party/i.test(text)) {
+        throw new AppError(text, 403);
+      }
+      throw new AppError(text || 'Could not resolve the dispute', 409);
+    }
+
+    const { data, error: readError } = await supabaseAdmin
+      .from('escrow')
+      .select(ESCROW_ADMIN_WITH_PARTIES)
+      .eq('id', parsed.data)
+      .single();
+
+    assertNoDbError(readError, 'Dispute resolved but the record could not be re-read');
+    res.json({ data });
+  })
+);
+
+// POST /api/admin/gigs/:id/cancel — moderation
+//
+// DELETE /api/gigs/:id is restricted to the owning employer, so an admin could
+// not take a gig down at all. Cancelling rather than deleting keeps the row and
+// its applications for the audit trail.
+adminRouter.post(
+  '/gigs/:id/cancel',
+  asyncHandler(async (req, res) => {
+    const parsed = uuid.safeParse(req.params.id);
+    if (!parsed.success) throw new AppError('Gig not found', 404);
+
+    const { reason } = z
+      .object({ reason: z.string().trim().min(5).max(500) })
+      .parse(req.body ?? {});
+
+    const { data: existing, error: readError } = await supabaseAdmin
+      .from('gigs')
+      .select('id, status')
+      .eq('id', parsed.data)
+      .maybeSingle();
+
+    assertNoDbError(readError, 'Failed to load the gig');
+    if (!existing) throw new AppError('Gig not found', 404);
+
+    if (existing.status === 'completed' || existing.status === 'cancelled') {
+      throw new AppError(`This gig is already ${existing.status}.`, 409);
+    }
+
+    // Refused rather than silently stranding money: cancelling a gig whose
+    // escrow still holds funds would leave that escrow pointing at dead work.
+    const { data: live, error: escrowError } = await supabaseAdmin
+      .from('escrow')
+      .select('id, status')
+      .eq('gig_id', parsed.data)
+      .in('status', ['pending', 'funded', 'disputed', 'partial_release']);
+
+    assertNoDbError(escrowError, 'Failed to check escrow on this gig');
+    if ((live ?? []).length > 0) {
+      throw new AppError(
+        'This gig has escrow that is still open. Settle the payment before cancelling it.',
+        409
+      );
+    }
+
+    const { data, error } = await supabaseAdmin
+      .from('gigs')
+      .update({ status: 'cancelled' })
+      .eq('id', parsed.data)
+      .select('id, title, status')
+      .single();
+
+    assertNoDbError(error, 'Failed to cancel the gig');
+    console.warn(`Admin cancelled gig ${parsed.data}: ${reason}`);
+    res.json({ data });
+  })
+);
