@@ -1,0 +1,34 @@
+{
+  "source_name": "ESCO (European Skills, Competences, Qualifications and Occupations)",
+  "publisher": "European Commission",
+  "access_method": "public REST API, no authentication",
+  "api_base": "https://ec.europa.eu/esco/api",
+  "download_page": "https://esco.ec.europa.eu/en/use-esco/download",
+  "bulk_download_note": "The bulk files are email-gated, so the API was used instead. Version therefore reflects whatever the API currently serves.",
+  "licence": "not stated on the ESCO download page",
+  "licence_status": "requires_review",
+  "redistribution": "Derived files are kept local and marked requires_review until the licence is confirmed.",
+  "language": "en",
+  "retrieved_at": "2026-10-19T08:33:47.002899+00:00",
+  "finished_at": "2026-10-19T08:38:31.469535+00:00",
+  "http_requests": 199,
+  "cache_hits": 0,
+  "counts": {
+    "occupations_discovered": 12,
+    "occupations_retained": 12,
+    "occupations_with_isco_code": 12,
+    "occupations_with_alternative_labels": 12,
+    "distinct_skills": 273,
+    "occupation_skill_pairs": 434
+  },
+  "outputs": [
+    "data/processed/esco_occupations.jsonl",
+    "data/processed/esco_skills.jsonl",
+    "data/processed/esco_occupation_skills.jsonl"
+  ],
+  "known_limitations": [
+    "A taxonomy, not Kenyan vacancies or Kenyan worker profiles.",
+    "European in origin; Kenyan informal-sector terms are absent and must be added separately with their own provenance.",
+    "Skill descriptions are not fetched; only identifiers and labels, which is what matching needs and avoids thousands of extra calls."
+  ]
+}

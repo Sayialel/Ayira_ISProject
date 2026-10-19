@@ -1,0 +1,17 @@
+[
+  {
+    "path": "data/raw/hf_jobs/shard_0000.parquet",
+    "bytes": 18704230,
+    "sha256": "159aad5f500882be7e82d908dfd028443cdfb455f0ec3560ad34197a17f4a8e9"
+  },
+  {
+    "path": "data/raw/hf_jobs/shard_0020.parquet",
+    "bytes": 18874121,
+    "sha256": "9fb3587d1bafa687f6932628238c147a26f546e649cf33b66aacb6ccd0c0ba76"
+  },
+  {
+    "path": "data/raw/hf_jobs/shard_0045.parquet",
+    "bytes": 18881093,
+    "sha256": "555013709329a26b8f43e12cf7447c0960607401f15d39451ee869986da76de1"
+  }
+]

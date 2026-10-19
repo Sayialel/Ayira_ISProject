@@ -1,0 +1,36 @@
+{
+  "source_name": "Techmap / JobDataFeeds Job Postings API",
+  "publisher": "Techmap.io",
+  "endpoint": "https://daily-international-job-postings.p.rapidapi.com/api/v2/jobs/search",
+  "access_method": "RapidAPI, Basic plan, X-RapidAPI-Key header",
+  "licence": "Terms of Service at jobdatafeeds.com",
+  "licence_status": "requires_review",
+  "redistribution": "not redistributed; derived counts only",
+  "country_code_requested": null,
+  "source_dataset": "techmap_sample_luxembourg",
+  "retrieved_at": "2026-10-19T08:42:41.424950+00:00",
+  "finished_at": "2026-10-19T08:42:41.424950+00:00",
+  "page_size": 10,
+  "request_cap": 90,
+  "http_requests": 0,
+  "provider_reported_total": null,
+  "funnel": {
+    "1_records_received": 10,
+    "2_parsed": 10,
+    "3_by_geographic_confidence": {
+      "conflicting": 7,
+      "location_unknown": 3
+    },
+    "4_kenya_verified": 0,
+    "5_duplicates_removed": 0,
+    "6_after_deduplication": 0,
+    "7_usable_with_title_and_description": 0
+  },
+  "field_coverage_within_usable": {},
+  "known_limitations": [
+    "countryCode is a claim, not evidence; only kenya_verified records are eligible for the evaluation set.",
+    "The API exposes hasSalary but no amount or pay period, so no pay figure is recorded and none is inferred.",
+    "Page size is fixed at 10, and requests beyond the plan quota are billed as overage, so coverage is bounded by the request cap.",
+    "These are advertised formal vacancies; informal gig work is under-represented by construction."
+  ]
+}

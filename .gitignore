@@ -35,3 +35,9 @@ apps/ai-engine/.pytest_cache/
 # Rollback copies of the deployed artefact. Transient local deployment state,
 # not evidence: every artefact that backs a reported figure is in its run folder.
 apps/ai-engine/artifacts/*.previous
+
+# Raw source snapshots. Immutable but far too large for git; every file is
+# recorded in data/manifests/ with its SHA-256, size and retrieval date, so a
+# run is reproducible without committing the payload.
+data/raw/
+data/interim/
