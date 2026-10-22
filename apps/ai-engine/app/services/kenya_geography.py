@@ -7,26 +7,6 @@ town names for exact equality, so Thika and Nairobi (about 40 km apart) scored
 exactly the same as Mombasa and Nairobi (about 490 km apart), while a full
 distance model would have needed coordinates the schema does not store and a
 geocoding service the project does not have.
-
-Counties are the right granularity for this. They are the administrative unit
-Kenyan addresses are actually written in, there are only 47 of them, they are
-small enough that two towns in one county are plausibly commutable, and the
-mapping is a stable published fact rather than a model that can drift.
-
-Source: the 47 counties established by the Constitution of Kenya 2010, First
-Schedule, as used in KNBS reporting (https://www.knbs.or.ke/). Only towns the
-corpus or the platform actually uses are listed; an unlisted town resolves to
-an unknown county, which the scorer treats as unknown rather than as a
-mismatch.
-
-Deliberately *not* modelled here, because the data to support it does not
-exist yet:
-
-  * distance -- needs coordinates, and a county centroid table would be the
-    cheapest way to add it later without any external service;
-  * hybrid and travel-required arrangements -- gigs carry only a boolean
-    `is_remote`, so there is nothing to distinguish them from on-site work.
-    Supporting those needs a new column, not a cleverer function here.
 """
 
 # Town (lower case) -> county.
@@ -88,14 +68,7 @@ TOWN_COUNTY: dict[str, str] = {
 # Kiambu and Nairobi is its own county, so a daily commute inside the Nairobi
 # conurbation scored exactly the same as Mombasa to Nairobi. The metropolitan
 # grouping is what fixes that.
-#
-# Source: the Nairobi Metropolitan Area as used in Kenyan government planning
-# and by the Nairobi Metropolitan Area Transport Authority (NaMATA), which
-# covers Nairobi, Kiambu, Kajiado, Machakos and Murang'a.
-#
-# Only Nairobi is listed. Mombasa and Kisumu have real commuter hinterlands,
-# but inventing their boundaries from memory would be guessing, and a wrong
-# grouping is worse than none.
+
 METRO_AREAS: dict[str, frozenset[str]] = {
     "Nairobi Metropolitan": frozenset(
         {"Nairobi", "Kiambu", "Kajiado", "Machakos", "Murang'a"}

@@ -1,23 +1,4 @@
-"""
-The TF-IDF side of scoring, as a fitted artefact rather than a per-request fit.
 
-Two problems with fitting the vectoriser on every request, both real:
-
-  *Leakage.* Inverse document frequency is learned from whatever the
-  vectoriser is fitted on. Fitting it over the whole candidate pool during an
-  evaluation lets the weighting reflect validation and test gigs, which is the
-  leakage the experiment protocol prohibits.
-
-  *Irreproducibility.* IDF computed over "whatever is posted right now" means
-  the same worker and the same gig score differently next week with neither
-  changed. Two runs could not be compared, which makes a controlled experiment
-  impossible.
-
-Fitting once on training documents and persisting the result fixes both. The
-saved file is a preprocessing artefact in the sense the workflow means: it is
-written into the run folder alongside the metrics, and a run can be reproduced
-only if it is kept.
-"""
 
 import logging
 from pathlib import Path

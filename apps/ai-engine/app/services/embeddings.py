@@ -73,7 +73,4 @@ def compute_tfidf_similarities(query: str, documents: list[str]) -> list[float]:
 
 # composite_score() used to live here with the weights hard-coded. It moved to
 # app/services/scoring.py, where the weights are parameters the evaluation can
-# search over. The copy here was left behind and became dead code carrying the
-# old 0.45/0.25/0.15/0.15 values — a trap for anyone reading this file to find
-# out what the formula is. This module is now similarity only; the formula that
-# combines those similarities lives in scoring.py.
+# search over. This module is similarity only.

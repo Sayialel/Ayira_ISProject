@@ -143,9 +143,8 @@ def gig_text(gig: dict) -> str:
 #
 # Replaces an exact string comparison, under which Thika and Nairobi (about
 # 40 km apart) scored identically to Mombasa and Nairobi (about 490 km).
-# Counties are the granularity the data supports -- see
-# app/services/kenya_geography.py for why, and for what is deliberately not
-# modelled.
+# Counties are the granularity the data supports; see
+# app/services/kenya_geography.py.
 SAME_TOWN = 1.0
 SAME_COUNTY = 0.6
 # Different county, but the same commuter region -- Thika to Nairobi, say.
