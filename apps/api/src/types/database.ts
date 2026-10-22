@@ -35,6 +35,8 @@ export type UserRow = {
   location: string | null;
   reputation_score: number;
   is_verified: boolean;
+  /** False after an OAuth signup, until the person picks a role. */
+  role_confirmed: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -297,6 +299,13 @@ export interface Database {
       complete_gig: {
         Args: { p_gig_id: string; p_actor_id: string };
         Returns: GigRow;
+      };
+      // migration 023 — the one-time role choice after an OAuth signup, which
+      // cannot go through a plain UPDATE because protect_user_privileges
+      // reverts role for anyone but the service role.
+      confirm_user_role: {
+        Args: { p_user_id: string; p_role: string };
+        Returns: UserRow;
       };
     };
   };

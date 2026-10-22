@@ -77,6 +77,12 @@ export interface UserProfile {
   full_name: string;
   phone?: string | null;
   role: UserRole;
+  /**
+   * False after an OAuth signup, until the person picks a role. Optional so a
+   * response from a server predating migration 023 is treated as chosen
+   * rather than trapping the session at the chooser.
+   */
+  role_confirmed?: boolean;
   avatar_url: string | null;
   bio: string | null;
   skills: string[];

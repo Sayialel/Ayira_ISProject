@@ -1,6 +1,8 @@
 import { Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
+import { useApi } from '@/hooks/useApi';
+import type { UserProfile } from '@/types';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { ToastProvider } from '@/components/Toast';
 import { LoadingBlock } from '@/components/ui';
@@ -22,6 +24,7 @@ const AIMatches = lazy(() => import('@/pages/AIMatches'));
 const EscrowPage = lazy(() => import('@/pages/Escrow'));
 const Profile = lazy(() => import('@/pages/Profile'));
 const PublicProfile = lazy(() => import('@/pages/PublicProfile'));
+const ChooseRole = lazy(() => import('@/pages/ChooseRole'));
 const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'));
 const AdminUsers = lazy(() => import('@/pages/admin/AdminUsers'));
 const AdminGigs = lazy(() => import('@/pages/admin/AdminGigs'));
@@ -55,6 +58,40 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+/**
+ * Holds an OAuth signup at the role chooser until they answer.
+ *
+ * Google cannot ask which side of the platform someone is on, so the account
+ * arrives as a worker with role_confirmed false. Letting them into the app
+ * first would mean an employer browsing a worker's navigation and then being
+ * unable to correct it, since role changes need the server.
+ *
+ * Email signups already chose on the form, so this never fires for them.
+ */
+function RequireRole({ children }: { children: React.ReactNode }) {
+  const { data, loading, refetch } = useApi<UserProfile>('/workers/profile');
+
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <LoadingBlock label="Loading your account…" />
+      </div>
+    );
+  }
+
+  // Undefined rather than false means an older server that does not send the
+  // field; treating that as "already chosen" keeps those sessions working.
+  if (data && data.role_confirmed === false) {
+    return (
+      <Lazy>
+        <ChooseRole onChosen={refetch} />
+      </Lazy>
+    );
+  }
+
+  return <>{children}</>;
+}
+
 export default function App() {
   return (
     <AuthProvider>
@@ -69,7 +106,9 @@ export default function App() {
               path="/app"
               element={
                 <ProtectedRoute>
-                  <Layout />
+                  <RequireRole>
+                    <Layout />
+                  </RequireRole>
                 </ProtectedRoute>
               }
             >

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import GoogleButton, { OrDivider } from '@/components/GoogleButton';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -29,6 +30,9 @@ export default function SignIn() {
       <div className="w-full max-w-sm bg-white rounded-xl shadow-sm border p-6">
         <h2 className="text-2xl font-bold text-center mb-6">Sign In to Ayira</h2>
         {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
+        <GoogleButton label="Sign in with Google" />
+        <OrDivider />
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}
             className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ayira-500" required />
