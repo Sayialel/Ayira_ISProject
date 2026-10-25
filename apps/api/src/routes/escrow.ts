@@ -31,7 +31,10 @@ export const escrowCallbackRouter = Router();
 const uuid = z.string().uuid();
 
 const ESCROW_FIELDS =
-  'id, gig_id, employer_id, worker_id, amount, currency, mpesa_checkout_id, mpesa_receipt, status, funded_at, released_at, created_at, updated_at';
+  'id, gig_id, employer_id, worker_id, amount, currency, mpesa_checkout_id, ' +
+  // released_amount, or a split escrow shows both parties the full amount and
+  // neither of them what actually changed hands.
+  'mpesa_receipt, status, funded_at, released_at, released_amount, created_at, updated_at';
 
 const ESCROW_WITH_PARTIES = `${ESCROW_FIELDS}, gig:gigs!gig_id(id, title, status), employer:users!escrow_employer_id_fkey(id, full_name, avatar_url), worker:users!escrow_worker_id_fkey(id, full_name, avatar_url)`;
 

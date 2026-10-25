@@ -197,6 +197,25 @@ export default function EscrowPage() {
                       <p className="text-xl font-bold text-slate-900">
                         {formatCurrency(escrow.amount, escrow.currency)}
                       </p>
+                      {/*
+                        A split pays each side part of the escrow, so showing
+                        the funded amount alone would tell the worker they
+                        received the lot and the employer they were refunded
+                        nothing. Both need the breakdown, and both are looking
+                        at this line.
+                      */}
+                      {escrow.status === 'partial_release' &&
+                        escrow.released_amount !== null && (
+                          <p className="mt-0.5 text-xs text-slate-500">
+                            {formatCurrency(escrow.released_amount, escrow.currency)} to the
+                            worker ·{' '}
+                            {formatCurrency(
+                              escrow.amount - escrow.released_amount,
+                              escrow.currency
+                            )}{' '}
+                            refunded
+                          </p>
+                        )}
                     </div>
                   </div>
 
