@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useApi } from '@/hooks/useApi';
 import { apiFetch } from '@/lib/api';
 import SkillsInput from '@/components/SkillsInput';
-import { ErrorMessage, Spinner, usePageTitle } from '@/components/ui';
+import {
+  ErrorMessage,
+  Spinner,
+  inputClass,
+  usePageTitle,
+} from '@/components/ui';
 import type { Gig, SkillCategory } from '@/types';
 
 const MIN_TITLE = 5;
@@ -111,13 +116,10 @@ export default function CreateGig() {
     }
   }
 
-  const inputClass =
-    'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500';
-
   return (
     <div className="mx-auto max-w-2xl">
       <h1 className="text-2xl font-bold">Post a gig</h1>
-      <p className="mb-6 text-sm text-gray-500">
+      <p className="mb-6 text-sm text-slate-500">
         Save it as a draft first, or publish it straight to the feed.
       </p>
 
@@ -125,7 +127,7 @@ export default function CreateGig() {
         {error && <ErrorMessage message={error} />}
 
         <div>
-          <label htmlFor="title" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="title" className="mb-1 block text-sm font-medium text-slate-700">
             Title
           </label>
           <input
@@ -139,7 +141,7 @@ export default function CreateGig() {
         </div>
 
         <div>
-          <label htmlFor="description" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="description" className="mb-1 block text-sm font-medium text-slate-700">
             Description
           </label>
           <textarea
@@ -150,13 +152,13 @@ export default function CreateGig() {
             placeholder="Describe the work, what success looks like, and anything the worker needs to know."
             className={inputClass}
           />
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-slate-400">
             {description.trim().length}/{MIN_DESCRIPTION} characters minimum
           </p>
         </div>
 
         <div>
-          <label htmlFor="category" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="category" className="mb-1 block text-sm font-medium text-slate-700">
             Category
           </label>
           <select
@@ -175,7 +177,7 @@ export default function CreateGig() {
         </div>
 
         <div>
-          <label htmlFor="skills" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="skills" className="mb-1 block text-sm font-medium text-slate-700">
             Required skills
           </label>
           <SkillsInput
@@ -187,13 +189,13 @@ export default function CreateGig() {
         </div>
 
         <fieldset>
-          <legend className="mb-1 text-sm font-medium text-gray-700">Location</legend>
-          <label className="mb-2 flex items-center gap-2 text-sm text-gray-700">
+          <legend className="mb-1 text-sm font-medium text-slate-700">Location</legend>
+          <label className="mb-2 flex items-center gap-2 text-sm text-slate-700">
             <input
               type="checkbox"
               checked={isRemote}
               onChange={(e) => setIsRemote(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-ayira-600 focus:ring-ayira-500"
+              className="h-4 w-4 rounded border-slate-300 text-ayira-600 focus:ring-ayira-500"
             />
             This gig can be done remotely
           </label>
@@ -209,7 +211,7 @@ export default function CreateGig() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="budget_min" className="mb-1 block text-sm font-medium text-gray-700">
+            <label htmlFor="budget_min" className="mb-1 block text-sm font-medium text-slate-700">
               Budget from (KES)
             </label>
             <input
@@ -223,7 +225,7 @@ export default function CreateGig() {
             />
           </div>
           <div>
-            <label htmlFor="budget_max" className="mb-1 block text-sm font-medium text-gray-700">
+            <label htmlFor="budget_max" className="mb-1 block text-sm font-medium text-slate-700">
               Budget to (KES)
             </label>
             <input
@@ -239,7 +241,7 @@ export default function CreateGig() {
         </div>
 
         <div>
-          <label htmlFor="deadline" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="deadline" className="mb-1 block text-sm font-medium text-slate-700">
             Deadline
           </label>
           <input
@@ -252,11 +254,11 @@ export default function CreateGig() {
           />
         </div>
 
-        <div className="flex flex-col gap-2 border-t border-gray-200 pt-4 sm:flex-row-reverse">
+        <div className="flex flex-col gap-2 border-t border-slate-200 pt-4 sm:flex-row-reverse">
           <button
             type="submit"
             disabled={submitting}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
           >
             {submitting && <Spinner />}
             Publish gig
@@ -265,7 +267,7 @@ export default function CreateGig() {
             type="button"
             disabled={submitting}
             onClick={(e) => handleSubmit(e, false)}
-            className="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-card transition-all duration-150 hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
           >
             Save draft
           </button>

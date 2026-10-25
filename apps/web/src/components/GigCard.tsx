@@ -10,19 +10,19 @@ export default function GigCard({ gig, footer }: { gig: Gig; footer?: React.Reac
   return (
     <Link
       to={`/app/gigs/${gig.id}`}
-      className="block rounded-lg border border-gray-200 bg-white p-4 transition hover:border-ayira-300 hover:shadow-sm"
+      className="block rounded-lg border border-slate-200 bg-white p-4 transition hover:border-ayira-300 hover:shadow-sm"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="truncate font-semibold text-gray-900">{gig.title}</h3>
-          <p className="mt-0.5 text-xs text-gray-500">{gig.category}</p>
+          <h3 className="truncate font-semibold text-slate-900">{gig.title}</h3>
+          <p className="mt-0.5 text-xs text-slate-500">{gig.category}</p>
         </div>
         <span className="shrink-0 text-sm font-semibold text-ayira-700">
           {formatBudgetRange(gig.budget_min, gig.budget_max, gig.currency)}
         </span>
       </div>
 
-      <p className="mt-2 line-clamp-2 text-sm text-gray-600">{gig.description}</p>
+      <p className="mt-2 line-clamp-2 text-sm text-slate-600">{gig.description}</p>
 
       {gig.required_skills.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -30,14 +30,14 @@ export default function GigCard({ gig, footer }: { gig: Gig; footer?: React.Reac
             <Tag key={skill}>{skill}</Tag>
           ))}
           {gig.required_skills.length > 5 && (
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-slate-400">
               +{gig.required_skills.length - 5} more
             </span>
           )}
         </div>
       )}
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gray-500">
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500">
         {gig.employer && (
           <span className="flex items-center gap-1.5">
             <Avatar name={gig.employer.full_name} src={gig.employer.avatar_url} size={20} />
@@ -56,7 +56,7 @@ export default function GigCard({ gig, footer }: { gig: Gig; footer?: React.Reac
         )}
       </div>
 
-      {footer && <div className="mt-3 border-t border-gray-100 pt-3">{footer}</div>}
+      {footer && <div className="mt-3 border-t border-slate-100 pt-3">{footer}</div>}
     </Link>
   );
 }

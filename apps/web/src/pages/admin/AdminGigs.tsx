@@ -61,13 +61,13 @@ export default function AdminGigs() {
           <ShieldCheck size={22} className="text-ayira-600" />
           Gigs
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-500">
           Every gig on the platform, including drafts and cancelled ones that the
           public feed never shows.
         </p>
       </div>
 
-      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-gray-200 pb-px">
+      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-slate-200 pb-px">
         {STATUS_TABS.map((tab) => (
           <button
             key={tab.value}
@@ -76,7 +76,7 @@ export default function AdminGigs() {
             className={`shrink-0 border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
               status === tab.value
                 ? 'border-ayira-600 text-ayira-700'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
             {tab.label}
@@ -87,7 +87,7 @@ export default function AdminGigs() {
       <label className="relative mb-4 block">
         <Search
           size={16}
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
         />
         <input
           value={search}
@@ -96,7 +96,7 @@ export default function AdminGigs() {
             setPage(1);
           }}
           placeholder="Search titles and descriptions"
-          className="w-full rounded-lg border border-gray-200 py-2 pl-9 pr-3 text-sm focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
+          className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
         />
       </label>
 
@@ -116,17 +116,17 @@ export default function AdminGigs() {
             {data.gigs.map((gig) => (
               <li
                 key={gig.id}
-                className="rounded-xl border border-gray-200 bg-white p-4 transition-colors hover:border-ayira-200"
+                className="rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-ayira-200"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <Link
                       to={`/app/gigs/${gig.id}`}
-                      className="block truncate font-semibold text-gray-900 hover:text-ayira-700"
+                      className="block truncate font-semibold text-slate-900 hover:text-ayira-700"
                     >
                       {gig.title}
                     </Link>
-                    <p className="mt-0.5 text-xs text-gray-500">
+                    <p className="mt-0.5 text-xs text-slate-500">
                       {gig.employer ? (
                         <>
                           Posted by{' '}
@@ -149,7 +149,7 @@ export default function AdminGigs() {
                   <GigStatusBadge status={gig.status} />
                 </div>
 
-                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+                <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
                   <span className="font-medium text-gold-700">
                     {formatBudgetRange(gig.budget_min, gig.budget_max, gig.currency)}
                   </span>

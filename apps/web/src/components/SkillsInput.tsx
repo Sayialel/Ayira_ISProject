@@ -58,7 +58,7 @@ export default function SkillsInput({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-gray-300 p-2 focus-within:border-ayira-500 focus-within:ring-1 focus-within:ring-ayira-500">
+      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-slate-300 p-2 focus-within:border-ayira-500 focus-within:ring-1 focus-within:ring-ayira-500">
         {value.map((skill) => (
           <span
             key={skill}
@@ -95,7 +95,7 @@ export default function SkillsInput({
               key={skill}
               type="button"
               onClick={() => addSkill(skill)}
-              className="inline-flex items-center gap-1 rounded-md border border-gray-200 px-2 py-1 text-xs text-gray-600 hover:border-ayira-300 hover:bg-ayira-50 hover:text-ayira-700"
+              className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:border-ayira-300 hover:bg-ayira-50 hover:text-ayira-700"
             >
               <Plus size={12} />
               {skill}

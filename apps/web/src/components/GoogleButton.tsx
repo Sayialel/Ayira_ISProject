@@ -57,7 +57,7 @@ export default function GoogleButton({
         type="button"
         onClick={go}
         disabled={busy}
-        className="flex w-full items-center justify-center gap-2.5 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-60"
+        className="flex w-full items-center justify-center gap-2.5 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 disabled:opacity-60"
       >
         {busy ? <Spinner /> : <GoogleMark />}
         {label}
@@ -95,9 +95,9 @@ function GoogleMark() {
 export function OrDivider() {
   return (
     <div className="my-4 flex items-center gap-3">
-      <span className="h-px flex-1 bg-gray-200" />
-      <span className="text-xs uppercase tracking-wide text-gray-400">or</span>
-      <span className="h-px flex-1 bg-gray-200" />
+      <span className="h-px flex-1 bg-slate-200" />
+      <span className="text-xs uppercase tracking-wide text-slate-400">or</span>
+      <span className="h-px flex-1 bg-slate-200" />
     </div>
   );
 }

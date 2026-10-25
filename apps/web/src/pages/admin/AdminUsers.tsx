@@ -80,13 +80,13 @@ export default function AdminUsers() {
           <ShieldCheck size={22} className="text-ayira-600" />
           Accounts
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-500">
           Every account on the platform. Verifying marks an account as checked; it
           grants no extra permissions.
         </p>
       </div>
 
-      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-gray-200 pb-px">
+      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-slate-200 pb-px">
         {ROLE_TABS.map((tab) => (
           <button
             key={tab.value}
@@ -95,7 +95,7 @@ export default function AdminUsers() {
             className={`shrink-0 border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
               role === tab.value
                 ? 'border-ayira-600 text-ayira-700'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
             {tab.label}
@@ -106,7 +106,7 @@ export default function AdminUsers() {
       <label className="relative mb-4 block">
         <Search
           size={16}
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
         />
         <input
           value={search}
@@ -115,7 +115,7 @@ export default function AdminUsers() {
             setPage(1);
           }}
           placeholder="Search by name or email"
-          className="w-full rounded-lg border border-gray-200 py-2 pl-9 pr-3 text-sm focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
+          className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
         />
       </label>
 
@@ -131,9 +131,9 @@ export default function AdminUsers() {
 
       {data && data.users.length > 0 && (
         <>
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
             {/* A table on wide screens; the same rows stack on a phone. */}
-            <div className="hidden grid-cols-[2fr_1fr_1fr_1fr_auto] gap-3 border-b border-gray-100 bg-gray-50 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500 md:grid">
+            <div className="hidden grid-cols-[2fr_1fr_1fr_1fr_auto] gap-3 border-b border-slate-100 bg-slate-50 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 md:grid">
               <span>Account</span>
               <span>Role</span>
               <span>Location</span>
@@ -141,7 +141,7 @@ export default function AdminUsers() {
               <span className="text-right">Verified</span>
             </div>
 
-            <ul className="divide-y divide-gray-100">
+            <ul className="divide-y divide-slate-100">
               {data.users.map((account) => (
                 <li
                   key={account.id}
@@ -152,19 +152,19 @@ export default function AdminUsers() {
                     <div className="min-w-0">
                       <Link
                         to={`/app/users/${account.id}`}
-                        className="block truncate font-medium text-gray-900 hover:text-ayira-700"
+                        className="block truncate font-medium text-slate-900 hover:text-ayira-700"
                       >
                         {account.full_name}
                       </Link>
-                      <p className="truncate text-xs text-gray-500">{account.email}</p>
+                      <p className="truncate text-xs text-slate-500">{account.email}</p>
                     </div>
                   </div>
 
-                  <span className="text-sm capitalize text-gray-600">{account.role}</span>
-                  <span className="truncate text-sm text-gray-600">
+                  <span className="text-sm capitalize text-slate-600">{account.role}</span>
+                  <span className="truncate text-sm text-slate-600">
                     {account.location ?? '—'}
                   </span>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-slate-500">
                     {formatRelative(account.created_at)}
                   </span>
 
@@ -176,7 +176,7 @@ export default function AdminUsers() {
                       className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors disabled:opacity-50 ${
                         account.is_verified
                           ? 'border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                          : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+                          : 'border-slate-200 text-slate-600 hover:bg-slate-50'
                       }`}
                     >
                       <BadgeCheck size={14} />

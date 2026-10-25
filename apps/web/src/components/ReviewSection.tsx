@@ -31,8 +31,8 @@ export default function ReviewSection({
   const owed = (pending.data?.pending ?? []).find((p) => p.gig_id === gig.id);
 
   return (
-    <section className="rounded-lg border border-gray-200 bg-white p-5">
-      <h2 className="mb-3 text-sm font-medium text-gray-700">Reviews</h2>
+    <section className="rounded-lg border border-slate-200 bg-white p-5">
+      <h2 className="mb-3 text-sm font-medium text-slate-700">Reviews</h2>
 
       {owed && (
         <ReviewForm
@@ -49,7 +49,7 @@ export default function ReviewSection({
       {reviews.loading && <Spinner />}
 
       {!reviews.loading && (reviews.data?.reviews.length ?? 0) === 0 && !owed && (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-500">
           No reviews on this gig yet.
           {!isOwner && ' Once the employer reviews you, it will appear here.'}
         </p>
@@ -109,10 +109,10 @@ function ReviewForm({
 
   return (
     <div className="mb-4 rounded-lg border border-ayira-200 bg-ayira-50/50 p-4">
-      <p className="mb-2 text-sm font-medium text-gray-800">
+      <p className="mb-2 text-sm font-medium text-slate-800">
         Review the {revieweeRole} you worked with
       </p>
-      <p className="mb-3 text-xs text-gray-500">
+      <p className="mb-3 text-xs text-slate-500">
         Ratings build the reputation shown across the platform, and feed the
         match ranking. You can only review once.
       </p>
@@ -129,13 +129,13 @@ function ReviewForm({
             <Star
               size={22}
               className={
-                value <= rating ? 'fill-gold-400 text-gold-500' : 'text-gray-300'
+                value <= rating ? 'fill-gold-400 text-gold-500' : 'text-slate-300'
               }
             />
           </button>
         ))}
         {rating > 0 && (
-          <span className="ml-2 text-sm text-gray-500">{rating} of 5</span>
+          <span className="ml-2 text-sm text-slate-500">{rating} of 5</span>
         )}
       </div>
 
@@ -145,14 +145,14 @@ function ReviewForm({
         rows={3}
         maxLength={1000}
         placeholder="What was it like working together? (optional)"
-        className="mb-3 w-full rounded-lg border border-gray-200 p-2.5 text-sm focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
+        className="mb-3 w-full rounded-lg border border-slate-300 bg-white p-2.5 text-sm text-slate-900 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
       />
 
       <button
         type="button"
         onClick={submit}
         disabled={busy}
-        className="inline-flex items-center gap-2 rounded-lg bg-ayira-600 px-4 py-2 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-60"
+        className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
       >
         {busy && <Spinner />}
         Post review

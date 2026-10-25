@@ -108,21 +108,21 @@ export default function GigDetailPage() {
   return (
     <div className="space-y-6">
       {/* Gig header */}
-      <article className="rounded-lg border border-gray-200 bg-white p-5">
+      <article className="rounded-lg border border-slate-200 bg-white p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <div className="mb-2 flex items-center gap-2">
               <GigStatusBadge status={gig.status} />
-              <span className="text-xs text-gray-500">{gig.category}</span>
+              <span className="text-xs text-slate-500">{gig.category}</span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">{gig.title}</h1>
+            <h1 className="text-2xl font-bold text-slate-900">{gig.title}</h1>
           </div>
           <span className="text-lg font-semibold text-ayira-700">
             {formatBudgetRange(gig.budget_min, gig.budget_max, gig.currency)}
           </span>
         </div>
 
-        <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
+        <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
           <div className="flex items-center gap-1.5">
             {gig.is_remote ? <Wifi size={15} /> : <MapPin size={15} />}
             <dt className="sr-only">Location</dt>
@@ -153,13 +153,13 @@ export default function GigDetailPage() {
           )}
         </dl>
 
-        <div className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-gray-700">
+        <div className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-slate-700">
           {gig.description}
         </div>
 
         {gig.required_skills.length > 0 && (
           <div className="mt-4">
-            <h2 className="mb-2 text-sm font-medium text-gray-700">Required skills</h2>
+            <h2 className="mb-2 text-sm font-medium text-slate-700">Required skills</h2>
             <div className="flex flex-wrap gap-1.5">
               {gig.required_skills.map((skill) => (
                 <Tag key={skill}>{skill}</Tag>
@@ -173,21 +173,21 @@ export default function GigDetailPage() {
 
       {/* Employer profile card */}
       {gig.employer && (
-        <section className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-3 text-sm font-medium text-gray-700">Posted by</h2>
+        <section className="rounded-lg border border-slate-200 bg-white p-5">
+          <h2 className="mb-3 text-sm font-medium text-slate-700">Posted by</h2>
           <div className="flex items-center gap-3">
             <Avatar name={gig.employer.full_name} src={gig.employer.avatar_url} size={48} />
             <div className="min-w-0 flex-1">
               <Link
                 to={`/app/users/${gig.employer.id}`}
-                className="flex items-center gap-1.5 font-medium text-gray-900 hover:text-ayira-700"
+                className="flex items-center gap-1.5 font-medium text-slate-900 hover:text-ayira-700"
               >
                 {gig.employer.full_name}
                 {gig.employer.is_verified && (
                   <BadgeCheck size={16} className="text-ayira-600" aria-label="Verified" />
                 )}
               </Link>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-slate-500">
                 {gig.employer_total_gigs} {gig.employer_total_gigs === 1 ? 'gig' : 'gigs'} posted
                 {gig.employer.location ? ` · ${gig.employer.location}` : ''}
               </p>
@@ -198,13 +198,13 @@ export default function GigDetailPage() {
 
       {/* Owner controls */}
       {isOwner && (gig.status === 'draft' || gig.status === 'open') && (
-        <section className="flex flex-wrap gap-2 rounded-lg border border-gray-200 bg-white p-5">
+        <section className="flex flex-wrap gap-2 rounded-lg border border-slate-200 bg-white p-5">
           {gig.status === 'draft' && (
             <button
               type="button"
               onClick={() => updateGig('publish')}
               disabled={busyId === 'publish'}
-              className="inline-flex items-center gap-2 rounded-lg bg-ayira-600 px-4 py-2 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
             >
               {busyId === 'publish' && <Spinner />}
               Publish gig
@@ -227,9 +227,9 @@ export default function GigDetailPage() {
           what give either party a reputation -- so this button is the hinge
           the whole trust loop turns on. */}
       {isOwner && gig.status === 'in_progress' && (
-        <section className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-1 text-sm font-medium text-gray-700">Work finished?</h2>
-          <p className="mb-3 text-sm text-gray-500">
+        <section className="rounded-lg border border-slate-200 bg-white p-5">
+          <h2 className="mb-1 text-sm font-medium text-slate-700">Work finished?</h2>
+          <p className="mb-3 text-sm text-slate-500">
             Marking this complete lets you and the worker review each other. It
             cannot be undone.
           </p>
@@ -250,18 +250,18 @@ export default function GigDetailPage() {
 
       {/* Worker: apply, or track an existing application */}
       {!isOwner && role === 'worker' && (
-        <section className="rounded-lg border border-gray-200 bg-white p-5">
+        <section className="rounded-lg border border-slate-200 bg-white p-5">
           {myApplication ? (
             <>
-              <h2 className="mb-3 text-sm font-medium text-gray-700">Your application</h2>
+              <h2 className="mb-3 text-sm font-medium text-slate-700">Your application</h2>
               <div className="flex items-center justify-between gap-3">
                 <ApplicationStatusBadge status={myApplication.status} />
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-slate-500">
                   Applied {formatRelative(myApplication.created_at)}
                 </span>
               </div>
               {myApplication.cover_letter && (
-                <p className="mt-3 whitespace-pre-wrap text-sm text-gray-600">
+                <p className="mt-3 whitespace-pre-wrap text-sm text-slate-600">
                   {myApplication.cover_letter}
                 </p>
               )}
@@ -271,7 +271,7 @@ export default function GigDetailPage() {
                   type="button"
                   onClick={() => updateApplicationStatus(myApplication.id, 'withdrawn')}
                   disabled={busyId === myApplication.id}
-                  className="mt-4 inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-card transition-all duration-150 hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
                 >
                   {busyId === myApplication.id && <Spinner />}
                   Withdraw application
@@ -281,7 +281,7 @@ export default function GigDetailPage() {
           ) : canApply ? (
             <ApplyForm gigId={gig.id} onApplied={applicationsQuery.refetch} />
           ) : (
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-slate-500">
               This gig is no longer accepting applications.
             </p>
           )}
@@ -386,12 +386,12 @@ function ApplyForm({ gigId, onApplied }: { gigId: string; onApplied: () => void 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <h2 className="text-sm font-medium text-gray-700">Apply for this gig</h2>
+      <h2 className="text-sm font-medium text-slate-700">Apply for this gig</h2>
 
       {error && <ErrorMessage message={error} />}
 
       <div>
-        <label htmlFor="cover_letter" className="mb-1 block text-sm text-gray-600">
+        <label htmlFor="cover_letter" className="mb-1 block text-sm text-slate-600">
           Why are you a good fit?
         </label>
         <textarea
@@ -400,15 +400,15 @@ function ApplyForm({ gigId, onApplied }: { gigId: string; onApplied: () => void 
           value={coverLetter}
           onChange={(e) => setCoverLetter(e.target.value)}
           placeholder="Describe relevant experience and how you would approach this work."
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"
+          className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
         />
-        <p className="mt-1 text-xs text-gray-400">
+        <p className="mt-1 text-xs text-slate-400">
           {coverLetter.trim().length}/{MIN_COVER_LETTER} characters minimum
         </p>
       </div>
 
       <div>
-        <label htmlFor="proposed_amount" className="mb-1 block text-sm text-gray-600">
+        <label htmlFor="proposed_amount" className="mb-1 block text-sm text-slate-600">
           Your proposed amount (KES)
         </label>
         <input
@@ -418,14 +418,14 @@ function ApplyForm({ gigId, onApplied }: { gigId: string; onApplied: () => void 
           step={1}
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"
+          className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
         />
       </div>
 
       <button
         type="submit"
         disabled={submitting}
-        className="inline-flex items-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-60"
+        className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
       >
         {submitting ? <Spinner /> : <Send size={16} />}
         Submit application
@@ -452,7 +452,7 @@ function ApplicantCard({
     gigIsOpen && (application.status === 'pending' || application.status === 'shortlisted');
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4">
+    <div className="rounded-lg border border-slate-200 bg-white p-4">
       <div className="flex items-start gap-3">
         <Avatar name={worker?.full_name ?? 'Applicant'} src={worker?.avatar_url} size={40} />
         <div className="min-w-0 flex-1">
@@ -460,17 +460,17 @@ function ApplicantCard({
             {worker ? (
               <Link
                 to={`/app/users/${worker.id}`}
-                className="font-medium text-gray-900 hover:text-ayira-700"
+                className="font-medium text-slate-900 hover:text-ayira-700"
               >
                 {worker.full_name}
               </Link>
             ) : (
-              <span className="font-medium text-gray-900">Applicant</span>
+              <span className="font-medium text-slate-900">Applicant</span>
             )}
             <ApplicationStatusBadge status={application.status} />
           </div>
 
-          <p className="mt-0.5 text-xs text-gray-500">
+          <p className="mt-0.5 text-xs text-slate-500">
             Applied {formatRelative(application.created_at)}
             {application.proposed_amount !== null &&
               ` · asking ${formatBudgetRange(application.proposed_amount, application.proposed_amount)}`}
@@ -485,7 +485,7 @@ function ApplicantCard({
           )}
 
           {application.cover_letter && (
-            <p className="mt-2 whitespace-pre-wrap text-sm text-gray-600">
+            <p className="mt-2 whitespace-pre-wrap text-sm text-slate-600">
               {application.cover_letter}
             </p>
           )}
@@ -497,7 +497,7 @@ function ApplicantCard({
                   type="button"
                   onClick={() => onDecide(application.id, 'shortlisted')}
                   disabled={busy}
-                  className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-card transition-all duration-150 hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
                 >
                   Shortlist
                 </button>
@@ -506,7 +506,7 @@ function ApplicantCard({
                 type="button"
                 onClick={() => onDecide(application.id, 'accepted')}
                 disabled={busy}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-ayira-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-60"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
               >
                 {busy && <Spinner />}
                 Accept

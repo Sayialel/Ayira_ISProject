@@ -60,7 +60,7 @@ export default function MatchHistory() {
           action={
             <Link
               to="/app/matches"
-              className="inline-flex items-center rounded-lg bg-ayira-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-ayira-700"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
             >
               Find matches
             </Link>

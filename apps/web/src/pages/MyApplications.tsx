@@ -39,9 +39,9 @@ export default function MyApplications() {
   return (
     <div>
       <h1 className="text-2xl font-bold">My applications</h1>
-      <p className="mb-4 text-sm text-gray-500">Track the gigs you have applied for.</p>
+      <p className="mb-4 text-sm text-slate-500">Track the gigs you have applied for.</p>
 
-      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-gray-200 pb-px">
+      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-slate-200 pb-px">
         {STATUS_TABS.map((tab) => (
           <button
             key={tab.label}
@@ -54,7 +54,7 @@ export default function MyApplications() {
             className={`whitespace-nowrap border-b-2 px-3 py-2 text-sm font-medium transition ${
               status === tab.value
                 ? 'border-ayira-600 text-ayira-700'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
             {tab.label}
@@ -72,7 +72,7 @@ export default function MyApplications() {
           action={
             <Link
               to="/app/gigs"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-ayira-600 px-4 py-2 text-sm font-medium text-white hover:bg-ayira-700"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
             >
               <Search size={16} />
               Browse gigs
@@ -88,14 +88,14 @@ export default function MyApplications() {
               <Link
                 key={application.id}
                 to={`/app/gigs/${application.gig_id}`}
-                className="block rounded-lg border border-gray-200 bg-white p-4 transition hover:border-ayira-300 hover:shadow-sm"
+                className="block rounded-lg border border-slate-200 bg-white p-4 transition hover:border-ayira-300 hover:shadow-sm"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="truncate font-semibold text-gray-900">
+                    <h2 className="truncate font-semibold text-slate-900">
                       {application.gig?.title ?? 'Gig unavailable'}
                     </h2>
-                    <p className="mt-0.5 text-xs text-gray-500">
+                    <p className="mt-0.5 text-xs text-slate-500">
                       {application.gig?.employer?.full_name ?? 'Unknown employer'} · applied{' '}
                       {formatRelative(application.created_at)}
                     </p>
@@ -104,7 +104,7 @@ export default function MyApplications() {
                 </div>
 
                 {application.proposed_amount !== null && (
-                  <p className="mt-2 text-sm text-gray-600">
+                  <p className="mt-2 text-sm text-slate-600">
                     You asked for{' '}
                     <span className="font-medium text-ayira-700">
                       {formatBudgetRange(

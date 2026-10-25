@@ -66,7 +66,7 @@ export default function AIMatches() {
             as a seventh item in a six-item bottom bar. */}
         <Link
           to="/app/matches/history"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+          className="shrink-0 inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-card transition-all duration-150 hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
         >
           <History size={15} aria-hidden />
           History
@@ -78,23 +78,23 @@ export default function AIMatches() {
           type="button"
           onClick={findMatches}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
         >
           {loading ? <Spinner /> : <Sparkles size={16} />}
           {matches ? 'Refresh matches' : 'Find matches'}
         </button>
         {generatedAt && !loading && (
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-slate-500">
             Updated {formatRelative(generatedAt)}
           </span>
         )}
       </div>
 
       {loading && (
-        <div className="rounded-lg border border-gray-200 bg-white px-6 py-12 text-center">
+        <div className="rounded-lg border border-slate-200 bg-white px-6 py-12 text-center">
           <Spinner className="mx-auto text-ayira-600" />
-          <p className="mt-3 font-medium text-gray-900">Scoring open gigs…</p>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-3 font-medium text-slate-900">Scoring open gigs…</p>
+          <p className="mt-1 text-sm text-slate-500">
             The first run can take up to a minute while the matching model loads.
           </p>
         </div>
@@ -109,7 +109,7 @@ export default function AIMatches() {
           action={
             <Link
               to="/app/profile"
-              className="inline-flex items-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-card transition-all duration-150 hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
             >
               Update profile
             </Link>
@@ -143,18 +143,18 @@ function MatchCard({ match, rank }: { match: GigMatch; rank: number }) {
   return (
     <Link
       to={`/app/gigs/${gig.id}`}
-      className="block rounded-lg border border-gray-200 bg-white p-4 transition hover:border-ayira-300 hover:shadow-sm"
+      className="block rounded-lg border border-slate-200 bg-white p-4 transition hover:border-ayira-300 hover:shadow-sm"
     >
       <div className="flex items-start gap-3">
-        <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-600">
+        <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-600">
           {rank}
         </span>
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div className="min-w-0">
-              <h2 className="truncate font-semibold text-gray-900">{gig.title}</h2>
-              <p className="mt-0.5 text-xs text-gray-500">
+              <h2 className="truncate font-semibold text-slate-900">{gig.title}</h2>
+              <p className="mt-0.5 text-xs text-slate-500">
                 {gig.category}
                 {gig.employer ? ` · ${gig.employer.full_name}` : ''}
               </p>
@@ -164,7 +164,7 @@ function MatchCard({ match, rank }: { match: GigMatch; rank: number }) {
             </span>
           </div>
 
-          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
+          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
             <span className="font-medium text-ayira-700">
               {formatBudgetRange(gig.budget_min, gig.budget_max, gig.currency)}
             </span>
@@ -191,8 +191,8 @@ function MatchCard({ match, rank }: { match: GigMatch; rank: number }) {
 
 function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
   return (
-    <div className="mt-3 border-t border-gray-100 pt-3">
-      <h3 className="mb-2 text-xs font-medium text-gray-500">Why this ranked here</h3>
+    <div className="mt-3 border-t border-slate-100 pt-3">
+      <h3 className="mb-2 text-xs font-medium text-slate-500">Why this ranked here</h3>
       <dl className="space-y-1.5">
         {WEIGHTS.map(({ key, label, weight }) => {
           const raw = breakdown[key];
@@ -205,10 +205,10 @@ function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
 
           return (
             <div key={key} className="flex items-center gap-2">
-              <dt className="w-40 shrink-0 truncate text-xs text-gray-500">{label}</dt>
+              <dt className="w-40 shrink-0 truncate text-xs text-slate-500">{label}</dt>
               <dd className="flex flex-1 items-center gap-2">
                 <div
-                  className="h-1.5 flex-1 overflow-hidden rounded-full bg-gray-100"
+                  className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-100"
                   role="img"
                   aria-label={`${label}: ${toPercent(value)} percent`}
                 >
@@ -217,9 +217,9 @@ function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
                     style={{ width: `${toPercent(value)}%` }}
                   />
                 </div>
-                <span className="w-14 shrink-0 text-right text-xs tabular-nums text-gray-400">
+                <span className="w-14 shrink-0 text-right text-xs tabular-nums text-slate-400">
                   {toPercent(value)}%
-                  <span className="ml-0.5 text-gray-300">×{weight}</span>
+                  <span className="ml-0.5 text-slate-300">×{weight}</span>
                 </span>
               </dd>
             </div>

@@ -56,11 +56,11 @@ export default function GigFeed() {
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Browse gigs</h1>
-          <p className="text-sm text-gray-500">Find work that matches your skills.</p>
+          <p className="text-sm text-slate-500">Find work that matches your skills.</p>
         </div>
         <Link
           to="/app/matches"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-ayira-600 px-3 py-2 text-sm font-medium text-white hover:bg-ayira-700"
+          className="shrink-0 inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
         >
           <Sparkles size={16} />
           AI Match
@@ -73,7 +73,7 @@ export default function GigFeed() {
           <div className="relative flex-1">
             <Search
               size={16}
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
             />
             <input
               type="search"
@@ -84,14 +84,14 @@ export default function GigFeed() {
               }}
               placeholder="Search gigs by title or description"
               aria-label="Search gigs"
-              className="w-full rounded-lg border border-gray-300 py-2 pl-9 pr-3 text-sm focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"
+              className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
             />
           </div>
           <button
             type="button"
             onClick={() => setShowFilters((v) => !v)}
             aria-expanded={showFilters}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-card transition-all duration-150 hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
           >
             <SlidersHorizontal size={16} />
             <span className="hidden sm:inline">Filters</span>
@@ -99,16 +99,16 @@ export default function GigFeed() {
         </div>
 
         {showFilters && (
-          <div className="grid gap-3 rounded-lg border border-gray-200 bg-white p-3 sm:grid-cols-3">
+          <div className="grid gap-3 rounded-lg border border-slate-200 bg-white p-3 sm:grid-cols-3">
             <label className="text-sm">
-              <span className="mb-1 block text-gray-600">Category</span>
+              <span className="mb-1 block text-slate-600">Category</span>
               <select
                 value={category}
                 onChange={(e) => {
                   setCategory(e.target.value);
                   resetPage();
                 }}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-ayira-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
               >
                 <option value="">All categories</option>
                 {(categories ?? []).map((c) => (
@@ -120,7 +120,7 @@ export default function GigFeed() {
             </label>
 
             <label className="text-sm">
-              <span className="mb-1 block text-gray-600">Location</span>
+              <span className="mb-1 block text-slate-600">Location</span>
               <input
                 type="text"
                 value={location}
@@ -129,7 +129,7 @@ export default function GigFeed() {
                   resetPage();
                 }}
                 placeholder="e.g. Nairobi"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-ayira-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
               />
             </label>
 
@@ -141,9 +141,9 @@ export default function GigFeed() {
                   setRemoteOnly(e.target.checked);
                   resetPage();
                 }}
-                className="mb-2.5 h-4 w-4 rounded border-gray-300 text-ayira-600 focus:ring-ayira-500"
+                className="mb-2.5 h-4 w-4 rounded border-slate-300 text-ayira-600 focus:ring-ayira-500"
               />
-              <span className="mb-2 text-gray-700">Remote only</span>
+              <span className="mb-2 text-slate-700">Remote only</span>
             </label>
           </div>
         )}
@@ -167,7 +167,7 @@ export default function GigFeed() {
 
       {!loading && !error && data && data.gigs.length > 0 && (
         <>
-          <p className="mb-3 text-sm text-gray-500">
+          <p className="mb-3 text-sm text-slate-500">
             {data.total} {data.total === 1 ? 'gig' : 'gigs'} found
           </p>
           <div className="space-y-3">

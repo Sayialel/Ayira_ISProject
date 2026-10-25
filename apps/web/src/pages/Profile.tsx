@@ -10,6 +10,7 @@ import {
   LoadingBlock,
   Spinner,
   SuccessMessage,
+  inputClass,
   usePageTitle,
 } from '@/components/ui';
 import type { SkillCategory, UserProfile } from '@/types';
@@ -92,9 +93,6 @@ export default function Profile() {
   if (error) return <ErrorMessage message={error} onRetry={refetch} />;
   if (!profile) return <ErrorMessage message="Profile not found." />;
 
-  const inputClass =
-    'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500';
-
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-6 flex items-center gap-4">
@@ -134,7 +132,7 @@ export default function Profile() {
         {saved && <SuccessMessage message="Your profile has been updated." />}
 
         <div>
-          <label htmlFor="full_name" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="full_name" className="mb-1 block text-sm font-medium text-slate-700">
             Full name
           </label>
           <input
@@ -147,7 +145,7 @@ export default function Profile() {
         </div>
 
         <div>
-          <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="mb-1 block text-sm font-medium text-slate-700">
             Email
           </label>
           <input
@@ -155,15 +153,15 @@ export default function Profile() {
             type="email"
             value={profile.email ?? ''}
             disabled
-            className={`${inputClass} bg-gray-50 text-gray-500`}
+            className={`${inputClass} bg-slate-50 text-slate-500`}
           />
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-slate-400">
             Your email is managed by your sign-in account.
           </p>
         </div>
 
         <div>
-          <label htmlFor="phone" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="phone" className="mb-1 block text-sm font-medium text-slate-700">
             Phone
           </label>
           <input
@@ -177,7 +175,7 @@ export default function Profile() {
         </div>
 
         <div>
-          <label htmlFor="location" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="location" className="mb-1 block text-sm font-medium text-slate-700">
             Location
           </label>
           <input
@@ -188,13 +186,13 @@ export default function Profile() {
             placeholder="e.g. Nairobi"
             className={inputClass}
           />
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-slate-400">
             Matching gives a small boost to gigs in your location.
           </p>
         </div>
 
         <div>
-          <label htmlFor="bio" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="bio" className="mb-1 block text-sm font-medium text-slate-700">
             Bio
           </label>
           <textarea
@@ -206,7 +204,7 @@ export default function Profile() {
             placeholder="Tell employers about your experience and the work you do best."
             className={inputClass}
           />
-          <p className="mt-1 text-xs text-gray-400">
+          <p className="mt-1 text-xs text-slate-400">
             {bio.length}/{MAX_BIO} characters
           </p>
         </div>
@@ -236,7 +234,7 @@ export default function Profile() {
         <button
           type="submit"
           disabled={saving}
-          className="inline-flex items-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
         >
           {saving && <Spinner />}
           Save changes

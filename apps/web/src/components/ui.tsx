@@ -298,3 +298,98 @@ export function usePageTitle(title: string) {
     document.title = `${title} · Ayira`;
   }, [title]);
 }
+
+/* -------------------------------------------------------------------------- */
+/* Form primitives                                                           */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The canonical input surface.
+ *
+ * Four pages had each written their own version of this string, and they had
+ * drifted: different border colours, different focus rings, one with no focus
+ * treatment at all. Exporting it means a field looks the same wherever it
+ * appears, and changing the focus ring is one edit rather than five.
+ */
+export const inputClass =
+  'w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 ' +
+  'placeholder:text-slate-400 transition-colors ' +
+  'focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100 ' +
+  'disabled:bg-slate-50 disabled:text-slate-500';
+
+/**
+ * A labelled form row.
+ *
+ * Pairs the label to the control by id, which several of the hand-rolled
+ * versions did not, and keeps hint and error text in one place below it so
+ * the spacing cannot differ between forms.
+ */
+export function Field({
+  id,
+  label,
+  hint,
+  error,
+  required,
+  children,
+}: {
+  id: string;
+  label: string;
+  hint?: string;
+  error?: string;
+  required?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-slate-700">
+        {label}
+        {required && (
+          <span className="ml-0.5 text-ayira-600" aria-hidden>
+            *
+          </span>
+        )}
+      </label>
+      {children}
+      {/* Error replaces the hint rather than stacking under it: showing both
+          makes the reader work out which one applies. */}
+      {error ? (
+        <p role="alert" className="mt-1.5 text-xs font-medium text-red-700">
+          {error}
+        </p>
+      ) : (
+        hint && <p className="mt-1.5 text-xs text-slate-400">{hint}</p>
+      )}
+    </div>
+  );
+}
+
+/**
+ * A page header: title, optional blurb, optional actions on the right.
+ *
+ * Every page had built this by hand, which is why the heading sizes and the
+ * gap beneath them varied from page to page.
+ */
+export function PageHeader({
+  icon,
+  title,
+  blurb,
+  actions,
+}: {
+  icon?: ReactNode;
+  title: string;
+  blurb?: string;
+  actions?: ReactNode;
+}) {
+  return (
+    <header className="mb-6 flex flex-wrap items-start justify-between gap-3">
+      <div className="min-w-0">
+        <h1 className="flex items-center gap-2 font-display text-2xl font-bold tracking-tight text-slate-900">
+          {icon && <span className="text-ayira-600">{icon}</span>}
+          {title}
+        </h1>
+        {blurb && <p className="mt-1 text-sm text-slate-500">{blurb}</p>}
+      </div>
+      {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
+    </header>
+  );
+}

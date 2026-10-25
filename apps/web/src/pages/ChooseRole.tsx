@@ -60,7 +60,7 @@ export default function ChooseRole({ onChosen }: { onChosen: () => void }) {
       <h1 className="text-2xl font-bold">
         Welcome{name ? `, ${name.split(' ')[0]}` : ''}
       </h1>
-      <p className="mb-6 mt-1 text-sm text-gray-500">
+      <p className="mb-6 mt-1 text-sm text-slate-500">
         One question before you start. You can only answer it once, so pick the
         one that describes you.
       </p>
@@ -86,13 +86,13 @@ export default function ChooseRole({ onChosen }: { onChosen: () => void }) {
         type="button"
         onClick={save}
         disabled={!choice || busy}
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-50"
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
       >
         {busy && <Spinner />}
         Continue
       </button>
 
-      <p className="mt-4 text-xs text-gray-400">
+      <p className="mt-4 text-xs text-slate-400">
         Changing this later needs an administrator, so it is worth getting right
         now.
       </p>
@@ -121,13 +121,13 @@ function RoleCard({
       className={`flex w-full items-start gap-3 rounded-xl border p-4 text-left transition-colors ${
         active
           ? 'border-ayira-500 bg-ayira-50 ring-1 ring-ayira-200'
-          : 'border-gray-200 bg-white hover:border-gray-300'
+          : 'border-slate-200 bg-white hover:border-slate-300'
       }`}
     >
-      <span className={active ? 'text-ayira-600' : 'text-gray-400'}>{icon}</span>
+      <span className={active ? 'text-ayira-600' : 'text-slate-400'}>{icon}</span>
       <span>
-        <span className="block font-medium text-gray-900">{title}</span>
-        <span className="mt-0.5 block text-sm text-gray-500">{description}</span>
+        <span className="block font-medium text-slate-900">{title}</span>
+        <span className="mt-0.5 block text-sm text-slate-500">{description}</span>
       </span>
     </button>
   );

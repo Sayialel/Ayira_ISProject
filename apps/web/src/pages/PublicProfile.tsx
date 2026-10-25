@@ -29,7 +29,7 @@ export default function PublicProfile() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <header className="rounded-lg border border-gray-200 bg-white p-5">
+      <header className="rounded-lg border border-slate-200 bg-white p-5">
         <div className="flex items-start gap-4">
           <Avatar name={data.full_name} src={data.avatar_url} size={72} />
           <div className="min-w-0 flex-1">
@@ -39,22 +39,22 @@ export default function PublicProfile() {
                 <BadgeCheck size={18} className="text-ayira-600" aria-label="Verified" />
               )}
             </h1>
-            <p className="text-sm capitalize text-gray-500">{data.role}</p>
+            <p className="text-sm capitalize text-slate-500">{data.role}</p>
             {data.location && (
-              <p className="mt-1 flex items-center gap-1 text-sm text-gray-600">
+              <p className="mt-1 flex items-center gap-1 text-sm text-slate-600">
                 <MapPin size={14} />
                 {data.location}
               </p>
             )}
-            <p className="mt-1 text-xs text-gray-400">
+            <p className="mt-1 text-xs text-slate-400">
               Member since {formatDate(data.created_at)}
             </p>
           </div>
         </div>
 
-        <dl className="mt-5 grid grid-cols-3 gap-3 border-t border-gray-100 pt-4 text-center">
+        <dl className="mt-5 grid grid-cols-3 gap-3 border-t border-slate-100 pt-4 text-center">
           <div>
-            <dt className="flex items-center justify-center gap-1 text-xs text-gray-500">
+            <dt className="flex items-center justify-center gap-1 text-xs text-slate-500">
               <Star size={13} />
               Rating
             </dt>
@@ -63,11 +63,11 @@ export default function PublicProfile() {
             </dd>
           </div>
           <div>
-            <dt className="text-xs text-gray-500">Reviews</dt>
+            <dt className="text-xs text-slate-500">Reviews</dt>
             <dd className="mt-1 text-lg font-semibold">{data.total_reviews}</dd>
           </div>
           <div>
-            <dt className="flex items-center justify-center gap-1 text-xs text-gray-500">
+            <dt className="flex items-center justify-center gap-1 text-xs text-slate-500">
               <CheckCircle2 size={13} />
               Completed
             </dt>
@@ -77,15 +77,15 @@ export default function PublicProfile() {
       </header>
 
       {data.bio && (
-        <section className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-2 text-sm font-medium text-gray-700">About</h2>
-          <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-700">{data.bio}</p>
+        <section className="rounded-lg border border-slate-200 bg-white p-5">
+          <h2 className="mb-2 text-sm font-medium text-slate-700">About</h2>
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-700">{data.bio}</p>
         </section>
       )}
 
       {data.skills.length > 0 && (
-        <section className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-2 text-sm font-medium text-gray-700">Skills</h2>
+        <section className="rounded-lg border border-slate-200 bg-white p-5">
+          <h2 className="mb-2 text-sm font-medium text-slate-700">Skills</h2>
           <div className="flex flex-wrap gap-1.5">
             {data.skills.map((skill) => (
               <Tag key={skill}>{skill}</Tag>
@@ -127,9 +127,9 @@ function ProfileReviews({ userId, total }: { userId: string; total: number }) {
   // different situation from one with none.
   if (!loading && !error && reviews.length === 0) {
     return (
-      <section className="rounded-lg border border-gray-200 bg-white p-5">
-        <h2 className="mb-2 text-sm font-medium text-gray-700">Reviews</h2>
-        <p className="text-sm text-gray-500">
+      <section className="rounded-lg border border-slate-200 bg-white p-5">
+        <h2 className="mb-2 text-sm font-medium text-slate-700">Reviews</h2>
+        <p className="text-sm text-slate-500">
           No reviews yet. They appear here once a gig is completed and paid for.
         </p>
       </section>
@@ -137,9 +137,9 @@ function ProfileReviews({ userId, total }: { userId: string; total: number }) {
   }
 
   return (
-    <section className="rounded-lg border border-gray-200 bg-white p-5">
-      <h2 className="mb-3 text-sm font-medium text-gray-700">
-        Reviews{total > 0 && <span className="ml-1 text-gray-400">({total})</span>}
+    <section className="rounded-lg border border-slate-200 bg-white p-5">
+      <h2 className="mb-3 text-sm font-medium text-slate-700">
+        Reviews{total > 0 && <span className="ml-1 text-slate-400">({total})</span>}
       </h2>
 
       {loading && <Spinner />}

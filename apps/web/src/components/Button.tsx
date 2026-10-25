@@ -6,13 +6,16 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'money';
 type Size = 'sm' | 'md';
 
 const VARIANTS: Record<Variant, string> = {
-  primary: 'bg-ayira-600 text-white shadow-card hover:bg-ayira-700 active:bg-ayira-800',
-  secondary: 'bg-white text-slate-700 border border-slate-200 shadow-card hover:bg-slate-50 hover:border-slate-300',
+  primary:
+    'bg-ayira-600 text-white shadow-card hover:bg-ayira-700 hover:shadow-lift active:bg-ayira-800',
+  secondary:
+    'bg-white text-slate-700 border border-slate-200 shadow-card hover:bg-slate-50 hover:border-slate-300',
   ghost: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
   danger: 'bg-white text-red-700 border border-red-200 hover:bg-red-50 hover:border-red-300',
   // Reserved for actions that move money, so they never look like an ordinary
   // primary action sitting next to them.
-  money: 'bg-gold-600 text-white shadow-card hover:bg-gold-700 active:bg-gold-700',
+  money:
+    'bg-gold-600 text-white shadow-card hover:bg-gold-700 hover:shadow-lift active:bg-gold-700',
 };
 
 const SIZES: Record<Size, string> = {
@@ -20,9 +23,13 @@ const SIZES: Record<Size, string> = {
   md: 'h-11 px-5 text-sm gap-2',
 };
 
+// transition-all rather than transition-colors, so the shadow and the press
+// scale animate too. active:scale is the whole of the "it feels responsive"
+// difference and costs nothing.
 const BASE =
-  'inline-flex items-center justify-center rounded-lg font-semibold transition-colors ' +
-  'disabled:opacity-55 disabled:pointer-events-none select-none';
+  'inline-flex items-center justify-center rounded-lg font-semibold ' +
+  'transition-all duration-150 active:scale-[0.98] ' +
+  'disabled:opacity-55 disabled:pointer-events-none disabled:active:scale-100 select-none';
 
 interface CommonProps {
   variant?: Variant;

@@ -82,7 +82,7 @@ export default function AdminEscrow() {
           <ShieldCheck size={22} className="text-ayira-600" />
           Payments
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-slate-500">
           Every escrow transaction. Disputes can only be settled here.
         </p>
       </div>
@@ -102,7 +102,7 @@ export default function AdminEscrow() {
         </button>
       )}
 
-      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-gray-200 pb-px">
+      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-slate-200 pb-px">
         {TABS.map((tab) => (
           <button
             key={tab.value}
@@ -111,7 +111,7 @@ export default function AdminEscrow() {
             className={`shrink-0 border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
               status === tab.value
                 ? 'border-ayira-600 text-ayira-700'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
             {tab.label}
@@ -177,7 +177,7 @@ function EscrowCard({
   return (
     <li
       className={`rounded-xl border bg-white p-4 ${
-        isDisputed ? 'border-amber-300 ring-1 ring-amber-100' : 'border-gray-200'
+        isDisputed ? 'border-amber-300 ring-1 ring-amber-100' : 'border-slate-200'
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -185,14 +185,14 @@ function EscrowCard({
           {row.gig ? (
             <Link
               to={`/app/gigs/${row.gig.id}`}
-              className="block truncate font-semibold text-gray-900 hover:text-ayira-700"
+              className="block truncate font-semibold text-slate-900 hover:text-ayira-700"
             >
               {row.gig.title}
             </Link>
           ) : (
-            <p className="truncate font-semibold text-gray-500">Gig no longer available</p>
+            <p className="truncate font-semibold text-slate-500">Gig no longer available</p>
           )}
-          <p className="mt-0.5 text-xs text-gray-500">
+          <p className="mt-0.5 text-xs text-slate-500">
             Opened {formatRelative(row.created_at)}
           </p>
         </div>
@@ -204,11 +204,11 @@ function EscrowCard({
         </div>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-gray-600">
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-600">
         <Party label="Employer" person={row.employer} />
         <Party label="Worker" person={row.worker} />
         {row.mpesa_receipt && (
-          <span className="text-gray-400">M-Pesa {row.mpesa_receipt}</span>
+          <span className="text-slate-400">M-Pesa {row.mpesa_receipt}</span>
         )}
       </div>
 
@@ -232,11 +232,11 @@ function Party({
   label: string;
   person: { id: string; full_name: string; avatar_url: string | null } | null;
 }) {
-  if (!person) return <span className="text-gray-400">{label}: unavailable</span>;
+  if (!person) return <span className="text-slate-400">{label}: unavailable</span>;
   return (
     <span className="flex items-center gap-1.5">
       <Avatar name={person.full_name} src={person.avatar_url} size={20} />
-      <span className="text-gray-400">{label}:</span>
+      <span className="text-slate-400">{label}:</span>
       <Link to={`/app/users/${person.id}`} className="hover:text-ayira-700">
         {person.full_name}
       </Link>
@@ -304,28 +304,28 @@ function EscrowDetail({
   if (!data) return null;
 
   return (
-    <div className="mt-3 border-t border-gray-100 pt-3">
-      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+    <div className="mt-3 border-t border-slate-100 pt-3">
+      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
         History
       </h3>
       <ol className="mb-4 space-y-1.5">
         {data.events.map((event) => (
-          <li key={event.id} className="text-xs text-gray-600">
-            <span className="font-medium text-gray-800">
+          <li key={event.id} className="text-xs text-slate-600">
+            <span className="font-medium text-slate-800">
               {event.from_status ? `${event.from_status} → ` : ''}
               {event.to_status}
             </span>
-            {event.actor && <span className="text-gray-400"> by {event.actor.full_name}</span>}
-            <span className="text-gray-400"> · {formatRelative(event.created_at)}</span>
-            {event.detail && <p className="mt-0.5 text-gray-500">{event.detail}</p>}
+            {event.actor && <span className="text-slate-400"> by {event.actor.full_name}</span>}
+            <span className="text-slate-400"> · {formatRelative(event.created_at)}</span>
+            {event.detail && <p className="mt-0.5 text-slate-500">{event.detail}</p>}
           </li>
         ))}
       </ol>
 
       {canResolve && (
         <div className="rounded-lg border border-amber-200 bg-amber-50/60 p-3">
-          <p className="mb-2 text-sm font-medium text-gray-800">Settle this dispute</p>
-          <p className="mb-3 text-xs text-gray-600">
+          <p className="mb-2 text-sm font-medium text-slate-800">Settle this dispute</p>
+          <p className="mb-3 text-xs text-slate-600">
             Releasing pays the worker in full, refunding returns everything to the
             employer, and splitting divides it between them. This cannot be undone,
             and the reason is recorded against the transaction.
@@ -353,12 +353,12 @@ function EscrowDetail({
             <div className="mb-3 rounded-lg border border-amber-200 bg-white p-3">
               <label
                 htmlFor={`worker-amount-${id}`}
-                className="block text-xs font-medium text-gray-700"
+                className="block text-xs font-medium text-slate-700"
               >
                 Pay the worker
               </label>
               <div className="mt-1.5 flex items-center gap-2">
-                <span className="text-sm text-gray-500">KES</span>
+                <span className="text-sm text-slate-500">KES</span>
                 <input
                   id={`worker-amount-${id}`}
                   type="number"
@@ -368,16 +368,16 @@ function EscrowDetail({
                   step={1}
                   value={workerAmount}
                   onChange={(e) => setWorkerAmount(e.target.value)}
-                  className="w-32 rounded-lg border border-gray-200 px-2.5 py-1.5 text-sm focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
+                  className="w-32 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
                 />
-                <span className="text-xs text-gray-400">of {total.toLocaleString()}</span>
+                <span className="text-xs text-slate-400">of {total.toLocaleString()}</span>
               </div>
 
               {/* Shown live, because the figure the administrator cares about
                   is the one they are not typing. */}
               {workerAmount !== '' && (
                 <p
-                  className={`mt-2 text-xs ${splitValid ? 'text-gray-600' : 'text-red-600'}`}
+                  className={`mt-2 text-xs ${splitValid ? 'text-slate-600' : 'text-red-600'}`}
                 >
                   {splitValid
                     ? `Worker gets KES ${toWorker.toLocaleString()}, employer is refunded KES ${(
@@ -395,14 +395,14 @@ function EscrowDetail({
             rows={2}
             maxLength={1000}
             placeholder="Why is this the right outcome? Both parties can be shown this."
-            className="mb-3 w-full rounded-lg border border-gray-200 p-2.5 text-sm focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
+            className="mb-3 w-full rounded-lg border border-slate-300 bg-white p-2.5 text-sm text-slate-900 transition-colors focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
           />
 
           <button
             type="button"
             onClick={resolve}
             disabled={busy || !outcome || (split && !splitValid)}
-            className="inline-flex items-center gap-2 rounded-lg bg-ayira-600 px-4 py-2 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
           >
             {busy && <Spinner />}
             Settle
@@ -429,7 +429,7 @@ function Choice({
       className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
         active
           ? 'border-ayira-500 bg-ayira-50 text-ayira-700'
-          : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+          : 'border-slate-200 text-slate-600 hover:bg-slate-50'
       }`}
     >
       {label}
