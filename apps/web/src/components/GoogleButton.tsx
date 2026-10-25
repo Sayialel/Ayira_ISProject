@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Spinner } from '@/components/ui';
+import { clearPendingRole, setPendingRole } from '@/lib/pendingRole';
+import type { UserRole } from '@/types';
 
 /**
  * Sign in or sign up with Google.
@@ -9,8 +11,21 @@ import { Spinner } from '@/components/ui';
  * either exists or is created on first return. Labelling it "sign up" on one
  * page and "sign in" on the other would imply a choice the provider does not
  * offer.
+ *
+ * `role` is the choice made on the sign-up form, held across the trip to
+ * Google so a new account lands with the right role and no follow-up question.
+ * The sign-in page passes nothing: a returning account already has a role, and
+ * asking there would invite someone to try to change it. A first-time visitor
+ * who signs in from that page instead still gets asked on arrival, which is
+ * why RequireRole stays regardless of this.
  */
-export default function GoogleButton({ label = 'Continue with Google' }: { label?: string }) {
+export default function GoogleButton({
+  label = 'Continue with Google',
+  role,
+}: {
+  label?: string;
+  role?: UserRole;
+}) {
   const { signInWithGoogle } = useAuth();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,10 +34,14 @@ export default function GoogleButton({ label = 'Continue with Google' }: { label
     setBusy(true);
     setError(null);
     try {
+      if (role) setPendingRole(role);
       await signInWithGoogle();
       // No success branch: the browser navigates to Google, so nothing after
       // this runs unless the handoff itself failed.
     } catch (err) {
+      // The browser never left, so the stored choice would otherwise sit there
+      // and be applied to whatever account signs in next in this tab.
+      clearPendingRole();
       setError(
         err instanceof Error && /provider is not enabled/i.test(err.message)
           ? 'Google sign-in is not configured on this server yet.'

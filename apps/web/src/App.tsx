@@ -1,7 +1,10 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '@/hooks/useAuth';
 import { useApi } from '@/hooks/useApi';
+import { apiFetch } from '@/lib/api';
+import { supabase } from '@/lib/supabase';
+import { takePendingRole } from '@/lib/pendingRole';
 import type { UserProfile } from '@/types';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { ToastProvider } from '@/components/Toast';
@@ -59,29 +62,66 @@ function AdminRoute({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Holds an OAuth signup at the role chooser until they answer.
+ * Makes sure every account has a role it actually chose.
  *
- * Google cannot ask which side of the platform someone is on, so the account
- * arrives as a worker with role_confirmed false. Letting them into the app
- * first would mean an employer browsing a worker's navigation and then being
- * unable to correct it, since role changes need the server.
+ * Google cannot ask which side of the platform someone is on, so an OAuth
+ * account arrives as a worker with role_confirmed false. Letting them into the
+ * app first would mean an employer browsing a worker's navigation and then
+ * being unable to correct it, since role changes need the server.
  *
- * Email signups already chose on the form, so this never fires for them.
+ * There are two ways the question gets answered, and both end here:
+ *
+ *   - Chose on the sign-up form. pendingRole carried it across the trip to
+ *     Google, so this applies it silently and they never see a question.
+ *   - Signed in with Google without passing through that form -- from the
+ *     sign-in page, or a second tab, or with site data blocked. Nothing was
+ *     carried, so the chooser is shown.
+ *
+ * The second case is why the chooser cannot be deleted in favour of asking on
+ * the form: Google offers no way to distinguish signing up from signing in, so
+ * a brand-new account can always appear on the sign-in path.
+ *
+ * Email signups confirmed their role in the signup trigger, so neither fires.
  */
 function RequireRole({ children }: { children: React.ReactNode }) {
   const { data, loading, refetch } = useApi<UserProfile>('/workers/profile');
+  const [applying, setApplying] = useState(false);
+  const [applyFailed, setApplyFailed] = useState(false);
 
-  if (loading) {
+  // Undefined rather than false means an older server that does not send the
+  // field; treating that as "already chosen" keeps those sessions working.
+  const needsRole = data?.role_confirmed === false;
+
+  // Someone who chose on the sign-up form has already answered. Spend that
+  // choice here rather than asking the same question twice.
+  useEffect(() => {
+    if (!needsRole || applying || applyFailed) return;
+
+    const pending = takePendingRole();
+    if (!pending) return;
+
+    setApplying(true);
+    apiFetch('/auth/role', { method: 'POST', body: JSON.stringify({ role: pending }) })
+      .then(() => supabase.auth.refreshSession())
+      .then(() => refetch())
+      .catch(() => {
+        // The choice is gone now -- takePendingRole clears on read -- so fall
+        // through to the chooser rather than retrying a value we no longer
+        // hold. applyFailed stops this effect from looping on the refetch.
+        setApplyFailed(true);
+      })
+      .finally(() => setApplying(false));
+  }, [needsRole, applying, applyFailed, refetch]);
+
+  if (loading || applying) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <LoadingBlock label="Loading your account…" />
+        <LoadingBlock label={applying ? 'Setting up your account…' : 'Loading your account…'} />
       </div>
     );
   }
 
-  // Undefined rather than false means an older server that does not send the
-  // field; treating that as "already chosen" keeps those sessions working.
-  if (data && data.role_confirmed === false) {
+  if (needsRole) {
     return (
       <Lazy>
         <ChooseRole onChosen={refetch} />

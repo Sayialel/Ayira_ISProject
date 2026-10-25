@@ -61,8 +61,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   /**
    * Hands off to Google and comes back to /app.
    *
-   * No role is passed: Google has no notion of workers and employers, so the
-   * account lands with role_confirmed false and the app asks on arrival. See
+   * No role travels in this call, because there is nowhere to put it: the
+   * metadata on an OAuth account comes from the provider, and Google has no
+   * notion of workers and employers. The account therefore lands with
+   * role_confirmed false, and the role chosen on the sign-up form is carried
+   * separately in sessionStorage (lib/pendingRole) and applied on return by
    * RequireRole in App.tsx.
    */
   const signInWithGoogle = async () => {
