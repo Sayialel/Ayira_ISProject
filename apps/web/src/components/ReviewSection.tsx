@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import { useApi } from '@/hooks/useApi';
 import { apiFetch, toQueryString } from '@/lib/api';
 import { useToast } from '@/components/Toast';
-import { Avatar, Spinner } from '@/components/ui';
-import { formatRelative } from '@/lib/format';
+import { Spinner } from '@/components/ui';
+import ReviewRow, { Stars } from '@/components/ReviewRow';
 import type { GigDetail, ReviewListResponse, PendingReview } from '@/types';
 
 /**
@@ -58,32 +57,7 @@ export default function ReviewSection({
 
       <ul className="space-y-3">
         {(reviews.data?.reviews ?? []).map((review) => (
-          <li key={review.id} className="flex gap-3 border-t border-gray-100 pt-3 first:border-0 first:pt-0">
-            <Avatar
-              name={review.reviewer?.full_name ?? 'Unknown'}
-              src={review.reviewer?.avatar_url}
-              size={36}
-            />
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between gap-2">
-                <Link
-                  to={`/app/users/${review.reviewer_id}`}
-                  className="truncate text-sm font-medium text-gray-900 hover:text-ayira-700"
-                >
-                  {review.reviewer?.full_name ?? 'Unknown'}
-                </Link>
-                <Stars value={review.rating} />
-              </div>
-              {review.comment && (
-                <p className="mt-1 whitespace-pre-wrap text-sm text-gray-600">
-                  {review.comment}
-                </p>
-              )}
-              <p className="mt-1 text-xs text-gray-400">
-                {formatRelative(review.created_at)}
-              </p>
-            </div>
-          </li>
+          <ReviewRow key={review.id} review={review} />
         ))}
       </ul>
     </section>
@@ -187,16 +161,4 @@ function ReviewForm({
   );
 }
 
-export function Stars({ value }: { value: number }) {
-  return (
-    <span className="flex shrink-0 items-center gap-0.5" aria-label={`${value} of 5`}>
-      {[1, 2, 3, 4, 5].map((v) => (
-        <Star
-          key={v}
-          size={14}
-          className={v <= value ? 'fill-gold-400 text-gold-500' : 'text-gray-300'}
-        />
-      ))}
-    </span>
-  );
-}
+export { Stars };

@@ -1,15 +1,19 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BadgeCheck, MapPin, Star, CheckCircle2 } from 'lucide-react';
 import { useApi } from '@/hooks/useApi';
+import { toQueryString } from '@/lib/api';
+import ReviewRow from '@/components/ReviewRow';
 import {
   Avatar,
   ErrorMessage,
   LoadingBlock,
+  Spinner,
   Tag,
   usePageTitle,
 } from '@/components/ui';
 import { formatDate } from '@/lib/format';
-import type { PublicProfileData } from '@/types';
+import type { PublicProfileData, ReviewListResponse } from '@/types';
 
 export default function PublicProfile() {
   const { id } = useParams<{ id: string }>();
@@ -89,6 +93,75 @@ export default function PublicProfile() {
           </div>
         </section>
       )}
+
+      {id && <ProfileReviews userId={id} total={data.total_reviews} />}
     </div>
+  );
+}
+
+/** How many reviews to show before asking whether they want the rest. */
+const FIRST_PAGE = 5;
+
+/**
+ * What people have actually said about this person.
+ *
+ * The header above shows a score and a count, which is the aggregate the match
+ * ranking consumes. On its own it is not much use to someone deciding whether
+ * to hire or to take a job: 4.2 over nine reviews does not say whether the
+ * complaint was about timekeeping or about the work. The reviews themselves
+ * were being written -- several hundred of them -- and read by nobody outside
+ * the gig they were left on.
+ */
+function ProfileReviews({ userId, total }: { userId: string; total: number }) {
+  const [expanded, setExpanded] = useState(false);
+  const limit = expanded ? 50 : FIRST_PAGE;
+
+  const { data, loading, error, refetch } = useApi<ReviewListResponse>(
+    `/reviews${toQueryString({ user_id: userId, limit })}`
+  );
+
+  const reviews = data?.reviews ?? [];
+
+  // Nothing at all: say so rather than rendering an empty panel, but only once
+  // the count agrees. A profile with reviews that failed to load is a
+  // different situation from one with none.
+  if (!loading && !error && reviews.length === 0) {
+    return (
+      <section className="rounded-lg border border-gray-200 bg-white p-5">
+        <h2 className="mb-2 text-sm font-medium text-gray-700">Reviews</h2>
+        <p className="text-sm text-gray-500">
+          No reviews yet. They appear here once a gig is completed and paid for.
+        </p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="rounded-lg border border-gray-200 bg-white p-5">
+      <h2 className="mb-3 text-sm font-medium text-gray-700">
+        Reviews{total > 0 && <span className="ml-1 text-gray-400">({total})</span>}
+      </h2>
+
+      {loading && <Spinner />}
+      {error && <ErrorMessage message={error} onRetry={refetch} />}
+
+      <ul className="space-y-3">
+        {reviews.map((review) => (
+          // showGig, because on a profile the gig is what gives the rating
+          // its meaning.
+          <ReviewRow key={review.id} review={review} showGig />
+        ))}
+      </ul>
+
+      {!expanded && total > reviews.length && (
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          className="mt-3 text-sm font-medium text-ayira-700 hover:underline"
+        >
+          Show all {total} reviews
+        </button>
+      )}
+    </section>
   );
 }
