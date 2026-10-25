@@ -183,6 +183,17 @@ workerRouter.get(
     assertNoDbError(error, 'Failed to load profile');
     if (!data) throw new AppError('Profile not found', 404);
 
+    // Staff have no public profile. An administrator is never matched to a gig
+    // and never reviewed, so this endpoint described one as a worker with a
+    // rating of 0.00, no reviews and no completed gigs -- which reads as a
+    // badly rated worker rather than as somebody outside the marketplace.
+    //
+    // 404 rather than a filtered payload, and the same 404 as a missing row,
+    // so the response does not confirm which accounts are staff.
+    if ((data as { role?: string }).role === 'admin') {
+      throw new AppError('Profile not found', 404);
+    }
+
     // Public-facing track record, useful on both worker and employer profiles.
     const [completedGigs, reviews] = await Promise.all([
       supabaseAdmin

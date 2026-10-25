@@ -229,12 +229,18 @@ export interface AdminDashboardStats {
   total_users: number;
   total_workers: number;
   total_employers: number;
+  /** Staff accounts, so the three role counts add up to total_users. */
+  total_admins: number;
   total_gigs: number;
   open_gigs: number;
   in_progress_gigs: number;
+  completed_gigs: number;
+  cancelled_gigs: number;
   total_applications: number;
   active_escrow_amount: number;
   total_released_amount: number;
+  /** Disputes waiting on an administrator — a queue, not a statistic. */
+  disputed_escrow_count: number;
   total_platform_revenue: number;
 }
 

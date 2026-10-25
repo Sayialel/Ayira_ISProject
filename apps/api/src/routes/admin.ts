@@ -42,8 +42,19 @@ adminRouter.get(
     const db = supabaseAdmin;
     const headCount = { count: 'exact', head: true } as const;
 
-    const [users, workers, employers, gigs, openGigs, inProgress, applications, escrow] =
-      await Promise.all([
+    const [
+      users,
+      workers,
+      employers,
+      gigs,
+      openGigs,
+      inProgress,
+      applications,
+      escrow,
+      admins,
+      completedGigs,
+      cancelledGigs,
+    ] = await Promise.all([
         db.from('users').select('id', headCount),
         db.from('users').select('id', headCount).eq('role', 'worker'),
         db.from('users').select('id', headCount).eq('role', 'employer'),
@@ -52,6 +63,14 @@ adminRouter.get(
         db.from('gigs').select('id', headCount).eq('status', 'in_progress'),
         db.from('applications').select('id', headCount),
         db.from('escrow').select('amount, released_amount, status'),
+        // Added because the people figures did not reconcile: 49 workers plus
+        // 26 employers against a total of 76 left one account unexplained on
+        // screen, and the unexplained account was the administrator reading it.
+        db.from('users').select('id', headCount).eq('role', 'admin'),
+        // Completed and cancelled, for the same reason on the work figures:
+        // total 105 against 102 open and 0 in progress left 3 unaccounted.
+        db.from('gigs').select('id', headCount).eq('status', 'completed'),
+        db.from('gigs').select('id', headCount).eq('status', 'cancelled'),
       ]);
 
     assertNoDbError(escrow.error, 'Failed to load escrow totals');
@@ -73,20 +92,32 @@ adminRouter.get(
       0
     );
 
+    // Counted rather than derived from the list above, which is paginated.
+    const { count: disputed } = await db
+      .from('escrow')
+      .select('id', headCount)
+      .eq('status', 'disputed');
+
     res.json({
       data: {
         total_users: users.count ?? 0,
         total_workers: workers.count ?? 0,
         total_employers: employers.count ?? 0,
+        total_admins: admins.count ?? 0,
         total_gigs: gigs.count ?? 0,
         open_gigs: openGigs.count ?? 0,
         in_progress_gigs: inProgress.count ?? 0,
+        completed_gigs: completedGigs.count ?? 0,
+        cancelled_gigs: cancelledGigs.count ?? 0,
         total_applications: applications.count ?? 0,
         // A split escrow is settled, not active -- the money has left. It was
         // counted here while partial_release could never be reached, which was
         // harmless then and would overstate funds held now.
         active_escrow_amount: sumWhere(['funded', 'disputed']),
         total_released_amount: totalReleased,
+        // The one figure on this page that is a queue rather than a statistic:
+        // a disputed escrow holds money and only an administrator can clear it.
+        disputed_escrow_count: disputed ?? 0,
         // No commission is charged yet, so platform revenue is reported as zero
         // rather than implied from transaction volume.
         total_platform_revenue: 0,

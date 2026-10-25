@@ -44,6 +44,11 @@ export default function Profile() {
 
   const suggestions = (categories ?? []).flatMap((c) => c.skills);
 
+  // An administrator is staff, not a participant: they are never matched to a
+  // gig and never reviewed, so the parts of this page about being hireable do
+  // not apply to them.
+  const isStaff = profile?.role === 'admin';
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     setSaveError(null);
@@ -101,17 +106,27 @@ export default function Profile() {
               <BadgeCheck size={20} className="text-ayira-600" aria-label="Verified" />
             )}
           </h1>
-          <p className="text-sm capitalize text-gray-500">
-            {profile.role} · rating {Number(profile.reputation_score ?? 0).toFixed(2)}
+          {/*
+            An administrator has no rating and no public profile. Nobody
+            reviews staff, so reputation_score is 0.00 for them permanently --
+            printing it said "rating 0.00" next to the name of the person
+            reading it, which looks like a bad score rather than an absent one.
+          */}
+          <p className="text-sm capitalize text-slate-500">
+            {isStaff
+              ? 'Administrator · platform staff'
+              : `${profile.role} · rating ${Number(profile.reputation_score ?? 0).toFixed(2)}`}
           </p>
         </div>
-        <Link
-          to={`/app/users/${profile.id}`}
-          className="inline-flex shrink-0 items-center gap-1 text-sm text-ayira-700 hover:underline"
-        >
-          Public view
-          <ExternalLink size={14} />
-        </Link>
+        {!isStaff && (
+          <Link
+            to={`/app/users/${profile.id}`}
+            className="inline-flex shrink-0 items-center gap-1 text-sm text-ayira-700 hover:underline"
+          >
+            Public view
+            <ExternalLink size={14} />
+          </Link>
+        )}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -196,21 +211,27 @@ export default function Profile() {
           </p>
         </div>
 
-        <div>
-          <label htmlFor="skills" className="mb-1 block text-sm font-medium text-gray-700">
-            Skills
-          </label>
-          <SkillsInput
-            id="skills"
-            value={skills}
-            onChange={setSkills}
-            suggestions={suggestions}
-            max={30}
-          />
-          <p className="mt-2 text-xs text-gray-400">
-            Your skills and bio are what the AI matcher scores gigs against.
-          </p>
-        </div>
+        {/*
+          Skills drive the matcher, and staff are never matched to anything.
+          Offering the field implied an administrator was a candidate for work.
+        */}
+        {!isStaff && (
+          <div>
+            <label htmlFor="skills" className="mb-1 block text-sm font-medium text-slate-700">
+              Skills
+            </label>
+            <SkillsInput
+              id="skills"
+              value={skills}
+              onChange={setSkills}
+              suggestions={suggestions}
+              max={30}
+            />
+            <p className="mt-2 text-xs text-slate-400">
+              Your skills and bio are what the AI matcher scores gigs against.
+            </p>
+          </div>
+        )}
 
         <button
           type="submit"
