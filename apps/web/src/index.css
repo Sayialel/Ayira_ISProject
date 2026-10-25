@@ -6,11 +6,30 @@
   :root {
     /* Tabular figures wherever money or counts are compared down a column. */
     font-variant-numeric: tabular-nums;
+
+    /* The shuka weave reads these, so the woven strip re-colours with the
+       theme instead of hard-coding four hex values at each call site. */
+    --shuka-a: #b8402a;
+    --shuka-b: #1c1814;
+    --shuka-c: #cf8f22;
+  }
+
+  /* A darker weave, for use on light sections where the default would glare. */
+  .weave-deep {
+    --shuka-a: #9a3222;
+    --shuka-b: #2c2721;
+    --shuka-c: #b2741a;
   }
 
   body {
-    @apply font-sans;
+    @apply bg-slate-50 font-sans text-slate-800;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Headings carry the display face; body text stays on Plus Jakarta Sans,
+     which is the more legible of the two at small sizes. */
+  h1, h2, h3, h4 {
+    @apply font-display;
   }
 
   /* Headings get tighter tracking; at display sizes the default looks loose. */

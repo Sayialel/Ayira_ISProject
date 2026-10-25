@@ -96,7 +96,9 @@ export function Card({
   return (
     <div
       className={`rounded-xl border border-slate-200 bg-white shadow-card ${
-        interactive ? 'transition-all hover:border-ayira-200 hover:shadow-lift' : ''
+        interactive
+          ? 'transition-all duration-150 hover:-translate-y-0.5 hover:border-ayira-300 hover:shadow-lift active:translate-y-0'
+          : ''
       } ${className}`}
     >
       {children}
