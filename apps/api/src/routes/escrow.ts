@@ -38,7 +38,16 @@ const ESCROW_WITH_PARTIES = `${ESCROW_FIELDS}, gig:gigs!gig_id(id, title, status
 const fundSchema = z.object({
   gig_id: uuid,
   worker_id: uuid,
-  amount: z.number().positive('Amount must be greater than zero').max(500_000),
+  // Whole shillings. Daraja's STK endpoint rejects decimals, so the service
+  // rounds on the way out -- which means a request for 100.40 opened an escrow
+  // recording 100.40 and asked M-Pesa for 100. The row then held a figure
+  // nobody had paid. Refusing the decimal here keeps escrow.amount and the
+  // sum actually charged the same number.
+  amount: z
+    .number()
+    .int('Enter a whole number of shillings — M-Pesa cannot charge cents')
+    .positive('Amount must be greater than zero')
+    .max(500_000),
   phone: z.string().trim().min(9).max(20).optional(),
 });
 

@@ -216,7 +216,7 @@ export default function CreateGig() {
               id="budget_min"
               type="number"
               min={1}
-              step={100}
+              step={1}
               value={budgetMin}
               onChange={(e) => setBudgetMin(e.target.value)}
               className={inputClass}
@@ -230,7 +230,7 @@ export default function CreateGig() {
               id="budget_max"
               type="number"
               min={1}
-              step={100}
+              step={1}
               value={budgetMax}
               onChange={(e) => setBudgetMax(e.target.value)}
               className={inputClass}

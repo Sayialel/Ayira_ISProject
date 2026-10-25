@@ -415,7 +415,7 @@ function ApplyForm({ gigId, onApplied }: { gigId: string; onApplied: () => void 
           id="proposed_amount"
           type="number"
           min={1}
-          step={100}
+          step={1}
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"

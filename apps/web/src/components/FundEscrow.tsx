@@ -113,11 +113,23 @@ export default function FundEscrow({
           <label htmlFor="escrow_amount" className="mb-1.5 block text-sm font-medium text-slate-700">
             Amount (KES)
           </label>
+          {/*
+            step is 1, not 100. A number input treats step as an offset from
+            min, so min={1} with step={100} made 1, 101, 201 ... the only
+            valid amounts: everything from 2 to 100 was rejected, and no even
+            amount was ever accepted. It looked like a sensible rounding nudge
+            and was in fact a filter that excluded almost every figure an
+            employer would type.
+
+            1 rather than 0.01 because Daraja's STK endpoint takes whole
+            shillings, so a cents figure would be rounded on the way out and
+            the employer would be charged something they never entered.
+          */}
           <input
             id="escrow_amount"
             type="number"
             min={1}
-            step={100}
+            step={1}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className={inputClass}
