@@ -437,12 +437,55 @@ during development, so "untouched holdout" would be an overclaim.
 **5. Scale.** 47 profiles, 104 gigs, 25 employers. Confidence intervals are
 wide and will stay wide at this size.
 
-**6. `CANDIDATE_POOL = 200` has never been evaluated.** If the vector pre-filter
-drops a relevant gig, no amount of re-ranking recovers it. That is an unmeasured
-recall ceiling, and the existing harness could measure it.
+**6. `CANDIDATE_POOL = 200` is 20x larger than anything measurable here.**
+Now evaluated (`20261025T123721Z__retrieval-validation__e04d74f`):
 
-**7. No recency or pay signal.** A gig posted three months ago ranks level with
-one posted today, and pay does not enter the ranking at all.
+| Shortlist | NDCG@10 | vs exhaustive |
+|---|---|---|
+| 3 | 0.7547 | **-0.1430** |
+| 5 | 0.7940 | **-0.1038** |
+| 10 | 0.8992 | +0.0015 |
+| 15, 20, 30, all 104 | 0.8977 | - |
+
+Quality saturates at a shortlist of **10**. Below that it degrades sharply.
+
+Two honest readings, and give both:
+
+- **200 cannot be validated on this corpus at all.** The catalogue is 104 gigs,
+  so a pool of 200 never truncates anything -- it is exactly equivalent to
+  exhaustive scoring here. The measurement is of the *mechanism*, not of 200.
+- **The shortlist is by semantic similarity alone**, so what saturates at 10
+  over 104 gigs is ~10% of the catalogue. 200 over a 10,000-gig catalogue is
+  ~2%. Whether that proportion still holds is untested, and it is the reason
+  to keep the pool generous rather than cut it to 10.
+
+The +0.0015 at pool 10 is noise, not a gain: a smaller shortlist can
+accidentally exclude a gig the composite would have mis-ranked above a relevant
+one.
+
+**7. Recency and pay cannot be added yet, and the reason is the data, not the
+code.** Measured on the live database and the corpus:
+
+- `gigs` has **no rate type and no pay period** -- only `budget_min`,
+  `budget_max`, `currency`. So hourly, daily and fixed-price work are
+  indistinguishable, and a pay signal would rank a monthly salary above a day
+  rate as though they were comparable numbers.
+- `users` has **no pay expectation field**, so "gigs that meet the worker's
+  requirements" has nothing to compare against.
+- All 105 gigs were seeded **within 63 minutes of each other**, and the
+  evaluation corpus has **no date field at all**. A recency signal therefore has
+  zero variance: it would shift every candidate's score by the same amount and
+  could not reorder anything.
+
+That last point matters most, because it is exactly the bug the tuner already
+guards against. `rank_invariant_signals` caught the worker's-own-reputation
+term for the same reason, and it would catch recency immediately. Adding the
+signal now would mean shipping a weight on something that provably cannot
+change a ranking.
+
+What it needs first: a `rate_type` column on gigs, a pay expectation on users,
+gigs with genuinely spread `created_at` values, and a date on corpus gigs so
+the harness can score it.
 
 ---
 

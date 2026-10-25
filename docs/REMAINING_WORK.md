@@ -114,30 +114,53 @@ quantified and documented; make sure it is in the limitations section.
 
 ## 3. Measurable with existing tooling
 
-### 3.1 Evaluate `CANDIDATE_POOL = 200`
+### 3.1 ~~Evaluate `CANDIDATE_POOL = 200`~~ — **done**
 
-Retrieval pulls 200 nearest gigs and re-ranks only those. If the vector
-pre-filter drops a relevant gig, no amount of re-ranking recovers it — an
-**unmeasured recall ceiling**. `eval/retrieval_eval.py` already exists and
-could sweep the pool size against recall. A short run, and a genuinely good
-thing to have a figure for.
+Run `20261025T123721Z__retrieval-validation__e04d74f`. Quality saturates at a
+shortlist of **10**: NDCG@10 of 0.8992 against 0.8977 for exhaustive scoring,
+and sharp degradation below that (−0.104 at 5, −0.143 at 3).
 
-### 3.2 Recency and pay as ranking signals
+**But 200 itself is untestable here**, because the catalogue is 104 gigs so a
+pool of 200 never truncates. Keep it generous rather than cutting it to 10: the
+shortlist is by semantic similarity alone, and 10-of-104 is ~10% of the
+catalogue where 200-of-10,000 would be ~2%. Whether the proportion holds at
+scale is the open question, and it needs a bigger catalogue, not a better
+script. Full table in `docs/AI_MATCHING_ENGINE.md` §7.
 
-A gig posted three months ago ranks level with one posted today, and pay does
-not enter the ranking at all. Both are things workers demonstrably care about,
-and neither needs new labels to justify as a product decision. Adding them
-means a fifth and sixth term in `composite_score` plus the columns in
-`nearest_open_gigs`.
+### 3.2 Recency and pay — **blocked on schema and data, not on code**
 
-### 3.3 Surface `ai_match_logs`
+Worth stating as a finding rather than a to-do, because the product questions
+cannot be answered yet:
 
-58 rows of per-signal scores for every match ever served — semantic, tfidf,
-location affinity, composite. `GET /api/match/history` works and returns them;
-**nothing in the web app calls it.** This is the only record of what the system
-recommended in real use, and the strongest available route to an *online*
-evaluation to set beside the offline metrics. Deliberately kept rather than
-deleted as an orphan. One page would do it.
+| Question | Why it cannot be answered |
+|---|---|
+| Compare hourly, daily and fixed-price gigs? | `gigs` has **no rate type or pay period** — only `budget_min`/`budget_max`/`currency`. The three are indistinguishable. |
+| Prioritise pay, or enforce a worker's minimum? | `users` has **no pay expectation field**. There is nothing to compare a budget against. |
+| Should older gigs decay? | All 105 gigs were seeded **within 63 minutes**, and the eval corpus has **no date field at all**. |
+
+The recency one is the decisive objection. With no spread in `created_at`,
+recency has **zero variance** — it would shift every candidate by the same
+amount and could not reorder anything. That is precisely the defect
+`rank_invariant_signals` was built to catch after the worker's-own-reputation
+term did the same thing, and the tuner would reject it immediately.
+
+Implementing it now would mean shipping a weight on a signal that provably
+cannot change a ranking. **Prerequisites:** a `rate_type` column on gigs, a pay
+expectation on users, gigs with real spread in `created_at`, and a date on
+corpus gigs so the harness can score it.
+
+### 3.3 ~~Surface `ai_match_logs`~~ — **done**
+
+`/app/matches/history`, linked from AI Matches. Shows each recommended gig, the
+combined score and the three signals behind it, with the location tier named
+rather than printed as 0.45.
+
+**Still outstanding, and this is the part that matters:** it is not an online
+evaluation. That needs outcomes — whether the worker opened the
+recommendation, applied, was accepted, completed the gig — and none are
+collected. Those events also need care in interpretation: an application is not
+proof the recommendation was good, and no application is not proof it was bad.
+Collecting them is the next real step toward an online figure.
 
 ---
 

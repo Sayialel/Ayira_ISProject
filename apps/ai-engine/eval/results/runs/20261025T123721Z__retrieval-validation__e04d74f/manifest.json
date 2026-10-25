@@ -1,0 +1,57 @@
+{
+  "run_id": "20261025T123721Z__retrieval-validation__e04d74f",
+  "name": "retrieval-validation",
+  "started_at": "2026-10-25T12:37:21.183496+00:00",
+  "finished_at": "2026-10-25T12:37:33.226445+00:00",
+  "git": {
+    "commit": "e04d74f4dbb9ebba0cb0052c49164e37213d001d",
+    "short_commit": "e04d74f",
+    "branch": "main",
+    "dirty": true,
+    "uncommitted_files": 1,
+    "uncommitted_paths": [
+      "CHAPTER5_SOURCE.md"
+    ]
+  },
+  "dataset_version": "6ac4675ae766",
+  "seeds": {
+    "split": 20261018
+  },
+  "parameters": {
+    "split": "validation",
+    "pool_sizes": [
+      3,
+      5,
+      10,
+      15,
+      20,
+      30,
+      "exhaustive"
+    ],
+    "weights": {
+      "semantic": 0.72,
+      "tfidf": 0.22,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "metric": "ndcg_at_10",
+    "tfidf_fitted_on": "train"
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": ""
+}
