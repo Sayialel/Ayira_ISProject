@@ -1,0 +1,8 @@
+{
+  "//": "This package was typed but never typechecked: it had no tsconfig, so neither app's check reached it and `tsc -p` had nothing to point at.",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src/**/*"]
+}

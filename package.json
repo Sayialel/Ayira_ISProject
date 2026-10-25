@@ -16,7 +16,10 @@
     "build:web": "npm run build --workspace=apps/web",
     "build": "npm run build:api && npm run build:web",
     "lint": "eslint . --ext .ts,.tsx",
-    "db:types": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > packages/shared/src/database.types.ts"
+    "db:types": "supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > packages/shared/src/database.types.ts",
+    "test": "npm run test --workspace=apps/api && npm run test --workspace=apps/web",
+    "test:py": "cd apps/ai-engine && python -m pytest tests -q",
+    "typecheck": "npm run typecheck --workspace=apps/api && npm run typecheck --workspace=apps/web && tsc --noEmit -p packages/shared/tsconfig.json"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",

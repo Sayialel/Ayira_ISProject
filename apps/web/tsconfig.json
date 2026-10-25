@@ -6,5 +6,7 @@
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "//": "Tests are typechecked by tsconfig.test.json, not built into dist.",
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
 }

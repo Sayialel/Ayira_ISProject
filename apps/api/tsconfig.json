@@ -4,7 +4,10 @@
     "outDir": "dist",
     "rootDir": "src",
     "module": "CommonJS",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["node", "vitest/globals"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "//": "Tests are typechecked by tsconfig.test.json, not compiled into dist.",
+  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"]
 }
