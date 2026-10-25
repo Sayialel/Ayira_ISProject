@@ -27,9 +27,15 @@
   }
 
   /* Headings carry the display face; body text stays on Plus Jakarta Sans,
-     which is the more legible of the two at small sizes. */
+     which is the more legible of the two at small sizes.
+
+     theme() rather than @apply font-display. Both read the same config, but
+     @apply needs the *utility* to have been generated, so a dev server holding
+     a cached config from before the family existed fails the whole stylesheet
+     with "the font-display class does not exist". theme() resolves the value
+     directly and cannot fail that way. */
   h1, h2, h3, h4 {
-    @apply font-display;
+    font-family: theme('fontFamily.display');
   }
 
   /* Headings get tighter tracking; at display sizes the default looks loose. */
