@@ -1,0 +1,90 @@
+name: CI
+
+# The repository had 106 Python tests and nothing that ran them, so a commit
+# that broke one was only discovered by someone running pytest locally and
+# remembering to look. The institutional workflow for this project pushes
+# through GitHub on the way to Colab, which makes this the natural place to
+# check.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # So a run can be triggered by hand when a dependency changes underneath us
+  # rather than because the code did.
+  workflow_dispatch:
+
+# A new push supersedes the run in progress for the same branch; there is no
+# value in finishing a check against code that has already been replaced.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typescript:
+    name: TypeScript — typecheck, build, test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      # ci rather than install: it installs exactly what package-lock.json
+      # pins, so a run cannot pass against a version nobody has committed.
+      - run: npm ci
+
+      # Typecheck before test. A type error is the cheaper failure to read,
+      # and reporting it first saves waiting for a suite that cannot compile.
+      - name: Typecheck (api, web, shared)
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      # The apps are typechecked above; this proves they also emit, which is
+      # the thing a type-only check can still let through.
+      - name: Build
+        run: npm run build
+
+  python:
+    name: Python — matching engine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          # Matches the version the engine is developed and evaluated on.
+          # A different minor can change floating-point summation order and
+          # move a metric in the fourth decimal place, which would make a
+          # reported figure unreproducible rather than merely different.
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            apps/ai-engine/requirements.txt
+            apps/ai-engine/requirements-eval.txt
+
+      - name: Install dependencies
+        working-directory: apps/ai-engine
+        # Both files, because the eval harness is what the tests exercise and
+        # several of them import it.
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-eval.txt
+
+      # The pins matter here: numpy was silently upgraded past 1.26.4 once by
+      # installing matplotlib, which changes results. Failing loudly beats
+      # discovering it in a metric.
+      - name: Check the pinned versions resolved
+        working-directory: apps/ai-engine
+        run: pip check
+
+      - name: Test
+        working-directory: apps/ai-engine
+        # No network and no database: every test in this suite is meant to run
+        # on fixtures. One that needs Supabase would hang here, which is the
+        # right outcome -- it would mean the test is not the unit test it
+        # claims to be.
+        run: python -m pytest tests -q
