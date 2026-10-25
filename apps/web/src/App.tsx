@@ -24,6 +24,7 @@ const CreateGig = lazy(() => import('@/pages/CreateGig'));
 const MyGigs = lazy(() => import('@/pages/MyGigs'));
 const MyApplications = lazy(() => import('@/pages/MyApplications'));
 const AIMatches = lazy(() => import('@/pages/AIMatches'));
+const MatchHistory = lazy(() => import('@/pages/MatchHistory'));
 const EscrowPage = lazy(() => import('@/pages/Escrow'));
 const Profile = lazy(() => import('@/pages/Profile'));
 const PublicProfile = lazy(() => import('@/pages/PublicProfile'));
@@ -162,6 +163,7 @@ export default function App() {
               <Route path="my-gigs" element={<Lazy><MyGigs /></Lazy>} />
               <Route path="applications" element={<Lazy><MyApplications /></Lazy>} />
               <Route path="matches" element={<Lazy><AIMatches /></Lazy>} />
+              <Route path="matches/history" element={<Lazy><MatchHistory /></Lazy>} />
               <Route path="escrow" element={<Lazy><EscrowPage /></Lazy>} />
               <Route path="profile" element={<Lazy><Profile /></Lazy>} />
               <Route path="users/:id" element={<Lazy><PublicProfile /></Lazy>} />

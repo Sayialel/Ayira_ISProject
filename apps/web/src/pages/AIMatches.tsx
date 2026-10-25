@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, MapPin, Wifi } from 'lucide-react';
+import { Sparkles, MapPin, Wifi, History } from 'lucide-react';
 import { apiFetch } from '@/lib/api';
 import {
   EmptyState,
@@ -51,14 +51,26 @@ export default function AIMatches() {
 
   return (
     <div>
-      <div className="mb-5">
-        <h1 className="flex items-center gap-2 text-2xl font-bold">
-          <Sparkles size={22} className="text-ayira-600" />
-          AI matches
-        </h1>
-        <p className="mt-1 text-sm text-gray-500">
-          Open gigs ranked against your skills, bio, location and reputation.
-        </p>
+      <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="flex items-center gap-2 font-display text-2xl font-bold text-slate-900">
+            <Sparkles size={22} className="text-ayira-600" aria-hidden />
+            AI matches
+          </h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Open gigs ranked against your skills, bio, location and reputation.
+          </p>
+        </div>
+
+        {/* Secondary view of this same feature, so it belongs here rather than
+            as a seventh item in a six-item bottom bar. */}
+        <Link
+          to="/app/matches/history"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+        >
+          <History size={15} aria-hidden />
+          History
+        </Link>
       </div>
 
       <div className="mb-5 flex flex-wrap items-center gap-3">

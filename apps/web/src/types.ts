@@ -330,3 +330,36 @@ export interface AdminEscrowDetail {
   escrow: AdminEscrow;
   events: EscrowEventRow[];
 }
+
+/**
+ * One row of ai_match_logs: a gig the matcher recommended, and the score
+ * breakdown it produced at the time.
+ *
+ * The gig is nullable because a log row outlives the gig it points at — the
+ * table is kept for analysis, so a removed gig leaves the scores behind.
+ * location_affinity is nullable because the column was added in migration 020
+ * and rows written before it have no value.
+ */
+export interface MatchLog {
+  id: string;
+  worker_id: string;
+  gig_id: string;
+  semantic_score: number | null;
+  tfidf_score: number | null;
+  location_affinity: number | null;
+  composite_score: number | null;
+  created_at: string;
+  gig: {
+    id: string;
+    title: string;
+    category: string;
+    status: GigStatus;
+    budget_min: number | null;
+    budget_max: number | null;
+    currency: string | null;
+  } | null;
+}
+
+export interface MatchHistoryResponse extends Paginated {
+  logs: MatchLog[];
+}
