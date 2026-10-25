@@ -126,6 +126,12 @@ export interface Escrow {
   status: EscrowStatus;
   funded_at: string | null;
   released_at: string | null;
+  /**
+   * What the worker was paid: equal to `amount` on a full release, less than
+   * it on a split, and null while nothing has been paid out. The employer's
+   * refund on a split is `amount - released_amount`.
+   */
+  released_amount: number | null;
   created_at: string;
   gig?: { id: string; title: string; status: GigStatus } | null;
   employer?: { id: string; full_name: string; avatar_url: string | null } | null;

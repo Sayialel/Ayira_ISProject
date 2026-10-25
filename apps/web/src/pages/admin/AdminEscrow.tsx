@@ -28,9 +28,19 @@ const TABS: { label: string; value: EscrowStatus | 'all' }[] = [
   { label: 'Awaiting payment', value: 'pending' },
   { label: 'Funded', value: 'funded' },
   { label: 'Released', value: 'released' },
+  { label: 'Split', value: 'partial_release' },
   { label: 'Refunded', value: 'refunded' },
   { label: 'Cancelled', value: 'cancelled' },
 ];
+
+/** The three ways an administrator can settle a dispute. */
+type DisputeOutcome = 'released' | 'refunded' | 'partial_release';
+
+const SETTLED_MESSAGE: Record<DisputeOutcome, string> = {
+  released: 'Payment released to the worker.',
+  refunded: 'Payment refunded to the employer.',
+  partial_release: 'Payment split between the worker and the employer.',
+};
 
 export default function AdminEscrow() {
   usePageTitle('Admin · payments');
@@ -244,10 +254,19 @@ function EscrowDetail({
   onResolved: () => void;
 }) {
   const { data, loading, error, refetch } = useApi<AdminEscrowDetail>(`/admin/escrow/${id}`);
-  const [outcome, setOutcome] = useState<'released' | 'refunded' | null>(null);
+  const [outcome, setOutcome] = useState<DisputeOutcome | null>(null);
   const [reason, setReason] = useState('');
+  // Kept as the typed string rather than a number so a half-finished entry
+  // like "1" or "12." does not get coerced and re-rendered under the cursor.
+  const [workerAmount, setWorkerAmount] = useState('');
   const [busy, setBusy] = useState(false);
   const toast = useToast();
+
+  const total = Number(data?.escrow?.amount ?? 0);
+  const split = outcome === 'partial_release';
+  const toWorker = Number(workerAmount);
+  const splitValid =
+    Number.isInteger(toWorker) && toWorker > 0 && toWorker < total;
 
   async function resolve() {
     if (!outcome) return;
@@ -255,15 +274,23 @@ function EscrowDetail({
       toast.error('Give a reason of at least 10 characters.');
       return;
     }
+    if (split && !splitValid) {
+      toast.error(`Enter an amount for the worker between 0 and ${total.toLocaleString()}.`);
+      return;
+    }
     setBusy(true);
     try {
       await apiFetch(`/admin/escrow/${id}/resolve`, {
         method: 'POST',
-        body: JSON.stringify({ outcome, reason: reason.trim() }),
+        body: JSON.stringify({
+          outcome,
+          reason: reason.trim(),
+          // Only sent for a split. The gateway rejects an amount on the other
+          // two outcomes rather than ignoring it.
+          ...(split ? { worker_amount: toWorker } : {}),
+        }),
       });
-      toast.success(
-        outcome === 'released' ? 'Payment released to the worker.' : 'Payment refunded to the employer.'
-      );
+      toast.success(SETTLED_MESSAGE[outcome]);
       onResolved();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Could not settle the dispute');
@@ -299,11 +326,12 @@ function EscrowDetail({
         <div className="rounded-lg border border-amber-200 bg-amber-50/60 p-3">
           <p className="mb-2 text-sm font-medium text-gray-800">Settle this dispute</p>
           <p className="mb-3 text-xs text-gray-600">
-            Releasing pays the worker; refunding returns the money to the employer.
-            This cannot be undone, and the reason is recorded against the transaction.
+            Releasing pays the worker in full, refunding returns everything to the
+            employer, and splitting divides it between them. This cannot be undone,
+            and the reason is recorded against the transaction.
           </p>
 
-          <div className="mb-3 flex gap-2">
+          <div className="mb-3 flex flex-wrap gap-2">
             <Choice
               label="Release to worker"
               active={outcome === 'released'}
@@ -314,7 +342,52 @@ function EscrowDetail({
               active={outcome === 'refunded'}
               onClick={() => setOutcome('refunded')}
             />
+            <Choice
+              label="Split"
+              active={split}
+              onClick={() => setOutcome('partial_release')}
+            />
           </div>
+
+          {split && (
+            <div className="mb-3 rounded-lg border border-amber-200 bg-white p-3">
+              <label
+                htmlFor={`worker-amount-${id}`}
+                className="block text-xs font-medium text-gray-700"
+              >
+                Pay the worker
+              </label>
+              <div className="mt-1.5 flex items-center gap-2">
+                <span className="text-sm text-gray-500">KES</span>
+                <input
+                  id={`worker-amount-${id}`}
+                  type="number"
+                  inputMode="numeric"
+                  min={1}
+                  max={total}
+                  step={1}
+                  value={workerAmount}
+                  onChange={(e) => setWorkerAmount(e.target.value)}
+                  className="w-32 rounded-lg border border-gray-200 px-2.5 py-1.5 text-sm focus:border-ayira-400 focus:outline-none focus:ring-2 focus:ring-ayira-100"
+                />
+                <span className="text-xs text-gray-400">of {total.toLocaleString()}</span>
+              </div>
+
+              {/* Shown live, because the figure the administrator cares about
+                  is the one they are not typing. */}
+              {workerAmount !== '' && (
+                <p
+                  className={`mt-2 text-xs ${splitValid ? 'text-gray-600' : 'text-red-600'}`}
+                >
+                  {splitValid
+                    ? `Worker gets KES ${toWorker.toLocaleString()}, employer is refunded KES ${(
+                        total - toWorker
+                      ).toLocaleString()}.`
+                    : `Enter a whole number above 0 and below ${total.toLocaleString()} — paying all of it is a release, and none of it is a refund.`}
+                </p>
+              )}
+            </div>
+          )}
 
           <textarea
             value={reason}
@@ -328,7 +401,7 @@ function EscrowDetail({
           <button
             type="button"
             onClick={resolve}
-            disabled={busy || !outcome}
+            disabled={busy || !outcome || (split && !splitValid)}
             className="inline-flex items-center gap-2 rounded-lg bg-ayira-600 px-4 py-2 text-sm font-medium text-white hover:bg-ayira-700 disabled:opacity-50"
           >
             {busy && <Spinner />}

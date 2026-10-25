@@ -50,18 +50,27 @@ adminRouter.get(
         db.from('gigs').select('id', headCount).eq('status', 'open'),
         db.from('gigs').select('id', headCount).eq('status', 'in_progress'),
         db.from('applications').select('id', headCount),
-        db.from('escrow').select('amount, status'),
+        db.from('escrow').select('amount, released_amount, status'),
       ]);
 
     assertNoDbError(escrow.error, 'Failed to load escrow totals');
 
     const escrowRows = escrow.data ?? [];
+
+    /** Money the platform is still holding, by status. */
     const sumWhere = (statuses: string[]) =>
       escrowRows
         .filter((row) => statuses.includes(row.status))
         .reduce((total, row) => total + Number(row.amount ?? 0), 0);
 
-    const totalReleased = sumWhere(['released']);
+    // Everything that has actually reached a worker, which is released_amount
+    // on both a full release and a split. Summing `amount` over status
+    // 'released' alone -- as this did while partial_release was unreachable --
+    // would now miss every split and overstate the ones it did count.
+    const totalReleased = escrowRows.reduce(
+      (total, row) => total + Number(row.released_amount ?? 0),
+      0
+    );
 
     res.json({
       data: {
@@ -72,7 +81,10 @@ adminRouter.get(
         open_gigs: openGigs.count ?? 0,
         in_progress_gigs: inProgress.count ?? 0,
         total_applications: applications.count ?? 0,
-        active_escrow_amount: sumWhere(['funded', 'disputed', 'partial_release']),
+        // A split escrow is settled, not active -- the money has left. It was
+        // counted here while partial_release could never be reached, which was
+        // harmless then and would overstate funds held now.
+        active_escrow_amount: sumWhere(['funded', 'disputed']),
         total_released_amount: totalReleased,
         // No commission is charged yet, so platform revenue is reported as zero
         // rather than implied from transaction volume.
@@ -190,7 +202,8 @@ adminRouter.get(
 
 const ESCROW_ADMIN_FIELDS =
   'id, gig_id, employer_id, worker_id, amount, currency, mpesa_checkout_id, ' +
-  'mpesa_receipt, status, funded_at, released_at, created_at, updated_at';
+  'mpesa_receipt, status, funded_at, released_at, released_amount, ' +
+  'created_at, updated_at';
 
 const ESCROW_ADMIN_WITH_PARTIES =
   ESCROW_ADMIN_FIELDS +
@@ -212,18 +225,41 @@ const escrowListQuerySchema = paginationSchema.extend({
     .optional(),
 });
 
-const resolveSchema = z.object({
-  // Release pays the worker, refund returns the money to the employer. There
-  // is no third option: either the work was delivered or it was not.
-  outcome: z.enum(['released', 'refunded']),
-  // Required, and written onto the escrow event. A decision that moves
-  // someone's money should not be recordable without a reason attached.
-  reason: z
-    .string()
-    .trim()
-    .min(10, 'Give a reason of at least 10 characters')
-    .max(1000),
-});
+const resolveSchema = z
+  .object({
+    // Release pays the worker in full, refund returns everything to the
+    // employer, and partial_release splits it -- which is what a dispute over
+    // half-finished work actually needs.
+    outcome: z.enum(['released', 'refunded', 'partial_release']),
+    // Required, and written onto the escrow event. A decision that moves
+    // someone's money should not be recordable without a reason attached.
+    reason: z
+      .string()
+      .trim()
+      .min(10, 'Give a reason of at least 10 characters')
+      .max(1000),
+    // What the worker is paid, for a split only. Whole shillings, matching the
+    // funding side: a split is a figure that has to be payable over M-Pesa,
+    // and M-Pesa cannot move cents. A 1000 escrow split in thirds therefore
+    // settles at 333/667 rather than recording a 333.33 nobody can transfer.
+    worker_amount: z
+      .number()
+      .int('Enter a whole number of shillings — M-Pesa cannot pay cents')
+      .positive('The worker must be paid more than zero')
+      .optional(),
+  })
+  .refine((v) => v.outcome !== 'partial_release' || v.worker_amount !== undefined, {
+    message: 'A split needs the amount to pay the worker',
+    path: ['worker_amount'],
+  })
+  // Rejected rather than ignored. Sending an amount with a full release or a
+  // refund means the caller believes it will be honoured, and silently
+  // dropping it is how someone ends up thinking they split an escrow they
+  // actually released in full.
+  .refine((v) => v.outcome === 'partial_release' || v.worker_amount === undefined, {
+    message: 'An amount only applies to a split',
+    path: ['worker_amount'],
+  });
 
 // GET /api/admin/escrow — every transaction on the platform
 adminRouter.get(
@@ -312,6 +348,11 @@ adminRouter.post(
       p_actor_id: userId,
       p_to_status: body.outcome,
       p_detail: `Dispute resolved by an administrator: ${body.reason}`,
+      // null rather than undefined: supabase-js omits undefined keys, and the
+      // function would then take its own default, which is the same NULL --
+      // but being explicit means a renamed parameter fails loudly here instead
+      // of quietly passing no amount at all.
+      p_amount: body.worker_amount ?? null,
     });
 
     if (error) {
@@ -364,11 +405,16 @@ adminRouter.post(
 
     // Refused rather than silently stranding money: cancelling a gig whose
     // escrow still holds funds would leave that escrow pointing at dead work.
+    //
+    // partial_release is not in this list. A split has already paid both sides
+    // and holds nothing, so it strands no money -- and listing it here would
+    // make a gig that was split while not in_progress permanently
+    // un-cancellable, with no way for an administrator to tidy it up.
     const { data: live, error: escrowError } = await supabaseAdmin
       .from('escrow')
       .select('id, status')
       .eq('gig_id', parsed.data)
-      .in('status', ['pending', 'funded', 'disputed', 'partial_release']);
+      .in('status', ['pending', 'funded', 'disputed']);
 
     assertNoDbError(escrowError, 'Failed to check escrow on this gig');
     if ((live ?? []).length > 0) {

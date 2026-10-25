@@ -83,6 +83,8 @@ export type EscrowRow = {
   status: EscrowStatus;
   funded_at: string | null;
   released_at: string | null;
+  /** What the worker was paid; see the column comment in migration 024. */
+  released_amount: number | null;
   created_at: string;
   updated_at: string;
 }
