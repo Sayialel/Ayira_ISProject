@@ -1,5 +1,6 @@
-import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Briefcase, User, LogOut, Sparkles, FileText, Plus, LayoutList, Wallet, ShieldCheck, Users } from 'lucide-react';
+import { AyiraMark, ShukaWeave } from '@/components/patterns';
 import { useAuth } from '@/hooks/useAuth';
 
 interface NavItem {
@@ -41,6 +42,7 @@ const ADMIN_NAV: NavItem[] = [
 export default function Layout() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const role = (user?.user_metadata?.role as string) ?? 'worker';
   const navItems =
     role === 'admin' ? ADMIN_NAV : role === 'employer' ? EMPLOYER_NAV : WORKER_NAV;
@@ -51,11 +53,14 @@ export default function Layout() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
-      <header className="sticky top-0 z-10 border-b border-gray-200 bg-white px-4 py-3">
-        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4">
-          <Link to="/app" className="text-xl font-bold text-ayira-700">
-            Ayira
+    <div className="flex min-h-screen flex-col bg-slate-50">
+      <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 backdrop-blur">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 py-2.5">
+          <Link to="/app" className="flex items-center gap-2.5">
+            <AyiraMark size={28} />
+            <span className="font-display text-xl font-bold tracking-tight text-slate-900">
+              Ayira
+            </span>
           </Link>
 
           {/* Desktop navigation */}
@@ -66,51 +71,81 @@ export default function Layout() {
                 to={to}
                 end={end}
                 className={({ isActive }) =>
-                  `inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                  `relative inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                     isActive
                       ? 'bg-ayira-50 text-ayira-700'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                   }`
                 }
               >
-                <Icon size={16} />
-                {label}
+                {({ isActive }) => (
+                  <>
+                    <Icon size={16} aria-hidden />
+                    {label}
+                    {/* A woven underline on the active item, so the theme
+                        carries into the chrome rather than stopping at the
+                        landing page. */}
+                    {isActive && (
+                      <ShukaWeave
+                        className="absolute inset-x-2 -bottom-[7px] rounded-full"
+                        height={3}
+                      />
+                    )}
+                  </>
+                )}
               </NavLink>
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
-            <span className="hidden text-sm capitalize text-gray-500 sm:inline">{role}</span>
+          <div className="flex items-center gap-2">
+            <span className="hidden rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold capitalize text-slate-600 sm:inline">
+              {role === 'admin' ? 'Staff' : role}
+            </span>
             <button
+              type="button"
               onClick={handleSignOut}
               aria-label="Sign out"
-              className="text-gray-400 transition hover:text-gray-600"
+              className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
             >
-              <LogOut size={20} />
+              <LogOut size={18} aria-hidden />
             </button>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl flex-1 p-4 pb-20 md:pb-4">
-        <Outlet />
+      {/* key on the pathname so each route fades in rather than snapping. */}
+      <main className="mx-auto w-full max-w-5xl flex-1 p-4 pb-24 md:pb-6">
+        <div key={location.pathname} className="animate-fade-in">
+          <Outlet />
+        </div>
       </main>
 
-      {/* Bottom nav (mobile) */}
-      <nav className="fixed inset-x-0 bottom-0 z-10 flex justify-around border-t border-gray-200 bg-white py-2 md:hidden">
+      {/* Bottom nav (mobile). pb-safe-ish padding keeps it clear of the home
+          indicator on phones that have one. */}
+      <nav className="fixed inset-x-0 bottom-0 z-20 flex justify-around border-t border-slate-200 bg-white/95 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden">
         {navItems.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}
             end={end}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-0.5 px-2 text-xs transition ${
-                isActive ? 'text-ayira-600' : 'text-gray-500 hover:text-ayira-600'
+              `flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1 text-[11px] font-medium transition-colors ${
+                isActive ? 'text-ayira-700' : 'text-slate-500'
               }`
             }
           >
-            <Icon size={20} />
-            <span>{label}</span>
+            {({ isActive }) => (
+              <>
+                <span
+                  className={`flex h-7 w-10 items-center justify-center rounded-full transition-all duration-150 ${
+                    isActive ? 'bg-ayira-50' : 'bg-transparent'
+                  }`}
+                >
+                  <Icon size={18} aria-hidden />
+                </span>
+                <span>{label}</span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

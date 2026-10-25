@@ -2,8 +2,21 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import GoogleButton, { OrDivider } from '@/components/GoogleButton';
+import AuthShell, { authButton, authInput } from '@/components/AuthShell';
+import { Spinner, usePageTitle } from '@/components/ui';
 
+/**
+ * Signing in.
+ *
+ * No role question here, deliberately. A returning account already has one,
+ * and asking would invite someone to try to change it -- which
+ * confirm_user_role refuses anyway. A brand-new account arriving by Google on
+ * this page is still handled: RequireRole asks on the other side. See
+ * App.tsx.
+ */
 export default function SignIn() {
+  usePageTitle('Sign in to Ayira');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,35 +31,76 @@ export default function SignIn() {
     try {
       await signIn(email, password);
       navigate('/app');
-    } catch (err: any) {
-      setError(err.message || 'Sign in failed');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Sign in failed');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-sm bg-white rounded-xl shadow-sm border p-6">
-        <h2 className="text-2xl font-bold text-center mb-6">Sign In to Ayira</h2>
-        {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
-        <GoogleButton label="Sign in with Google" />
-        <OrDivider />
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ayira-500" required />
-          <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ayira-500" required />
-          <button type="submit" disabled={loading}
-            className="w-full bg-ayira-600 text-white py-2 rounded-lg font-medium hover:bg-ayira-700 disabled:opacity-50">
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
-        <p className="text-center text-sm text-gray-500 mt-4">
-          No account? <Link to="/signup" className="text-ayira-600 hover:underline">Sign up</Link>
+    <AuthShell
+      title="Welcome back"
+      subtitle="Sign in to see your gigs and payments."
+      footer={
+        <>
+          New to Ayira?{' '}
+          <Link to="/signup" className="font-semibold text-ayira-700 hover:underline">
+            Create an account
+          </Link>
+        </>
+      }
+    >
+      {error && (
+        <p
+          role="alert"
+          className="mb-4 rounded-lg border border-ayira-200 bg-ayira-50 px-3 py-2 text-sm text-ayira-800"
+        >
+          {error}
         </p>
-      </div>
-    </div>
+      )}
+
+      <GoogleButton label="Sign in with Google" />
+      <OrDivider />
+
+      <form onSubmit={handleSubmit} className="space-y-3.5">
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-slate-700">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={authInput}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-slate-700">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            autoComplete="current-password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={authInput}
+            required
+          />
+        </div>
+
+        <button type="submit" disabled={loading} className={authButton}>
+          {loading && <Spinner />}
+          {loading ? 'Signing in…' : 'Sign in'}
+        </button>
+      </form>
+    </AuthShell>
   );
 }
