@@ -23,8 +23,9 @@
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
+    "eslint": "^9.0.0",
     "typescript": "^5.5.0",
-    "eslint": "^9.0.0"
+    "wrangler": "^3.114.14"
   },
   "engines": {
     "node": ">=20.0.0"

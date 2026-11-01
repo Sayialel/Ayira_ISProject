@@ -3,6 +3,18 @@ uvicorn[standard]==0.30.6
 pydantic==2.9.1
 pydantic-settings==2.5.2
 supabase==2.7.2
+# torch is pinned to the CPU build, and pinned at all, for two reasons.
+#
+# It arrives as a sentence-transformers dependency, so it was unpinned: a
+# Linux build pulled the default PyPI wheel, which bundles the CUDA runtime --
+# gigabytes of GPU libraries on a host that has no GPU. The CPU wheel is a
+# fraction of the size.
+#
+# The version also matters. Every reported metric was produced on 2.14.0+cpu,
+# and a different build can change floating-point summation order enough to
+# move a figure in the fourth decimal place.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.0+cpu
 sentence-transformers==3.0.1
 scikit-learn==1.5.1
 numpy==1.26.4
