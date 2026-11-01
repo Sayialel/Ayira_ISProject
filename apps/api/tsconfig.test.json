@@ -1,7 +1,10 @@
 {
-  "//": "Typechecks the tests, which the build tsconfig deliberately excludes.",
+  "//": "Typechecks the tests, which the build config deliberately excludes.",
   "extends": "./tsconfig.json",
-  "compilerOptions": { "noEmit": true },
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node", "vitest/globals"]
+  },
   "include": ["src/**/*"],
   "exclude": []
 }

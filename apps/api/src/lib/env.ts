@@ -47,7 +47,12 @@ export const env = {
   supabaseUrl: process.env.SUPABASE_URL as string,
   supabaseAnonKey: process.env.SUPABASE_ANON_KEY as string,
   supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY as string,
-  apiPort: Number(process.env.API_PORT || 3001),
+  // PORT first: Render, Railway, Fly, Heroku and Cloud Run all inject it,
+  // and a service that ignores it binds a port the host is not routing to
+  // and is reported as unhealthy with nothing obviously wrong in the log.
+  // API_PORT stays for local use, where the three services need distinct
+  // ports and the convention is already in .env.
+  apiPort: Number(process.env.PORT || process.env.API_PORT || 3001),
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
   aiEngineUrl: process.env.AI_ENGINE_URL || 'http://localhost:8001',
   // Shared secret presented to the AI engine on every call. Not in
