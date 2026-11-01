@@ -4,7 +4,9 @@
     "outDir": "dist",
     "rootDir": "src",
     "module": "CommonJS",
-    "moduleResolution": "node",
+    // "node10" is the explicit name for what used to be "node". Spelling it
+    // out means a compiler that drops the old alias still understands this.
+    "moduleResolution": "node10",
     "types": ["node", "vitest/globals"]
   },
   "include": ["src/**/*"],
