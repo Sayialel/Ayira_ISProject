@@ -1,0 +1,6 @@
+2026-11-01T09:02:43.448713+00:00  run 20261101T090243Z__baselines-test__2fb9f06 started
+2026-11-01T09:02:43.448713+00:00  NOTE: this reads the test split. It is the final figure, not a development one — do not tune against it.
+2026-11-01T09:02:43.448713+00:00  test: 9 profiles x 104 gigs, 121 graded pairs
+2026-11-01T09:02:43.448713+00:00  splits: 29 train / 9 validation / 9 test  (by profile)
+2026-11-01T09:02:43.448713+00:00  dataset version 6ac4675ae766
+2026-11-01T09:03:07.999356+00:00  run 20261101T090243Z__baselines-test__2fb9f06 finished

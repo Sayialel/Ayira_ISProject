@@ -71,6 +71,88 @@ CATEGORY_MAP: dict[str, str] = {
     "4312": "Business",     # Statistical, Finance and Insurance Clerks
     "4313": "Business",     # Payroll Clerks
     "4416": "Business",     # Personnel Clerks
+
+    # -----------------------------------------------------------------------
+    # Second pass, 2026-11-01: widening the corpus
+    # -----------------------------------------------------------------------
+    #
+    # The first pass mapped 47 of the 337 occupations the parser extracts,
+    # which left the evaluation with 47 profiles and a test split of 9. A
+    # bootstrap over 9 profiles gives a 95% interval about 0.12 wide, so no
+    # difference smaller than that can be resolved -- which is why the
+    # composite and semantic-only baselines cannot be told apart.
+    #
+    # These additions apply the same rule as the first pass: work that is
+    # actually transacted on a Kenyan digital gig platform, meaning it can be
+    # delivered remotely or as a discrete piece. Nothing here is new taxonomy
+    # -- it is the same KeSCO-2022 source, read further.
+    #
+    # Deliberately still excluded, and the reason matters more than the list:
+    # clinical and nursing occupations (physical presence and licensure),
+    # trades such as electricians and plumbers (physical presence; real gig
+    # work in Kenya, but not under this platform's five categories),
+    # agriculture, mining, transport, protective services, and in-person
+    # retail and hospitality. Admitting those would widen the corpus with work
+    # the platform does not serve, which would flatter the metrics rather than
+    # improve them.
+
+    # --- Technology: IT operations, networks, and engineering design -------
+    "2542": "Technology",   # AI/ML Professionals
+    "1330": "Technology",   # ICT Services Managers
+    "3511": "Technology",   # ICT Operations Technicians
+    "3512": "Technology",   # ICT User Support Technicians
+    "3513": "Technology",   # Computer Network Systems Technicians
+    "3522": "Technology",   # Telecommunications Engineering Technicians
+    "2163": "Technology",   # Telecommunications Engineers
+    "2162": "Technology",   # Electronics Engineers
+    # Engineering drafting and design is among the most common freelance
+    # categories, and is deliverable as a file.
+    "2151": "Technology",   # Civil Engineers
+    "2152": "Technology",   # Mechanical Engineers
+    "2161": "Technology",   # Electrical Engineers
+    "2157": "Technology",   # Other Engineering Professionals
+    "3113": "Technology",   # Electrical Engineering Technicians
+    "3114": "Technology",   # Electronics Engineering Technicians
+    "3115": "Technology",   # Mechanical Engineering Technicians
+    "3119": "Technology",   # Other Physical and Engineering Science Technicians
+
+    # --- Writing: teaching material, research text, transcription ----------
+    "2310": "Writing",      # University and College Lecturers
+    "2320": "Writing",      # Vocational Education and Training Teachers
+    "2351": "Writing",      # Education Methods Specialists
+    "2357": "Writing",      # Other Teaching Professionals
+    "2633": "Writing",      # Philosophers, Historians and Political Scientists
+    "4413": "Writing",      # Coding, Proof Reading and Related Clerks
+    "4414": "Writing",      # Scribes and Related Workers
+
+    # --- Design: architecture, media production, voice ---------------------
+    "2171": "Design",       # Architects and Town Planners
+    "2656": "Design",       # Announcers on Radio, Television and Other Media
+    "1432": "Design",       # Theatre and Media Production Managers
+    "3435": "Design",       # Other Artistic and Cultural Associate Professionals
+
+    # --- Marketing ---------------------------------------------------------
+    "2433": "Marketing",    # Technical and Medical Sales Professionals
+    "5244": "Marketing",    # Contact Centre Salespersons
+
+    # --- Business: professional services, research, admin support ----------
+    "2413": "Business",     # Financial Analysts
+    "2422": "Business",     # Policy Administration Professionals
+    "2611": "Business",     # Lawyers
+    "2613": "Business",     # Other Legal Professionals
+    "2631": "Business",     # Economists
+    "2632": "Business",     # Sociologists, Anthropologists and Related
+    "2621": "Business",     # Archivists and Curators
+    "1213": "Business",     # Policy and Planning Managers
+    "1223": "Business",     # Research Planning and Development Managers
+    "1420": "Business",     # Micro and Small Enterprise Managers
+    "1434": "Business",     # Other Business Service Managers
+    "4110": "Business",     # General Office Clerks
+    "4221": "Business",     # Travel Consultants and Clerks
+    "4228": "Business",     # Other Client Information Workers
+    "4415": "Business",     # Filing and Copying Clerks
+    "4417": "Business",     # Other Clerical Workers
+
 }
 
 # Where a KeSCO title is a formal classification label rather than something a

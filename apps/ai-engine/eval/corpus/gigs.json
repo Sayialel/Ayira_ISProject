@@ -12,8 +12,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 21100,
-    "budget_max": 40800,
+    "budget_min": 4000,
+    "budget_max": 7800,
     "employer_id": "e-03",
     "employer_reputation": 4.5,
     "employer_review_count": 2
@@ -29,13 +29,51 @@
       "Personnel",
       "Procedures"
     ],
-    "location": "Nakuru",
+    "location": "Nairobi",
     "is_remote": false,
-    "budget_min": 26700,
-    "budget_max": 51600,
+    "budget_min": 21300,
+    "budget_max": 41100,
     "employer_id": "e-06",
     "employer_reputation": 4.47,
     "employer_review_count": 40
+  },
+  {
+    "id": "g-1213-1",
+    "kesco_code": "1213",
+    "title": "Policy and Planning Manager needed — planning, organizing and controlling the general",
+    "description": "We are looking for someone to take on planning, organizing and controlling the general administration of the orga nization.",
+    "category": "Business",
+    "required_skills": [
+      "Policy Planning Manager",
+      "General Administration",
+      "Research Activities"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 4200,
+    "budget_max": 8100,
+    "employer_id": "e-07",
+    "employer_reputation": 4.0,
+    "employer_review_count": 2
+  },
+  {
+    "id": "g-1213-2",
+    "kesco_code": "1213",
+    "title": "Policy and Planning Manager needed — planning, co-ordinating and directing research",
+    "description": "We are looking for someone to take on planning, co-ordinating and directing research activities.",
+    "category": "Business",
+    "required_skills": [
+      "Policy Planning Manager",
+      "General Administration",
+      "Research Activities"
+    ],
+    "location": "Kericho",
+    "is_remote": false,
+    "budget_min": 3100,
+    "budget_max": 5900,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-1221-1",
@@ -48,10 +86,10 @@
       "Special Sales",
       "Price Lists Discount"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 68300,
-    "budget_max": 132000,
+    "location": "Thika",
+    "is_remote": false,
+    "budget_min": 10000,
+    "budget_max": 19300,
     "employer_id": "e-04",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -67,10 +105,10 @@
       "Special Sales",
       "Price Lists Discount"
     ],
-    "location": "Nakuru",
-    "is_remote": false,
-    "budget_min": 3600,
-    "budget_max": 6900,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 3200,
+    "budget_max": 6200,
     "employer_id": "e-04",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -86,10 +124,10 @@
       "Public Relations Activities",
       "Negotiations"
     ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 13400,
-    "budget_max": 25800,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 10700,
+    "budget_max": 20600,
     "employer_id": "e-18",
     "employer_reputation": 4.06,
     "employer_review_count": 34
@@ -105,13 +143,203 @@
       "Public Relations Activities",
       "Negotiations"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 8300,
-    "budget_max": 16100,
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2400,
+    "budget_max": 3500,
     "employer_id": "e-14",
     "employer_reputation": 4.42,
     "employer_review_count": 19
+  },
+  {
+    "id": "g-1223-1",
+    "kesco_code": "1223",
+    "title": "Research Planning and Development Manager needed — planning, directing and coordinating research and",
+    "description": "We are looking for someone to take on planning, directing and coordinating research and development activities to develop new or improved technical process es, products and knowledge.",
+    "category": "Business",
+    "required_skills": [
+      "Research Planning Development",
+      "Research",
+      "Overall Research"
+    ],
+    "location": "Kakamega",
+    "is_remote": false,
+    "budget_min": 10600,
+    "budget_max": 20500,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-1223-2",
+    "kesco_code": "1223",
+    "title": "Research Planning and Development Manager needed — planning the overall research and development",
+    "description": "We are looking for someone to take on planning the overall research and development programme of an organization, specifying goals and budgetary requirements.",
+    "category": "Business",
+    "required_skills": [
+      "Research Planning Development",
+      "Research",
+      "Overall Research"
+    ],
+    "location": "Kilifi",
+    "is_remote": false,
+    "budget_min": 2400,
+    "budget_max": 3500,
+    "employer_id": "e-15",
+    "employer_reputation": 4.25,
+    "employer_review_count": 24
+  },
+  {
+    "id": "g-1330-1",
+    "kesco_code": "1330",
+    "title": "Information and Communication Technology Services Manager needed — consulting with users, management, vendors and",
+    "description": "We are looking for someone to take on consulting with users, management, vendors and technicians to assess computing needs and system requirements, and specifying technology to meet those needs. The work also covers formulating and directing information and communication technology (ICT) strategies, policies and plans. The work also covers directing the selection and installation and use of computing equipment and software.",
+    "category": "Technology",
+    "required_skills": [
+      "Information Communication Technology",
+      "Information",
+      "Selection"
+    ],
+    "location": "Ruiru",
+    "is_remote": false,
+    "budget_min": 25900,
+    "budget_max": 50100,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
+  },
+  {
+    "id": "g-1330-2",
+    "kesco_code": "1330",
+    "title": "Information and Communication Technology Services Manager needed — provision of user training",
+    "description": "We are looking for someone to take on provision of user training. The work also covers directing ICT operations, analysing workflow, establishing priorities. The work also covers maintaining work and quality control.",
+    "category": "Technology",
+    "required_skills": [
+      "Information Communication Technology",
+      "Information",
+      "Selection"
+    ],
+    "location": "Machakos",
+    "is_remote": false,
+    "budget_min": 4700,
+    "budget_max": 9100,
+    "employer_id": "e-21",
+    "employer_reputation": 4.25,
+    "employer_review_count": 20
+  },
+  {
+    "id": "g-1420-1",
+    "kesco_code": "1420",
+    "title": "Micro and Small Enterprise Manager needed — planning, organizing, coordinating and controlling",
+    "description": "We are looking for someone to take on planning, organizing, coordinating and controlling the operations of the micro and small enterprises. The work also covers ensuring the display and sale of merchandise.",
+    "category": "Business",
+    "required_skills": [
+      "Micro Small Enterprise",
+      "Operations",
+      "Display"
+    ],
+    "location": "Machakos",
+    "is_remote": false,
+    "budget_min": 7100,
+    "budget_max": 13700,
+    "employer_id": "e-08",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-1420-2",
+    "kesco_code": "1420",
+    "title": "Micro and Small Enterprise Manager needed — making budgetary estimates",
+    "description": "We are looking for someone to take on making budgetary estimates. The work also covers negotiates with suppliers and customers including credit, quality and discount terms.",
+    "category": "Business",
+    "required_skills": [
+      "Micro Small Enterprise",
+      "Operations",
+      "Display"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2400,
+    "budget_max": 4300,
+    "employer_id": "e-13",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-1432-1",
+    "kesco_code": "1432",
+    "title": "Theatre and Media Production Manager needed — reading Manuscripts of new works and selects those",
+    "description": "We are looking for someone to take on reading Manuscripts of new works and selects those for presentation. The work also covers arranges financing of production.",
+    "category": "Design",
+    "required_skills": [
+      "Theatre Media Production",
+      "Manuscripts",
+      "Arranges Financing"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 9100,
+    "budget_max": 17600,
+    "employer_id": "e-12",
+    "employer_reputation": 4.11,
+    "employer_review_count": 35
+  },
+  {
+    "id": "g-1432-2",
+    "kesco_code": "1432",
+    "title": "Theatre and Media Production Manager needed — selects stage directors and technical personnel",
+    "description": "We are looking for someone to take on selects stage directors and technical personnel, conducting audition and selecting cast in consultation with stage directors. The work also covers planning details of production activities in terms of output, quality and quantity, cost, time and other resources available and material requirement.",
+    "category": "Design",
+    "required_skills": [
+      "Theatre Media Production",
+      "Manuscripts",
+      "Arranges Financing"
+    ],
+    "location": "Nyeri",
+    "is_remote": false,
+    "budget_min": 9000,
+    "budget_max": 17400,
+    "employer_id": "e-04",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-1434-1",
+    "kesco_code": "1434",
+    "title": "Other Business Service Manager needed — formulating general policy direction and management",
+    "description": "We are looking for someone to take on formulating general policy direction and management of the centre.",
+    "category": "Business",
+    "required_skills": [
+      "Business Service Manager",
+      "General Policy Direction",
+      "Preparation"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 3400,
+    "budget_max": 6700,
+    "employer_id": "e-06",
+    "employer_reputation": 4.47,
+    "employer_review_count": 40
+  },
+  {
+    "id": "g-1434-2",
+    "kesco_code": "1434",
+    "title": "Other Business Service Manager needed — preparation and management budget for operations",
+    "description": "We are looking for someone to take on preparation and management budget for operations.",
+    "category": "Business",
+    "required_skills": [
+      "Business Service Manager",
+      "General Policy Direction",
+      "Preparation"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2400,
+    "budget_max": 3500,
+    "employer_id": "e-13",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2120-1",
@@ -124,10 +352,10 @@
       "Mathematical Actuarial",
       "Logical Analyses"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 7900,
-    "budget_max": 15300,
+    "location": "Kikuyu",
+    "is_remote": false,
+    "budget_min": 2500,
+    "budget_max": 4900,
     "employer_id": "e-05",
     "employer_reputation": 4.07,
     "employer_review_count": 15
@@ -145,11 +373,273 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 5100,
-    "budget_max": 9900,
+    "budget_min": 5000,
+    "budget_max": 9700,
     "employer_id": "e-09",
     "employer_reputation": 4.16,
     "employer_review_count": 25
+  },
+  {
+    "id": "g-2151-1",
+    "kesco_code": "2151",
+    "title": "Civil Engineer needed — conducting research and developing new or improved",
+    "description": "We are looking for someone to take on conducting research and developing new or improved theories and methods related to civil eng ineering.",
+    "category": "Technology",
+    "required_skills": [
+      "Civil Engineer",
+      "Research",
+      "Construction Methods Materials"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 5400,
+    "budget_max": 10400,
+    "employer_id": "e-25",
+    "employer_reputation": 4.75,
+    "employer_review_count": 4
+  },
+  {
+    "id": "g-2151-2",
+    "kesco_code": "2151",
+    "title": "Civil Engineer needed — advising on and designing structures and buildings",
+    "description": "We are looking for someone to take on advising on and designing structures and buildings, bridges, dams, docks, roads, airports, railways, canals, pipelines, waste-disposal and flood-control systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Civil Engineer",
+      "Research",
+      "Construction Methods Materials"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 21700,
+    "budget_max": 42000,
+    "employer_id": "e-18",
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-2152-1",
+    "kesco_code": "2152",
+    "title": "Mechanical Engineers and Technologist needed — advising on and designing machinery and tools for",
+    "description": "We are looking for someone to take on advising on and designing machinery and tools for manufacturing, mining, construction, agricultural, and other industrial purposes. The work also covers advising on and designing steam, internal combustion and other non-electric motors and engines used for propulsion of railway locomotives, road vehicles or aircraft, or for driving industrial or other machinery.",
+    "category": "Technology",
+    "required_skills": [
+      "Mechanical Engineers Technologist",
+      "Mechanical Plant"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 7100,
+    "budget_max": 13700,
+    "employer_id": "e-24",
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-2152-2",
+    "kesco_code": "2152",
+    "title": "Mechanical Engineers and Technologist needed — advising on and designing: hulls, superstructures and",
+    "description": "We are looking for someone to take on advising on and designing: hulls, superstructures and propulsion systems of ships. The work also covers mechanical plant and equipment for the release, control and utilization of energy.",
+    "category": "Technology",
+    "required_skills": [
+      "Mechanical Engineers Technologist",
+      "Mechanical Plant"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 18500,
+    "budget_max": 35700,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-2157-1",
+    "kesco_code": "2157",
+    "title": "Other Engineering Professional needed — designing, testing, and coordinating the development",
+    "description": "We are looking for someone to take on designing, testing, and coordinating the development of explosive ordnance material to meet military procurement specifications.",
+    "category": "Technology",
+    "required_skills": [
+      "Engineering Professional",
+      "Development",
+      "Construction"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 5400,
+    "budget_max": 10400,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
+  },
+  {
+    "id": "g-2157-2",
+    "kesco_code": "2157",
+    "title": "Other Engineering Professional needed — designing and overseeing construction and operation",
+    "description": "We are looking for someone to take on designing and overseeing construction and operation of nuclear reactors and power plants and nuclear fuels reprocessing and reclamation systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Engineering Professional",
+      "Development",
+      "Construction"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 5000,
+    "budget_max": 9600,
+    "employer_id": "e-03",
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
+  },
+  {
+    "id": "g-2161-1",
+    "kesco_code": "2161",
+    "title": "Electrical Engineer needed — advising on and designing power stations and systems",
+    "description": "We are looking for someone to take on advising on and designing power stations and systems which generate , transmit and distribute electrical power.",
+    "category": "Technology",
+    "required_skills": [
+      "Electrical Engineer",
+      "Operation"
+    ],
+    "location": "Malindi",
+    "is_remote": false,
+    "budget_min": 7000,
+    "budget_max": 13500,
+    "employer_id": "e-01",
+    "employer_reputation": 4.31,
+    "employer_review_count": 13
+  },
+  {
+    "id": "g-2161-2",
+    "kesco_code": "2161",
+    "title": "Electrical Engineer needed — supervising, controlling and monitoring the operation",
+    "description": "We are looking for someone to take on supervising, controlling and monitoring the operation of electrical generation, transmission and distribution systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Electrical Engineer",
+      "Operation"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 9000,
+    "budget_max": 17300,
+    "employer_id": "e-03",
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
+  },
+  {
+    "id": "g-2162-1",
+    "kesco_code": "2162",
+    "title": "Electronics Engineer needed — advising on and designing electronic devices or",
+    "description": "We are looking for someone to take on advising on and designing electronic devices or components, circuits, semi-conductors and systems. The work also covers specifying production or installation methods, materials and quality standards and directing production or installation work of electronic products and systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Electronics Engineer",
+      "Production",
+      "Control Standards"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-06",
+    "employer_reputation": 4.47,
+    "employer_review_count": 40
+  },
+  {
+    "id": "g-2162-2",
+    "kesco_code": "2162",
+    "title": "Electronics Engineer needed — establishing control standards and procedures to",
+    "description": "We are looking for someone to take on establishing control standards and procedures to ensure efficient functioning and safety of electronic systems, motors and equipment. The work also covers organising and directing maintenance and repair of existing electronic systems and equipment.",
+    "category": "Technology",
+    "required_skills": [
+      "Electronics Engineer",
+      "Production",
+      "Control Standards"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 13700,
+    "budget_max": 26500,
+    "employer_id": "e-09",
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-2163-1",
+    "kesco_code": "2163",
+    "title": "Telecommunications Engineer needed — advising on and designing telecommunications devices",
+    "description": "We are looking for someone to take on advising on and designing telecommunications devices or components, syste ms, equipment and distribution centers.",
+    "category": "Technology",
+    "required_skills": [
+      "Telecommunications Engineer",
+      "Production",
+      "Maintenance"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-2163-2",
+    "kesco_code": "2163",
+    "title": "Telecommunications Engineer needed — specifying production or installation methods",
+    "description": "We are looking for someone to take on specifying production or installation methods, materials, quality and safety standards and directing production or installation work of telecommunications products and systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Telecommunications Engineer",
+      "Production",
+      "Maintenance"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2900,
+    "budget_max": 5700,
+    "employer_id": "e-04",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-2171-1",
+    "kesco_code": "2171",
+    "title": "Architects and Town Planner needed — developing new or improved architectural theories and",
+    "description": "We are looking for someone to take on developing new or improved architectural theories and methods. The work also covers inspecting sites and consulting clients, management and other stakeholders to determine ty pe, style and size of proposed buildings and alterations to existing buildings.",
+    "category": "Design",
+    "required_skills": [
+      "Architects Town Planner",
+      "Sites",
+      "Information Regarding Designs"
+    ],
+    "location": "Thika",
+    "is_remote": false,
+    "budget_min": 4300,
+    "budget_max": 8400,
+    "employer_id": "e-14",
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
+  },
+  {
+    "id": "g-2171-2",
+    "kesco_code": "2171",
+    "title": "Architects and Town Planner needed — providing information regarding designs, materials",
+    "description": "We are looking for someone to take on providing information regarding designs, materials and estimated building times. The work also covers preparing project documentation, including sketches and scale drawings, and integrating structu ral, mechanical and aesthetic elements in final designs.",
+    "category": "Design",
+    "required_skills": [
+      "Architects Town Planner",
+      "Sites",
+      "Information Regarding Designs"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3700,
+    "employer_id": "e-20",
+    "employer_reputation": 4.0,
+    "employer_review_count": 12
   },
   {
     "id": "g-2172-1",
@@ -181,12 +671,126 @@
       "Land Surfac Es",
       "Exact Position"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 3800,
-    "budget_max": 7400,
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 8700,
+    "budget_max": 16900,
     "employer_id": "e-07",
     "employer_reputation": 4.0,
+    "employer_review_count": 2
+  },
+  {
+    "id": "g-2310-1",
+    "kesco_code": "2310",
+    "title": "University and College Lecturer needed — designing and modifying curricula and preparing",
+    "description": "We are looking for someone to take on designing and modifying curricula and preparing courses of study in accordance with requirements. The work also covers preparing and delivering lectures and conducting tutorials, seminars and laboratory experiments. The work also covers stimulating discussion and independent thought among students.",
+    "category": "Writing",
+    "required_skills": [
+      "University College Lecturer",
+      "Curricula",
+      "Lectures"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 8500,
+    "budget_max": 16400,
+    "employer_id": "e-02",
+    "employer_reputation": 4.22,
+    "employer_review_count": 36
+  },
+  {
+    "id": "g-2310-2",
+    "kesco_code": "2310",
+    "title": "University and College Lecturer needed — supervising, where appropriate, experimental and",
+    "description": "We are looking for someone to take on supervising, where appropriate, experimental and practical work undertaken by students. The work also covers administering, evaluating and marking examination papers and tests. The work also covers directing research of post-graduate students or other members of department.",
+    "category": "Writing",
+    "required_skills": [
+      "University College Lecturer",
+      "Curricula",
+      "Lectures"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 3700,
+    "budget_max": 7100,
+    "employer_id": "e-09",
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-2320-1",
+    "kesco_code": "2320",
+    "title": "Vocational Education and Training Teacher needed — developing curricula and planning course content and",
+    "description": "We are looking for someone to take on developing curricula and planning course content and methods of instruction. The work also covers determining training needs of students or workers and liaising with individuals, industry and other education sectors to ensure provision of relevant education and training programs.",
+    "category": "Writing",
+    "required_skills": [
+      "Vocational Education Training",
+      "Curricula",
+      "Needs"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 4100,
+    "budget_max": 7900,
+    "employer_id": "e-05",
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
+  },
+  {
+    "id": "g-2320-2",
+    "kesco_code": "2320",
+    "title": "Vocational Education and Training Teacher needed — presenting lectures and conducting discussions to",
+    "description": "We are looking for someone to take on presenting lectures and conducting discussions to increase students' knowledge and competence. The work also covers instructing and monitoring students in the use of tools, equipment and materials and the prevention of injury and damage.",
+    "category": "Writing",
+    "required_skills": [
+      "Vocational Education Training",
+      "Curricula",
+      "Needs"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 11000,
+    "budget_max": 21200,
+    "employer_id": "e-05",
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
+  },
+  {
+    "id": "g-2351-1",
+    "kesco_code": "2351",
+    "title": "Education Methods Specialist needed — researching into current developments in curricula",
+    "description": "We are looking for someone to take on researching into current developments in curricula, teaching methods and other educational practices, and advising on necessary changes and possible improvements. The work also covers evaluating and advising on contents of courses and methods of examination.",
+    "category": "Writing",
+    "required_skills": [
+      "Education Methods Specialist",
+      "Subjects",
+      "Professional Development Training"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 26100,
+    "budget_max": 50400,
+    "employer_id": "e-24",
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-2351-2",
+    "kesco_code": "2351",
+    "title": "Education Methods Specialist needed — researching into audio-visual and other teaching aids",
+    "description": "We are looking for someone to take on researching into audio-visual and other teaching aids and advising on, planning and organising their introduction in educational establishments. The work also covers documenting subjects and courses developed, and evaluating new courses.",
+    "category": "Writing",
+    "required_skills": [
+      "Education Methods Specialist",
+      "Subjects",
+      "Professional Development Training"
+    ],
+    "location": "Kakamega",
+    "is_remote": false,
+    "budget_min": 6100,
+    "budget_max": 11800,
+    "employer_id": "e-03",
+    "employer_reputation": 4.5,
     "employer_review_count": 2
   },
   {
@@ -200,10 +804,10 @@
       "Level",
       "Lessons"
     ],
-    "location": "Kisumu",
-    "is_remote": false,
-    "budget_min": 2600,
-    "budget_max": 5100,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 8600,
+    "budget_max": 16700,
     "employer_id": "e-14",
     "employer_reputation": 4.42,
     "employer_review_count": 19
@@ -221,8 +825,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 4700,
-    "budget_max": 9100,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-20",
     "employer_reputation": 4.0,
     "employer_review_count": 12
@@ -238,10 +842,10 @@
       "Instructional Training Material",
       "Development Programs"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 2500,
-    "budget_max": 4900,
+    "location": "Kisii",
+    "is_remote": false,
+    "budget_min": 3900,
+    "budget_max": 7500,
     "employer_id": "e-07",
     "employer_reputation": 4.0,
     "employer_review_count": 2
@@ -259,11 +863,49 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "budget_min": 37800,
+    "budget_max": 73100,
     "employer_id": "e-04",
     "employer_reputation": 0.0,
     "employer_review_count": 0
+  },
+  {
+    "id": "g-2357-1",
+    "kesco_code": "2357",
+    "title": "Other Teaching Professional needed — assessing students’ level of ability and determining",
+    "description": "We are looking for someone to take on assessing students’ level of ability and determining learning needs. The work also covers planning, preparing and delivering programs of study, lessons and workshops for individual students and groups.",
+    "category": "Writing",
+    "required_skills": [
+      "Teaching Professional",
+      "Students Level",
+      "Programs"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-18",
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-2357-2",
+    "kesco_code": "2357",
+    "title": "Other Teaching Professional needed — preparing and presenting material on the theory of",
+    "description": "We are looking for someone to take on preparing and presenting material on the theory of the subject area being studied. The work also covers instructing and demonstrating practical aspects of the subject area being studied.",
+    "category": "Writing",
+    "required_skills": [
+      "Teaching Professional",
+      "Students Level",
+      "Programs"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2900,
+    "budget_max": 5600,
+    "employer_id": "e-06",
+    "employer_reputation": 4.47,
+    "employer_review_count": 40
   },
   {
     "id": "g-2411-1",
@@ -276,10 +918,10 @@
       "Budgetary Accounts Controlling",
       "Financial Statements"
     ],
-    "location": "Machakos",
-    "is_remote": false,
-    "budget_min": 5700,
-    "budget_max": 11100,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 25000,
+    "budget_max": 48400,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
@@ -295,10 +937,10 @@
       "Budgetary Accounts Controlling",
       "Financial Statements"
     ],
-    "location": "Kilifi",
-    "is_remote": false,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2900,
+    "budget_max": 5700,
     "employer_id": "e-21",
     "employer_reputation": 4.25,
     "employer_review_count": 20
@@ -316,8 +958,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2600,
-    "budget_max": 5000,
+    "budget_min": 4700,
+    "budget_max": 9100,
     "employer_id": "e-23",
     "employer_reputation": 4.33,
     "employer_review_count": 12
@@ -333,13 +975,51 @@
       "Client Base",
       "Clients"
     ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 9400,
+    "budget_max": 18200,
     "employer_id": "e-18",
     "employer_reputation": 4.06,
     "employer_review_count": 34
+  },
+  {
+    "id": "g-2413-1",
+    "kesco_code": "2413",
+    "title": "Financial Analyst needed — analysing financial information to produce forecasts",
+    "description": "We are looking for someone to take on analysing financial information to produce forecasts of business, industry and economic conditions for use in making investment decisions. The work also covers maintaining knowledge and staying abreast of developments in the fields of industrial technology, business, finance and economic theory.",
+    "category": "Business",
+    "required_skills": [
+      "Financial Analyst",
+      "Financial Information",
+      "Knowledge"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-07",
+    "employer_reputation": 4.0,
+    "employer_review_count": 2
+  },
+  {
+    "id": "g-2413-2",
+    "kesco_code": "2413",
+    "title": "Financial Analyst needed — interpreting data affecting investment programmes",
+    "description": "We are looking for someone to take on interpreting data affecting investment programmes such as price, yield, stability, future trends in investment risks and economic influences. The work also covers monitoring economic, industrial and corporate developments through analysis of information obtained from financial publications and services, investment banking firms, government agencies, trade publications, company sources and personal interviews.",
+    "category": "Business",
+    "required_skills": [
+      "Financial Analyst",
+      "Financial Information",
+      "Knowledge"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 12200,
+    "budget_max": 23500,
+    "employer_id": "e-09",
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
   },
   {
     "id": "g-2421-1",
@@ -354,8 +1034,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2700,
-    "budget_max": 5100,
+    "budget_min": 78200,
+    "budget_max": 151200,
     "employer_id": "e-16",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -371,13 +1051,51 @@
       "Current Systems",
       "Clients Towards More"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 4500,
-    "budget_max": 8700,
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 9100,
+    "budget_max": 17600,
     "employer_id": "e-12",
     "employer_reputation": 4.11,
     "employer_review_count": 35
+  },
+  {
+    "id": "g-2422-1",
+    "kesco_code": "2422",
+    "title": "Policy Administration Professional needed — liaising and consulting with programme administrators",
+    "description": "We are looking for someone to take on liaising and consulting with programme administrators and other interested parties to identify policy needs.",
+    "category": "Business",
+    "required_skills": [
+      "Policy Administration Professional",
+      "Policies",
+      "Social Economic"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 8100,
+    "budget_max": 15600,
+    "employer_id": "e-11",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-2422-2",
+    "kesco_code": "2422",
+    "title": "Policy Administration Professional needed — reviewing existing policies and legislation to",
+    "description": "We are looking for someone to take on reviewing existing policies and legislation to identify anomalies and out-of-date provisions.",
+    "category": "Business",
+    "required_skills": [
+      "Policy Administration Professional",
+      "Policies",
+      "Social Economic"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-15",
+    "employer_reputation": 4.25,
+    "employer_review_count": 24
   },
   {
     "id": "g-2423-1",
@@ -390,10 +1108,10 @@
       "Employee Recruitment Placement",
       "Manpower Requirements Undertaking"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 4000,
-    "budget_max": 7800,
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 11000,
+    "budget_max": 21200,
     "employer_id": "e-11",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -409,10 +1127,10 @@
       "Employee Recruitment Placement",
       "Manpower Requirements Undertaking"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "location": "Naivasha",
+    "is_remote": false,
+    "budget_min": 8400,
+    "budget_max": 16200,
     "employer_id": "e-09",
     "employer_reputation": 4.16,
     "employer_review_count": 25
@@ -430,8 +1148,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 3700,
-    "budget_max": 7100,
+    "budget_min": 2080,
+    "budget_max": 3600,
     "employer_id": "e-12",
     "employer_reputation": 4.11,
     "employer_review_count": 35
@@ -447,10 +1165,10 @@
       "Needs",
       "Human Resource Development"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "location": "Kericho",
+    "is_remote": false,
+    "budget_min": 6800,
+    "budget_max": 13200,
     "employer_id": "e-04",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -468,8 +1186,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2100,
-    "budget_max": 4000,
+    "budget_min": 12700,
+    "budget_max": 24600,
     "employer_id": "e-11",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -485,10 +1203,10 @@
       "Policies",
       "Managers"
     ],
-    "location": "Kericho",
+    "location": "Kisumu",
     "is_remote": false,
-    "budget_min": 3500,
-    "budget_max": 6800,
+    "budget_min": 2080,
+    "budget_max": 3200,
     "employer_id": "e-22",
     "employer_reputation": 3.8,
     "employer_review_count": 5
@@ -504,10 +1222,10 @@
       "Publicity Campaigns",
       "Executives"
     ],
-    "location": "Mombasa",
-    "is_remote": false,
-    "budget_min": 4800,
-    "budget_max": 9200,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-16",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -523,11 +1241,49 @@
       "Publicity Campaigns",
       "Executives"
     ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 3400,
+    "budget_max": 6600,
+    "employer_id": "e-13",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-2433-1",
+    "kesco_code": "2433",
+    "title": "Technical and Medical Sales Professionals (excluding Ict) needed — compiling lists of prospective client businesses by",
+    "description": "We are looking for someone to take on compiling lists of prospective client businesses by using directories and other sources. The work also covers acquiring and updating knowledge of employers’ and competitors’ goods and services, and of market conditions. The work also covers visiting regular and prospective client businesses to establish and act on selling opportunities.",
+    "category": "Marketing",
+    "required_skills": [
+      "Technical Medical Sale",
+      "Lists",
+      "Knowledge"
+    ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2700,
-    "budget_max": 5100,
-    "employer_id": "e-13",
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-11",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-2433-2",
+    "kesco_code": "2433",
+    "title": "Technical and Medical Sales Professionals (excluding Ict) needed — assessing clients’ needs and resources and",
+    "description": "We are looking for someone to take on assessing clients’ needs and resources and recommending appropriate goods or services. The work also covers providing input to product design where goods or services must be tailored to suit clients’ needs. The work also covers developing reports and proposals as part of sales presentations to demonstrate benefits from the use of goods or services.",
+    "category": "Marketing",
+    "required_skills": [
+      "Technical Medical Sale",
+      "Lists",
+      "Knowledge"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-08",
     "employer_reputation": 0.0,
     "employer_review_count": 0
   },
@@ -542,10 +1298,10 @@
       "Orders",
       "Technical Equipment Supplies"
     ],
-    "location": "Thika",
+    "location": "Nakuru",
     "is_remote": false,
-    "budget_min": 5400,
-    "budget_max": 10400,
+    "budget_min": 5500,
+    "budget_max": 10500,
     "employer_id": "e-03",
     "employer_reputation": 4.5,
     "employer_review_count": 2
@@ -563,8 +1319,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "budget_min": 5000,
+    "budget_max": 9700,
     "employer_id": "e-11",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -579,8 +1335,8 @@
       "Systems Analyst",
       "Research"
     ],
-    "location": "Nairobi",
-    "is_remote": false,
+    "location": null,
+    "is_remote": true,
     "budget_min": 2080,
     "budget_max": 3000,
     "employer_id": "e-21",
@@ -597,10 +1353,10 @@
       "Systems Analyst",
       "Research"
     ],
-    "location": "Kakamega",
-    "is_remote": false,
-    "budget_min": 9200,
-    "budget_max": 17700,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-11",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -616,7 +1372,7 @@
       "Software",
       "Recommend"
     ],
-    "location": "Kilifi",
+    "location": "Mombasa",
     "is_remote": false,
     "budget_min": 2080,
     "budget_max": 3000,
@@ -635,10 +1391,10 @@
       "Software",
       "Recommend"
     ],
-    "location": "Ruiru",
-    "is_remote": false,
-    "budget_min": 22500,
-    "budget_max": 43500,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 10400,
+    "budget_max": 20000,
     "employer_id": "e-16",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -654,10 +1410,10 @@
       "Internet Sites",
       "Digital Animations Imaging"
     ],
-    "location": "Machakos",
+    "location": "Nairobi",
     "is_remote": false,
-    "budget_min": 4100,
-    "budget_max": 7900,
+    "budget_min": 7100,
+    "budget_max": 13800,
     "employer_id": "e-11",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -673,10 +1429,10 @@
       "Internet Sites",
       "Digital Animations Imaging"
     ],
-    "location": "Machakos",
+    "location": "Thika",
     "is_remote": false,
-    "budget_min": 6100,
-    "budget_max": 11900,
+    "budget_min": 6400,
+    "budget_max": 12300,
     "employer_id": "e-05",
     "employer_reputation": 4.07,
     "employer_review_count": 15
@@ -694,8 +1450,8 @@
     ],
     "location": "Nairobi",
     "is_remote": false,
-    "budget_min": 2080,
-    "budget_max": 3700,
+    "budget_min": 5700,
+    "budget_max": 11000,
     "employer_id": "e-20",
     "employer_reputation": 4.0,
     "employer_review_count": 12
@@ -711,10 +1467,10 @@
       "Program Code Outlined",
       "Programs"
     ],
-    "location": "Kisumu",
+    "location": "Naivasha",
     "is_remote": false,
-    "budget_min": 7900,
-    "budget_max": 15200,
+    "budget_min": 4800,
+    "budget_max": 9400,
     "employer_id": "e-24",
     "employer_reputation": 4.24,
     "employer_review_count": 34
@@ -730,10 +1486,10 @@
       "Software Testing Plans",
       "Software"
     ],
-    "location": "Nyeri",
+    "location": "Mombasa",
     "is_remote": false,
-    "budget_min": 7800,
-    "budget_max": 15100,
+    "budget_min": 2600,
+    "budget_max": 5000,
     "employer_id": "e-18",
     "employer_reputation": 4.06,
     "employer_review_count": 34
@@ -751,8 +1507,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 3000,
-    "budget_max": 5800,
+    "budget_min": 5800,
+    "budget_max": 11200,
     "employer_id": "e-10",
     "employer_reputation": 4.68,
     "employer_review_count": 25
@@ -768,10 +1524,10 @@
       "Detailed Database Design",
       "Database Architecture Data"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 23500,
+    "budget_max": 45400,
     "employer_id": "e-02",
     "employer_reputation": 4.22,
     "employer_review_count": 36
@@ -787,10 +1543,10 @@
       "Detailed Database Design",
       "Database Architecture Data"
     ],
-    "location": "Kikuyu",
+    "location": "Malindi",
     "is_remote": false,
-    "budget_min": 2500,
-    "budget_max": 4900,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-18",
     "employer_reputation": 4.06,
     "employer_review_count": 34
@@ -808,8 +1564,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 5000,
-    "budget_max": 9700,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-18",
     "employer_reputation": 4.06,
     "employer_review_count": 34
@@ -825,10 +1581,10 @@
       "Computer Networks",
       "Changes"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 5400,
-    "budget_max": 10400,
+    "location": "Meru",
+    "is_remote": false,
+    "budget_min": 14800,
+    "budget_max": 28700,
     "employer_id": "e-10",
     "employer_reputation": 4.68,
     "employer_review_count": 25
@@ -846,8 +1602,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 21700,
-    "budget_max": 42000,
+    "budget_min": 2080,
+    "budget_max": 3300,
     "employer_id": "e-16",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -863,10 +1619,10 @@
       "Complex System Design",
       "Network Infrastructure"
     ],
-    "location": "Nairobi",
+    "location": "Kisumu",
     "is_remote": false,
-    "budget_min": 7100,
-    "budget_max": 13700,
+    "budget_min": 3400,
+    "budget_max": 6600,
     "employer_id": "e-21",
     "employer_reputation": 4.25,
     "employer_review_count": 20
@@ -884,8 +1640,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 18500,
-    "budget_max": 35700,
+    "budget_min": 2400,
+    "budget_max": 4700,
     "employer_id": "e-22",
     "employer_reputation": 3.8,
     "employer_review_count": 5
@@ -901,13 +1657,49 @@
       "Plans",
       "Users"
     ],
-    "location": "Mombasa",
+    "location": "Kericho",
     "is_remote": false,
-    "budget_min": 5400,
-    "budget_max": 10400,
+    "budget_min": 3100,
+    "budget_max": 5900,
     "employer_id": "e-19",
     "employer_reputation": 4.68,
     "employer_review_count": 25
+  },
+  {
+    "id": "g-2542-1",
+    "kesco_code": "2542",
+    "title": "Artifical Intelligence (ai)/Machine Learning (ml) Professional needed — use of data for design, building and managing Machine",
+    "description": "We are looking for someone to take on use of data for design, building and managing Machine Learning software applications.",
+    "category": "Technology",
+    "required_skills": [
+      "Artifical Intelligence (Ai)/Machine",
+      "Data Sets"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 3100,
+    "budget_max": 6000,
+    "employer_id": "e-07",
+    "employer_reputation": 4.0,
+    "employer_review_count": 2
+  },
+  {
+    "id": "g-2542-2",
+    "kesco_code": "2542",
+    "title": "Artifical Intelligence (ai)/Machine Learning (ml) Professional needed — collecting, analyzing and interpreting data sets",
+    "description": "We are looking for someone to take on collecting, analyzing and interpreting data sets.",
+    "category": "Technology",
+    "required_skills": [
+      "Artifical Intelligence (Ai)/Machine",
+      "Data Sets"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 5100,
+    "budget_max": 9900,
+    "employer_id": "e-13",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
   },
   {
     "id": "g-2543-1",
@@ -920,10 +1712,10 @@
       "Cloud Computing Applications",
       "End-To-End Lifecycle"
     ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 5000,
-    "budget_max": 9600,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-15",
     "employer_reputation": 4.25,
     "employer_review_count": 24
@@ -939,13 +1731,241 @@
       "Cloud Computing Applications",
       "End-To-End Lifecycle"
     ],
-    "location": "Malindi",
-    "is_remote": false,
-    "budget_min": 7000,
-    "budget_max": 13500,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 6600,
+    "budget_max": 12700,
     "employer_id": "e-18",
     "employer_reputation": 4.06,
     "employer_review_count": 34
+  },
+  {
+    "id": "g-2611-1",
+    "kesco_code": "2611",
+    "title": "Lawyer needed — giving clients legal advice on a wide variety of",
+    "description": "We are looking for someone to take on giving clients legal advice on a wide variety of subjects and undertaking legal business on clients’ behalf. The work also covers researching legal principles, statutes and-previous court decisions related to specific cases.",
+    "category": "Business",
+    "required_skills": [
+      "Lawyer",
+      "Clients Legal Advice",
+      "Legal Principles Statutes"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2700,
+    "budget_max": 5200,
+    "employer_id": "e-01",
+    "employer_reputation": 4.31,
+    "employer_review_count": 13
+  },
+  {
+    "id": "g-2611-2",
+    "kesco_code": "2611",
+    "title": "Lawyer needed — gathering evidence to formulate a defence or to",
+    "description": "We are looking for someone to take on gathering evidence to formulate a defence or to initiate legal actions, by such means as interviewing clients and witnesses to ascertain the facts of a case. The work also covers evaluating findings and developing strategies and arguments in preparation for presentation of ca ses.",
+    "category": "Business",
+    "required_skills": [
+      "Lawyer",
+      "Clients Legal Advice",
+      "Legal Principles Statutes"
+    ],
+    "location": "Kikuyu",
+    "is_remote": false,
+    "budget_min": 7500,
+    "budget_max": 14500,
+    "employer_id": "e-12",
+    "employer_reputation": 4.11,
+    "employer_review_count": 35
+  },
+  {
+    "id": "g-2613-1",
+    "kesco_code": "2613",
+    "title": "Other Legal Professional needed — giving advice on legal aspects of various personal",
+    "description": "We are looking for someone to take on giving advice on legal aspects of various personal, business and administrative problems.",
+    "category": "Business",
+    "required_skills": [
+      "Legal Professional",
+      "Advice",
+      "Up Legal Documents"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-19",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-2613-2",
+    "kesco_code": "2613",
+    "title": "Other Legal Professional needed — drawing up legal documents and contracts",
+    "description": "We are looking for someone to take on drawing up legal documents and contracts.",
+    "category": "Business",
+    "required_skills": [
+      "Legal Professional",
+      "Advice",
+      "Up Legal Documents"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2080,
+    "budget_max": 3200,
+    "employer_id": "e-04",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-2621-1",
+    "kesco_code": "2621",
+    "title": "Archivists and Curator needed — valuating and preserving records for administrative",
+    "description": "We are looking for someone to take on valuating and preserving records for administrative, historical, legal, evidential and other purposes. The work also covers directing or carrying out the preparation of indexes, bibliographies, microfilm copies and other reference aids to the collected material and making them available to users.",
+    "category": "Business",
+    "required_skills": [
+      "Archivists Curator",
+      "Records",
+      "Out The Preparation"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-15",
+    "employer_reputation": 4.25,
+    "employer_review_count": 24
+  },
+  {
+    "id": "g-2621-2",
+    "kesco_code": "2621",
+    "title": "Archivists and Curator needed — researching the origin, distribution and use of",
+    "description": "We are looking for someone to take on researching the origin, distribution and use of materials and objects of cultural and historical interest. The work also covers organizing, developing and maintaining collections of artistic, cultural, scientific or historically significant items.",
+    "category": "Business",
+    "required_skills": [
+      "Archivists Curator",
+      "Records",
+      "Out The Preparation"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-2631-1",
+    "kesco_code": "2631",
+    "title": "Economist needed — forecasting changes in the economic environment for",
+    "description": "We are looking for someone to take on forecasting changes in the economic environment for short-term budgeting, long-term planning and investment evaluation. The work also covers formulating recommendations, policies and plans for the economy, corporate strategies and investment, and undertaking feasibility studies for projects. The work also covers monitoring economic data to assess the effectiveness, and advise on the appropriateness, of monetary and fis cal policies.",
+    "category": "Business",
+    "required_skills": [
+      "Economist",
+      "Changes",
+      "Recommendations Policies"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 7000,
+    "budget_max": 13600,
+    "employer_id": "e-08",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-2631-2",
+    "kesco_code": "2631",
+    "title": "Economist needed — forecasting production and consumption of specific",
+    "description": "We are looking for someone to take on forecasting production and consumption of specific products and services based on records of past production and consumption and general economic and industry-specific conditions. The work also covers preparing forecasts of income and expenditure, interest rates and exchange rates. The work also covers analysing factors that determine labour force participation, employment, wages, unemployment and other labour market outcomes.",
+    "category": "Business",
+    "required_skills": [
+      "Economist",
+      "Changes",
+      "Recommendations Policies"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 56300,
+    "budget_max": 108800,
+    "employer_id": "e-18",
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-2632-1",
+    "kesco_code": "2632",
+    "title": "Sociologists, Anthropologists and Related Professional needed — conducting research on the origin, development",
+    "description": "We are looking for someone to take on conducting research on the origin, development, structure, social patterns, organizations and interrelationships of human society. The work also covers tracing the origin and evolution of humanity through the study of changing characteristics and cultural and social institutions.",
+    "category": "Business",
+    "required_skills": [
+      "Sociologists Anthropologists Professional",
+      "Research",
+      "Origin"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 3400,
+    "budget_max": 6600,
+    "employer_id": "e-05",
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
+  },
+  {
+    "id": "g-2632-2",
+    "kesco_code": "2632",
+    "title": "Sociologists, Anthropologists and Related Professional needed — tracing the development of humanity through the",
+    "description": "We are looking for someone to take on tracing the development of humanity through the material remains of its past, such as dwellings, temples, tools, pottery, coins, weapons or sculpture. The work also covers studying physical and climatic aspects of areas and regions, and correlating these findings with economic, social and cultural activities.",
+    "category": "Business",
+    "required_skills": [
+      "Sociologists Anthropologists Professional",
+      "Research",
+      "Origin"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
+  },
+  {
+    "id": "g-2633-1",
+    "kesco_code": "2633",
+    "title": "Philosophers, Historians and Political Scientist needed — researching, including by reasoning, into the general",
+    "description": "We are looking for someone to take on researching, including by reasoning, into the general causes, principles and meanings of the world, human actions, experience and existence, and interpreting and developing philosophical concepts and theories. The work also covers consulting and comparing primary sources such as original or contemporary records of past events, and secondary sources such as archaeological or anthropolo gical findings.",
+    "category": "Writing",
+    "required_skills": [
+      "Philosophers Historians Political",
+      "Primary Sources Such",
+      "Relevant Material Checking"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 6000,
+    "budget_max": 11700,
+    "employer_id": "e-18",
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-2633-2",
+    "kesco_code": "2633",
+    "title": "Philosophers, Historians and Political Scientist needed — extracting relevant material, checking its",
+    "description": "We are looking for someone to take on extracting relevant material, checking its authenticity, and researching into and describing the history of a particular period, country or region, or a particular facet – for example economic, social or political – of its history. The work also covers conducting research in such fields as political philosophy, or past and present theory and practice of political systems, institutions or behaviour.",
+    "category": "Writing",
+    "required_skills": [
+      "Philosophers Historians Political",
+      "Primary Sources Such",
+      "Relevant Material Checking"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2080,
+    "budget_max": 3000,
+    "employer_id": "e-14",
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
   },
   {
     "id": "g-2641-1",
@@ -960,8 +1980,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 9000,
-    "budget_max": 17300,
+    "budget_min": 24400,
+    "budget_max": 47200,
     "employer_id": "e-10",
     "employer_reputation": 4.68,
     "employer_review_count": 25
@@ -977,7 +1997,7 @@
       "Novels Plays Scripts",
       "Research"
     ],
-    "location": "Mombasa",
+    "location": "Thika",
     "is_remote": false,
     "budget_min": 2080,
     "budget_max": 3000,
@@ -996,10 +2016,10 @@
       "Local National",
       "News"
     ],
-    "location": "Mombasa",
+    "location": "Bungoma",
     "is_remote": false,
-    "budget_min": 13700,
-    "budget_max": 26500,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
@@ -1015,10 +2035,10 @@
       "Local National",
       "News"
     ],
-    "location": "Kisumu",
-    "is_remote": false,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 126100,
+    "budget_max": 243900,
     "employer_id": "e-08",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -1035,8 +2055,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2900,
-    "budget_max": 5700,
+    "budget_min": 6700,
+    "budget_max": 12900,
     "employer_id": "e-22",
     "employer_reputation": 3.8,
     "employer_review_count": 5
@@ -1051,10 +2071,10 @@
       "Translators Interpreters Linguist",
       "Relationships Between Ancient"
     ],
-    "location": "Thika",
-    "is_remote": false,
-    "budget_min": 4300,
-    "budget_max": 8400,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2800,
+    "budget_max": 5500,
     "employer_id": "e-07",
     "employer_reputation": 4.0,
     "employer_review_count": 2
@@ -1072,8 +2092,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2080,
-    "budget_max": 3700,
+    "budget_min": 2100,
+    "budget_max": 4100,
     "employer_id": "e-16",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -1091,8 +2111,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2080,
-    "budget_max": 3000,
+    "budget_min": 7400,
+    "budget_max": 14300,
     "employer_id": "e-03",
     "employer_reputation": 4.5,
     "employer_review_count": 2
@@ -1108,10 +2128,10 @@
       "Melodic Harmonic",
       "Ideas"
     ],
-    "location": "Nakuru",
-    "is_remote": false,
-    "budget_min": 8700,
-    "budget_max": 16900,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 7100,
+    "budget_max": 13700,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
@@ -1129,8 +2149,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 8500,
-    "budget_max": 16400,
+    "budget_min": 17500,
+    "budget_max": 33800,
     "employer_id": "e-13",
     "employer_reputation": 0.0,
     "employer_review_count": 0
@@ -1146,10 +2166,10 @@
       "Writers Studying Scripts",
       "All Aspects"
     ],
-    "location": "Nairobi",
+    "location": "Malindi",
     "is_remote": false,
-    "budget_min": 3700,
-    "budget_max": 7100,
+    "budget_min": 5300,
+    "budget_max": 10300,
     "employer_id": "e-24",
     "employer_reputation": 4.24,
     "employer_review_count": 34
@@ -1167,8 +2187,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 4100,
-    "budget_max": 7900,
+    "budget_min": 2080,
+    "budget_max": 3000,
     "employer_id": "e-18",
     "employer_reputation": 4.06,
     "employer_review_count": 34
@@ -1184,10 +2204,10 @@
       "Lines",
       "Characters Created"
     ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 11000,
-    "budget_max": 21200,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 9800,
+    "budget_max": 18900,
     "employer_id": "e-24",
     "employer_reputation": 4.24,
     "employer_review_count": 34
@@ -1203,13 +2223,203 @@
       "Lines",
       "Characters Created"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 26100,
-    "budget_max": 50400,
+    "location": "Mumias",
+    "is_remote": false,
+    "budget_min": 19800,
+    "budget_max": 38300,
     "employer_id": "e-01",
     "employer_reputation": 4.31,
     "employer_review_count": 13
+  },
+  {
+    "id": "g-2656-1",
+    "kesco_code": "2656",
+    "title": "Announcers on Radio, Television and Other Media needed — reading news bulletins and making other announcements",
+    "description": "We are looking for someone to take on reading news bulletins and making other announcements on radio or television. The work also covers introducing performing artists or persons being interviewed, and making related announcements on radio, television, o r in theatres, nightclubs and other establishments. The work also covers interviewing persons in public, especially on radio and television.",
+    "category": "Design",
+    "required_skills": [
+      "Announcers Radio Television",
+      "News Bulletins",
+      "Artists"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 22100,
+    "budget_max": 42800,
+    "employer_id": "e-19",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-2656-2",
+    "kesco_code": "2656",
+    "title": "Announcers on Radio, Television and Other Media needed — studying background information in order to prepare",
+    "description": "We are looking for someone to take on studying background information in order to prepare for programmes or interviews. The work also covers commenting on music and other matters, such as weather or traffic conditions. The work also covers for employment, effective and efficient performance of tasks in this unit group, one should be qualified in either journalism, broadcasting or mass communication and have a well-developed level of interpersonal communication skills.",
+    "category": "Design",
+    "required_skills": [
+      "Announcers Radio Television",
+      "News Bulletins",
+      "Artists"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 10000,
+    "budget_max": 19400,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-3113-1",
+    "kesco_code": "3113",
+    "title": "Electrical Engineering Technician needed — providing technical assistance in research and",
+    "description": "We are looking for someone to take on providing technical assistance in research and development of electrical equipment’s and facilities, or testing of prototypes.",
+    "category": "Technology",
+    "required_skills": [
+      "Electrical Engineering Technician",
+      "Technical Assistance",
+      "Blueprints"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 1800,
+    "budget_max": 3400,
+    "employer_id": "e-18",
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-3113-2",
+    "kesco_code": "3113",
+    "title": "Electrical Engineering Technician needed — designing and preparing blueprints of electrical",
+    "description": "We are looking for someone to take on designing and preparing blueprints of electrical installations and circuitry according to the specifications given.",
+    "category": "Technology",
+    "required_skills": [
+      "Electrical Engineering Technician",
+      "Technical Assistance",
+      "Blueprints"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 17500,
+    "budget_max": 33800,
+    "employer_id": "e-05",
+    "employer_reputation": 4.07,
+    "employer_review_count": 15
+  },
+  {
+    "id": "g-3114-1",
+    "kesco_code": "3114",
+    "title": "Electronics Engineering Technician needed — technical assistance in research and development of",
+    "description": "We are looking for someone to take on technical assistance in research and development of electronic equipment, or testing prototypes.",
+    "category": "Technology",
+    "required_skills": [
+      "Electronics Engineering Technician",
+      "Technical Assistance",
+      "Blueprints"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 1440,
+    "budget_max": 2100,
+    "employer_id": "e-23",
+    "employer_reputation": 4.33,
+    "employer_review_count": 12
+  },
+  {
+    "id": "g-3114-2",
+    "kesco_code": "3114",
+    "title": "Electronics Engineering Technician needed — designing and preparing blueprints of electronic",
+    "description": "We are looking for someone to take on designing and preparing blueprints of electronic circuitry according to the specifications given.",
+    "category": "Technology",
+    "required_skills": [
+      "Electronics Engineering Technician",
+      "Technical Assistance",
+      "Blueprints"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 18200,
+    "budget_max": 35100,
+    "employer_id": "e-01",
+    "employer_reputation": 4.31,
+    "employer_review_count": 13
+  },
+  {
+    "id": "g-3115-1",
+    "kesco_code": "3115",
+    "title": "Mechanical Engineering Technician needed — providing technical assistance in research on and",
+    "description": "We are looking for someone to take on providing technical assistance in research on and development of machines and mechanical installations, facilities and components, or testing prototypes. The work also covers designing and preparing layouts o f machines and mechanical installations, facilities and components, according to the specifications given.",
+    "category": "Technology",
+    "required_skills": [
+      "Mechanical Engineering Technician",
+      "Technical Assistance",
+      "Layouts O F"
+    ],
+    "location": "Nyeri",
+    "is_remote": false,
+    "budget_min": 7600,
+    "budget_max": 14700,
+    "employer_id": "e-04",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-3115-2",
+    "kesco_code": "3115",
+    "title": "Mechanical Engineering Technician needed — preparing detailed estimates of quantities and costs",
+    "description": "We are looking for someone to take on preparing detailed estimates of quantities and costs of materials and labour required for manufacture and installation, according to the specifications given. The work also covers monitoring technical aspects of manufacture, utilization, maintenance and repair of machines and mechanical installations, facilities and components to ensure satisfactory performance and compliance with specifications and regulations.",
+    "category": "Technology",
+    "required_skills": [
+      "Mechanical Engineering Technician",
+      "Technical Assistance",
+      "Layouts O F"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 20100,
+    "budget_max": 38900,
+    "employer_id": "e-09",
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-3119-1",
+    "kesco_code": "3119",
+    "title": "Other Physical and Engineering Science Technician needed — collecting data and providing technical assistance",
+    "description": "We are looking for someone to take on collecting data and providing technical assistance regarding efficient, safe and economic utilization of personnel, material and equipment. The work also covers methods of work and sequence of operations and supervision of their implementation.",
+    "category": "Technology",
+    "required_skills": [
+      "Physical Engineering Science",
+      "Data",
+      "Methods"
+    ],
+    "location": "Nyeri",
+    "is_remote": false,
+    "budget_min": 35000,
+    "budget_max": 67700,
+    "employer_id": "e-01",
+    "employer_reputation": 4.31,
+    "employer_review_count": 13
+  },
+  {
+    "id": "g-3119-2",
+    "kesco_code": "3119",
+    "title": "Other Physical and Engineering Science Technician needed — and efficient layout of plant or establishment",
+    "description": "We are looking for someone to take on and efficient layout of plant or establishment. The work also covers classifying and analysing physical evidence related to criminal investigations.",
+    "category": "Technology",
+    "required_skills": [
+      "Physical Engineering Science",
+      "Data",
+      "Methods"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 8400,
+    "budget_max": 16300,
+    "employer_id": "e-03",
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
   },
   {
     "id": "g-3342-1",
@@ -1222,10 +2432,10 @@
       "Legal Documents",
       "Documents"
     ],
-    "location": "Kakamega",
+    "location": "Eldoret",
     "is_remote": false,
-    "budget_min": 4200,
-    "budget_max": 8200,
+    "budget_min": 2200,
+    "budget_max": 4200,
     "employer_id": "e-15",
     "employer_reputation": 4.25,
     "employer_review_count": 24
@@ -1243,8 +2453,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 6000,
-    "budget_max": 11600,
+    "budget_min": 10400,
+    "budget_max": 20100,
     "employer_id": "e-01",
     "employer_reputation": 4.31,
     "employer_review_count": 13
@@ -1260,10 +2470,10 @@
       "Photographs",
       "Portrait Photographs"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 1440,
-    "budget_max": 2100,
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 3700,
+    "budget_max": 7200,
     "employer_id": "e-22",
     "employer_reputation": 3.8,
     "employer_review_count": 5
@@ -1279,10 +2489,10 @@
       "Photographs",
       "Portrait Photographs"
     ],
-    "location": "Kisii",
-    "is_remote": false,
-    "budget_min": 2700,
-    "budget_max": 5200,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 9500,
+    "budget_max": 18400,
     "employer_id": "e-03",
     "employer_reputation": 4.5,
     "employer_review_count": 2
@@ -1298,10 +2508,10 @@
       "Objectives",
       "Spatial Functional Efficiency"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 26200,
-    "budget_max": 50600,
+    "location": "Eldoret",
+    "is_remote": false,
+    "budget_min": 3800,
+    "budget_max": 7300,
     "employer_id": "e-20",
     "employer_reputation": 4.0,
     "employer_review_count": 12
@@ -1317,13 +2527,165 @@
       "Objectives",
       "Spatial Functional Efficiency"
     ],
+    "location": "Thika",
+    "is_remote": false,
+    "budget_min": 13400,
+    "budget_max": 25900,
+    "employer_id": "e-03",
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
+  },
+  {
+    "id": "g-3435-1",
+    "kesco_code": "3435",
+    "title": "Other Artistic and Cultural Associate Professional needed — decorating, ornamenting or tattooing skin",
+    "description": "We are looking for someone to take on decorating, ornamenting or tattooing skin. The work also covers performing or coordinating dare-devil feats such as diving stunts, perilous rides, or spectacular jumps for dramatic production.",
+    "category": "Design",
+    "required_skills": [
+      "Artistic Cultural Associate",
+      "Skin",
+      "Dare-Devil Feats Such"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 28900,
+    "budget_max": 55800,
+    "employer_id": "e-13",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-3435-2",
+    "kesco_code": "3435",
+    "title": "Other Artistic and Cultural Associate Professional needed — theatrical dressing for entertainment",
+    "description": "We are looking for someone to take on theatrical dressing for entertainment. The work also covers managing stage, broadcasting floor, theatre floor, lighting or special effects.",
+    "category": "Design",
+    "required_skills": [
+      "Artistic Cultural Associate",
+      "Skin",
+      "Dare-Devil Feats Such"
+    ],
     "location": null,
     "is_remote": true,
     "budget_min": 1440,
     "budget_max": 2100,
-    "employer_id": "e-03",
-    "employer_reputation": 4.5,
-    "employer_review_count": 2
+    "employer_id": "e-14",
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
+  },
+  {
+    "id": "g-3511-1",
+    "kesco_code": "3511",
+    "title": "Information and Communications Technology Operations Technician needed — operating and controlling peripheral and related",
+    "description": "We are looking for someone to take on operating and controlling peripheral and related computer equipment. The work also covers entering commands, using computer terminal, and activating controls on computer and peripheral equipment to integrate and operate equipment.",
+    "category": "Technology",
+    "required_skills": [
+      "Information Communications Technology",
+      "Peripheral",
+      "Commands"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 3200,
+    "budget_max": 6100,
+    "employer_id": "e-20",
+    "employer_reputation": 4.0,
+    "employer_review_count": 12
+  },
+  {
+    "id": "g-3511-2",
+    "kesco_code": "3511",
+    "title": "Information and Communications Technology Operations Technician needed — monitoring systems for equipment failure or errors in",
+    "description": "We are looking for someone to take on monitoring systems for equipment failure or errors in performance. The work also covers notifying supervisor or maintenance technician of equipment malfunctions.",
+    "category": "Technology",
+    "required_skills": [
+      "Information Communications Technology",
+      "Peripheral",
+      "Commands"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2100,
+    "budget_max": 4100,
+    "employer_id": "e-11",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-3512-1",
+    "kesco_code": "3512",
+    "title": "Information and Communication Technology User Support Technician needed — answering user inquiries regarding software or",
+    "description": "We are looking for someone to take on answering user inquiries regarding software or hardware operation to resolve problems. The work also covers entering commands and observing system functioning to verify correct operations and detect errors.",
+    "category": "Technology",
+    "required_skills": [
+      "Information Communication Technology",
+      "User Inquiries Regarding",
+      "Commands"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1800,
+    "budget_max": 3400,
+    "employer_id": "e-24",
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-3512-2",
+    "kesco_code": "3512",
+    "title": "Information and Communication Technology User Support Technician needed — installing and performing minor repairs to hardware",
+    "description": "We are looking for someone to take on installing and performing minor repairs to hardware, software, or peripheral equipment, following design or installation specifications. The work also covers overseeing the daily performance of communications and computer systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Information Communication Technology",
+      "User Inquiries Regarding",
+      "Commands"
+    ],
+    "location": "Karatina",
+    "is_remote": false,
+    "budget_min": 2500,
+    "budget_max": 4700,
+    "employer_id": "e-23",
+    "employer_reputation": 4.33,
+    "employer_review_count": 12
+  },
+  {
+    "id": "g-3513-1",
+    "kesco_code": "3513",
+    "title": "Computer Network Systems Technician needed — operating, maintaining and troubleshooting network",
+    "description": "We are looking for someone to take on operating, maintaining and troubleshooting network systems.",
+    "category": "Technology",
+    "required_skills": [
+      "Computer Network System",
+      "Network Systems",
+      "Data Communications Systems"
+    ],
+    "location": "Ruiru",
+    "is_remote": false,
+    "budget_min": 5000,
+    "budget_max": 9700,
+    "employer_id": "e-23",
+    "employer_reputation": 4.33,
+    "employer_review_count": 12
+  },
+  {
+    "id": "g-3513-2",
+    "kesco_code": "3513",
+    "title": "Computer Network Systems Technician needed — operating and maintaining data communications systems",
+    "description": "We are looking for someone to take on operating and maintaining data communications systems other than networks.",
+    "category": "Technology",
+    "required_skills": [
+      "Computer Network System",
+      "Network Systems",
+      "Data Communications Systems"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1800,
+    "budget_max": 3600,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
   },
   {
     "id": "g-3514-1",
@@ -1336,10 +2698,10 @@
       "Reliability",
       "Documentation Policies"
     ],
-    "location": "Nairobi",
+    "location": "Mombasa",
     "is_remote": false,
-    "budget_min": 2000,
-    "budget_max": 3900,
+    "budget_min": 2300,
+    "budget_max": 4500,
     "employer_id": "e-20",
     "employer_reputation": 4.0,
     "employer_review_count": 12
@@ -1357,8 +2719,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 17300,
-    "budget_max": 33500,
+    "budget_min": 1440,
+    "budget_max": 2100,
     "employer_id": "e-23",
     "employer_reputation": 4.33,
     "employer_review_count": 12
@@ -1376,8 +2738,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 2000,
-    "budget_max": 3900,
+    "budget_min": 9400,
+    "budget_max": 18200,
     "employer_id": "e-02",
     "employer_reputation": 4.22,
     "employer_review_count": 36
@@ -1395,11 +2757,87 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 3300,
-    "budget_max": 6300,
+    "budget_min": 4600,
+    "budget_max": 8900,
     "employer_id": "e-05",
     "employer_reputation": 4.07,
     "employer_review_count": 15
+  },
+  {
+    "id": "g-3522-1",
+    "kesco_code": "3522",
+    "title": "Telecommunications Engineering Technician needed — providing technical assistance connected with",
+    "description": "We are looking for someone to take on providing technical assistance connected with research and the development of telecommunications equipment, or testing prototypes.",
+    "category": "Technology",
+    "required_skills": [
+      "Telecommunications Engineering Technician",
+      "Technical Assistance Connected",
+      "Technical Material Such"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 1500,
+    "budget_max": 2800,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
+  },
+  {
+    "id": "g-3522-2",
+    "kesco_code": "3522",
+    "title": "Telecommunications Engineering Technician needed — studying technical material such as blueprints and",
+    "description": "We are looking for someone to take on studying technical material such as blueprints and sketches to determine the method of work to be adopted.",
+    "category": "Technology",
+    "required_skills": [
+      "Telecommunications Engineering Technician",
+      "Technical Assistance Connected",
+      "Technical Material Such"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1440,
+    "budget_max": 2100,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
+  },
+  {
+    "id": "g-4110-1",
+    "kesco_code": "4110",
+    "title": "General Office Clerk needed — recording, preparing, sorting, classifying and filing",
+    "description": "We are looking for someone to take on recording, preparing, sorting, classifying and filing information. The work also covers sorting, opening and sending mail.",
+    "category": "Business",
+    "required_skills": [
+      "General Office Clerk",
+      "Information",
+      "Mail"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1200,
+    "budget_max": 2300,
+    "employer_id": "e-09",
+    "employer_reputation": 4.16,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-4110-2",
+    "kesco_code": "4110",
+    "title": "General Office Clerk needed — photocopying and faxing documents",
+    "description": "We are looking for someone to take on photocopying and faxing documents. The work also covers preparing reports and correspondence of a routine nature.",
+    "category": "Business",
+    "required_skills": [
+      "General Office Clerk",
+      "Information",
+      "Mail"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 900,
+    "budget_max": 1700,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
   },
   {
     "id": "g-4120-1",
@@ -1414,8 +2852,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 3600,
-    "budget_max": 7000,
+    "budget_min": 800,
+    "budget_max": 1200,
     "employer_id": "e-21",
     "employer_reputation": 4.25,
     "employer_review_count": 20
@@ -1431,10 +2869,10 @@
       "Correspondence Minutes",
       "Various Computer Software"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 800,
-    "budget_max": 1200,
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 1400,
+    "budget_max": 2700,
     "employer_id": "e-14",
     "employer_reputation": 4.42,
     "employer_review_count": 19
@@ -1450,10 +2888,10 @@
       "Completed Work",
       "Material"
     ],
-    "location": "Nakuru",
+    "location": "Kericho",
     "is_remote": false,
-    "budget_min": 4700,
-    "budget_max": 9000,
+    "budget_min": 11300,
+    "budget_max": 21900,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
@@ -1469,10 +2907,10 @@
       "Completed Work",
       "Material"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 30100,
-    "budget_max": 58100,
+    "location": "Thika",
+    "is_remote": false,
+    "budget_min": 1100,
+    "budget_max": 2100,
     "employer_id": "e-19",
     "employer_reputation": 4.68,
     "employer_review_count": 25
@@ -1488,10 +2926,10 @@
       "Invoices Forms Records",
       "Numerical Data Codes"
     ],
-    "location": "Nairobi",
+    "location": "Athi River",
     "is_remote": false,
-    "budget_min": 3500,
-    "budget_max": 6800,
+    "budget_min": 4200,
+    "budget_max": 8000,
     "employer_id": "e-09",
     "employer_reputation": 4.16,
     "employer_review_count": 25
@@ -1507,13 +2945,51 @@
       "Invoices Forms Records",
       "Numerical Data Codes"
     ],
-    "location": null,
-    "is_remote": true,
-    "budget_min": 3100,
-    "budget_max": 6000,
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 3400,
+    "budget_max": 6700,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
+  },
+  {
+    "id": "g-4221-1",
+    "kesco_code": "4221",
+    "title": "Travel Consultants and Clerk needed — obtaining information about the availability, cost",
+    "description": "We are looking for someone to take on obtaining information about the availability, cost and convenience of different types of transport and accommodation, ascertaining customer’s requirements and advising them on travel arrangements.",
+    "category": "Business",
+    "required_skills": [
+      "Travel Consultants Clerk",
+      "Information",
+      "Itineraries"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1000,
+    "budget_max": 1900,
+    "employer_id": "e-14",
+    "employer_reputation": 4.42,
+    "employer_review_count": 19
+  },
+  {
+    "id": "g-4221-2",
+    "kesco_code": "4221",
+    "title": "Travel Consultants and Clerk needed — preparing itineraries",
+    "description": "We are looking for someone to take on preparing itineraries.",
+    "category": "Business",
+    "required_skills": [
+      "Travel Consultants Clerk",
+      "Information",
+      "Itineraries"
+    ],
+    "location": "Kakamega",
+    "is_remote": false,
+    "budget_min": 1500,
+    "budget_max": 2900,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
   },
   {
     "id": "g-4222-1",
@@ -1526,10 +3002,10 @@
       "Requirements",
       "Tasks"
     ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 800,
-    "budget_max": 1200,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2500,
+    "budget_max": 4900,
     "employer_id": "e-19",
     "employer_reputation": 4.68,
     "employer_review_count": 25
@@ -1545,10 +3021,10 @@
       "Requirements",
       "Tasks"
     ],
-    "location": "Nairobi",
+    "location": "Nakuru",
     "is_remote": false,
-    "budget_min": 4200,
-    "budget_max": 8200,
+    "budget_min": 800,
+    "budget_max": 1200,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
@@ -1563,10 +3039,10 @@
       "Inquiry Clerk",
       "Inquiries"
     ],
-    "location": "Naivasha",
+    "location": "Nairobi",
     "is_remote": false,
-    "budget_min": 3200,
-    "budget_max": 6200,
+    "budget_min": 10100,
+    "budget_max": 19600,
     "employer_id": "e-05",
     "employer_reputation": 4.07,
     "employer_review_count": 15
@@ -1583,8 +3059,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 800,
-    "budget_max": 1400,
+    "budget_min": 1700,
+    "budget_max": 3400,
     "employer_id": "e-05",
     "employer_reputation": 4.07,
     "employer_review_count": 15
@@ -1600,10 +3076,10 @@
       "Individuals",
       "Questions Following The"
     ],
-    "location": "Kericho",
+    "location": "Nairobi",
     "is_remote": false,
-    "budget_min": 2600,
-    "budget_max": 5100,
+    "budget_min": 800,
+    "budget_max": 1500,
     "employer_id": "e-22",
     "employer_reputation": 3.8,
     "employer_review_count": 5
@@ -1621,11 +3097,49 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 4900,
-    "budget_max": 9500,
+    "budget_min": 800,
+    "budget_max": 1300,
     "employer_id": "e-25",
     "employer_reputation": 4.75,
     "employer_review_count": 4
+  },
+  {
+    "id": "g-4228-1",
+    "kesco_code": "4228",
+    "title": "Other Client Information Worker needed — interviewing patients to obtain and process",
+    "description": "We are looking for someone to take on interviewing patients to obtain and process information required to provide hospital services.",
+    "category": "Business",
+    "required_skills": [
+      "Client Information Worker",
+      "Patients",
+      "Applicants"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 900,
+    "budget_max": 1800,
+    "employer_id": "e-22",
+    "employer_reputation": 3.8,
+    "employer_review_count": 5
+  },
+  {
+    "id": "g-4228-2",
+    "kesco_code": "4228",
+    "title": "Other Client Information Worker needed — interviewing applicants for public assistance to",
+    "description": "We are looking for someone to take on interviewing applicants for public assistance to gather information pertinent to their application.",
+    "category": "Business",
+    "required_skills": [
+      "Client Information Worker",
+      "Patients",
+      "Applicants"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 800,
+    "budget_max": 1200,
+    "employer_id": "e-21",
+    "employer_reputation": 4.25,
+    "employer_review_count": 20
   },
   {
     "id": "g-4311-1",
@@ -1638,10 +3152,10 @@
       "Figures Postings",
       "Computers Programmed"
     ],
-    "location": "Kisumu",
+    "location": "Mombasa",
     "is_remote": false,
-    "budget_min": 800,
-    "budget_max": 1200,
+    "budget_min": 12000,
+    "budget_max": 23200,
     "employer_id": "e-24",
     "employer_reputation": 4.24,
     "employer_review_count": 34
@@ -1657,8 +3171,8 @@
       "Figures Postings",
       "Computers Programmed"
     ],
-    "location": null,
-    "is_remote": true,
+    "location": "Mombasa",
+    "is_remote": false,
     "budget_min": 800,
     "budget_max": 1200,
     "employer_id": "e-14",
@@ -1675,10 +3189,10 @@
       "Statistical Finance Insurance",
       "Statistical"
     ],
-    "location": "Nairobi",
-    "is_remote": false,
-    "budget_min": 1300,
-    "budget_max": 2500,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2400,
+    "budget_max": 4600,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
@@ -1712,10 +3226,10 @@
       "Records",
       "Statements"
     ],
-    "location": "Mombasa",
+    "location": "Nakuru",
     "is_remote": false,
-    "budget_min": 800,
-    "budget_max": 1200,
+    "budget_min": 1600,
+    "budget_max": 3100,
     "employer_id": "e-14",
     "employer_reputation": 4.42,
     "employer_review_count": 19
@@ -1731,13 +3245,107 @@
       "Records",
       "Statements"
     ],
-    "location": "Nakuru",
-    "is_remote": false,
-    "budget_min": 2100,
-    "budget_max": 4100,
+    "location": null,
+    "is_remote": true,
+    "budget_min": 2900,
+    "budget_max": 5700,
     "employer_id": "e-25",
     "employer_reputation": 4.75,
     "employer_review_count": 4
+  },
+  {
+    "id": "g-4413-1",
+    "kesco_code": "4413",
+    "title": "Coding, Proof Reading and Related Clerk needed — converting information into codes and classifying",
+    "description": "We are looking for someone to take on converting information into codes and classifying information by codes for data-processing purposes.",
+    "category": "Writing",
+    "required_skills": [
+      "Coding Proof Reading",
+      "Information",
+      "Proofs"
+    ],
+    "location": "Nakuru",
+    "is_remote": false,
+    "budget_min": 9600,
+    "budget_max": 18600,
+    "employer_id": "e-24",
+    "employer_reputation": 4.24,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-4413-2",
+    "kesco_code": "4413",
+    "title": "Coding, Proof Reading and Related Clerk needed — comparing proofs of texts and related material",
+    "description": "We are looking for someone to take on comparing proofs of texts and related material prepared for printing with original material, correcting errors and marking texts for printer according to the established rules.",
+    "category": "Writing",
+    "required_skills": [
+      "Coding Proof Reading",
+      "Information",
+      "Proofs"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 2600,
+    "budget_max": 5100,
+    "employer_id": "e-02",
+    "employer_reputation": 4.22,
+    "employer_review_count": 36
+  },
+  {
+    "id": "g-4414-1",
+    "kesco_code": "4414",
+    "title": "Scribes and Related Worker needed — reading letters and other written matter to persons",
+    "description": "We are looking for someone to take on reading letters and other written matter to persons who are unable to read or write and providing necessary interpretation and information.",
+    "category": "Writing",
+    "required_skills": [
+      "Scribes Worker",
+      "Letters"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 6700,
+    "budget_max": 13000,
+    "employer_id": "e-15",
+    "employer_reputation": 4.25,
+    "employer_review_count": 24
+  },
+  {
+    "id": "g-4415-1",
+    "kesco_code": "4415",
+    "title": "Filing and Copying Clerk needed — sorting or classifying materials according to",
+    "description": "We are looking for someone to take on sorting or classifying materials according to guidelines such as content, purpose, user criteria, or chronological, alphabetical, or numerical order.",
+    "category": "Business",
+    "required_skills": [
+      "Filing Copying Clerk",
+      "Materials According",
+      "Material"
+    ],
+    "location": "Nairobi",
+    "is_remote": false,
+    "budget_min": 1800,
+    "budget_max": 3500,
+    "employer_id": "e-10",
+    "employer_reputation": 4.68,
+    "employer_review_count": 25
+  },
+  {
+    "id": "g-4415-2",
+    "kesco_code": "4415",
+    "title": "Filing and Copying Clerk needed — filing material in drawers, cabinets and storage boxes",
+    "description": "We are looking for someone to take on filing material in drawers, cabinets and storage boxes.",
+    "category": "Business",
+    "required_skills": [
+      "Filing Copying Clerk",
+      "Materials According",
+      "Material"
+    ],
+    "location": "Mombasa",
+    "is_remote": false,
+    "budget_min": 900,
+    "budget_max": 1800,
+    "employer_id": "e-03",
+    "employer_reputation": 4.5,
+    "employer_review_count": 2
   },
   {
     "id": "g-4416-1",
@@ -1752,8 +3360,8 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 1900,
-    "budget_max": 3700,
+    "budget_min": 4400,
+    "budget_max": 8500,
     "employer_id": "e-17",
     "employer_reputation": 4.5,
     "employer_review_count": 18
@@ -1771,11 +3379,87 @@
     ],
     "location": null,
     "is_remote": true,
-    "budget_min": 800,
-    "budget_max": 1200,
+    "budget_min": 3600,
+    "budget_max": 6900,
     "employer_id": "e-24",
     "employer_reputation": 4.24,
     "employer_review_count": 34
+  },
+  {
+    "id": "g-4417-1",
+    "kesco_code": "4417",
+    "title": "Other Clerical Worker needed — receiving customers' orders for classified",
+    "description": "We are looking for someone to take on receiving customers' orders for classified advertising, writing and editing copy, calculating advertising rates and billing customers.",
+    "category": "Business",
+    "required_skills": [
+      "Clerical Worker",
+      "Customers Orders",
+      "Business"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 1400,
+    "budget_max": 2700,
+    "employer_id": "e-18",
+    "employer_reputation": 4.06,
+    "employer_review_count": 34
+  },
+  {
+    "id": "g-4417-2",
+    "kesco_code": "4417",
+    "title": "Other Clerical Worker needed — writing business and government correspondence such",
+    "description": "We are looking for someone to take on writing business and government correspondence such as replies to requests for information and assistance, damage claims, credit and billing enquiries and service complaints.",
+    "category": "Business",
+    "required_skills": [
+      "Clerical Worker",
+      "Customers Orders",
+      "Business"
+    ],
+    "location": null,
+    "is_remote": true,
+    "budget_min": 19900,
+    "budget_max": 38400,
+    "employer_id": "e-04",
+    "employer_reputation": 0.0,
+    "employer_review_count": 0
+  },
+  {
+    "id": "g-5244-1",
+    "kesco_code": "5244",
+    "title": "Contact Centre Salesperson needed — promoting goods and services by telephone or",
+    "description": "We are looking for someone to take on promoting goods and services by telephone or electronic mail, following scripts and working from lists of contacts. The work also covers creating interest in goods and services, and seeking a sale or an agreement to see sales representatives.",
+    "category": "Marketing",
+    "required_skills": [
+      "Contact Centre Salesperson",
+      "Goods",
+      "Interest"
+    ],
+    "location": "Mumias",
+    "is_remote": false,
+    "budget_min": 3200,
+    "budget_max": 6300,
+    "employer_id": "e-23",
+    "employer_reputation": 4.33,
+    "employer_review_count": 12
+  },
+  {
+    "id": "g-5244-2",
+    "kesco_code": "5244",
+    "title": "Contact Centre Salesperson needed — arranging processing and dispatch of goods and",
+    "description": "We are looking for someone to take on arranging processing and dispatch of goods and service s, information kits and brochures to customers. The work also covers arranging appointments for sales representatives.",
+    "category": "Marketing",
+    "required_skills": [
+      "Contact Centre Salesperson",
+      "Goods",
+      "Interest"
+    ],
+    "location": "Kisumu",
+    "is_remote": false,
+    "budget_min": 1000,
+    "budget_max": 1900,
+    "employer_id": "e-02",
+    "employer_reputation": 4.22,
+    "employer_review_count": 36
   },
   {
     "id": "g-para-dev",

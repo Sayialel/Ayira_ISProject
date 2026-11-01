@@ -1,0 +1,10 @@
+2026-11-01T09:05:23.575813+00:00  run 20261101T090523Z__tune-weights__2fb9f06 started
+2026-11-01T09:05:23.575813+00:00  dataset version b65642cd681e
+2026-11-01T09:05:23.575813+00:00  Extracting features (the embedding model runs once per profile)...
+2026-11-01T09:07:57.132856+00:00  profiles: 56 train / 19 validation / 17 test
+2026-11-01T09:07:57.139644+00:00  fast NDCG agrees with eval.metrics to 0.00e+00
+2026-11-01T09:07:57.143651+00:00  holding location=0.03: correlation with the relevance grade is +0.0134, so the labels carry no information about its weight
+2026-11-01T09:07:57.143651+00:00  holding reputation=0.03: correlation with the relevance grade is -0.0131, so the labels carry no information about its weight
+2026-11-01T09:07:57.143651+00:00  Searching 20 weight combinations on the train split...
+2026-11-01T09:07:57.162866+00:00  decision: keep the current weights
+2026-11-01T09:07:57.435333+00:00  run 20261101T090523Z__tune-weights__2fb9f06 finished
