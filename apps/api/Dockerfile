@@ -13,10 +13,15 @@
 #
 #   docker build -f apps/api/Dockerfile -t ayira-api apps/api
 
+# Node 22, not 20. @supabase/realtime-js requires a native WebSocket, which
+# Node added in 22; on 20 the client throws at import time -- "Node.js 20
+# detected without native WebSocket support" -- the moment lib/supabase.js
+# loads. It was invisible locally because this machine runs Node 24.
+#
 # ---------------------------------------------------------------------------
 # 1. Build
 # ---------------------------------------------------------------------------
-FROM node:20-slim AS build
+FROM node:22-slim AS build
 
 WORKDIR /app
 
@@ -38,7 +43,7 @@ RUN ./node_modules/.bin/tsc --version && ./node_modules/.bin/tsc
 # ---------------------------------------------------------------------------
 # 2. Run
 # ---------------------------------------------------------------------------
-FROM node:20-slim AS runtime
+FROM node:22-slim AS runtime
 
 ENV NODE_ENV=production
 WORKDIR /app
@@ -49,7 +54,7 @@ RUN npm install --omit=dev --no-audit --no-fund && npm cache clean --force
 
 COPY --from=build /app/dist ./dist
 
-# node:20-slim ships a `node` user already.
+# node:22-slim ships a `node` user already.
 USER node
 
 EXPOSE 3001
