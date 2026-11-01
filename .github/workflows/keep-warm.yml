@@ -1,0 +1,66 @@
+name: Keep warm
+
+# Render's free instances spin down after about 15 minutes idle. Waking the
+# matching engine is not quick: it is a cold container plus loading the
+# sentence-transformer, and a request that arrives during it gets a 502. That
+# is the most likely way a live demonstration goes wrong.
+#
+# This pings both services so they stay up during the hours anyone is likely
+# to use them.
+#
+# Why not every 10 minutes around the clock: Render's free plan includes 750
+# instance-hours per month per workspace, and two services kept alive
+# continuously would need about 1,460. The schedule below is roughly 06:00 to
+# 19:00 UTC on weekdays -- 09:00 to 22:00 in Nairobi -- which is about 285
+# hours per service per month, comfortably inside the allowance with room for
+# real traffic.
+#
+# Before a demonstration outside those hours, run it by hand:
+#   Actions -> Keep warm -> Run workflow
+
+on:
+  schedule:
+    # Every 10 minutes, 06:00-19:00 UTC, Monday to Friday.
+    - cron: '*/10 6-19 * * 1-5'
+  workflow_dispatch:
+
+# A queued run is pointless once a later one exists: both do the same thing.
+concurrency:
+  group: keep-warm
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wake the matching engine
+        # The engine is the slow one, so it goes first and is given the long
+        # timeout. --max-time, not --connect-timeout: the connection is
+        # accepted immediately by Render's router while the container behind
+        # it is still starting.
+        run: |
+          echo "Engine…"
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 180 \
+            https://ayira-engine.onrender.com/health || echo 000)
+          echo "  /health -> $code"
+          if [ "$code" != "200" ]; then
+            echo "::warning::Engine did not answer 200 within 180s (got $code)"
+          fi
+
+      - name: Wake the API gateway
+        run: |
+          echo "Gateway…"
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 120 \
+            https://ayira-api-t8wf.onrender.com/health || echo 000)
+          echo "  /health -> $code"
+          if [ "$code" != "200" ]; then
+            echo "::warning::Gateway did not answer 200 within 120s (got $code)"
+          fi
+
+      # Pages is static and never sleeps; this only catches a broken deploy.
+      - name: Check the site is served
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 \
+            https://ayira-87w.pages.dev/ || echo 000)
+          echo "  site -> $code"
+          test "$code" = "200"

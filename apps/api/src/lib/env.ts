@@ -43,6 +43,8 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
+import { parseOrigins } from './cors';
+
 export const env = {
   supabaseUrl: process.env.SUPABASE_URL as string,
   supabaseAnonKey: process.env.SUPABASE_ANON_KEY as string,
@@ -53,7 +55,8 @@ export const env = {
   // API_PORT stays for local use, where the three services need distinct
   // ports and the convention is already in .env.
   apiPort: Number(process.env.PORT || process.env.API_PORT || 3001),
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  // See lib/cors.ts for why this is a list and how the wildcard works.
+  corsOrigins: parseOrigins(process.env.CORS_ORIGIN),
   aiEngineUrl: process.env.AI_ENGINE_URL || 'http://localhost:8001',
   // Shared secret presented to the AI engine on every call. Not in
   // REQUIRED_VARS because the gateway is useful without matching; the match

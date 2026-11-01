@@ -3,6 +3,7 @@ import { env } from './lib/env';
 
 import express from 'express';
 import cors from 'cors';
+import { isAllowedOrigin } from './lib/cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { authRouter } from './routes/auth';
@@ -29,7 +30,14 @@ if (env.nodeEnv === 'production') {
 
 // Global middleware
 app.use(helmet());
-app.use(cors({ origin: env.corsOrigin }));
+app.use(
+  cors({
+    origin: (origin, callback) =>
+      isAllowedOrigin(origin, env.corsOrigins)
+        ? callback(null, true)
+        : callback(new Error(`Origin ${origin} is not allowed`)),
+  })
+);
 app.use(express.json({ limit: '100kb' }));
 app.use(morgan('dev'));
 
