@@ -1,34 +1,71 @@
-version: "3.8"
+# Running the three services as release containers.
+#
+# This composes the *built* images. It is not the development setup -- for that
+# use `npm run dev`, which runs Vite, tsx and uvicorn with reload against your
+# working tree. This file previously bind-mounted source directories over the
+# containers, which made it a second, slower development environment and would
+# now overwrite the compiled output the images are built around.
+#
+# Usage:
+#   docker compose build          # web needs the VITE_* values below
+#   docker compose up -d
+#   docker compose ps             # all three should report healthy
 
 services:
+  ai-engine:
+    build:
+      context: .
+      dockerfile: apps/ai-engine/Dockerfile
+    # Not published to the host. The gateway is the only thing that may call
+    # the engine, and it does so over the internal network by service name.
+    expose:
+      - "8001"
+    environment:
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      AI_ENGINE_SECRET: ${AI_ENGINE_SECRET}
+    restart: unless-stopped
+
   api:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
     ports:
       - "3001:3001"
-    env_file: .env
+    environment:
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      AI_ENGINE_SECRET: ${AI_ENGINE_SECRET}
+      # By service name, not localhost: inside a container localhost is the
+      # container itself.
+      AI_ENGINE_URL: http://ai-engine:8001
+      AI_ENGINE_TIMEOUT_MS: ${AI_ENGINE_TIMEOUT_MS:-60000}
+      DARAJA_CONSUMER_KEY: ${DARAJA_CONSUMER_KEY}
+      DARAJA_CONSUMER_SECRET: ${DARAJA_CONSUMER_SECRET}
+      DARAJA_PASSKEY: ${DARAJA_PASSKEY}
+      DARAJA_SHORTCODE: ${DARAJA_SHORTCODE}
+      DARAJA_CALLBACK_URL: ${DARAJA_CALLBACK_URL}
+      DARAJA_ENV: ${DARAJA_ENV:-sandbox}
     depends_on:
-      - ai-engine
-    volumes:
-      - ./apps/api/src:/app/src
-
-  ai-engine:
-    build:
-      context: .
-      dockerfile: apps/ai-engine/Dockerfile
-    ports:
-      - "8001:8001"
-    env_file: .env
-    volumes:
-      - ./apps/ai-engine/app:/app/app
+      ai-engine:
+        condition: service_healthy
+    restart: unless-stopped
 
   web:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+      # Vite substitutes these into the bundle at build time, so they are build
+      # arguments rather than runtime environment. There is no runtime
+      # environment in a static file.
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3001/api}
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
     ports:
-      - "5173:5173"
-    env_file: .env
-    volumes:
-      - ./apps/web/src:/app/src
+      - "8080:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
