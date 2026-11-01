@@ -28,8 +28,9 @@ met the requirement, so the complexity was not bought.
 ## The one real constraint
 
 The matching engine loads `all-MiniLM-L6-v2` through sentence-transformers,
-which pulls in PyTorch. That is several hundred megabytes of dependency and
-needs roughly a gigabyte of memory to run.
+which pulls in PyTorch. Measured on the project's own virtual environment:
+**1.3 GB installed, of which PyTorch is 539 MB.** Disk is not memory, but a
+dependency that size does not run in a small instance.
 
 **Render's free tier is 256–512 MB**, so the engine will not fit there. The
 gateway will: Express plus the Supabase client is light. Hugging Face's free
