@@ -1,0 +1,66 @@
+# Render Blueprint for the API gateway.
+#
+# At the repository root because Render looks for it there. Create the service
+# with New -> Blueprint rather than New -> Web Service and this sets the build,
+# start command and health check for you.
+#
+# Only the gateway is here. The matching engine is not: it loads
+# sentence-transformers, which pulls in PyTorch and needs roughly a gigabyte
+# of memory, and Render's free instance is 256-512 MB. The engine runs on a
+# Hugging Face Space instead -- see deploy/README.md. Express plus the
+# Supabase client fits comfortably.
+
+services:
+  - type: web
+    name: ayira-api
+    runtime: node
+    plan: free
+    region: frankfurt        # closest of Render's regions to Kenya
+    branch: main
+
+    # ci, not install: it installs exactly what package-lock.json pins, so a
+    # deploy cannot succeed against a version nobody committed.
+    buildCommand: npm ci && npm run build --workspace=apps/api
+    # The compiled output, not tsx. The build already type-checked it.
+    startCommand: node apps/api/dist/index.js
+
+    healthCheckPath: /health
+
+    envVars:
+      # sync: false means "ask me in the dashboard, do not store it here".
+      # None of these values belong in the repository.
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+      # The Hugging Face Space, e.g. https://<user>-ayira-engine.hf.space
+      - key: AI_ENGINE_URL
+        sync: false
+      - key: AI_ENGINE_SECRET
+        sync: false
+      # Raised from the local 60s: a sleeping Space takes longer to answer its
+      # first request than a warm container, and the encoder loads on top.
+      - key: AI_ENGINE_TIMEOUT_MS
+        value: "90000"
+
+      - key: DARAJA_CONSUMER_KEY
+        sync: false
+      - key: DARAJA_CONSUMER_SECRET
+        sync: false
+      - key: DARAJA_PASSKEY
+        sync: false
+      - key: DARAJA_SHORTCODE
+        sync: false
+      # Must be the deployed address: Safaricom calls it, so localhost and a
+      # placeholder both fail -- and the placeholder guard in services/mpesa.ts
+      # refuses to start a payment rather than take money it cannot confirm.
+      - key: DARAJA_CALLBACK_URL
+        sync: false
+      - key: DARAJA_ENV
+        value: sandbox
+
+      - key: NODE_ENV
+        value: production
