@@ -1,10 +1,10 @@
 {
-  "run_id": "20261019T062532Z__baselines-validation__4c3f4c4",
+  "run_id": "20261101T091723Z__baselines-validation__f4e2657",
   "artefact": "tfidf_vectorizer.joblib",
   "artefact_version": 1,
-  "git_commit": "4c3f4c48e4b6fde2455fe09b60b6767bd6ecdc6f",
+  "git_commit": "f4e2657dfffbe78cf3b24efee7ef84964e178b43",
   "git_dirty": false,
-  "dataset_version": "6ac4675ae766",
+  "dataset_version": "b65642cd681e",
   "fitted_on": "train",
-  "deployed_at": "2026-10-19T06:25:55.825276+00:00"
+  "deployed_at": "2026-11-01T09:19:26.094841+00:00"
 }

@@ -1,0 +1,67 @@
+{
+  "run_id": "20261101T091456Z__baselines-validation__dde67e9",
+  "name": "baselines-validation",
+  "started_at": "2026-11-01T09:14:56.298549+00:00",
+  "finished_at": "2026-11-01T09:16:34.683116+00:00",
+  "git": {
+    "commit": "dde67e91c91d7c49b699358f9f22921c9adf782e",
+    "short_commit": "dde67e9",
+    "branch": "main",
+    "dirty": true,
+    "uncommitted_files": 1,
+    "uncommitted_paths": [
+      "CHAPTER5_SOURCE.md"
+    ]
+  },
+  "dataset_version": "b65642cd681e",
+  "seeds": {
+    "random_baseline": 0,
+    "split": 20261018
+  },
+  "parameters": {
+    "split": "validation",
+    "weights_shipped": {
+      "semantic": 0.45,
+      "tfidf": 0.25,
+      "location": 0.15,
+      "reputation": 0.15
+    },
+    "weights_tuned": {
+      "semantic": 0.72,
+      "tfidf": 0.22,
+      "location": 0.03,
+      "reputation": 0.03
+    },
+    "tfidf_fitted_on": "train",
+    "tfidf_vocabulary_size": 1694,
+    "metrics_at_k": {
+      "precision": [
+        5,
+        10
+      ],
+      "recall": [
+        10
+      ],
+      "ndcg": [
+        10
+      ]
+    }
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": ""
+}

@@ -3,7 +3,7 @@
 Written for: Lenina Sayialel, for the Sprint III progress review and the final
 defence.
 
-Status as of 1 November 2026. Every figure here is taken from the repository
+Status as of 1 November 2026 (revised after the corpus expansion). Every figure here is taken from the repository
 or the live database and can be checked in front of an examiner. Where
 something is not done, it says so.
 
@@ -28,12 +28,18 @@ evidence sprint rather than a feature sprint.
 | Traceability record | **Not started** (A1) |
 | Coherent system around real user tasks | **Done** — sidebar, tabs, consistent components |
 | **Working operational release over HTTPS** | **Not started** (A2) — the largest remaining item |
-| Completed testing and evaluation | **Partly** — 196 automated tests; no UAT, no final test-split run (A3, A4) |
+| Completed testing and evaluation | **Partly** — 209 automated tests, final test-split run **done**; no UAT (A4) |
 | Complete report and reproducible handover | **Partly** — engine and payment docs exist; Chapters 5–6 outstanding (A6) |
 
 What exists today: 24 migrations, 38 API endpoints, 19 web pages, 29 RLS
-policies, 28 `SECURITY DEFINER` functions, 196 automated tests (106 Python,
-90 TypeScript), 26 recorded evaluation runs, CI on every push, 58 commits.
+policies, 28 `SECURITY DEFINER` functions, **209 automated tests** (119 Python,
+90 TypeScript), **32 recorded evaluation runs**, CI on every push.
+
+**Changed this session:** the corpus was doubled from the same KeSCO source
+(47 → 92 profiles, 104 → 193 gigs, 565 → 1,482 graded pairs), weights were
+re-tuned and held, the final test split was run and recorded, a new TF-IDF
+artefact was promoted with clean provenance, and the engine now abstains from
+claiming a skills match when the profile cannot support one.
 
 ---
 
@@ -122,22 +128,34 @@ Reasons in Part B §B5.
 
 ---
 
-## A3. The final test-split run — **one hour, high value**
+## A3. ~~The final test-split run~~ — **done**
 
-`eval/results/runs/` holds **17 validation runs and no test run**. The harness
-supports `--split test` and its own docstring says "the final reported figure,
-once".
+Run `20261101T091158Z__baselines-test__2fb9f06`, on the expanded corpus
+(17 test profiles, 286 graded pairs):
 
-```bash
-cd apps/ai-engine && python -m eval.run_eval --split test
-```
+| System | NDCG@10 | 95% CI |
+|---|---|---|
+| Random | 0.035 | [0.012, 0.062] |
+| TF-IDF only | 0.744 | [0.684, 0.797] |
+| Semantic only | 0.750 | [0.680, 0.813] |
+| Composite (shipped weights) | 0.717 | [0.674, 0.759] |
+| **Composite (tuned)** | **0.780** | [0.729, 0.830] |
 
-**State the caveat yourself.** The weight tuner has already scored the test
-split six times, so it is **not a pristine holdout**. Selection never used it —
-weights were searched on train and adopted on validation with a 0.005 margin —
-but the number was visible during development. Saying this before you are asked
-is far stronger than being caught by it. Current test NDCG@10 at the deployed
-weights: **0.8499**.
+**Your headline number is 0.780.**
+
+Two things to say with it, unprompted:
+
+1. **The tuned weights clearly beat the originally shipped ones** — 0.780
+   against 0.717, with barely overlapping intervals. That is what the weight
+   search bought, and it is assertable.
+2. **The margin over semantic-only is 0.030 and the intervals still overlap.**
+   It was 0.012 on the 47-profile corpus, so doubling the sample both widened
+   the margin and narrowed the interval (0.118 → 0.101) — but it still cannot
+   prove the difference. Claim "consistently the best system measured, on both
+   splits", not "significantly better".
+
+**The caveat still stands:** the weight tuner scores the test split on every
+run, so it is not a pristine holdout. Selection used train and validation only.
 
 ---
 
@@ -222,7 +240,7 @@ the gap unaddressed either way.
 | 2 | Decide messages/notifications (A7) | 0.5–2d | Changes the ERD, so earlier is cheaper |
 | 3 | Deploy (A2) | 2–3d | The biggest item, and unblocks A5 |
 | 4 | Test the callback live (A5) | 1h | Free once deployed |
-| 5 | Run `--split test` (A3) | 1h | Your headline number |
+| ~~5~~ | ~~Run `--split test`~~ | **done** | 0.780 on test |
 | 6 | UAT with 5–8 people (A4) | 1d | Needs the deployed URL to be realistic |
 | 7 | Chapters 5 and 6 (A6) | 3–4d | Written against finished evidence |
 | 8 | Release tag, handover, rehearse | 1d | |

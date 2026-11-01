@@ -184,20 +184,20 @@ came to be.
 
 | File | Contents |
 |---|---|
-| `eval/corpus/profiles.json` | **47** worker profiles |
-| `eval/corpus/gigs.json` | **104** gigs |
+| `eval/corpus/profiles.json` | **92** worker profiles |
+| `eval/corpus/gigs.json` | **193** gigs |
 | `eval/corpus/employers.json` | **25** employers |
-| `eval/corpus/relevance.csv` | **565** graded (worker, gig) pairs |
-| `eval/corpus/splits.json` | the frozen split, `dataset_version: 6ac4675ae766` |
+| `eval/corpus/relevance.csv` | **1,482** graded (worker, gig) pairs |
+| `eval/corpus/splits.json` | the frozen split, `dataset_version: b65642cd681e` |
 
-Grade distribution: `3` → 107, `2` → 166, `1` → 291, `0` → 1.
+Label provenance: **1,449 derived**, **33 authored** — see below.
 Relevance threshold for precision/recall is **grade ≥ 2**.
 
 Label provenance, from the `layer` column — **be ready for this one**:
 
 | Layer | Count |
 |---|---|
-| `derived` | **532** |
+| `derived` | **1,449** |
 | `authored` | 33 |
 
 So 94% of labels were produced by a rule, not by a person. §7 is honest about
@@ -205,7 +205,7 @@ what that costs.
 
 ### 4.2 Splitting
 
-`eval/splits.py`, seed `20261018`, **29 train / 9 validation / 9 test**.
+`eval/splits.py`, seed `20261018`, **56 train / 19 validation / 17 test**.
 
 The split is **by profile, never by graded pair**. If the same worker appeared
 in both train and test, the model would be scored on a worker it had already
@@ -371,46 +371,62 @@ influence and the displayed percentage means something.
 
 ## 6. Results
 
-From `eval/results/runs/20261019T062941Z__baselines-validation__b8a18c0`,
-**validation** split (9 profiles, 88 graded pairs):
+From `eval/results/runs/20261101T091723Z__baselines-validation__f4e2657`,
+**validation** split (19 profiles, 272 graded pairs):
 
-| System | NDCG@10 | NDCG@5 | P@5 | R@10 | MRR |
+| System | NDCG@10 | NDCG@5 | P@5 | R@10 | 95% CI on NDCG@10 |
 |---|---|---|---|---|---|
-| Random | 0.081 | 0.030 | 0.044 | 0.117 | 0.142 |
-| TF-IDF only | 0.812 | 0.848 | 0.533 | 0.636 | 1.000 |
-| Semantic only | 0.891 | 0.858 | 0.556 | 0.904 | 1.000 |
-| Composite (shipped weights) | 0.846 | 0.851 | 0.556 | 0.717 | 1.000 |
-| **Composite (tuned)** | **0.897** | **0.879** | **0.600** | 0.867 | 1.000 |
+| Random | 0.048 | 0.045 | 0.053 | 0.052 | [0.024, 0.076] |
+| TF-IDF only | 0.723 | 0.779 | 0.495 | 0.541 | [0.671, 0.775] |
+| Semantic only | 0.748 | 0.803 | 0.558 | 0.580 | [0.695, 0.802] |
+| Composite (shipped weights) | 0.731 | 0.778 | 0.526 | 0.564 | [0.673, 0.785] |
+| **Composite (tuned)** | **0.770** | **0.819** | 0.547 | **0.601** | [0.723, 0.814] |
 
-Test split, current weights: **NDCG@10 = 0.8499**
-(`20261019T062341Z__tune-weights__0298b68`).
+**Test split — the final reported figure**
+(`20261101T091158Z__baselines-test__2fb9f06`, 17 profiles, 286 graded pairs):
+
+| System | NDCG@10 | NDCG@5 | P@5 | R@10 | 95% CI on NDCG@10 |
+|---|---|---|---|---|---|
+| Random | 0.035 | 0.027 | 0.024 | 0.038 | [0.012, 0.062] |
+| TF-IDF only | 0.744 | 0.803 | 0.576 | 0.558 | [0.684, 0.797] |
+| Semantic only | 0.750 | 0.801 | 0.565 | 0.597 | [0.680, 0.813] |
+| Composite (shipped weights) | 0.717 | 0.741 | 0.541 | 0.582 | [0.674, 0.759] |
+| **Composite (tuned)** | **0.780** | **0.818** | 0.553 | **0.621** | [0.729, 0.830] |
 
 ### How to present this honestly
 
-**The composite beats random by an order of magnitude.** 0.897 against 0.081.
+**The composite beats random by more than twenty times.** 0.780 against 0.035
+on the held-out test split.
 
-**The composite does not beat semantic-only by a meaningful margin.** 0.897 vs
-0.891 — a gain of 0.006, and the 95% confidence intervals overlap heavily:
+**It is now the best of the four real systems on test**, and by a wider margin
+than before the corpus was doubled: 0.780 against 0.750 for semantic-only, a
+gap of 0.030 where the 47-profile corpus showed 0.012. Recall@10 improves too,
+0.621 against 0.597.
 
-- Semantic only: [0.823, 0.950]
-- Composite tuned: [0.843, 0.949]
+**The intervals still overlap**, so state the claim carefully:
 
-Say this before you are asked. With 9 validation profiles the study is
-underpowered to separate them. The defensible claim is "the composite is at
-least as good as semantic alone and adds signals a worker cares about", not
-"the composite is better".
+- Semantic only: [0.680, 0.813]
+- Composite tuned: [0.729, 0.830]
 
-**MRR is saturated at 1.000.** The first result is relevant for every profile,
-so MRR cannot discriminate between these systems at all. Do not present it as
-evidence.
+Say this before you are asked. With 17 test profiles the study is better
+powered than it was with 9 — the interval narrowed from 0.118 wide to 0.101 —
+but it still cannot prove the difference. The defensible claim is **"the
+composite is consistently the best system measured, on both splits, and the
+margin grew when the sample grew"** — not "the composite is significantly
+better".
 
----
+**The tuned weights beat the originally shipped ones clearly**: 0.780 against
+0.717 on test, and the intervals barely overlap. That comparison *is* worth
+asserting, and it is what the weight tuning bought.
+
+**MRR is saturated at or near 1.000** for every non-random system, so it cannot
+discriminate between them. Do not present it as evidence.
 
 ## 7. The limitations to raise yourself
 
 Raising these first is much stronger than being caught by them.
 
-**1. The benchmark is partly circular.** 532 of 565 labels are derived by a
+**1. The benchmark is partly circular.** 1,449 of 1,482 labels are derived by a
 rule from occupational similarity, and the ranker also works on text
 similarity. Quantified: naive word overlap alone puts a grade-3 gig first for
 **41 of 47 profiles (87%)**. So a large part of the measured performance
@@ -418,7 +434,9 @@ reflects agreement between two text-similarity methods, not demonstrated
 real-world matching quality.
 
 **2. Location and reputation are unvalidatable on this ground truth.**
-Correlations of −0.0033 and +0.0072. Their weights are a product judgement.
+Correlations of **+0.0134** and **−0.0131** on the expanded corpus (they were
+−0.0033 and +0.0072 on the smaller one — the sign flipped, which is itself
+evidence the signal is noise). Their weights are a product judgement.
 Fixing this needs labels that vary with location and employer — i.e. people,
 not code.
 
@@ -434,8 +452,10 @@ every run and has done so six times. No automated selection used it — weights
 were searched on train and adopted on validation — but the number was visible
 during development, so "untouched holdout" would be an overclaim.
 
-**5. Scale.** 47 profiles, 104 gigs, 25 employers. Confidence intervals are
-wide and will stay wide at this size.
+**5. Scale.** 92 profiles, 193 gigs, 25 employers — doubled from 47/104 by
+reading further into the same KeSCO standard. Intervals narrowed (0.118 to
+0.101 wide on test) but remain wide. A third source of profiles would need
+real people, not more generation.
 
 **6. `CANDIDATE_POOL = 200` is 20x larger than anything measurable here.**
 Now evaluated (`20261025T123721Z__retrieval-validation__e04d74f`):
