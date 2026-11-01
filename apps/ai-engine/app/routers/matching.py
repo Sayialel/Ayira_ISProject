@@ -2,7 +2,7 @@ import logging
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from app.models.schemas import MatchRequest, MatchResponse
+from app.models.schemas import MatchRequest, MatchResponse, ProfileSufficiency
 from app.security import require_api_key
 from app.services.matcher import match_worker_to_gigs
 
@@ -16,8 +16,14 @@ router = APIRouter(dependencies=[Depends(require_api_key)])
 @router.post("/match", response_model=MatchResponse)
 async def match_gigs(req: MatchRequest):
     try:
-        matches = await match_worker_to_gigs(req.worker_id, req.limit)
-        return MatchResponse(worker_id=req.worker_id, matches=matches)
+        matches, sufficiency = await match_worker_to_gigs(req.worker_id, req.limit)
+        return MatchResponse(
+            worker_id=req.worker_id,
+            matches=matches,
+            sufficiency=(
+                ProfileSufficiency(**sufficiency.as_dict()) if sufficiency else None
+            ),
+        )
     except Exception as exc:
         # Log the detail for operators; return a generic message, since the
         # exception text can carry database and configuration internals.

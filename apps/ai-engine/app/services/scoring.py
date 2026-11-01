@@ -342,3 +342,105 @@ def score_gigs(
 
     scored.sort(key=lambda g: g.score, reverse=True)
     return scored
+
+
+# ---------------------------------------------------------------------------
+# Whether a profile can be matched on at all
+# ---------------------------------------------------------------------------
+#
+# The engine previously always returned a ranking. For a worker who has
+# written nothing, that ranking is noise presented as a recommendation, and
+# this is arithmetic rather than a judgement: compute_semantic_similarities and
+# tfidf similarities both return exactly 0.0 for every candidate when the query
+# is empty, so the composite collapses to
+#
+#     0.72*0 + 0.22*0 + 0.03*location + 0.03*reputation
+#
+# -- six per cent of the weight, none of it about skill fit. The gigs come back
+# ordered, and nothing in the result says the order means nothing.
+#
+# So the engine now reports how much it had to work with, and the interface
+# says so. It still returns the ranking: refusing to answer would be worse
+# than answering with a caveat, because a worker who is browsing can still use
+# a location-ordered list while they fill their profile in.
+
+#: Enough skills on their own to rank on, with no bio.
+SKILLS_ONLY_FLOOR = 3
+#: Characters of combined skills-and-bio text below which the signal is thin.
+#
+# 25 is the boundary between a word and a sentence, which is the distinction
+# this floor is for. It was 40, which rejected "carpentry / Furniture maker in
+# Thika." at 35 characters -- a genuine, usable profile -- while a one-word bio
+# like "plumber" is 7. The floor should catch someone who typed a word, not
+# someone who wrote briefly.
+TEXT_FLOOR = 25
+
+
+@dataclass(frozen=True)
+class ProfileSufficiency:
+    """How much of the ranking this profile could actually drive."""
+
+    level: str          # 'ok' | 'weak' | 'insufficient'
+    reason: str         # one sentence, shown to the worker
+    skills: int
+    has_bio: bool
+
+    @property
+    def can_rank_on_skills(self) -> bool:
+        """False when the text signals are provably zero for every gig."""
+        return self.level != "insufficient"
+
+    def as_dict(self) -> dict:
+        return {
+            "level": self.level,
+            "reason": self.reason,
+            "skills": self.skills,
+            "has_bio": self.has_bio,
+        }
+
+
+def profile_sufficiency(worker: dict) -> ProfileSufficiency:
+    """
+    Judges a profile against what the two text signals need.
+
+    Deliberately reads the same `profile_text` the scorer reads, rather than
+    the raw columns, so the two can never disagree about what is empty.
+    """
+    text = profile_text(worker)
+    skills = [s for s in (worker.get("skills") or []) if str(s).strip()]
+    has_bio = bool(_text(worker.get("bio")))
+
+    if not text.strip():
+        return ProfileSufficiency(
+            level="insufficient",
+            reason=(
+                "Add your skills or a short description. Without them the "
+                "ranking cannot consider what you can do."
+            ),
+            skills=0,
+            has_bio=False,
+        )
+
+    # Skills are checked before text length, and are sufficient on their own.
+    # Three named skills are a real query even though they are short -- the
+    # length floor exists to catch a one-word bio, not to demand prose from
+    # someone who listed what they do.
+    if len(skills) >= SKILLS_ONLY_FLOOR:
+        return ProfileSufficiency(
+            level="ok", reason="", skills=len(skills), has_bio=has_bio
+        )
+
+    if has_bio and len(text) >= TEXT_FLOOR:
+        return ProfileSufficiency(
+            level="ok", reason="", skills=len(skills), has_bio=has_bio
+        )
+
+    return ProfileSufficiency(
+        level="weak",
+        reason=(
+            "Add a few more skills or a longer description — the more you "
+            "write, the better these matches get."
+        ),
+        skills=len(skills),
+        has_bio=has_bio,
+    )

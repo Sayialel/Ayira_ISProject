@@ -12,7 +12,13 @@ from app.services.embedding_store import (
     worker_embedding,
 )
 from app.services import tfidf_model
-from app.services.scoring import gig_text, profile_text, score_gigs
+from app.services.scoring import (
+    ProfileSufficiency,
+    gig_text,
+    profile_sufficiency,
+    profile_text,
+    score_gigs,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -86,7 +92,9 @@ def _backfill_embeddings(sb) -> int:
     return refresh_gig_embeddings(sb, pending.data, gig_text)
 
 
-async def match_worker_to_gigs(worker_id: str, limit: int = 10) -> list[GigScore]:
+async def match_worker_to_gigs(
+    worker_id: str, limit: int = 10
+) -> tuple[list[GigScore], ProfileSufficiency | None]:
     """
     Ranks open gigs for one worker.
 
@@ -104,9 +112,14 @@ async def match_worker_to_gigs(worker_id: str, limit: int = 10) -> list[GigScore
         .execute()
     )
     if not worker.data:
-        return []
+        return [], None
 
     profile = worker.data[0]
+
+    # Judged before anything is scored, because it describes the input
+    # rather than the result, and the caller needs it even when the
+    # candidate list comes back empty.
+    sufficiency = profile_sufficiency(profile)
 
     rebuilt = _backfill_embeddings(sb)
     if rebuilt:
@@ -124,7 +137,7 @@ async def match_worker_to_gigs(worker_id: str, limit: int = 10) -> list[GigScore
     ).execute()
 
     if not candidates.data:
-        return []
+        return [], sufficiency
 
     gigs = candidates.data
     semantic = [_similarity_from_distance(g.get("distance")) for g in gigs]
@@ -140,7 +153,7 @@ async def match_worker_to_gigs(worker_id: str, limit: int = 10) -> list[GigScore
         vectorizer=tfidf_model.load_serving(),
     )
 
-    return [
+    scored = [
         GigScore(
             gig_id=g.gig_id,
             title=g.title,
@@ -149,3 +162,4 @@ async def match_worker_to_gigs(worker_id: str, limit: int = 10) -> list[GigScore
         )
         for g in ranked[:limit]
     ]
+    return scored, sufficiency

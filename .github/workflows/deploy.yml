@@ -1,0 +1,168 @@
+name: Deploy
+
+# Publishes a release when CI passes on main.
+#
+# Nothing here runs until the repository secrets below exist, and every job is
+# guarded on its own secret, so adding Cloudflare does not make the AWS job
+# fail and vice versa. That matters because the two halves are likely to be
+# set up days apart.
+#
+# Required secrets, by job:
+#
+#   web        CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+#              VITE_API_URL, VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
+#   api,       AWS_DEPLOY_ROLE_ARN   (an IAM role trusted via GitHub OIDC)
+#   ai-engine  AWS_REGION, ECR_REPOSITORY_API, ECR_REPOSITORY_ENGINE
+#              ECS_CLUSTER, ECS_SERVICE_API, ECS_SERVICE_ENGINE
+#
+# OIDC rather than long-lived AWS keys: the role trusts this repository and
+# this branch, so there is no access key to leak or rotate.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false      # never interrupt a half-finished deploy
+
+permissions:
+  contents: read
+  id-token: write                # required for AWS OIDC
+
+jobs:
+  # A deploy must never outrun the tests, so this repeats the CI gate rather
+  # than assuming it passed.
+  verify:
+    name: Tests must pass first
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+
+  web:
+    name: Frontend → Cloudflare Pages
+    needs: verify
+    runs-on: ubuntu-latest
+    # Skipped silently until the token exists.
+    if: ${{ github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check this job is configured
+        id: gate
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::CLOUDFLARE_API_TOKEN is not set; skipping the frontend deploy."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.configured == 'true'
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+        if: steps.gate.outputs.configured == 'true'
+
+      - name: Build
+        if: steps.gate.outputs.configured == 'true'
+        # Vite substitutes these into the bundle, so they are build-time
+        # values. The anon key is public by design and guarded by RLS; the
+        # service-role key must never appear here.
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: npm run build --workspace=apps/web
+
+      - name: Publish to Pages
+        if: steps.gate.outputs.configured == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/web/dist --project-name=ayira --branch=main
+
+  containers:
+    name: Gateway and engine → ECR, then ECS
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check this job is configured
+        id: gate
+        run: |
+          if [ -z "${{ secrets.AWS_DEPLOY_ROLE_ARN }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::AWS_DEPLOY_ROLE_ARN is not set; skipping the container deploy."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Assume the deployment role
+        if: steps.gate.outputs.configured == 'true'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Log in to ECR
+        if: steps.gate.outputs.configured == 'true'
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # Tagged with the commit, not `latest`: a running task must be traceable
+      # to the exact code and model artefact it is serving.
+      - name: Build and push the gateway
+        if: steps.gate.outputs.configured == 'true'
+        env:
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
+          REPO: ${{ secrets.ECR_REPOSITORY_API }}
+        run: |
+          docker build -f apps/api/Dockerfile -t "$REGISTRY/$REPO:${{ github.sha }}" .
+          docker push "$REGISTRY/$REPO:${{ github.sha }}"
+          docker inspect --format='{{index .RepoDigests 0}}' "$REGISTRY/$REPO:${{ github.sha }}"
+
+      - name: Build and push the engine
+        if: steps.gate.outputs.configured == 'true'
+        env:
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
+          REPO: ${{ secrets.ECR_REPOSITORY_ENGINE }}
+        run: |
+          docker build -f apps/ai-engine/Dockerfile -t "$REGISTRY/$REPO:${{ github.sha }}" .
+          docker push "$REGISTRY/$REPO:${{ github.sha }}"
+          docker inspect --format='{{index .RepoDigests 0}}' "$REGISTRY/$REPO:${{ github.sha }}"
+
+      # A push to ECR does not replace what is running. This is the step that
+      # actually releases, and it is easy to leave out and then wonder why the
+      # deployed behaviour never changed.
+      - name: Roll the ECS services onto the new images
+        if: steps.gate.outputs.configured == 'true'
+        run: |
+          aws ecs update-service \
+            --cluster "${{ secrets.ECS_CLUSTER }}" \
+            --service "${{ secrets.ECS_SERVICE_ENGINE }}" \
+            --force-new-deployment
+          aws ecs update-service \
+            --cluster "${{ secrets.ECS_CLUSTER }}" \
+            --service "${{ secrets.ECS_SERVICE_API }}" \
+            --force-new-deployment
+
+      - name: Wait for both services to stabilise
+        if: steps.gate.outputs.configured == 'true'
+        run: |
+          aws ecs wait services-stable \
+            --cluster "${{ secrets.ECS_CLUSTER }}" \
+            --services "${{ secrets.ECS_SERVICE_ENGINE }}" "${{ secrets.ECS_SERVICE_API }}"

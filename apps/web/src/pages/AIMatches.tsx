@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, MapPin, Wifi, History } from 'lucide-react';
+import { Sparkles, MapPin, Wifi, History, AlertTriangle, ArrowRight } from 'lucide-react';
 import { apiFetch } from '@/lib/api';
 import {
   EmptyState,
@@ -10,7 +10,7 @@ import {
   usePageTitle,
 } from '@/components/ui';
 import { formatBudgetRange, formatRelative, toPercent } from '@/lib/format';
-import type { GigMatch, MatchBreakdown, MatchResponse } from '@/types';
+import type { GigMatch, MatchBreakdown, MatchResponse, MatchSufficiency } from '@/types';
 
 /** The weights the AI engine applies in composite_score(). */
 // Must match DEFAULT_WEIGHTS in apps/ai-engine/app/services/scoring.py. These
@@ -29,6 +29,7 @@ export default function AIMatches() {
 
   const [matches, setMatches] = useState<GigMatch[] | null>(null);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
+  const [sufficiency, setSufficiency] = useState<MatchSufficiency | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,6 +43,7 @@ export default function AIMatches() {
       });
       setMatches(result.matches);
       setGeneratedAt(result.generated_at);
+      setSufficiency(result.sufficiency ?? null);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -101,6 +103,10 @@ export default function AIMatches() {
       )}
 
       {!loading && error && <ErrorMessage message={error} onRetry={findMatches} />}
+
+      {!loading && !error && sufficiency && sufficiency.level !== 'ok' && (
+        <SufficiencyNotice sufficiency={sufficiency} />
+      )}
 
       {!loading && !error && matches === null && (
         <EmptyState
@@ -226,6 +232,57 @@ function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
           );
         })}
       </dl>
+    </div>
+  );
+}
+
+/**
+ * Says when the ranking had little to work with.
+ *
+ * `insufficient` is arithmetic rather than a judgement: with no skills and no
+ * bio, both text signals return exactly zero for every candidate, so the order
+ * is carried entirely by the 6% of weight on location and employer rating. The
+ * list is still shown -- a location-ordered list is usable while someone fills
+ * their profile in -- but it is no longer presented as a skills match.
+ */
+function SufficiencyNotice({ sufficiency }: { sufficiency: MatchSufficiency }) {
+  const severe = sufficiency.level === 'insufficient';
+
+  return (
+    <div
+      role="status"
+      className={`mb-5 flex items-start gap-3 rounded-xl border p-4 ${
+        severe
+          ? 'border-ayira-200 bg-ayira-50'
+          : 'border-gold-200 bg-gold-50'
+      }`}
+    >
+      <AlertTriangle
+        size={18}
+        aria-hidden
+        className={`mt-0.5 shrink-0 ${severe ? 'text-ayira-700' : 'text-gold-700'}`}
+      />
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold text-slate-900">
+          {severe
+            ? 'These are not skill matches yet'
+            : 'These matches could be better'}
+        </p>
+        <p className="mt-0.5 text-sm text-slate-600">{sufficiency.reason}</p>
+        {severe && (
+          <p className="mt-1.5 text-xs text-slate-500">
+            With nothing written in your profile, the ranking can only use your
+            town and the employer&rsquo;s rating — about 6% of the score.
+          </p>
+        )}
+        <Link
+          to="/app/profile"
+          className="mt-2.5 inline-flex items-center gap-1.5 text-sm font-semibold text-ayira-700 hover:underline"
+        >
+          Update your profile
+          <ArrowRight size={14} aria-hidden />
+        </Link>
+      </div>
     </div>
   );
 }

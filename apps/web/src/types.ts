@@ -212,8 +212,24 @@ export interface GigMatch {
   breakdown: MatchBreakdown;
 }
 
+/**
+ * How much of the ranking the worker's own profile could drive.
+ *
+ * `insufficient` is not a judgement: with no skills and no bio both text
+ * signals are exactly zero for every gig, so the ranking is carried entirely
+ * by the 6% of weight on location and employer rating.
+ */
+export interface MatchSufficiency {
+  level: 'ok' | 'weak' | 'insufficient';
+  reason: string;
+  skills: number;
+  has_bio: boolean;
+}
+
 export interface MatchResponse {
   matches: GigMatch[];
+  /** Null from an engine that predates this field. */
+  sufficiency: MatchSufficiency | null;
   generated_at: string;
 }
 

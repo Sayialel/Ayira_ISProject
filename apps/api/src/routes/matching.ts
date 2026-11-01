@@ -45,9 +45,23 @@ const gigScoreSchema = z.object({
   }),
 });
 
+/**
+ * How much of the ranking the worker's own profile could drive.
+ *
+ * Optional, so a gateway deployed ahead of the engine still parses a response
+ * from an engine that does not send it yet.
+ */
+const sufficiencySchema = z.object({
+  level: z.enum(['ok', 'weak', 'insufficient']),
+  reason: z.string(),
+  skills: z.number(),
+  has_bio: z.boolean(),
+});
+
 const matchResponseSchema = z.object({
   worker_id: z.string(),
   matches: z.array(gigScoreSchema),
+  sufficiency: sufficiencySchema.nullish(),
 });
 
 type GigScore = z.infer<typeof gigScoreSchema>;
@@ -126,7 +140,13 @@ matchingRouter.post(
     const result = await callAiEngine(userId, limit);
 
     if (result.matches.length === 0) {
-      return res.json({ data: { matches: [], generated_at: new Date().toISOString() } });
+      return res.json({
+        data: {
+          matches: [],
+          sufficiency: result.sufficiency ?? null,
+          generated_at: new Date().toISOString(),
+        },
+      });
     }
 
     // The engine returns scores only; hydrate them with the gig fields the
@@ -157,7 +177,13 @@ matchingRouter.post(
 
     await logMatches(userId, result.matches);
 
-    res.json({ data: { matches, generated_at: new Date().toISOString() } });
+    res.json({
+      data: {
+        matches,
+        sufficiency: result.sufficiency ?? null,
+        generated_at: new Date().toISOString(),
+      },
+    });
   })
 );
 

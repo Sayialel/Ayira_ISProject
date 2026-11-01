@@ -17,6 +17,7 @@ from app.services.scoring import (
     gig_text,
     is_location_match,
     location_affinity,
+    profile_sufficiency,
     profile_text,
     score_gigs,
     SAME_COUNTY,
@@ -288,3 +289,95 @@ def test_zero_weights_produce_zero_scores(worker, gigs):
     flat = Weights(semantic=0.0, tfidf=0.0, location=0.0, reputation=0.0)
     for scored in score_gigs(worker, gigs, flat):
         assert scored.score == pytest.approx(0.0)
+
+
+# ---------------------------------------------------------------------------
+# Profile sufficiency
+# ---------------------------------------------------------------------------
+#
+# The engine used to return a ranking for any profile, including an empty one.
+# These tests pin the three levels and, more importantly, the arithmetic the
+# 'insufficient' level rests on: with no text, both similarity functions return
+# exactly 0.0 for every candidate, so the composite carries no skill signal at
+# all.
+
+
+class TestProfileSufficiency:
+    def test_empty_profile_is_insufficient(self):
+        assert profile_sufficiency({}).level == "insufficient"
+
+    def test_whitespace_only_is_insufficient(self):
+        worker = {"skills": [], "bio": "   \n  "}
+        assert profile_sufficiency(worker).level == "insufficient"
+
+    def test_skills_of_only_whitespace_do_not_count(self):
+        worker = {"skills": ["", "  "], "bio": ""}
+        assert profile_sufficiency(worker).level == "insufficient"
+
+    def test_three_named_skills_are_enough_without_a_bio(self):
+        # Short text, but a real query. The length floor exists to catch a
+        # one-word bio, not to demand prose from someone who listed their work.
+        worker = {"skills": ["python", "react", "sql"], "bio": ""}
+        assert profile_sufficiency(worker).level == "ok"
+
+    def test_one_skill_alone_is_weak(self):
+        worker = {"skills": ["welding"], "bio": ""}
+        assert profile_sufficiency(worker).level == "weak"
+
+    def test_a_substantial_bio_alone_is_enough(self):
+        worker = {
+            "skills": [],
+            "bio": "I fix solar panels across Nakuru and have done so for six years.",
+        }
+        assert profile_sufficiency(worker).level == "ok"
+
+    def test_a_one_word_bio_is_weak(self):
+        assert profile_sufficiency({"skills": [], "bio": "plumber"}).level == "weak"
+
+    def test_reason_is_empty_only_when_ok(self):
+        ok = profile_sufficiency({"skills": ["a", "b", "c"]})
+        weak = profile_sufficiency({"skills": ["a"]})
+        none = profile_sufficiency({})
+        assert ok.reason == ""
+        assert weak.reason and none.reason
+
+    def test_counts_are_reported(self):
+        s = profile_sufficiency({"skills": ["a", "b"], "bio": "something"})
+        assert s.skills == 2
+        assert s.has_bio is True
+
+    def test_can_rank_on_skills_is_false_only_when_insufficient(self):
+        assert profile_sufficiency({}).can_rank_on_skills is False
+        assert profile_sufficiency({"skills": ["a"]}).can_rank_on_skills is True
+
+    def test_as_dict_round_trips_the_fields(self):
+        s = profile_sufficiency({"skills": ["a"], "bio": ""})
+        assert s.as_dict() == {
+            "level": s.level,
+            "reason": s.reason,
+            "skills": s.skills,
+            "has_bio": s.has_bio,
+        }
+
+    def test_it_reads_the_same_text_the_scorer_reads(self):
+        # The guard must not drift from profile_text: if it judged the raw
+        # columns instead, the two could disagree about what is empty.
+        worker = {"skills": ["carpentry"], "bio": "Furniture maker in Thika."}
+        assert profile_text(worker)
+        assert profile_sufficiency(worker).level == "ok"
+
+    def test_an_empty_profile_scores_zero_on_both_text_signals(self):
+        """The arithmetic the 'insufficient' level rests on."""
+        gigs = [
+            {"id": "g1", "title": "Plumber needed", "description": "Fix a sink", "location": "Nairobi"},
+            {"id": "g2", "title": "Welder needed", "description": "Gate repair", "location": "Nairobi"},
+        ]
+        empty = {"id": "w1", "skills": [], "bio": "", "location": "Nairobi"}
+
+        ranked = score_gigs(empty, gigs)
+
+        assert all(g.semantic == 0.0 for g in ranked)
+        assert all(g.tfidf == 0.0 for g in ranked)
+        # So every remaining point comes from location and reputation, which
+        # together carry 0.06 of the weight.
+        assert all(g.score <= 0.06 + 1e-9 for g in ranked)
