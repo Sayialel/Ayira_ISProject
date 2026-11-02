@@ -29,17 +29,32 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           # 22, not 20. The root package.json requires >=22.0.0 and so does
-          # every @supabase/* package, so `npm ci` fails the engine check on
-          # 20 -- and even past it, @supabase/realtime-js throws at import
-          # because Node only gained a native WebSocket in 22. The deployment
-          # image is node:22-slim for the same reason; CI has to test on the
-          # runtime the app actually runs on.
+          # every @supabase/* package, and @supabase/realtime-js throws at
+          # import on 20, which has no native WebSocket. The deployment image
+          # is node:22-slim for that reason, so CI has to test on the runtime
+          # the application actually runs on. (This was not what broke the
+          # install step -- see below -- but testing on 20 would have been
+          # wrong regardless.)
           node-version: '22'
           cache: npm
 
-      # ci rather than install: it installs exactly what package-lock.json
-      # pins, so a run cannot pass against a version nobody has committed.
-      - run: npm ci
+      # install, not ci, and this is a concession rather than a preference.
+      #
+      # `npm ci` installs exactly what the lockfile pins, which is what a CI
+      # run should do. But the lockfile is generated on Windows, and npm does
+      # not record the platform binaries of a *hoisted* optional dependency
+      # for other platforms -- esbuild is hoisted to the root here (tsx wants
+      # ~0.28.0) and the lockfile carries no @esbuild/* entries for it at all.
+      # `npm ci` installs the tree verbatim, esbuild's postinstall then finds
+      # no binary or the wrong one, and the job dies before a single test
+      # runs. That is what was failing on every commit.
+      #
+      # `npm install` resolves the platform binaries for the machine it is on
+      # and still honours the lockfile for everything else. The same
+      # concession is made in apps/api/Dockerfile and on Render, for the same
+      # reason. Regenerating the lockfile on Linux would be the real fix and
+      # needs a Linux machine to do it on.
+      - run: npm install --no-audit --no-fund
 
       # Typecheck before test. A type error is the cheaper failure to read,
       # and reporting it first saves waiting for a suite that cannot compile.

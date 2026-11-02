@@ -93,6 +93,68 @@ services in Frankfurt, about 25ms apart. The distance that costs is Nairobi to
 Europe, and no amount of query tuning shortens it. Render has no African
 region.
 
+## New workers and the semantic signal
+
+This is where "new workers cannot match" came from, and it has two halves.
+
+**The engine was crash-looping.** Render's health check probed before the app
+had bound its port, marked the service unhealthy and restarted it, forever.
+The app took 32 seconds to bind because importing sentence-transformers cost
+22.6s and sklearn another 11.6s, both at module scope. Both are now imported
+inside the functions that use them: **startup is 1.97s**, measured, and the
+scores are unchanged (0.7618 / 0.5847 / 0.5323, `tfidf=0.5045`). While it was
+looping, every match returned 502, which the gateway reported to the worker as
+"the matching service is still starting up".
+
+**Serving never loads the model, so a brand-new worker has no vector.** The
+instance is 512 MB; the process is 129 MB with the model unloaded and 445 MB
+once it is loaded and used, so a request that tried to embed was killed. A
+worker without a vector still gets a ranking -- from keywords and location,
+marked `degraded` -- but not the 72% of the weight that is semantic.
+
+Vectors are therefore computed on a GitHub runner, which has gigabytes and is
+free on a public repository. Two triggers:
+
+| Trigger | Latency | Needs |
+|---|---|---|
+| `repository_dispatch` from the gateway on profile save | about a minute | `GITHUB_REPO`, `GITHUB_DISPATCH_TOKEN` on the gateway |
+| `schedule`, every ten minutes | up to ten minutes | nothing beyond the two repository secrets |
+
+The schedule is the backstop; the dispatch is the fast path. Dispatches are
+coalesced to one a minute, because the workflow embeds everyone whose stored
+hash is stale rather than one named worker.
+
+**Required repository secrets** for either to work at all:
+`SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
+
+To run it by hand from a machine with memory:
+
+```bash
+cd apps/ai-engine
+python -m eval.backfill_worker_embeddings --dry-run   # who needs one
+python -m eval.backfill_worker_embeddings             # do it
+```
+
+**An empty profile is not told to wait.** It has nothing to embed, so "check
+back shortly" was false and sent exactly the people who needed to add skills
+away from doing it. Such a profile keeps the `insufficient` advice, which asks
+for skills or a bio. Only a profile that has text to embed is described as
+being prepared.
+
+### Verified on the live stack, 2 November 2026
+
+| Check | Result |
+|---|---|
+| Engine health | 200 in 0.49s |
+| Gateway health | 200 in 0.43s |
+| `GET /api/match/ready` | 401 — the route exists and is behind auth, not a 404 |
+| Match, worker with a vector | 200 in 1.14s, `ok`, semantic 0.502 / 0.446 / 0.421 |
+| Match, profile with no skills and no bio | 200, `insufficient`, correct advice |
+| Workers covered | 52 of 52 — 51 with a vector, 1 with nothing to embed |
+
+The last row includes a worker who signed up during this session and was
+embedded through the same path, which is the scenario that was failing.
+
 ## Sleeping, and what to do about it
 
 Render's free instances spin down after about fifteen minutes idle. Waking the
@@ -125,6 +187,17 @@ If sleeping is unacceptable for the assessment window, Render's Starter plan
 (about $7/month per service) removes the spin-down.
 
 ## Still outstanding
+
+- **Two repository secrets are not set.** `SUPABASE_URL` and
+  `SUPABASE_SERVICE_ROLE_KEY`, under Settings -> Secrets and variables ->
+  Actions. Until they are, "Embed new workers" cannot run at all -- it has
+  never run -- and a new worker's vector has to be computed by hand. Matching
+  still works for them in the meantime, on keywords and location.
+- **The gateway has no `GITHUB_DISPATCH_TOKEN`.** Optional: without it the
+  embedding run waits for the ten-minute schedule instead of starting on save.
+  A fine-grained token with `contents: write` on this repository, plus
+  `GITHUB_REPO=Sayialel/Ayira_ISProject`, both as Render environment
+  variables.
 
 - **The M-Pesa callback has never received real Safaricom traffic.** It is now
   possible: `DARAJA_CALLBACK_URL` points at the live HTTPS address. Fund one

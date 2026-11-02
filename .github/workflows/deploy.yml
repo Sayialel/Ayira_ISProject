@@ -43,7 +43,10 @@ jobs:
         with:
           node-version: '22'    # see ci.yml: the project requires >=22
           cache: npm
-      - run: npm ci
+      # install, not ci: the Windows-generated lockfile records no platform
+      # binaries for the hoisted esbuild, so `npm ci` installs a tree whose
+      # postinstall cannot find its binary. See ci.yml for the detail.
+      - run: npm install --no-audit --no-fund
       - run: npm run typecheck
       - run: npm test
 
@@ -72,7 +75,10 @@ jobs:
           node-version: '22'    # see ci.yml: the project requires >=22
           cache: npm
 
-      - run: npm ci
+      # install, not ci: the Windows-generated lockfile records no platform
+      # binaries for the hoisted esbuild, so `npm ci` installs a tree whose
+      # postinstall cannot find its binary. See ci.yml for the detail.
+      - run: npm install --no-audit --no-fund
         if: steps.gate.outputs.configured == 'true'
 
       - name: Build
