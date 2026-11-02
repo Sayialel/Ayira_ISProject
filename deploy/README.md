@@ -9,12 +9,28 @@ unnoticed before this was spotted, and because neither changed anything under
 a pipeline.
 
 ```bash
-npm run build --workspace=apps/web   # from the repository root
 cd deploy && npm install && npm run pages
 ```
 
-`deploy/package.json` holds wrangler for both Cloudflare targets: `npm run
-pages` uploads the web bundle, `npm run warm` deploys the keep-warm Worker.
+That one command builds *and* uploads, and it is the only way the frontend
+should be deployed. `npm run warm` deploys the keep-warm Worker.
+
+### Why it builds as well as uploads
+
+Building and uploading used to be two steps, and that cost an outage. The
+bundle was rebuilt without `VITE_API_URL` in the shell and uploaded over a
+working one. `lib/api.ts` falls back to the relative `/api` when that variable
+is unset -- correct in development, where the dev server proxies it to port
+3001 -- so the deployed site asked *itself* for data. Pages answers
+`/api/anything` with `index.html` and a 200, so every request succeeded and
+returned HTML where the caller expected JSON. Gigs and profiles simply did not
+load, and nothing was wrong in any server log: the gateway never saw a single
+request.
+
+Two guards now stand against it. `npm run pages` sets the variable itself, so
+the build cannot drift from the upload. And `apps/web/vite.config.ts` throws on
+a production build with `VITE_API_URL` unset, so the mistake fails loudly at
+build time instead of quietly in front of a user.
 
 ### Why wrangler lives there and not in the root
 

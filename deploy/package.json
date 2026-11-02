@@ -4,11 +4,13 @@
   "private": true,
   "description": "Cloudflare deployment tooling: the Pages upload for apps/web and the keep-warm Worker. Deliberately outside the root workspaces -- see README.",
   "scripts": {
-    "pages": "wrangler pages deploy ../apps/web/dist --project-name=ayiraventures --branch=main",
+    "build:web": "cd .. && cross-env VITE_API_URL=https://ayira-api-t8wf.onrender.com npm run build --workspace=apps/web",
+    "pages": "npm run build:web && wrangler pages deploy ../apps/web/dist --project-name=ayiraventures --branch=main --commit-dirty=true",
     "warm": "wrangler deploy --config warm-worker/wrangler.toml",
     "warm:tail": "wrangler tail --config warm-worker/wrangler.toml"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "wrangler": "^3.114.14"
   }
 }
