@@ -16,15 +16,34 @@ name: Embed new workers
 # Required repository secrets:
 #   SUPABASE_URL
 #   SUPABASE_SERVICE_ROLE_KEY
+#
+# To get the event-driven path as well, the gateway needs GITHUB_REPO and a
+# GITHUB_DISPATCH_TOKEN with 'contents: write' on this repository. Those are
+# environment variables on the gateway, not secrets here. Without them this
+# workflow still runs on the schedule below.
 
 on:
+  # Fired by the gateway the moment a worker saves skills or a bio -- see
+  # apps/api/src/lib/embedTrigger.ts. This is the path that matters: it means a
+  # new worker's vector is computed about a minute after they fill in their
+  # profile, rather than whenever the schedule next comes round.
+  repository_dispatch:
+    types: [worker-profile-changed]
+
   schedule:
-    # Every 30 minutes. A new worker waits at most that long for full
-    # matching, and sees keyword matches immediately in the meantime.
-    - cron: '*/30 * * * *'
+    # The backstop, for a dispatch that never arrived: GitHub was down, the
+    # token is unset or expired, or a row was changed outside the gateway.
+    # Ten minutes rather than thirty because Actions is free on a public
+    # repository and a run with nobody to embed exits in seconds.
+    - cron: '*/10 * * * *'
+
   workflow_dispatch:
 
-# Two runs writing the same rows would only duplicate work.
+# Two runs writing the same rows would only duplicate work. Not cancelled in
+# progress: the job is idempotent but a half-finished run leaves some workers
+# embedded and some not, and killing it to start again just moves the boundary.
+# A dispatch that arrives during a run queues behind it and re-reads the table,
+# so nothing is lost.
 concurrency:
   group: embed-new-workers
   cancel-in-progress: false

@@ -25,6 +25,7 @@ from app.services.scoring import (
     SAME_TOWN,
     UNKNOWN_LOCATION,
 )
+from app.services.matcher import _sufficiency_without_vector
 
 
 # --- weights -------------------------------------------------------------
@@ -381,3 +382,46 @@ class TestProfileSufficiency:
         # So every remaining point comes from location and reputation, which
         # together carry 0.06 of the weight.
         assert all(g.score <= 0.06 + 1e-9 for g in ranked)
+
+
+# ---------------------------------------------------------------------------
+# Sufficiency when a worker has no cached vector
+#
+# Serving never loads the model, so a worker whose vector has not yet been
+# computed is ranked on keywords and location alone. What they are *told*
+# about that has to depend on why the vector is missing.
+# ---------------------------------------------------------------------------
+
+
+class TestSufficiencyWithoutVector:
+    def test_a_real_profile_is_told_it_is_being_prepared(self):
+        before = profile_sufficiency({"skills": ["welding", "fabrication", "fitting"]})
+        assert before.level == "ok"
+
+        after = _sufficiency_without_vector(before)
+        assert after.level == "degraded"
+        assert "check back" in after.reason.lower()
+
+    def test_a_weak_profile_is_also_downgraded(self):
+        # Weak still has text, so a vector will eventually exist for it.
+        before = profile_sufficiency({"skills": ["welding"]})
+        assert before.level == "weak"
+        assert _sufficiency_without_vector(before).level == "degraded"
+
+    def test_an_empty_profile_keeps_its_own_advice(self):
+        # The regression this guards: an empty profile has nothing to embed, so
+        # "check back shortly" is false -- waiting will never produce a vector.
+        # It must keep being told to add skills or a bio.
+        before = profile_sufficiency({})
+        assert before.level == "insufficient"
+
+        after = _sufficiency_without_vector(before)
+        assert after.level == "insufficient"
+        assert after is before
+        assert "check back" not in after.reason.lower()
+        assert "add your skills" in after.reason.lower()
+
+    def test_the_counts_survive_the_downgrade(self):
+        before = profile_sufficiency({"skills": ["a", "b", "c"], "bio": "a bio"})
+        after = _sufficiency_without_vector(before)
+        assert (after.skills, after.has_bio) == (before.skills, before.has_bio)

@@ -4,6 +4,7 @@ import { supabaseAdmin } from '../lib/supabase';
 import { asyncHandler } from '../lib/asyncHandler';
 import { AppError } from '../middleware/errorHandler';
 import { requireUser, userClient, assertNoDbError } from '../lib/http';
+import { affectsEmbedding, requestWorkerEmbedding } from '../lib/embedTrigger';
 
 export const workerRouter = Router();
 
@@ -62,6 +63,15 @@ workerRouter.patch(
       .single();
 
     assertNoDbError(error, 'Failed to update profile');
+
+    // A new worker's first save is the moment their profile becomes worth
+    // embedding, and until it is embedded their matches are ranked without
+    // the semantic signal. Asking for the run here is what turns "within half
+    // an hour" into "within a minute". Not awaited: see lib/embedTrigger.
+    if (data?.role === 'worker' && affectsEmbedding(patch)) {
+      requestWorkerEmbedding(`profile saved by ${userId}`);
+    }
+
     res.json({ data });
   })
 );

@@ -47,3 +47,6 @@ data/interim/
 # committing a partial or inspect-mode output invites reading it as a dataset.
 data/processed/*.jsonl
 data/synthetic/*.jsonl
+
+# Vite writes this when it reloads a TypeScript config; it is a build artefact.
+vite.config.ts.timestamp-*

@@ -97,6 +97,31 @@ def _backfill_embeddings(sb) -> int:
     return refresh_gig_embeddings(sb, pending.data, gig_text)
 
 
+def _sufficiency_without_vector(sufficiency: ProfileSufficiency) -> ProfileSufficiency:
+    """
+    Downgrades a profile's sufficiency when its vector has not been computed.
+
+    Only a profile that *has* something to embed is "being prepared". An empty
+    one is missing a vector because there is no text to turn one from, and no
+    amount of waiting changes that -- telling such a worker to check back
+    shortly sends them away from the one action that would help. The
+    'insufficient' reason already asks for skills or a bio, so it is left to
+    speak for itself.
+    """
+    if not sufficiency.can_rank_on_skills:
+        return sufficiency
+
+    return replace(
+        sufficiency,
+        level="degraded",
+        reason=(
+            "Your profile is still being prepared, so these are ranked on "
+            "keywords and location for now. Check back shortly for better "
+            "matches."
+        ),
+    )
+
+
 async def match_worker_to_gigs(
     worker_id: str, limit: int = 10
 ) -> tuple[list[GigScore], ProfileSufficiency | None]:
@@ -161,15 +186,8 @@ async def match_worker_to_gigs(
         # dressed up as similarity. Zero is the honest value, and it is what
         # the two text signals already return for an empty query.
         semantic = [0.0] * len(gigs)
-        sufficiency = replace(
-            sufficiency,
-            level="degraded",
-            reason=(
-                "Your profile is still being prepared, so these are ranked on "
-                "keywords and location for now. Check back shortly for better "
-                "matches."
-            ),
-        )
+
+        sufficiency = _sufficiency_without_vector(sufficiency)
     else:
         semantic = [_similarity_from_distance(g.get("distance")) for g in gigs]
 

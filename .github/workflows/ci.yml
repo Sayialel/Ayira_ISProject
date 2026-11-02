@@ -28,7 +28,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # 22, not 20. The root package.json requires >=22.0.0 and so does
+          # every @supabase/* package, so `npm ci` fails the engine check on
+          # 20 -- and even past it, @supabase/realtime-js throws at import
+          # because Node only gained a native WebSocket in 22. The deployment
+          # image is node:22-slim for the same reason; CI has to test on the
+          # runtime the app actually runs on.
+          node-version: '22'
           cache: npm
 
       # ci rather than install: it installs exactly what package-lock.json
