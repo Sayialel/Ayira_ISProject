@@ -5,14 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ayira — Find work that fits your skills</title>
     <link rel="icon" type="image/svg+xml" href="/ayira-icon.svg" />
-    <meta name="theme-color" content="#1d4ed8" />
+    <meta name="theme-color" content="#b8402a" />
     <meta name="description" content="Ayira matches Kenya's youth workforce to gigs that fit their skills." />
+    <!--
+      Open the TLS connections to the API and to Supabase while the page is
+      still parsing, rather than when the first request is made.
+
+      Measured from Nairobi, every endpoint had a floor of about 0.7s and a
+      trivial category lookup was no faster than a real query -- so the cost
+      was not the database. It was DNS, TCP and TLS to Frankfurt, roughly
+      three round trips before any byte of data. Doing that during page load
+      means the first fetch after sign-in starts on a connection that is
+      already open.
+
+      crossorigin on both, because the requests that follow carry an
+      Authorization header and so are CORS requests; without it the browser
+      opens a second, separate connection and the hint is wasted.
+    -->
+    <link rel="preconnect" href="https://ayira-api-t8wf.onrender.com" crossorigin />
+    <link rel="preconnect" href="https://walpitphjdjnjbslfmpr.supabase.co" crossorigin />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      The font stylesheet is loaded without blocking the first paint: as a
+      print stylesheet it is fetched at normal priority but not render-
+      blocking, then switched to all once it arrives. The noscript copy keeps
+      it working with JavaScript disabled.
+
+      font-display=swap in the URL already means text renders in a fallback
+      face immediately, so this only removes the wait for the stylesheet
+      itself.
+    -->
     <link
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      />
+    </noscript>
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased">
     <div id="root"></div>

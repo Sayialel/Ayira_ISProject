@@ -107,22 +107,30 @@ reviewRouter.get(
 
     // Completed gigs where the caller was either the employer or the hired
     // worker. Both sides may review, so both are collected.
-    const { data: asEmployer, error: employerError } = await supabaseAdmin
-      .from('gigs')
-      .select('id, title, status, employer_id, applications!inner(worker_id, status)')
-      .eq('employer_id', userId)
-      .eq('status', 'completed')
-      .eq('applications.status', 'accepted');
+    //
+    // Issued together. They do not depend on each other, and awaiting them in
+    // turn spent two round trips to the database where one would do -- which
+    // is most of the cost here, since the gateway is in Frankfurt and the
+    // database in Ireland. This was the slowest endpoint measured.
+    const [
+      { data: asEmployer, error: employerError },
+      { data: asWorker, error: workerError },
+    ] = await Promise.all([
+      supabaseAdmin
+        .from('gigs')
+        .select('id, title, status, employer_id, applications!inner(worker_id, status)')
+        .eq('employer_id', userId)
+        .eq('status', 'completed')
+        .eq('applications.status', 'accepted'),
+      supabaseAdmin
+        .from('applications')
+        .select('worker_id, status, gig:gigs!inner(id, title, status, employer_id)')
+        .eq('worker_id', userId)
+        .eq('status', 'accepted')
+        .eq('gigs.status', 'completed'),
+    ]);
 
     assertNoDbError(employerError, 'Failed to load completed gigs');
-
-    const { data: asWorker, error: workerError } = await supabaseAdmin
-      .from('applications')
-      .select('worker_id, status, gig:gigs!inner(id, title, status, employer_id)')
-      .eq('worker_id', userId)
-      .eq('status', 'accepted')
-      .eq('gigs.status', 'completed');
-
     assertNoDbError(workerError, 'Failed to load completed work');
 
     type Candidate = { gig_id: string; title: string; reviewee_id: string; role: string };
