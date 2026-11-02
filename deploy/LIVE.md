@@ -60,6 +60,39 @@ fitted_on       train
 Held-out test result for this artefact and these weights: **NDCG@10 0.780**
 [0.729, 0.830] over 17 profiles.
 
+## Performance
+
+Measured from Nairobi on 2 November 2026, against the live stack.
+
+| | |
+|---|---|
+| Match, warm | **~1.2s** |
+| Engine startup | **3.9s** (was 25.0s) |
+| Second API call on an open connection | **0.42s** (was 1.17s) |
+| Page, time to first byte | 0.8-1.2s |
+
+Three things got it there.
+
+**The transformer import is lazy.** It was 22.6 of the 25 seconds the engine
+spent starting, and nothing could be served during it -- not even `/health`.
+Almost no request needs the model: worker and gig vectors are cached in
+Postgres and the nearest-neighbour search runs there, so it is touched only
+when a profile or gig has been edited. It now loads on first genuine use.
+
+**The page preconnects to the API and Supabase.** Every endpoint had a floor
+of about 0.7s and a trivial category lookup was no faster than a real query,
+so the cost was never the database -- it was DNS, TCP and TLS to Frankfurt.
+Opening those connections during page load means the first fetch after sign-in
+starts on one that is already up.
+
+**`reviews/pending` lost a round trip.** It made three sequential calls to the
+database where the first two are independent; they now go together.
+
+What is *not* the bottleneck: the database. Supabase is in `eu-west-1` and the
+services in Frankfurt, about 25ms apart. The distance that costs is Nairobi to
+Europe, and no amount of query tuning shortens it. Render has no African
+region.
+
 ## Sleeping, and what to do about it
 
 Render's free instances spin down after about fifteen minutes idle. Waking the
@@ -67,14 +100,26 @@ engine is a cold container **plus** loading the sentence-transformer, and a
 request arriving during it gets a 502. This was observed repeatedly while
 deploying and is the single most likely way a live demonstration goes wrong.
 
-`.github/workflows/keep-warm.yml` pings both services every ten minutes from
-06:00–19:00 UTC on weekdays — 09:00–22:00 in Nairobi. Weekday daytime only,
-because two services kept alive continuously would need roughly 1,460
-instance-hours a month against the 750 the free plan includes.
+A Cloudflare Worker, **ayira-keepwarm**, pings both services every ten minutes
+from 06:00–17:59 UTC — 09:00 to 21:00 in Nairobi.
 
-**Before any demonstration outside those hours**, run it by hand: *Actions →
-Keep warm → Run workflow*. Then load the site and run one real match, so the
-encoder is in memory. Allow three minutes.
+It replaced a GitHub Actions schedule that was not reliable: scheduled
+workflows on free runners are frequently delayed, and a ten-minute schedule
+that actually fires every twenty-five lets a service that idles after fifteen
+sleep anyway. That was observed directly — a health check took 133 seconds
+despite the workflow existing. Cloudflare's cron triggers fire on time.
+
+The window exists because of the hours, and the arithmetic is worth keeping:
+
+| | |
+|---|---|
+| Two services, 24/7 | 2 × 730 = **1,460** — far over |
+| Two services, 14h/day | 2 × 420 = **840** — over |
+| Two services, 12h/day | 2 × 360 = **720** — fits, 30 to spare |
+
+**Before a demonstration outside those hours**, open
+**https://ayira-keepwarm.ayiraventures.workers.dev** — it runs the same check
+on demand. Then load the site and run one real match. Allow two minutes.
 
 If sleeping is unacceptable for the assessment window, Render's Starter plan
 (about $7/month per service) removes the spin-down.
