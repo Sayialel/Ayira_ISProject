@@ -33,9 +33,13 @@ app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) =>
-      isAllowedOrigin(origin, env.corsOrigins)
-        ? callback(null, true)
-        : callback(new Error(`Origin ${origin} is not allowed`)),
+      // callback(null, false), not an Error. Passing an Error makes the cors
+      // middleware throw into the generic handler, so a disallowed origin came
+      // back as "Internal server error" with a 500 -- which reads as the
+      // server being broken rather than the request being refused, and would
+      // send someone debugging the wrong thing. false simply omits the CORS
+      // headers, which is what actually blocks the browser.
+      callback(null, isAllowedOrigin(origin, env.corsOrigins)),
   })
 );
 app.use(express.json({ limit: '100kb' }));
