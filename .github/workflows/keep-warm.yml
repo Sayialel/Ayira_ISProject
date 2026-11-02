@@ -10,18 +10,22 @@ name: Keep warm
 #
 # Why not every 10 minutes around the clock: Render's free plan includes 750
 # instance-hours per month per workspace, and two services kept alive
-# continuously would need about 1,460. The schedule below is roughly 06:00 to
-# 19:00 UTC on weekdays -- 09:00 to 22:00 in Nairobi -- which is about 285
-# hours per service per month, comfortably inside the allowance with room for
-# real traffic.
+# continuously would need about 1,460.
+#
+# The window was 06:00-19:00 UTC and that was too late -- a match attempted
+# at 05:48 UTC hit a fully cold engine, which took 93 seconds to answer a
+# health check. It now starts at 03:00 UTC (06:00 in Nairobi) and runs every
+# day, because work does not stop on Saturday. That is about 16 hours a day,
+# roughly 490 instance-hours per service per month: still inside the
+# allowance, with less of the day exposed.
 #
 # Before a demonstration outside those hours, run it by hand:
 #   Actions -> Keep warm -> Run workflow
 
 on:
   schedule:
-    # Every 10 minutes, 06:00-19:00 UTC, Monday to Friday.
-    - cron: '*/10 6-19 * * 1-5'
+    # Every 10 minutes, 03:00-19:00 UTC daily -- 06:00 to 22:00 in Nairobi.
+    - cron: '*/10 3-19 * * *'
   workflow_dispatch:
 
 # A queued run is pointless once a later one exists: both do the same thing.

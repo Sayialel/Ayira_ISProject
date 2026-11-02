@@ -69,6 +69,24 @@ type GigScore = z.infer<typeof gigScoreSchema>;
 const GIG_FIELDS =
   'id, title, description, category, required_skills, location, is_remote, budget_min, budget_max, currency, deadline, status, employer:users!employer_id(id, full_name, avatar_url, is_verified)';
 
+/**
+ * Statuses that mean "the engine is not ready yet", rather than "the engine
+ * said no".
+ *
+ * On a host that sleeps when idle -- which the free tier does, after about
+ * fifteen minutes -- the platform's own proxy answers these while the
+ * container starts. They are transient by definition, so they are worth
+ * waiting through rather than reporting as a failure.
+ */
+const WAKING_STATUSES = new Set([502, 503, 504]);
+
+/** Waits between attempts while the engine starts. Total added wait: 25s. */
+const WAKE_BACKOFF_MS = [5_000, 20_000];
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function callAiEngine(workerId: string, limit: number) {
   if (!env.aiEngineSecret) {
     // Fail here rather than letting the engine reject the call, so the message
@@ -77,37 +95,74 @@ async function callAiEngine(workerId: string, limit: number) {
     throw new AppError('Matching is not configured on this server.', 503);
   }
 
-  let response: Response;
+  // A cold engine is the normal case on a sleeping host, not an error. The
+  // first attempt usually wakes it and the retry finds it ready; without
+  // this, the very first match after a quiet period always failed and the
+  // worker was told their profile could not be scored -- which blamed the
+  // profile for an idle container.
+  let lastStatus = 0;
 
-  try {
-    response = await fetch(`${AI_ENGINE_URL}/ai/match`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Ayira-Key': env.aiEngineSecret,
-      },
-      body: JSON.stringify({ worker_id: workerId, limit }),
-      signal: AbortSignal.timeout(AI_TIMEOUT_MS),
-    });
-  } catch (err) {
-    // Connection refused, DNS failure or the timeout above.
-    console.error('AI engine request failed:', err);
-    throw new AppError('The matching service is unavailable. Please try again shortly.', 503);
-  }
+  for (let attempt = 0; attempt <= WAKE_BACKOFF_MS.length; attempt++) {
+    let response: Response;
 
-  if (!response.ok) {
+    try {
+      response = await fetch(`${AI_ENGINE_URL}/ai/match`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Ayira-Key': env.aiEngineSecret,
+        },
+        body: JSON.stringify({ worker_id: workerId, limit }),
+        signal: AbortSignal.timeout(AI_TIMEOUT_MS),
+      });
+    } catch (err) {
+      // Connection refused, DNS failure or the timeout above. Also worth one
+      // retry: a host that is still booting refuses the connection outright.
+      console.error(`AI engine request failed (attempt ${attempt + 1}):`, err);
+      if (attempt < WAKE_BACKOFF_MS.length) {
+        await sleep(WAKE_BACKOFF_MS[attempt]);
+        continue;
+      }
+      throw new AppError(
+        'The matching service is starting up. Give it a moment and try again.',
+        503
+      );
+    }
+
+    if (response.ok) {
+      const parsed = matchResponseSchema.safeParse(await response.json().catch(() => null));
+      if (!parsed.success) {
+        console.error('Unexpected AI engine payload:', parsed.error.message);
+        throw new AppError('The matching service returned an unexpected response.', 502);
+      }
+      return parsed.data;
+    }
+
+    lastStatus = response.status;
     const detail = await response.text().catch(() => '');
-    console.error(`AI engine returned ${response.status}:`, detail.slice(0, 500));
-    throw new AppError('The matching service could not score your profile right now.', 502);
+    console.error(
+      `AI engine returned ${response.status} (attempt ${attempt + 1}):`,
+      detail.slice(0, 500)
+    );
+
+    // Anything that is not a waking status is a real refusal -- a bad secret,
+    // a malformed request -- and retrying it would only delay the error.
+    if (!WAKING_STATUSES.has(response.status)) {
+      throw new AppError('The matching service could not score your profile right now.', 502);
+    }
+
+    if (attempt < WAKE_BACKOFF_MS.length) {
+      await sleep(WAKE_BACKOFF_MS[attempt]);
+    }
   }
 
-  const parsed = matchResponseSchema.safeParse(await response.json().catch(() => null));
-  if (!parsed.success) {
-    console.error('Unexpected AI engine payload:', parsed.error.message);
-    throw new AppError('The matching service returned an unexpected response.', 502);
-  }
-
-  return parsed.data;
+  // Still waking after every attempt. Say so, because "could not score your
+  // profile" blames the profile for a service that is merely cold.
+  console.error(`AI engine never became ready; last status ${lastStatus}`);
+  throw new AppError(
+    'The matching service is still starting up. Please try again in a minute.',
+    503
+  );
 }
 
 /** Records each scored gig so match quality can be analysed later. */
