@@ -247,6 +247,10 @@ function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
  */
 function SufficiencyNotice({ sufficiency }: { sufficiency: MatchSufficiency }) {
   const severe = sufficiency.level === 'insufficient';
+  // Degraded is not the worker's doing -- their profile is fine, the
+  // ranking simply ran without its strongest signal -- so it is phrased
+  // as a temporary state rather than something to go and fix.
+  const degraded = sufficiency.level === 'degraded';
 
   return (
     <div
@@ -266,7 +270,9 @@ function SufficiencyNotice({ sufficiency }: { sufficiency: MatchSufficiency }) {
         <p className="text-sm font-semibold text-slate-900">
           {severe
             ? 'These are not skill matches yet'
-            : 'These matches could be better'}
+            : degraded
+              ? 'Showing keyword matches for now'
+              : 'These matches could be better'}
         </p>
         <p className="mt-0.5 text-sm text-slate-600">{sufficiency.reason}</p>
         {severe && (
@@ -275,13 +281,15 @@ function SufficiencyNotice({ sufficiency }: { sufficiency: MatchSufficiency }) {
             town and the employer&rsquo;s rating — about 6% of the score.
           </p>
         )}
-        <Link
-          to="/app/profile"
-          className="mt-2.5 inline-flex items-center gap-1.5 text-sm font-semibold text-ayira-700 hover:underline"
-        >
-          Update your profile
-          <ArrowRight size={14} aria-hidden />
-        </Link>
+        {!degraded && (
+          <Link
+            to="/app/profile"
+            className="mt-2.5 inline-flex items-center gap-1.5 text-sm font-semibold text-ayira-700 hover:underline"
+          >
+            Update your profile
+            <ArrowRight size={14} aria-hidden />
+          </Link>
+        )}
       </div>
     </div>
   );

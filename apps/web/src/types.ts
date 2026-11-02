@@ -220,7 +220,7 @@ export interface GigMatch {
  * by the 6% of weight on location and employer rating.
  */
 export interface MatchSufficiency {
-  level: 'ok' | 'weak' | 'insufficient';
+  level: 'ok' | 'weak' | 'degraded' | 'insufficient';
   reason: string;
   skills: number;
   has_bio: boolean;

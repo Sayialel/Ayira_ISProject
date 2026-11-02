@@ -52,7 +52,9 @@ const gigScoreSchema = z.object({
  * from an engine that does not send it yet.
  */
 const sufficiencySchema = z.object({
-  level: z.enum(['ok', 'weak', 'insufficient']),
+  // 'degraded' means the ranking ran without the semantic signal because
+  // the worker has no cached vector yet. Still a usable result.
+  level: z.enum(['ok', 'weak', 'degraded', 'insufficient']),
   reason: z.string(),
   skills: z.number(),
   has_bio: z.boolean(),

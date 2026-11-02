@@ -1,5 +1,6 @@
 import logging
 import time
+from dataclasses import replace
 from functools import lru_cache
 
 from supabase import Client, create_client
@@ -34,6 +35,10 @@ CANDIDATE_POOL = 200
 # Cap on how many stale gigs are re-embedded in a single request, so one bulk
 # import cannot turn one unlucky user's search into a long wait.
 EMBED_BATCH = 100
+
+# all-MiniLM-L6-v2's output width, and the width of the vector columns in
+# migration 014. Used to build the zero probe when a worker has no vector yet.
+EMBEDDING_DIMENSIONS = 384
 
 # How often to ask the database whether any gig needs embedding. Newly posted
 # gigs become matchable within this window.
@@ -125,13 +130,23 @@ async def match_worker_to_gigs(
     if rebuilt:
         logger.info("Rebuilt %d gig embedding(s) before matching", rebuilt)
 
-    vector = worker_embedding(sb, profile, profile_text)
+    # allow_compute=False: serving never loads the model. See
+    # embedding_store.worker_embedding -- the instance cannot hold it, and a
+    # request that tried was killed by the host.
+    vector = worker_embedding(sb, profile, profile_text, allow_compute=False)
+
+    # Retrieval needs *a* vector to order by. With none, a zero vector makes
+    # every distance equal, so the shortlist is simply the open gigs this
+    # worker may see, still correctly filtered by status, deadline, ownership
+    # and prior applications -- and the ranking below falls to the remaining
+    # signals rather than to nothing.
+    probe = vector if vector is not None else [0.0] * EMBEDDING_DIMENSIONS
 
     candidates = sb.rpc(
         "nearest_open_gigs",
         {
             "p_worker_id": worker_id,
-            "p_embedding": to_pgvector(vector),
+            "p_embedding": to_pgvector(probe),
             "p_limit": CANDIDATE_POOL,
         },
     ).execute()
@@ -140,7 +155,23 @@ async def match_worker_to_gigs(
         return [], sufficiency
 
     gigs = candidates.data
-    semantic = [_similarity_from_distance(g.get("distance")) for g in gigs]
+
+    if vector is None:
+        # Distances against a zero vector carry no meaning, so they are not
+        # dressed up as similarity. Zero is the honest value, and it is what
+        # the two text signals already return for an empty query.
+        semantic = [0.0] * len(gigs)
+        sufficiency = replace(
+            sufficiency,
+            level="degraded",
+            reason=(
+                "Your profile is still being prepared, so these are ranked on "
+                "keywords and location for now. Check back shortly for better "
+                "matches."
+            ),
+        )
+    else:
+        semantic = [_similarity_from_distance(g.get("distance")) for g in gigs]
 
     # The TF-IDF artefact fitted on the training split. If none has been
     # promoted this is None and score_gigs falls back to fitting over the

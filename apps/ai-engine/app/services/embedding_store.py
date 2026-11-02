@@ -102,12 +102,28 @@ def refresh_gig_embeddings(sb, rows: list[dict], gig_text_fn) -> int:
     return len(stale)
 
 
-def worker_embedding(sb, worker: dict, profile_text_fn) -> list[float]:
+def worker_embedding(
+    sb, worker: dict, profile_text_fn, *, allow_compute: bool = True
+) -> list[float] | None:
     """
     Returns the worker's embedding, rebuilding it only if their profile changed.
 
-    A worker edits their skills or bio far less often than they search, so this
-    is almost always a read.
+    A worker edits their skills or bio far less often than they searches, so
+    this is almost always a read.
+
+    `allow_compute=False` returns None rather than loading the model. The
+    serving path uses it, and the reason is memory: the deployed engine runs
+    on a 512 MB instance and sits at about 129 MB with the model unloaded, but
+    reaches 445 MB once it is loaded and used. A request that had to embed was
+    killed by the host and the caller saw a 502 -- which looked like "new
+    workers cannot match", because a worker with no cached vector is exactly
+    the one whose first match has to compute it.
+
+    Falling back to no vector is better than failing: the ranking loses its
+    strongest signal but TF-IDF, location and employer rating still order the
+    gigs, and the caller is told the result is degraded rather than being
+    handed a 502. Run eval/backfill_worker_embeddings.py from a machine with
+    memory to spare to restore the full signal.
     """
     text = profile_text_fn(worker)
     digest = text_hash(text)
@@ -115,6 +131,14 @@ def worker_embedding(sb, worker: dict, profile_text_fn) -> list[float]:
     cached = parse_pgvector(worker.get("embedding"))
     if cached is not None and worker.get("embedding_hash") == digest:
         return cached
+
+    if not allow_compute:
+        logger.warning(
+            "Worker %s has no current embedding and computing one is disabled; "
+            "ranking without the semantic signal",
+            worker.get("id"),
+        )
+        return None
 
     vector = embed_texts([text])[0]
 
