@@ -1,0 +1,14 @@
+{
+  "name": "ayira-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare deployment tooling: the Pages upload for apps/web and the keep-warm Worker. Deliberately outside the root workspaces -- see README.",
+  "scripts": {
+    "pages": "wrangler pages deploy ../apps/web/dist --project-name=ayiraventures --branch=main",
+    "warm": "wrangler deploy --config warm-worker/wrangler.toml",
+    "warm:tail": "wrangler tail --config warm-worker/wrangler.toml"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.14"
+  }
+}

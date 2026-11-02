@@ -1,5 +1,31 @@
 # Deploying Ayira the simple way
 
+## Before anything: the frontend does not deploy itself
+
+The Cloudflare Pages project **ayiraventures** is a *direct-upload* project,
+not a Git-connected one. Nothing happens when you push. Two commits went by
+unnoticed before this was spotted, and because neither changed anything under
+`apps/web` the live bundle happened to still be correct -- which is luck, not
+a pipeline.
+
+```bash
+npm run build --workspace=apps/web   # from the repository root
+cd deploy && npm install && npm run pages
+```
+
+`deploy/package.json` holds wrangler for both Cloudflare targets: `npm run
+pages` uploads the web bundle, `npm run warm` deploys the keep-warm Worker.
+
+### Why wrangler lives there and not in the root
+
+Wrangler 3 pins `esbuild` to exactly `0.17.19`; `tsx`, which the gateway uses
+in development, wants `~0.28.0`. With both in the root workspace npm hoisted
+wrangler's `@esbuild/*` binaries under tsx's `esbuild@0.28.2`, so esbuild's
+postinstall found the wrong binary and threw `Expected "0.28.2" but got
+"0.17.19"` -- which failed `npm ci` on every CI run before a test executed.
+`deploy/` is outside the `workspaces` globs, so its esbuild never meets the
+application's.
+
 Three free services, no credit card, no Docker knowledge, no AWS. Each one is
 connected to GitHub and redeploys when you push.
 

@@ -9,27 +9,13 @@ Deployed at https://ayira-keepwarm.ayiraventures.workers.dev — opening it runs
 the same check on demand, which is what to do before a demonstration outside
 the scheduled window.
 
-## Why this has its own package.json
-
-It is not part of the application build, and keeping it separate is not
-tidiness. Wrangler 3 pins `esbuild` to exactly `0.17.19`, while `tsx` — which
-the gateway uses in development — wants `~0.28.0`. With both in the root
-workspace, npm hoisted wrangler's `@esbuild/*` binaries under tsx's
-`esbuild@0.28.2`, so esbuild's postinstall found the wrong binary and threw
-`Expected "0.28.2" but got "0.17.19"`. That failed `npm ci` on every CI run
-before a single test executed.
-
-This directory is outside the `workspaces` globs in the root `package.json`,
-so it installs on its own and its esbuild never meets the application's.
-
-## Deploying it
+Deployed from the parent directory, which holds wrangler:
 
 ```bash
-cd deploy/warm-worker
+cd deploy
 npm install
-npx wrangler login     # once
-npm run deploy
-npm run tail           # watch it fire
+npm run warm          # deploy
+npm run warm:tail     # watch it fire
 ```
 
 The schedule is in `wrangler.toml`. The window is deliberate: two free Render
