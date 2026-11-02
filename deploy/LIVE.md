@@ -7,13 +7,24 @@ system, not copied from a plan.
 
 | Piece | URL | Host |
 |---|---|---|
-| Web application | **https://ayira-87w.pages.dev** | Cloudflare Pages |
+| Web application | **https://ayiraventures.pages.dev** | Cloudflare Pages |
 | API gateway | https://ayira-api-t8wf.onrender.com | Render (Docker, free) |
 | Matching engine | https://ayira-engine.onrender.com | Render (Python, free) |
 | Database, auth | Supabase project `walpitphjdjnjbslfmpr` | Supabase |
 
 The engine is reachable but not open: every route except `/health` needs the
 shared secret the gateway holds, and the engine refuses to serve without it.
+
+## The two URLs that look broken and are not
+
+Opening **https://ayira-api-t8wf.onrender.com** or
+**https://ayira-engine.onrender.com** in a browser returns **404**, and that
+is correct. They are APIs: neither defines a route at `/`, so there is nothing
+to serve there. The same is true of `/api` on the gateway, which is the
+catch-all for an unknown API path.
+
+Use `/health` on either to check a service is up. Everything else needs a
+method, a path and -- on the engine -- the shared secret.
 
 ## Verified on the live stack
 
@@ -27,8 +38,8 @@ shared secret the gateway holds, and the engine refuses to serve without it.
 | Deployed scores match local | 0.7618 / 0.5847 / 0.5323, `tfidf=0.5045` — identical |
 | CORS: production origin | reflected |
 | CORS: preview subdomain | reflected |
-| CORS: `evil.com.ayira-87w.pages.dev` | blocked |
-| CORS: `evil-ayira-87w.pages.dev` | blocked |
+| CORS: `evil.com.ayiraventures.pages.dev` | blocked |
+| CORS: `evil-ayiraventures.pages.dev` | blocked |
 | CORS: unrelated origin | blocked |
 
 **The scores matching local is the one that matters.** It demonstrates the

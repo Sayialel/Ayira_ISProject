@@ -61,6 +61,6 @@ jobs:
       - name: Check the site is served
         run: |
           code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 \
-            https://ayira-87w.pages.dev/ || echo 000)
+            https://ayiraventures.pages.dev/ || echo 000)
           echo "  site -> $code"
           test "$code" = "200"
