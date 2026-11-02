@@ -1,14 +1,35 @@
-from sentence_transformers import SentenceTransformer
+from typing import TYPE_CHECKING
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from app.config import settings
 
+if TYPE_CHECKING:                      # for type checkers only; never at runtime
+    from sentence_transformers import SentenceTransformer
+
 _model = None
 
 
-def get_model() -> SentenceTransformer:
+def get_model() -> "SentenceTransformer":
+    """
+    Loads the encoder, importing sentence-transformers only when first needed.
+
+    The import is inside the function deliberately. At module scope it cost
+    **22.6 of the 25 seconds** the service took to start -- importing it pulls
+    in PyTorch -- and the server could not answer anything, not even /health,
+    until it finished. On a host that sleeps when idle that is paid again on
+    every cold start.
+
+    Almost no request needs it. Worker and gig vectors are cached in Postgres
+    and the nearest-neighbour search runs there, so the model is touched only
+    when a profile or a gig has been edited and its text no longer matches the
+    stored hash. Loading it at startup charged every cold start for something
+    most requests never use.
+    """
     global _model
     if _model is None:
+        from sentence_transformers import SentenceTransformer
+
         _model = SentenceTransformer(settings.model_name)
     return _model
 

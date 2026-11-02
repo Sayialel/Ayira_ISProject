@@ -1,0 +1,24 @@
+name = "ayira-keepwarm"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Every 10 minutes, 06:00-17:59 UTC -- 09:00 to 21:00 in Nairobi.
+#
+# The interval is ten minutes because Render idles a free service after about
+# fifteen, so it needs room for a missed tick.
+#
+# The window exists because of the hours, and the arithmetic is tight enough
+# to be worth writing down. Render's free plan includes 750 instance-hours a
+# month per workspace, and hours accrue while a service is *up*:
+#
+#   two services, 24/7      2 x 730 = 1,460   far over
+#   two services, 14h/day   2 x 420 =   840   over
+#   two services, 12h/day   2 x 360 =   720   fits, with 30 to spare
+#
+# Outside the window both sleep and the first request pays a cold start. The
+# gateway now retries through that, and the engine's own start dropped from
+# 25s to 4s when the transformer import was made lazy -- so a cold start is
+# survivable rather than fatal. If the demonstration is outside these hours,
+# open the Worker's URL first: that runs the same check on demand.
+[triggers]
+crons = ["*/10 6-17 * * *"]
