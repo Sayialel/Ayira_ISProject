@@ -151,9 +151,37 @@ being prepared.
 | Match, worker with a vector | 200 in 1.14s, `ok`, semantic 0.502 / 0.446 / 0.421 |
 | Match, profile with no skills and no bio | 200, `insufficient`, correct advice |
 | Workers covered | 52 of 52 — 51 with a vector, 1 with nothing to embed |
+| Three consecutive warm matches | 1.47s, 0.90s, 0.75s |
+| Keep-warm Worker, on demand | engine 200 in 114ms, gateway 200 in 122ms |
+| Site / gateway / engine, time to first byte | 0.73s / 0.88s / 0.54s |
+| Live bundle | same asset hash as the local build; carries `/match/ready` and "Starting the matcher" |
 
-The last row includes a worker who signed up during this session and was
-embedded through the same path, which is the scenario that was failing.
+The workers-covered row includes someone who signed up during this session and
+was embedded through the same path, which is the scenario that was failing.
+
+## Two pipelines that were not pipelines
+
+Both were found while verifying the above, and both had been quietly broken.
+
+**CI and Deploy had failed on every commit**, at `npm ci`, long enough that
+red was the normal state. The lockfile was internally inconsistent:
+`node_modules/esbuild` was 0.28.2 and wanted `@esbuild/linux-x64@0.28.2`,
+while the hoisted `@esbuild/*` entries were 0.17.19, so esbuild's postinstall
+threw `Expected "0.28.2" but got "0.17.19"` before a test ran. The collision
+was wrangler, which pins esbuild to exactly 0.17.19 against tsx's ~0.28.0;
+it has moved to `deploy/`, outside the workspaces globs. The workflows also
+use `npm install` rather than `npm ci`, because npm does not record a hoisted
+optional dependency's platform binaries for other platforms and the lockfile
+is generated on Windows.
+
+**Cloudflare Pages is a direct-upload project, not Git-connected.** It has no
+source or build configuration, so nothing deploys on push and nothing ever
+did. Deploy the frontend explicitly:
+
+```bash
+npm run build --workspace=apps/web
+cd deploy && npm install && npm run pages
+```
 
 ## Sleeping, and what to do about it
 
