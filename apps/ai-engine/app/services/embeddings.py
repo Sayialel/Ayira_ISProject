@@ -1,7 +1,5 @@
 from typing import TYPE_CHECKING
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from app.config import settings
 
 if TYPE_CHECKING:                      # for type checkers only; never at runtime
@@ -56,6 +54,8 @@ def compute_semantic_similarities(query: str, documents: list[str]) -> list[floa
     if not query.strip():
         return [0.0] * len(documents)
 
+    from sklearn.metrics.pairwise import cosine_similarity
+
     model = get_model()
     embeddings = model.encode([query] + documents)
     sims = cosine_similarity([embeddings[0]], embeddings[1:])[0]
@@ -78,6 +78,9 @@ def compute_tfidf_similarities(query: str, documents: list[str]) -> list[float]:
         return []
     if not query.strip():
         return [0.0] * len(documents)
+
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
 
     try:
         vectorizer = TfidfVectorizer(stop_words="english")

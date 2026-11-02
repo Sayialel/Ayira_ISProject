@@ -3,9 +3,12 @@
 import logging
 from pathlib import Path
 
+from typing import TYPE_CHECKING
+
 import joblib
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+
+if TYPE_CHECKING:                      # for type checkers only; never at runtime
+    from sklearn.feature_extraction.text import TfidfVectorizer
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +25,7 @@ ARTEFACT_VERSION = 1
 SERVING_PATH = Path(__file__).resolve().parents[2] / "artifacts" / "tfidf_vectorizer.joblib"
 
 
-def fit(documents: list[str]) -> TfidfVectorizer:
+def fit(documents: list[str]) -> "TfidfVectorizer":
     """
     Fits a vectoriser on the training documents.
 
@@ -30,6 +33,8 @@ def fit(documents: list[str]) -> TfidfVectorizer:
     most of the skill vocabulary, which is precisely the signal TF-IDF is here
     to contribute.
     """
+    from sklearn.feature_extraction.text import TfidfVectorizer
+
     if not documents:
         raise ValueError("Cannot fit a vectoriser on no documents")
 
@@ -43,13 +48,13 @@ def fit(documents: list[str]) -> TfidfVectorizer:
     return vectorizer
 
 
-def save(vectorizer: TfidfVectorizer, path: Path) -> Path:
+def save(vectorizer: "TfidfVectorizer", path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump({"version": ARTEFACT_VERSION, "vectorizer": vectorizer}, path)
     return path
 
 
-def load(path: Path) -> TfidfVectorizer | None:
+def load(path: Path) -> "TfidfVectorizer | None":
     """Returns None rather than raising, so a missing artefact degrades visibly."""
     if not path.exists():
         return None
@@ -76,7 +81,7 @@ def _clamp(value: float) -> float:
 
 
 def similarities(
-    vectorizer: TfidfVectorizer, query: str, documents: list[str]
+    vectorizer: "TfidfVectorizer", query: str, documents: list[str]
 ) -> list[float]:
     """
     Scores one query against many documents using an already-fitted vectoriser.
@@ -91,6 +96,8 @@ def similarities(
     if not query.strip():
         return [0.0] * len(documents)
 
+    from sklearn.metrics.pairwise import cosine_similarity
+
     matrix = vectorizer.transform([query] + documents)
     scores = cosine_similarity(matrix[0:1], matrix[1:])[0]
     return [_clamp(s) for s in scores]
@@ -98,11 +105,11 @@ def similarities(
 
 # Loaded once per process. The vectoriser is read-only after fitting, so one
 # shared instance is safe across requests and avoids re-reading the file.
-_serving: TfidfVectorizer | None = None
+_serving: "TfidfVectorizer | None" = None
 _serving_checked = False
 
 
-def load_serving() -> TfidfVectorizer | None:
+def load_serving() -> "TfidfVectorizer | None":
     """
     The deployed artefact, or None if none has been promoted.
 
