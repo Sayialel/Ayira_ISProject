@@ -4,8 +4,12 @@ compatibility_date = "2026-01-01"
 
 # Every 10 minutes, 06:00-17:59 UTC -- 09:00 to 21:00 in Nairobi.
 #
-# The interval is ten minutes because Render idles a free service after about
-# fifteen, so it needs room for a missed tick.
+# Five minutes, not ten. Render idles a free service after about fifteen, and
+# at ten minutes a single missed or slow tick was enough to let it sleep --
+# which it did, repeatedly. Five leaves room for two.
+#
+# This costs no extra hours: the allowance is consumed by the service being
+# up, which the window below controls, not by how often it is pinged.
 #
 # The window exists because of the hours, and the arithmetic is tight enough
 # to be worth writing down. Render's free plan includes 750 instance-hours a
@@ -21,4 +25,4 @@ compatibility_date = "2026-01-01"
 # survivable rather than fatal. If the demonstration is outside these hours,
 # open the Worker's URL first: that runs the same check on demand.
 [triggers]
-crons = ["*/10 6-17 * * *"]
+crons = ["*/5 6-17 * * *"]

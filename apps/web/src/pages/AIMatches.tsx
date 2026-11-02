@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, MapPin, Wifi, History, AlertTriangle, ArrowRight } from 'lucide-react';
 import { apiFetch } from '@/lib/api';
@@ -32,6 +32,44 @@ export default function AIMatches() {
   const [sufficiency, setSufficiency] = useState<MatchSufficiency | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [engineReady, setEngineReady] = useState<boolean | null>(null);
+
+  /**
+   * Start the engine waking as soon as the page opens.
+   *
+   * It sleeps after about fifteen idle minutes and takes a minute or two to
+   * come back. Doing this on arrival rather than on the button press means
+   * the waiting happens while someone is reading the page, and by the time
+   * they press it the engine is usually up. It also lets the button say so
+   * instead of failing.
+   *
+   * Polls until ready, because the first probe is what starts the wake-up and
+   * will almost always report false.
+   */
+  useEffect(() => {
+    let cancelled = false;
+    let attempts = 0;
+
+    async function probe() {
+      if (cancelled || attempts > 20) return;      // ~2 minutes, then give up quietly
+      attempts += 1;
+      try {
+        const { ready } = await apiFetch<{ ready: boolean }>('/match/ready');
+        if (cancelled) return;
+        setEngineReady(ready);
+        if (!ready) setTimeout(probe, 6_000);
+      } catch {
+        // Never surface this: it is a convenience, and the match itself
+        // reports properly if something is actually wrong.
+        if (!cancelled) setTimeout(probe, 6_000);
+      }
+    }
+
+    probe();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function findMatches() {
     setLoading(true);
@@ -83,7 +121,13 @@ export default function AIMatches() {
           className="inline-flex items-center justify-center gap-2 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98] disabled:pointer-events-none disabled:opacity-55"
         >
           {loading ? <Spinner /> : <Sparkles size={16} />}
-          {matches ? 'Refresh matches' : 'Find matches'}
+          {loading
+            ? 'Scoring…'
+            : engineReady === false
+              ? 'Starting the matcher…'
+              : matches
+                ? 'Refresh matches'
+                : 'Find matches'}
         </button>
         {generatedAt && !loading && (
           <span className="text-xs text-slate-500">

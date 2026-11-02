@@ -82,8 +82,16 @@ const GIG_FIELDS =
  */
 const WAKING_STATUSES = new Set([502, 503, 504]);
 
-/** Waits between attempts while the engine starts. Total added wait: 25s. */
-const WAKE_BACKOFF_MS = [5_000, 20_000];
+/**
+ * Waits between attempts while the engine starts.
+ *
+ * The first version waited 25 seconds in total and that was not nearly
+ * enough: a Render free instance that has spun down takes 90 to 130 seconds
+ * to answer, so every attempt failed and the caller was told the service was
+ * still starting -- which was true, and useless. This budget covers roughly
+ * 155 seconds of waking, which is past the worst cold start observed.
+ */
+const WAKE_BACKOFF_MS = [5_000, 15_000, 30_000, 45_000, 60_000];
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -241,6 +249,39 @@ matchingRouter.post(
         generated_at: new Date().toISOString(),
       },
     });
+  })
+);
+
+/**
+ * GET /api/match/ready — is the matching engine awake?
+ *
+ * Exists so the interface can start the engine waking when someone opens the
+ * matches page, rather than when they press the button. On a host that sleeps
+ * after fifteen idle minutes that is the difference between a match that
+ * answers in a second and one that waits two minutes or gives up.
+ *
+ * Deliberately cheap and deliberately never an error: it reports a state, and
+ * a sleeping engine is a state rather than a failure. The page uses it to say
+ * "warming up" instead of letting someone press a button that cannot yet
+ * succeed.
+ */
+matchingRouter.get(
+  '/ready',
+  asyncHandler(async (req, res) => {
+    requireUser(req);
+
+    try {
+      const response = await fetch(`${AI_ENGINE_URL}/health`, {
+        // Short: this is a probe, not the request itself. If the engine does
+        // not answer quickly it is asleep, and asking has already started it.
+        signal: AbortSignal.timeout(8_000),
+      });
+      return res.json({ data: { ready: response.ok } });
+    } catch {
+      // The request itself is what wakes a sleeping instance, so a timeout
+      // here is progress rather than a problem.
+      return res.json({ data: { ready: false } });
+    }
   })
 );
 
