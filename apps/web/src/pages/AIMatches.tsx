@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Sparkles,
@@ -7,11 +7,13 @@ import {
   History,
   AlertTriangle,
   ArrowRight,
+  Map as MapIcon,
   SlidersHorizontal,
   X,
 } from 'lucide-react';
 import { apiFetch } from '@/lib/api';
 import { useApi } from '@/hooks/useApi';
+import { distanceToGig, formatDistance } from '@/lib/kenyaTowns';
 import {
   EmptyState,
   ErrorMessage,
@@ -26,6 +28,7 @@ import type {
   MatchResponse,
   MatchSufficiency,
   SkillCategory,
+  UserProfile,
 } from '@/types';
 
 /** The weights the AI engine applies in composite_score(). */
@@ -68,9 +71,12 @@ function sentFilters(state: MatchFilterState) {
   return out;
 }
 
+const GigMap = lazy(() => import('@/components/GigMap'));
+
 export default function AIMatches() {
   usePageTitle('AI matches');
   const { data: categories } = useApi<SkillCategory[]>('/gigs/meta/categories');
+  const { data: profile } = useApi<UserProfile>('/workers/profile');
 
   const [matches, setMatches] = useState<GigMatch[] | null>(null);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
@@ -81,6 +87,7 @@ export default function AIMatches() {
   const [filters, setFilters] = useState<MatchFilterState>({});
   const [filteredOut, setFilteredOut] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
   /**
    * Start the engine waking as soon as the page opens.
@@ -187,6 +194,20 @@ export default function AIMatches() {
               : matches
                 ? 'Refresh matches'
                 : 'Find matches'}
+        </button>
+        <button
+          type="button"
+          onClick={() => setShowMap((v) => !v)}
+          aria-expanded={showMap}
+          disabled={!matches || matches.length === 0}
+          className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-colors disabled:opacity-50 ${
+            showMap
+              ? 'border-ayira-600 bg-ayira-50 text-ayira-700'
+              : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+          }`}
+        >
+          <MapIcon size={15} aria-hidden />
+          {showMap ? 'Hide map' : 'Show map'}
         </button>
         <button
           type="button"
@@ -388,6 +409,18 @@ export default function AIMatches() {
         />
       )}
 
+      {showMap && matches && matches.length > 0 && (
+        <Suspense
+          fallback={
+            <div className="mb-5 flex h-72 items-center justify-center rounded-xl border border-slate-200 bg-white text-sm text-slate-500">
+              Loading the map…
+            </div>
+          }
+        >
+          <GigMap matches={matches} workerLocation={profile?.location} />
+        </Suspense>
+      )}
+
       {/* Shown alongside results too: a worker who gets three matches should
           know the matcher found more and the filters removed them. */}
       {!loading && !error && matches !== null && matches.length > 0 && filteredOut > 0 && (
@@ -401,7 +434,11 @@ export default function AIMatches() {
         <ol className="space-y-3">
           {matches.map((match, index) => (
             <li key={match.gig.id}>
-              <MatchCard match={match} rank={index + 1} />
+              <MatchCard
+                match={match}
+                rank={index + 1}
+                workerLocation={profile?.location}
+              />
             </li>
           ))}
         </ol>
@@ -410,8 +447,17 @@ export default function AIMatches() {
   );
 }
 
-function MatchCard({ match, rank }: { match: GigMatch; rank: number }) {
+function MatchCard({
+  match,
+  rank,
+  workerLocation,
+}: {
+  match: GigMatch;
+  rank: number;
+  workerLocation: string | null | undefined;
+}) {
   const { gig, breakdown } = match;
+  const away = formatDistance(distanceToGig(workerLocation, gig));
 
   return (
     <Link
@@ -451,6 +497,11 @@ function MatchCard({ match, rank }: { match: GigMatch; rank: number }) {
             <span className="flex items-center gap-1">
               {gig.is_remote ? <Wifi size={13} /> : <MapPin size={13} />}
               {gig.is_remote ? 'Remote' : (gig.location ?? 'Location not set')}
+              {/* Town-to-town, and only when both ends are placeable — see
+                  lib/kenyaTowns. Absent rather than guessed. */}
+              {!gig.is_remote && away && (
+                <span className="text-slate-400">· {away} away</span>
+              )}
             </span>
           </div>
 
