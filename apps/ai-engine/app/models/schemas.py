@@ -7,7 +7,13 @@ class MatchRequest(BaseModel):
 class GigScore(BaseModel):
     gig_id: str
     title: str
+    #: The raw weighted composite. Kept because the breakdown is shown against
+    #: it and because every evaluation figure is computed from it.
     score: float
+    #: P(this gig is relevant to this worker), from the calibration artefact.
+    #: None when no artefact is promoted, so a caller can tell "uncalibrated"
+    #: from "calibrated and low". See services/calibration.py.
+    confidence: float | None = None
     breakdown: dict
 
 class ProfileSufficiency(BaseModel):

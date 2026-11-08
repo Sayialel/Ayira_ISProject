@@ -209,7 +209,14 @@ function MatchCard({ match, rank }: { match: GigMatch; rank: number }) {
                 {gig.employer ? ` · ${gig.employer.full_name}` : ''}
               </p>
             </div>
-            <span className="shrink-0 rounded-full bg-ayira-50 px-2.5 py-1 text-sm font-semibold text-ayira-700">
+            <span
+              className="shrink-0 rounded-full bg-ayira-50 px-2.5 py-1 text-sm font-semibold text-ayira-700"
+              title={
+                match.calibrated
+                  ? `Of past gigs scored like this one, about ${match.score_percent}% were judged a good fit.`
+                  : 'A raw match score. This engine has no calibration fitted.'
+              }
+            >
               {match.score_percent}% match
             </span>
           </div>
@@ -232,17 +239,24 @@ function MatchCard({ match, rank }: { match: GigMatch; rank: number }) {
             </div>
           )}
 
-          <ScoreBreakdown breakdown={breakdown} />
+          <ScoreBreakdown breakdown={breakdown} raw={match.score_raw} />
         </div>
       </div>
     </Link>
   );
 }
 
-function ScoreBreakdown({ breakdown }: { breakdown: MatchBreakdown }) {
+function ScoreBreakdown({ breakdown, raw }: { breakdown: MatchBreakdown; raw?: number }) {
   return (
     <div className="mt-3 border-t border-slate-100 pt-3">
-      <h3 className="mb-2 text-xs font-medium text-slate-500">Why this ranked here</h3>
+      <h3 className="mb-2 text-xs font-medium text-slate-500">
+        Why this ranked here
+        {raw !== undefined && (
+          <span className="ml-1 font-normal text-slate-400">
+            (combined score {raw.toFixed(2)})
+          </span>
+        )}
+      </h3>
       <dl className="space-y-1.5">
         {WEIGHTS.map(({ key, label, weight }) => {
           const raw = breakdown[key];

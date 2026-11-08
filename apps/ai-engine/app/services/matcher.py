@@ -12,7 +12,7 @@ from app.services.embedding_store import (
     to_pgvector,
     worker_embedding,
 )
-from app.services import tfidf_model
+from app.services import calibration, tfidf_model
 from app.services.scoring import (
     ProfileSufficiency,
     gig_text,
@@ -207,6 +207,7 @@ async def match_worker_to_gigs(
             gig_id=g.gig_id,
             title=g.title,
             score=g.score,
+            confidence=calibration.confidence(g.score),
             breakdown=g.breakdown(),
         )
         for g in ranked[:limit]

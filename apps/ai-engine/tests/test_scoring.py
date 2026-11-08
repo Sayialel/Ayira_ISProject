@@ -26,6 +26,8 @@ from app.services.scoring import (
     UNKNOWN_LOCATION,
 )
 from app.services.matcher import _sufficiency_without_vector
+from app.services import calibration
+import math
 
 
 # --- weights -------------------------------------------------------------
@@ -425,3 +427,69 @@ class TestSufficiencyWithoutVector:
         before = profile_sufficiency({"skills": ["a", "b", "c"], "bio": "a bio"})
         after = _sufficiency_without_vector(before)
         assert (after.skills, after.has_bio) == (before.skills, before.has_bio)
+
+
+# ---------------------------------------------------------------------------
+# Calibration
+#
+# The reason the composite could not be shown as a percentage: it is capped
+# near 0.7 by construction, so a good match read "59%". The calibrated figure
+# answers "what fraction of pairs scoring like this were judged relevant",
+# which is a claim that can be checked -- and the one property it must never
+# break is the ordering, because every reported metric is rank-based.
+# ---------------------------------------------------------------------------
+
+
+class TestCalibration:
+    def test_is_strictly_monotonic(self):
+        # The load-bearing property. If calibration could reorder a result
+        # list, NDCG@10 0.780 would no longer describe what is served.
+        cal = calibration.Calibration(a=10.2466, b=-3.6719)
+        scores = [i / 100 for i in range(0, 101)]
+        out = [cal.apply(s) for s in scores]
+        assert all(b > a for a, b in zip(out, out[1:]))
+
+    def test_maps_into_a_probability(self):
+        cal = calibration.Calibration(a=10.2466, b=-3.6719)
+        for s in (-5.0, 0.0, 0.5, 1.0, 50.0):
+            assert 0.0 <= cal.apply(s) <= 1.0
+
+    def test_does_not_overflow_on_an_absurd_score(self):
+        # Clamped before exp. Without the clamp this raises OverflowError and
+        # takes the whole match request with it.
+        cal = calibration.Calibration(a=1e6, b=0.0)
+        assert cal.apply(1e6) == pytest.approx(1.0)
+        assert cal.apply(-1e6) == pytest.approx(0.0)
+
+    def test_lifts_a_good_match_into_the_eighties(self):
+        # The fitted values, and the behaviour the change exists for: the
+        # live example that read 0.59 should now read about 90%.
+        cal = calibration.Calibration(a=10.2465815408678, b=-3.6718790861739383)
+        assert cal.apply(0.5916) > 0.85
+        # And a genuinely weak match must stay weak.
+        assert cal.apply(0.06) < 0.10
+
+    def test_confidence_is_none_without_an_artefact(self, tmp_path, monkeypatch):
+        # Absent artefact is a supported state, not an error: the engine then
+        # serves the raw score, which is what it did before calibration.
+        monkeypatch.setattr(calibration, "ARTIFACT_PATH", tmp_path / "missing.json")
+        calibration.reset_cache()
+        assert calibration.confidence(0.5) is None
+        calibration.reset_cache()
+
+    def test_a_corrupt_artefact_does_not_break_matching(self, tmp_path, monkeypatch):
+        bad = tmp_path / "calibration.json"
+        bad.write_text("{not json", encoding="utf-8")
+        monkeypatch.setattr(calibration, "ARTIFACT_PATH", bad)
+        calibration.reset_cache()
+        assert calibration.confidence(0.5) is None
+        calibration.reset_cache()
+
+    def test_reads_a_promoted_artefact(self, tmp_path, monkeypatch):
+        good = tmp_path / "calibration.json"
+        good.write_text('{"a": 10.0, "b": -3.0, "dataset_version": "x"}', encoding="utf-8")
+        monkeypatch.setattr(calibration, "ARTIFACT_PATH", good)
+        calibration.reset_cache()
+        got = calibration.confidence(0.5)
+        assert got is not None and got == pytest.approx(1 / (1 + math.exp(-2.0)))
+        calibration.reset_cache()

@@ -208,7 +208,15 @@ export interface MatchBreakdown {
 export interface GigMatch {
   gig: Gig;
   score: number;
+  /**
+   * What to show. The engine's calibrated P(relevant) when an artefact is
+   * promoted, the raw composite otherwise — `calibrated` says which.
+   */
   score_percent: number;
+  /** The raw weighted composite, which the breakdown sums to. */
+  score_raw?: number;
+  /** False from an engine with no calibration artefact promoted. */
+  calibrated?: boolean;
   breakdown: MatchBreakdown;
 }
 

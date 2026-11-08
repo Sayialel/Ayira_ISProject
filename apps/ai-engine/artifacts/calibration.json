@@ -1,0 +1,10 @@
+{
+  "a": 10.2465815408678,
+  "b": -3.6718790861739383,
+  "fitted_on": "train",
+  "n_pairs": 924,
+  "n_relevant": 367,
+  "relevant_at": 2,
+  "_note": "Platt scaling from composite score to P(grade >= 2). Fitted by eval/calibrate.py on the train split. Strictly monotonic, so it cannot change any ranking or any rank-based metric.",
+  "dataset_version": "b65642cd681e"
+}

@@ -31,6 +31,12 @@ const gigScoreSchema = z.object({
   gig_id: z.string(),
   title: z.string(),
   score: z.number(),
+  /**
+   * P(relevant) from the engine's calibration artefact. Nullable and
+   * optional: null from an engine with no artefact promoted, absent from one
+   * that predates the field.
+   */
+  confidence: z.number().min(0).max(1).nullable().optional(),
   breakdown: z.object({
     semantic: z.number().optional(),
     tfidf: z.number().optional(),
@@ -234,7 +240,26 @@ matchingRouter.post(
         return {
           gig,
           score: match.score,
-          score_percent: Math.round(match.score * 100),
+          /**
+           * The calibrated probability when the engine has one, the raw
+           * composite otherwise.
+           *
+           * They are different quantities and the difference is the point.
+           * The raw composite is structurally capped near 0.7 -- semantic
+           * carries 0.72 of the weight and MiniLM cosine between two short
+           * related texts rarely exceeds that -- so a good match read "59%"
+           * and looked like a bad one. The calibrated figure answers a
+           * question instead: of the annotated pairs scoring like this, what
+           * fraction were judged good or ideal. Held-out Brier 0.1544 against
+           * a 0.2456 base rate, ECE 0.0317.
+           *
+           * Monotonic, so the ordering below is untouched and the reported
+           * NDCG@10 still describes what is served.
+           */
+          score_percent: Math.round((match.confidence ?? match.score) * 100),
+          /** The raw composite, so the breakdown can be read against it. */
+          score_raw: match.score,
+          calibrated: match.confidence != null,
           breakdown: match.breakdown,
         };
       })
