@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, MapPin, Wifi, History, AlertTriangle, ArrowRight } from 'lucide-react';
+import {
+  Sparkles,
+  MapPin,
+  Wifi,
+  History,
+  AlertTriangle,
+  ArrowRight,
+  SlidersHorizontal,
+  X,
+} from 'lucide-react';
 import { apiFetch } from '@/lib/api';
+import { useApi } from '@/hooks/useApi';
 import {
   EmptyState,
   ErrorMessage,
@@ -10,7 +20,13 @@ import {
   usePageTitle,
 } from '@/components/ui';
 import { formatBudgetRange, formatRelative, toPercent } from '@/lib/format';
-import type { GigMatch, MatchBreakdown, MatchResponse, MatchSufficiency } from '@/types';
+import type {
+  GigMatch,
+  MatchBreakdown,
+  MatchResponse,
+  MatchSufficiency,
+  SkillCategory,
+} from '@/types';
 
 /** The weights the AI engine applies in composite_score(). */
 // Must match DEFAULT_WEIGHTS in apps/ai-engine/app/services/scoring.py. These
@@ -24,8 +40,37 @@ const WEIGHTS: { key: keyof MatchBreakdown; label: string; weight: number }[] = 
   { key: 'employer_reputation', label: 'Employer reputation', weight: 0.03 },
 ];
 
+/** What the panel holds. Strings, because they come from inputs. */
+interface MatchFilterState {
+  category?: string;
+  location?: string;
+  remote_only?: boolean;
+  min_budget?: string;
+  max_budget?: string;
+}
+
+/**
+ * Turns the panel state into the request body, dropping anything blank.
+ *
+ * An untouched panel must produce `{}` so the request is byte-identical to
+ * the unfiltered one -- otherwise every worker silently gets the wider
+ * `limit` and a different code path.
+ */
+function sentFilters(state: MatchFilterState) {
+  const out: Record<string, string | number | boolean> = {};
+  if (state.category) out.category = state.category;
+  if (state.location?.trim()) out.location = state.location.trim();
+  if (state.remote_only) out.remote_only = true;
+  const min = Number(state.min_budget);
+  const max = Number(state.max_budget);
+  if (state.min_budget && Number.isFinite(min) && min >= 0) out.min_budget = min;
+  if (state.max_budget && Number.isFinite(max) && max > 0) out.max_budget = max;
+  return out;
+}
+
 export default function AIMatches() {
   usePageTitle('AI matches');
+  const { data: categories } = useApi<SkillCategory[]>('/gigs/meta/categories');
 
   const [matches, setMatches] = useState<GigMatch[] | null>(null);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
@@ -33,6 +78,9 @@ export default function AIMatches() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [engineReady, setEngineReady] = useState<boolean | null>(null);
+  const [filters, setFilters] = useState<MatchFilterState>({});
+  const [filteredOut, setFilteredOut] = useState(0);
+  const [showFilters, setShowFilters] = useState(false);
 
   /**
    * Start the engine waking as soon as the page opens.
@@ -71,17 +119,28 @@ export default function AIMatches() {
     };
   }, []);
 
+  const activeCount = Object.keys(sentFilters(filters)).length;
+
   async function findMatches() {
     setLoading(true);
     setError(null);
     try {
+      // A wider limit when filtering, because narrowing happens after the
+      // engine has ranked: asking for ten and then hiding eight leaves two.
+      // See matchRequestSchema in the gateway for why the filter is not
+      // pushed into retrieval instead.
+      const active = Object.keys(sentFilters(filters)).length > 0;
       const result = await apiFetch<MatchResponse>('/match', {
         method: 'POST',
-        body: JSON.stringify({ limit: 10 }),
+        body: JSON.stringify({
+          limit: active ? 40 : 10,
+          ...(active ? { filters: sentFilters(filters) } : {}),
+        }),
       });
       setMatches(result.matches);
       setGeneratedAt(result.generated_at);
       setSufficiency(result.sufficiency ?? null);
+      setFilteredOut(result.filtered_out ?? 0);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -129,12 +188,143 @@ export default function AIMatches() {
                 ? 'Refresh matches'
                 : 'Find matches'}
         </button>
+        <button
+          type="button"
+          onClick={() => setShowFilters((v) => !v)}
+          aria-expanded={showFilters}
+          className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+            activeCount > 0
+              ? 'border-ayira-600 bg-ayira-50 text-ayira-700'
+              : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+          }`}
+        >
+          <SlidersHorizontal size={15} aria-hidden />
+          Filters
+          {activeCount > 0 && (
+            <span className="rounded-full bg-ayira-600 px-1.5 text-[11px] font-bold text-white">
+              {activeCount}
+            </span>
+          )}
+        </button>
         {generatedAt && !loading && (
           <span className="text-xs text-slate-500">
             Updated {formatRelative(generatedAt)}
           </span>
         )}
       </div>
+
+      {showFilters && (
+        <div className="mb-5 rounded-xl border border-slate-200 bg-white p-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-slate-600">Category</span>
+              <select
+                value={filters.category ?? ''}
+                onChange={(e) =>
+                  setFilters((f) => ({ ...f, category: e.target.value || undefined }))
+                }
+                className="w-full rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-900 focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"
+              >
+                <option value="">Any</option>
+                {(categories ?? []).map((c) => (
+                  <option key={c.id} value={c.name}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-slate-600">Town or county</span>
+              <input
+                type="text"
+                value={filters.location ?? ''}
+                onChange={(e) =>
+                  setFilters((f) => ({ ...f, location: e.target.value || undefined }))
+                }
+                placeholder="e.g. Nairobi"
+                disabled={filters.remote_only}
+                className="w-full rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500 disabled:bg-slate-50 disabled:text-slate-400"
+              />
+            </label>
+
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-slate-600">
+                Pays at least (KES)
+              </span>
+              <input
+                type="number"
+                min={0}
+                step={1}
+                value={filters.min_budget ?? ''}
+                onChange={(e) =>
+                  setFilters((f) => ({ ...f, min_budget: e.target.value || undefined }))
+                }
+                placeholder="Any"
+                className="w-full rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"
+              />
+            </label>
+
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-slate-600">
+                Pays at most (KES)
+              </span>
+              <input
+                type="number"
+                min={1}
+                step={1}
+                value={filters.max_budget ?? ''}
+                onChange={(e) =>
+                  setFilters((f) => ({ ...f, max_budget: e.target.value || undefined }))
+                }
+                placeholder="Any"
+                className="w-full rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"
+              />
+            </label>
+          </div>
+
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+            <label className="flex items-center gap-2 text-sm text-slate-700">
+              <input
+                type="checkbox"
+                checked={filters.remote_only ?? false}
+                onChange={(e) =>
+                  setFilters((f) => ({
+                    ...f,
+                    remote_only: e.target.checked || undefined,
+                    // A town is meaningless once remote-only is on, and
+                    // leaving a stale one set would filter on it invisibly.
+                    location: e.target.checked ? undefined : f.location,
+                  }))
+                }
+                className="h-4 w-4 rounded border-slate-300 text-ayira-600 focus:ring-ayira-500"
+              />
+              Remote work only
+            </label>
+
+            <div className="flex gap-2">
+              {activeCount > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setFilters({})}
+                  className="inline-flex items-center gap-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-600 transition-colors hover:bg-slate-50"
+                >
+                  <X size={14} aria-hidden />
+                  Clear
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={findMatches}
+                disabled={loading}
+                className="rounded-lg bg-ayira-600 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-ayira-700 disabled:opacity-50"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {loading && (
         <div className="rounded-lg border border-slate-200 bg-white px-6 py-12 text-center">
@@ -167,11 +357,44 @@ export default function AIMatches() {
         />
       )}
 
-      {!loading && !error && matches !== null && matches.length === 0 && (
+      {/* The two reasons a list is empty need different advice, and
+          conflating them would send someone to fix their profile when the
+          real problem is a 50,000 shilling floor on a 15,000 shilling gig. */}
+      {!loading && !error && matches !== null && matches.length === 0 && filteredOut > 0 && (
+        <EmptyState
+          title="Your filters hid every match"
+          description={`The matcher ranked ${filteredOut} ${
+            filteredOut === 1 ? 'gig' : 'gigs'
+          } for you, but none of them met your filters. Try widening them.`}
+          action={
+            <button
+              type="button"
+              onClick={() => {
+                setFilters({});
+                setShowFilters(true);
+              }}
+              className="rounded-lg bg-ayira-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-ayira-700"
+            >
+              Clear filters
+            </button>
+          }
+        />
+      )}
+
+      {!loading && !error && matches !== null && matches.length === 0 && filteredOut === 0 && (
         <EmptyState
           title="No gigs to match against"
           description="There are no open gigs right now, or none could be scored against your profile."
         />
+      )}
+
+      {/* Shown alongside results too: a worker who gets three matches should
+          know the matcher found more and the filters removed them. */}
+      {!loading && !error && matches !== null && matches.length > 0 && filteredOut > 0 && (
+        <p className="mb-3 text-xs text-slate-500">
+          {filteredOut} further {filteredOut === 1 ? 'match was' : 'matches were'} hidden by your
+          filters.
+        </p>
       )}
 
       {!loading && matches && matches.length > 0 && (

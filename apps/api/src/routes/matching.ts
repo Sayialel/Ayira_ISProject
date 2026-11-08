@@ -13,6 +13,7 @@ import {
   toRange,
   buildPageMeta,
 } from '../lib/http';
+import { passesFilters } from '../lib/matchFilters';
 
 export const matchingRouter = Router();
 
@@ -24,6 +25,36 @@ const AI_TIMEOUT_MS = Number(process.env.AI_ENGINE_TIMEOUT_MS || 60_000);
 
 const matchRequestSchema = z.object({
   limit: z.number().int().min(1).max(50).default(10),
+
+  /**
+   * Narrowing applied AFTER the engine has ranked, never before.
+   *
+   * This is deliberate and it matters for the evaluation. NDCG@10 0.780 was
+   * measured over the candidate pool the engine retrieves; filtering before
+   * ranking would change that pool, and the reported figure would stop
+   * describing the deployed system. Filtering the ranked list instead leaves
+   * the ranking -- and so every rank-based metric -- exactly as evaluated,
+   * and the worker still only sees gigs they asked for.
+   *
+   * The cost is honest and surfaced: a narrow filter can empty a list the
+   * engine filled, because the engine ranked the whole catalogue and only the
+   * top `limit` of it came back. The response says how many were removed so
+   * the UI can offer a wider request rather than show a bare "no matches".
+   */
+  filters: z
+    .object({
+      category: z.string().trim().min(1).max(60).optional(),
+      /** Substring, case-insensitive, matched against the gig's location. */
+      location: z.string().trim().min(1).max(120).optional(),
+      remote_only: z.boolean().optional(),
+      min_budget: z.number().nonnegative().optional(),
+      max_budget: z.number().positive().optional(),
+    })
+    .refine(
+      (f) => f.min_budget === undefined || f.max_budget === undefined || f.max_budget >= f.min_budget,
+      { message: 'max_budget must be at least min_budget' }
+    )
+    .optional(),
 });
 
 /** Shape returned by the FastAPI engine (app/models/schemas.py). */
@@ -206,7 +237,7 @@ matchingRouter.post(
   requireRole('worker'),
   asyncHandler(async (req, res) => {
     const { userId } = requireUser(req);
-    const { limit } = matchRequestSchema.parse(req.body ?? {});
+    const { limit, filters } = matchRequestSchema.parse(req.body ?? {});
 
     const result = await callAiEngine(userId, limit);
 
@@ -265,12 +296,25 @@ matchingRouter.post(
       })
       .filter((m): m is NonNullable<typeof m> => m !== null);
 
+    // Narrowing happens here, on the ranked list. See matchRequestSchema for
+    // why it is not pushed into retrieval.
+    const visible = filters ? matches.filter((m) => passesFilters(m.gig, filters)) : matches;
+
+    // Logged before filtering: the log records what the matcher produced, and
+    // a worker's choice of filter is not a property of the match quality
+    // being analysed later.
     await logMatches(userId, result.matches);
 
     res.json({
       data: {
-        matches,
+        matches: visible,
         sufficiency: result.sufficiency ?? null,
+        /**
+         * How many ranked matches the filters removed. The UI needs this to
+         * tell "the matcher found nothing" from "your filters hid everything",
+         * which are different problems with different fixes.
+         */
+        filtered_out: matches.length - visible.length,
         generated_at: new Date().toISOString(),
       },
     });

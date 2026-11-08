@@ -238,6 +238,14 @@ export interface MatchResponse {
   matches: GigMatch[];
   /** Null from an engine that predates this field. */
   sufficiency: MatchSufficiency | null;
+  /**
+   * How many ranked matches the caller's filters removed.
+   *
+   * Needed to tell "the matcher found nothing" from "your filters hid
+   * everything" — different problems with different fixes. Absent from a
+   * gateway that predates filtering.
+   */
+  filtered_out?: number;
   generated_at: string;
 }
 
