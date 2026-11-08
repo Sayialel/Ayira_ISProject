@@ -28,31 +28,76 @@ admin moderation, and three-way dispute resolution.
 
 ## 1. Decisions only you can make
 
-### 1.1 `messages` and `notifications` — build or cut
+### 1.1 `messages` and `notifications` — DONE
 
-**The gap.** Both tables exist (migrations 006 and 007), both have **0 rows**,
-and both have **0 code references** anywhere — gateway, web or engine. They are
-completely inert.
+**Both are built and deployed** (migration 025, 8 November 2026). This section
+is kept because the reasoning is worth having in the writeup.
 
-**Why it matters more than dead code usually does.** They are almost certainly
-in your Chapter 4 ERD. If the writeup presents an entity-relationship diagram
-containing tables the system never touches, that is a discrepancy between the
-documented design and the implementation, and it is the kind of thing an
-examiner notices immediately.
+**What the gap was.** Both tables existed (migrations 006 and 007) with 0 rows
+and 0 code references anywhere — gateway, web or engine. They were inert, while
+appearing in the Chapter 4 ERD: a discrepancy between documented design and
+implementation, which is the kind of thing an examiner notices immediately.
 
-**Two honest options:**
+**Why messaging was built rather than cut.** The earlier recommendation here
+was to build notifications and cut messaging. That was wrong, and the reason is
+worth stating: without messaging the core workflow has no middle. An employer
+shortlists a worker and then there is no step in which the two agree what the
+work actually is, before escrow is funded for it. Cutting it would have left
+"how does an employer actually hire someone here?" without a good answer.
 
-- **Cut them.** Drop both from the ERD and say in the scope section that
-  in-platform messaging and notifications were descoped. Cheapest, and entirely
-  defensible for a final-year scope.
-- **Build `notifications` only.** Higher value than messaging, because the
-  events already exist and currently tell nobody: "your application was
-  accepted", "escrow was funded", "payment released", "you have a review to
-  write". Roughly one table read, one insert at four existing call sites, a bell
-  icon and a dropdown.
+**What was built.**
 
-**Do not submit with the gap unaddressed either way.** My recommendation: build
-`notifications`, cut `messages`.
+- `GET /api/messages/threads`, `GET /api/messages/threads/:gigId/:otherId`,
+  `POST /api/messages`; `/app/messages` and `/app/messages/:gigId/:otherId`;
+  entry points on the applicant card and on the worker's own application.
+- `GET /api/notifications`, `GET /api/notifications/unread-count`,
+  `POST /api/notifications/read`; a bell with an unread badge in the header.
+- Nine notification kinds raised at the points where state actually changes:
+  application received, shortlisted, accepted, rejected; escrow funded,
+  released, disputed; review received; message received.
+
+**Three things migration 025 had to settle first**, each worth a sentence if
+asked about security:
+
+1. Both tables had an `UPDATE` policy with `USING` and no `WITH CHECK`. RLS
+   cannot see the OLD row in `WITH CHECK`, so "only `is_read` may change" is
+   not expressible as a policy — a recipient could have rewritten the
+   `content`, or the `sender_id`, of a message already delivered, which would
+   make a thread worthless as evidence in a dispute. Marking read now goes
+   through `SECURITY DEFINER` functions with `UPDATE` revoked.
+2. `messages.gig_id` was nullable, and migration 013's policy ended
+   `OR messages.gig_id IS NULL` — so a message with no gig was authorised by
+   *any* shared gig between the two parties and then belonged to none of them.
+   Every access rule here derives from the gig. Now `NOT NULL`, with
+   `ON DELETE CASCADE`.
+3. Neither table had an index for either query the feature issues.
+
+**A correction worth keeping.** The first draft of migration 025 claimed that
+wiring these tables up would have shipped an open inbox — any user able to
+message any other. It would not have: migration 013 (L-02) closed that in the
+first weeks with the same reasoning, and the draft was written from migration
+007 without reading 013. Two overlapping `INSERT` policies are OR'd together
+and are worse than one, so the duplicate was dropped and 013's kept.
+
+**A design point likely to be asked about.** A conversation is keyed on
+`(gig, counterparty)`, not on the gig. An employer with three applicants on one
+gig is having three conversations about it; keying on the gig alone would have
+shown each worker the others' messages — a privacy failure RLS would *not* have
+caught, because every one of those rows is legitimately readable by the
+employer. `foldThreads` in `apps/api/src/lib/threads.ts` is tested for exactly
+that case.
+
+**Verified** against the live deployed stack with three throwaway accounts on
+the reserved `.invalid` TLD, deleted afterwards: 16 of 16 checks, including the
+five security assertions nothing had ever exercised — employer and applicant
+may message each other, a third party is refused in both directions, a forged
+`sender_id` is refused, and a recipient cannot rewrite what they were sent.
+
+**Still deliberately absent**, and defensible as scope: attachments, read
+receipts, typing indicators, presence, and push or email delivery. The
+conversation is polled on a fifteen-second interval rather than subscribed
+through Realtime — enough for agreeing a scope and a price, which is what it is
+for.
 
 ### 1.2 The final test-split figure
 
@@ -276,8 +321,9 @@ escrow parties, reviews, reputation — rested on it.
 
 In order:
 
-1. **Decide `messages`/`notifications`** (§1.1) — half a day to cut, two days to
-   build notifications. Removes a documented-vs-built discrepancy.
+1. ~~**Decide `messages`/`notifications`** (§1.1)~~ — **done**: both built,
+   deployed and verified on the live stack. The documented-vs-built
+   discrepancy is closed.
 2. **Run `--split test` once** (§1.2) — an hour, including writing the honest
    caveat. Gives you a headline number.
 3. **Find a second annotator** (§2.1) — a few hours of someone else's time.
