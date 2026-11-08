@@ -25,6 +25,8 @@ const MyGigs = lazy(() => import('@/pages/MyGigs'));
 const MyApplications = lazy(() => import('@/pages/MyApplications'));
 const AIMatches = lazy(() => import('@/pages/AIMatches'));
 const MatchHistory = lazy(() => import('@/pages/MatchHistory'));
+const Messages = lazy(() => import('@/pages/Messages'));
+const MessageThread = lazy(() => import('@/pages/MessageThread'));
 const EscrowPage = lazy(() => import('@/pages/Escrow'));
 const Profile = lazy(() => import('@/pages/Profile'));
 const PublicProfile = lazy(() => import('@/pages/PublicProfile'));
@@ -164,6 +166,11 @@ export default function App() {
               <Route path="applications" element={<Lazy><MyApplications /></Lazy>} />
               <Route path="matches" element={<Lazy><AIMatches /></Lazy>} />
               <Route path="matches/history" element={<Lazy><MatchHistory /></Lazy>} />
+              <Route path="messages" element={<Lazy><Messages /></Lazy>} />
+              <Route
+                path="messages/:gigId/:otherId"
+                element={<Lazy><MessageThread /></Lazy>}
+              />
               <Route path="escrow" element={<Lazy><EscrowPage /></Lazy>} />
               <Route path="profile" element={<Lazy><Profile /></Lazy>} />
               <Route path="users/:id" element={<Lazy><PublicProfile /></Lazy>} />

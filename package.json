@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "concurrently": "^9.0.1",
+    "esbuild": "0.28.2",
     "eslint": "^9.0.0",
     "typescript": "5.9.3"
   },

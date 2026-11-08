@@ -38,23 +38,19 @@ jobs:
           node-version: '22'
           cache: npm
 
-      # install, not ci, and this is a concession rather than a preference.
+      # ci, not install: it installs exactly what the lockfile pins, so a run
+      # cannot pass against a version nobody has committed.
       #
-      # `npm ci` installs exactly what the lockfile pins, which is what a CI
-      # run should do. But the lockfile is generated on Windows, and npm does
-      # not record the platform binaries of a *hoisted* optional dependency
-      # for other platforms -- esbuild is hoisted to the root here (tsx wants
-      # ~0.28.0) and the lockfile carries no @esbuild/* entries for it at all.
-      # `npm ci` installs the tree verbatim, esbuild's postinstall then finds
-      # no binary or the wrong one, and the job dies before a single test
-      # runs. That is what was failing on every commit.
-      #
-      # `npm install` resolves the platform binaries for the machine it is on
-      # and still honours the lockfile for everything else. The same
-      # concession is made in apps/api/Dockerfile and on Render, for the same
-      # reason. Regenerating the lockfile on Linux would be the real fix and
-      # needs a Linux machine to do it on.
-      - run: npm install --no-audit --no-fund
+      # This was `npm install` for a while because `npm ci` died in the
+      # install step on every commit. The cause was not npm ci. esbuild was
+      # pulled in only transitively (by tsx), and npm does not record the
+      # platform binaries of a merely *hoisted* optional dependency, so a
+      # lockfile generated on Windows gave root esbuild no @esbuild/* entry
+      # for any platform -- and `npm ci`, installing the tree verbatim, left
+      # its postinstall with no binary to find. Declaring esbuild explicitly
+      # in the root package.json makes npm record all 26 platform variants,
+      # which fixes it at the source rather than working around it here.
+      - run: npm ci
 
       # Typecheck before test. A type error is the cheaper failure to read,
       # and reporting it first saves waiting for a suite that cannot compile.

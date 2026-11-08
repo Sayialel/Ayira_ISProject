@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { supabaseAdmin } from '../lib/supabase';
 import { asyncHandler } from '../lib/asyncHandler';
 import { AppError } from '../middleware/errorHandler';
+import { notify, NotificationType } from '../lib/notify';
 import { requireRole } from '../middleware/auth';
 import {
   requireUser,
@@ -97,6 +98,16 @@ applicationRouter.post(
       throw new AppError('You have already applied to this gig', 409);
     }
     assertNoDbError(error, 'Failed to submit application');
+
+    // The employer had no way to learn an application had arrived short of
+    // reloading their gig page.
+    notify({
+      userId: gig.employer_id,
+      type: 'application_received',
+      title: 'New application',
+      body: 'Someone applied to one of your gigs.',
+      data: { gig_id: body.gig_id, application_id: data?.id },
+    });
 
     res.status(201).json({ data });
   })
@@ -256,6 +267,29 @@ applicationRouter.patch(
       .single();
 
     assertNoDbError(readError, 'Failed to load the updated application');
+
+    // A worker should not have to poll their applications page to discover
+    // they were shortlisted or hired. Withdrawals run the other way: the
+    // worker made that change, so the employer is the one who needs telling,
+    // and there is no notification type for it -- the employer sees it on the
+    // gig's applicant list, which they are looking at to decide anyway.
+    const TITLES: Record<string, { type: NotificationType; title: string }> = {
+      shortlisted: { type: 'application_shortlisted', title: 'You were shortlisted' },
+      accepted: { type: 'application_accepted', title: 'You got the gig' },
+      rejected: { type: 'application_rejected', title: 'Application not successful' },
+    };
+
+    const announcement = TITLES[nextStatus];
+    if (announcement) {
+      notify({
+        userId: row.worker_id,
+        type: announcement.type,
+        title: announcement.title,
+        body: row.gig.title,
+        data: { gig_id: row.gig.id, application_id: row.id },
+      });
+    }
+
     res.json({ data: result });
   })
 );

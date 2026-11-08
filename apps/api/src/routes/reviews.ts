@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { supabaseAdmin } from '../lib/supabase';
 import { asyncHandler } from '../lib/asyncHandler';
 import { AppError } from '../middleware/errorHandler';
+import { notify } from '../lib/notify';
 import {
   requireUser,
   userClient,
@@ -227,6 +228,16 @@ reviewRouter.post(
       }
       throw new AppError(error.message || 'Could not save the review', 400);
     }
+
+    // A review moves the reviewee's reputation, which is the number the
+    // matcher reads, so they have a direct interest in knowing it landed.
+    notify({
+      userId: body.reviewee_id,
+      type: 'review_received',
+      title: `You received a ${body.rating}-star review`,
+      body: body.comment?.slice(0, 140) ?? null,
+      data: { gig_id: body.gig_id, review_id: (data as { id?: string } | null)?.id },
+    });
 
     res.status(201).json({ data });
   })

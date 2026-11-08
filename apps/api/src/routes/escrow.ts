@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { supabaseAdmin } from '../lib/supabase';
 import { asyncHandler } from '../lib/asyncHandler';
 import { AppError } from '../middleware/errorHandler';
+import { notify, notifyMany } from '../lib/notify';
 import { requireRole } from '../middleware/auth';
 import {
   requireUser,
@@ -72,6 +73,37 @@ function escrowError(message: string | undefined, fallback: string): AppError {
 }
 
 // GET /api/escrow — the caller's transactions, as either party
+/**
+ * Tells the worker their escrow is funded, so they know it is safe to start.
+ *
+ * Keyed by checkout id rather than escrow id because both callers have that
+ * and not the row: mark_escrow_funded is addressed the same way. Looked up
+ * after the fact rather than passed in, since neither caller has read the
+ * parties.
+ */
+async function announceFunded(checkoutId: string): Promise<void> {
+  const { data, error } = await supabaseAdmin
+    .from('escrow')
+    .select('id, worker_id, amount, currency, gig:gigs!gig_id(title)')
+    .eq('mpesa_checkout_id', checkoutId)
+    .maybeSingle();
+
+  if (error || !data) {
+    if (error) console.error('Could not look up a funded escrow:', error.message);
+    return;
+  }
+
+  notify({
+    userId: data.worker_id,
+    type: 'escrow_funded',
+    title: 'Payment secured for your gig',
+    body: `${data.currency ?? 'KES'} ${data.amount} is held in escrow for ${
+      (data.gig as { title?: string } | null)?.title ?? 'a gig'
+    }. You can start work.`,
+    data: { escrow_id: data.id },
+  });
+}
+
 escrowRouter.get(
   '/',
   asyncHandler(async (req, res) => {
@@ -233,6 +265,27 @@ escrowRouter.post(
     // In production this is where a B2C payout would be initiated. In the
     // sandbox the status change is the whole of it, which is worth stating
     // rather than leaving the reader to assume money moved.
+    //
+    // The parties are read back rather than taken from the request, because
+    // transition_escrow is the only thing that knows the row it acted on.
+    const released = await supabaseAdmin
+      .from('escrow')
+      .select('worker_id, amount, currency, gig:gigs!gig_id(id, title)')
+      .eq('id', parsed.data)
+      .maybeSingle();
+
+    if (released.data) {
+      notify({
+        userId: released.data.worker_id,
+        type: 'escrow_released',
+        title: 'Your payment was released',
+        body: `${released.data.currency ?? 'KES'} ${released.data.amount} for ${
+          (released.data.gig as { title?: string } | null)?.title ?? 'a gig'
+        }`,
+        data: { escrow_id: parsed.data },
+      });
+    }
+
     res.json({ data });
   })
 );
@@ -259,6 +312,34 @@ escrowRouter.post(
     if (error) {
       console.error('dispute failed:', error.message);
       throw escrowError(error.message, 'Could not raise the dispute');
+    }
+
+    // Both the other party and the administrators who have to decide it. The
+    // raiser already knows; everyone else finds out here rather than when
+    // someone happens to open the admin queue.
+    const disputed = await supabaseAdmin
+      .from('escrow')
+      .select('employer_id, worker_id, gig:gigs!gig_id(id, title)')
+      .eq('id', parsed.data)
+      .maybeSingle();
+
+    if (disputed.data) {
+      const other =
+        disputed.data.employer_id === userId
+          ? disputed.data.worker_id
+          : disputed.data.employer_id;
+
+      const admins = await supabaseAdmin.from('users').select('id').eq('role', 'admin');
+
+      notifyMany(
+        [other, ...(admins.data ?? []).map((a) => a.id)].map((recipient) => ({
+          userId: recipient,
+          type: 'escrow_disputed' as const,
+          title: 'A payment is disputed',
+          body: (disputed.data!.gig as { title?: string } | null)?.title ?? undefined,
+          data: { escrow_id: parsed.data },
+        }))
+      );
     }
 
     res.json({ data });
@@ -319,6 +400,7 @@ escrowRouter.post(
         p_receipt: null,
       });
       if (fundError) throw escrowError(fundError.message, 'Could not record the payment');
+      await announceFunded(escrow.mpesa_checkout_id);
       return res.json({ data: { status: 'funded', changed: true, detail: status.resultDesc } });
     }
 
@@ -393,6 +475,7 @@ escrowCallbackRouter.post(
       console.error('Could not apply M-Pesa callback:', error.message);
     } else {
       console.log(`Escrow funded via M-Pesa receipt ${result.receipt ?? '(none)'}`);
+      await announceFunded(result.checkoutRequestId);
     }
 
     res.json({ ResultCode: 0, ResultDesc: 'Accepted' });

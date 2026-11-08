@@ -112,7 +112,8 @@ export type NotificationRow = {
 
 export type MessageRow = {
   id: string;
-  gig_id: string | null;
+  /** NOT NULL since migration 025: every thread belongs to a gig. */
+  gig_id: string;
   sender_id: string;
   receiver_id: string;
   content: string;
@@ -225,7 +226,7 @@ export interface Database {
       };
       messages: {
         Row: MessageRow;
-        Insert: Insertable<MessageRow, 'sender_id' | 'receiver_id' | 'content'>;
+        Insert: Insertable<MessageRow, 'gig_id' | 'sender_id' | 'receiver_id' | 'content'>;
         Update: Partial<Omit<MessageRow, 'id'>>;
         Relationships: [
           FkTo<'messages_gig_id_fkey', 'gig_id', 'gigs'>,
@@ -308,6 +309,18 @@ export interface Database {
       confirm_user_role: {
         Args: { p_user_id: string; p_role: string };
         Returns: UserRow;
+      };
+      // migration 025 — marking read. Functions rather than an RLS policy
+      // because WITH CHECK cannot see the OLD row, so "only is_read may
+      // change" is not expressible as a policy; a receiver with UPDATE could
+      // have rewritten the message they were sent. Both return the row count.
+      mark_thread_read: {
+        Args: { p_gig_id: string; p_user_id: string; p_other_id: string };
+        Returns: number;
+      };
+      mark_notifications_read: {
+        Args: { p_user_id: string; p_ids?: string[] | null };
+        Returns: number;
       };
     };
   };

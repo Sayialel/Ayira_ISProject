@@ -1,6 +1,14 @@
 import { FormEvent, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MapPin, Wifi, CalendarClock, Users, BadgeCheck, Send } from 'lucide-react';
+import {
+  BadgeCheck,
+  CalendarClock,
+  MapPin,
+  MessageSquare,
+  Send,
+  Users,
+  Wifi,
+} from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useApi } from '@/hooks/useApi';
 import { apiFetch } from '@/lib/api';
@@ -254,6 +262,13 @@ export default function GigDetailPage() {
           {myApplication ? (
             <>
               <h2 className="mb-3 text-sm font-medium text-slate-700">Your application</h2>
+              <Link
+                to={`/app/messages/${gig.id}/${gig.employer_id}`}
+                className="mb-3 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+              >
+                <MessageSquare size={14} aria-hidden />
+                Message the employer
+              </Link>
               <div className="flex items-center justify-between gap-3">
                 <ApplicationStatusBadge status={myApplication.status} />
                 <span className="text-sm text-slate-500">
@@ -489,6 +504,18 @@ function ApplicantCard({
               {application.cover_letter}
             </p>
           )}
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {worker && (
+              <Link
+                to={`/app/messages/${application.gig_id}/${worker.id}`}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+              >
+                <MessageSquare size={14} aria-hidden />
+                Message
+              </Link>
+            )}
+          </div>
 
           {decidable && (
             <div className="mt-3 flex flex-wrap gap-2">

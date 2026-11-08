@@ -379,3 +379,88 @@ export interface MatchLog {
 export interface MatchHistoryResponse extends Paginated {
   logs: MatchLog[];
 }
+
+// --- Messaging and notifications -----------------------------------------
+//
+// Both tables have existed since migrations 006 and 007 and were never read
+// or written by anything. A thread is identified by (gig, counterparty)
+// rather than by gig alone: an employer with three applicants on one gig has
+// three separate conversations about it.
+
+export interface MessagePerson {
+  id: string;
+  full_name: string;
+  avatar_url: string | null;
+  role: UserRole;
+}
+
+export interface Message {
+  id: string;
+  gig_id: string;
+  sender_id: string;
+  receiver_id: string;
+  content: string;
+  is_read: boolean;
+  created_at: string;
+}
+
+export interface MessageThread {
+  gig_id: string;
+  other_id: string;
+  last_message: string;
+  last_at: string;
+  /** So the list can show "You: ..." without comparing ids in the view. */
+  last_from_me: boolean;
+  unread: number;
+  gig: { id: string; title: string; status: GigStatus } | null;
+  other: MessagePerson | null;
+}
+
+export interface ThreadListResponse {
+  threads: MessageThread[];
+  /**
+   * True when the server built these threads from a capped scan of recent
+   * messages, so older conversations may be missing. Shown rather than
+   * hidden — see the note in routes/messages.ts.
+   */
+  truncated: boolean;
+}
+
+export interface ThreadResponse {
+  messages: Message[];
+  gig: { id: string; title: string; status: GigStatus } | null;
+  other: MessagePerson | null;
+}
+
+/** Kept in step with NotificationType in apps/api/src/lib/notify.ts. */
+export type NotificationType =
+  | 'application_received'
+  | 'application_shortlisted'
+  | 'application_accepted'
+  | 'application_rejected'
+  | 'escrow_funded'
+  | 'escrow_released'
+  | 'escrow_disputed'
+  | 'review_received'
+  | 'message_received';
+
+export interface Notification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  body: string | null;
+  /** A pointer to whatever the notification is about, not a copy of it. */
+  data: {
+    gig_id?: string;
+    application_id?: string;
+    escrow_id?: string;
+    review_id?: string;
+    other_id?: string;
+  } | null;
+  is_read: boolean;
+  created_at: string;
+}
+
+export interface NotificationListResponse extends Paginated {
+  notifications: Notification[];
+}

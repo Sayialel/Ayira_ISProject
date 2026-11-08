@@ -7,6 +7,7 @@ import {
   Home,
   LayoutList,
   LogOut,
+  MessageSquare,
   Menu,
   PanelLeft,
   Plus,
@@ -18,6 +19,7 @@ import {
   Wallet,
   X,
 } from 'lucide-react';
+import NotificationBell from '@/components/NotificationBell';
 import { AyiraMark } from '@/components/patterns';
 import { Avatar } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
@@ -67,6 +69,7 @@ const WORKER_NAV: NavItem[] = [
       { to: '/app/matches/history', label: 'Match history' },
     ],
   },
+  { to: '/app/messages', label: 'Messages', icon: MessageSquare },
   { to: '/app/escrow', label: 'Payments', icon: Wallet },
   { to: '/app/profile', label: 'Profile', icon: User },
 ];
@@ -83,6 +86,7 @@ const EMPLOYER_NAV: NavItem[] = [
       { to: '/app/gigs', label: 'Browse all', end: true },
     ],
   },
+  { to: '/app/messages', label: 'Messages', icon: MessageSquare },
   { to: '/app/escrow', label: 'Payments', icon: Wallet },
   { to: '/app/profile', label: 'Profile', icon: User },
 ];
@@ -219,19 +223,26 @@ export default function Layout() {
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Phone-only top bar: the sidebar is a drawer there, so the mark
             and the menu button need somewhere to live. */}
-        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-slate-200 bg-white/95 px-4 py-2.5 backdrop-blur md:hidden">
+        {/* The bar is shown at every width because the notification bell
+            lives in it. Only the menu button and the wordmark are phone-only:
+            on a laptop the sidebar already carries both. */}
+        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-slate-200 bg-white/95 px-4 py-2.5 backdrop-blur">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
             aria-label="Open menu"
-            className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100"
+            className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 md:hidden"
           >
             <Menu size={20} aria-hidden />
           </button>
-          <Link to="/app" className="flex items-center gap-2">
+          <Link to="/app" className="flex items-center gap-2 md:hidden">
             <AyiraMark size={26} />
             <span className="font-display text-lg font-bold text-slate-900">Ayira</span>
           </Link>
+
+          <div className="ml-auto flex items-center gap-1">
+            <NotificationBell />
+          </div>
         </header>
 
         <main className="mx-auto w-full max-w-6xl flex-1 p-4 pb-24 sm:p-6 md:pb-8">
