@@ -10,11 +10,13 @@ import {
   Phone,
   Star,
   UserRound,
+  Upload,
   Wrench,
 } from 'lucide-react';
 import { useApi } from '@/hooks/useApi';
 import { apiFetch } from '@/lib/api';
 import SkillsInput from '@/components/SkillsInput';
+import CvImport from '@/components/CvImport';
 import ProgressRing, { profileCompletion } from '@/components/ProgressRing';
 import { ShukaWeave } from '@/components/patterns';
 import {
@@ -67,6 +69,7 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const [importing, setImporting] = useState(false);
 
   // Seed the form once the profile arrives.
   useEffect(() => {
@@ -398,6 +401,23 @@ export default function Profile() {
         </form>
       )}
 
+      {importing && (
+        <CvImport
+          currentSkills={skills}
+          currentBio={bio}
+          onClose={() => setImporting(false)}
+          onApply={({ skills: found, bio: about }) => {
+            setSkills((current) => {
+              const have = new Set(current.map((s) => s.toLowerCase()));
+              return [...current, ...found.filter((s) => !have.has(s.toLowerCase()))].slice(0, 30);
+            });
+            if (about) setBio(about);
+            setImporting(false);
+            setSaved(false);
+          }}
+        />
+      )}
+
       {tab === 'skills' && !isStaff && (
         <form onSubmit={handleSubmit}>
           <PanelCard icon={<Wrench size={18} aria-hidden />} title="Skills">
@@ -412,6 +432,19 @@ export default function Profile() {
               Your skills and bio are what the AI matcher scores gigs against. Plain
               words beat job titles.
             </p>
+
+            {/* The fastest route from an empty profile to a matchable one,
+                which is also the fix for a new worker's first visit being
+                ranked on keywords alone. */}
+            <button
+              type="button"
+              onClick={() => setImporting(true)}
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-ayira-400 hover:bg-ayira-50/50 sm:w-auto"
+            >
+              <Upload size={15} aria-hidden />
+              Import from my CV
+            </button>
+
             <div className="mt-5">
               <SaveButton saving={saving} />
             </div>

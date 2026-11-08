@@ -142,6 +142,17 @@ export type EscrowEventRow = {
   created_at: string;
 };
 
+/**
+ * Written form -> canonical skill, for the CV parser. Migration 026.
+ *
+ * Generated from skills_vocabulary.json, never user-edited, which is why the
+ * table has a read policy and no write policy.
+ */
+export type SkillAliasRow = {
+  alias: string;
+  canonical: string;
+}
+
 export type SkillCategoryRow = {
   id: string;
   name: string;
@@ -256,6 +267,13 @@ export interface Database {
         Row: SkillCategoryRow;
         Insert: Insertable<SkillCategoryRow, 'name'>;
         Update: Partial<Omit<SkillCategoryRow, 'id'>>;
+        Relationships: [];
+      };
+      skill_aliases: {
+        Row: SkillAliasRow;
+        // `alias` is the primary key, so there is no generated column to omit.
+        Insert: SkillAliasRow;
+        Update: Partial<SkillAliasRow>;
         Relationships: [];
       };
     };
