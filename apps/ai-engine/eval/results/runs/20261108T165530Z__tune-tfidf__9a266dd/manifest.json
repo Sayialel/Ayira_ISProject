@@ -1,0 +1,57 @@
+{
+  "run_id": "20261108T165530Z__tune-tfidf__9a266dd",
+  "name": "tune-tfidf",
+  "started_at": "2026-11-08T16:55:30.767867+00:00",
+  "finished_at": "2026-11-08T16:58:56.486649+00:00",
+  "git": {
+    "commit": "9a266ddeed3106ef9f4284eecb998500fbe79229",
+    "short_commit": "9a266dd",
+    "branch": "main",
+    "dirty": true,
+    "uncommitted_files": 7,
+    "uncommitted_paths": [
+      "CHAPTER6_EXTRACTION_REPORT.md",
+      "apps/ai-engine/app/services/kenya_geography.py",
+      "apps/ai-engine/app/services/scoring.py",
+      "apps/ai-engine/eval/tune_location.py",
+      "apps/ai-engine/eval/tune_location_support.py",
+      "apps/ai-engine/eval/tune_tfidf.py",
+      "apps/ai-engine/tests/test_scoring.py"
+    ]
+  },
+  "dataset_version": "b65642cd681e",
+  "seeds": {
+    "split": 20261018
+  },
+  "parameters": {
+    "question": "restrict TF-IDF to the skills vocabulary, add bigrams, or neither",
+    "arms": [
+      "current",
+      "bigrams",
+      "restricted"
+    ],
+    "search_split": "train",
+    "selection_split": "validation",
+    "reporting_split": "test",
+    "adopt_margin": 0.005,
+    "vocabulary_terms": 849,
+    "metric": "ndcg_at_10"
+  },
+  "dependencies": {
+    "sentence-transformers": "3.0.1",
+    "scikit-learn": "1.5.1",
+    "numpy": "1.26.4",
+    "torch": "2.14.0",
+    "supabase": "2.7.2",
+    "joblib": "1.6.0",
+    "matplotlib": "3.9.2",
+    "python": "3.12.8"
+  },
+  "environment": {
+    "colab": false,
+    "drive_mounted": false,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "hostname": "Lenina"
+  },
+  "notes": "restrict TF-IDF to the skills vocabulary vs bigrams vs current"
+}

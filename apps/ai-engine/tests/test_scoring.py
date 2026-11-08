@@ -26,7 +26,8 @@ from app.services.scoring import (
     UNKNOWN_LOCATION,
 )
 from app.services.matcher import _sufficiency_without_vector
-from app.services import calibration
+from app.services import calibration, kenya_geography
+from app.services.scoring import distance_affinity
 import math
 
 
@@ -493,3 +494,120 @@ class TestCalibration:
         got = calibration.confidence(0.5)
         assert got is not None and got == pytest.approx(1 / (1 + math.exp(-2.0)))
         calibration.reset_cache()
+
+
+# ---------------------------------------------------------------------------
+# Distance-based location affinity
+#
+# The tiers it replaces could not separate pairs inside one bucket: every
+# "different county" pair scored 0.0, so Nakuru to Nairobi (160 km) scored
+# the same as Mombasa to Nairobi (440 km).
+# ---------------------------------------------------------------------------
+
+
+class TestDistanceAffinity:
+    def test_same_place_is_full_marks(self):
+        assert distance_affinity(0.0) == pytest.approx(1.0)
+
+    def test_halves_at_the_halflife(self):
+        assert distance_affinity(50.0, halflife_km=50.0) == pytest.approx(0.5)
+        assert distance_affinity(100.0, halflife_km=50.0) == pytest.approx(0.25)
+
+    def test_decreases_monotonically(self):
+        values = [distance_affinity(km) for km in range(0, 500, 10)]
+        assert all(b < a for a, b in zip(values, values[1:]))
+
+    def test_stays_in_range(self):
+        for km in (0.0, 1.0, 50.0, 500.0, 5000.0):
+            assert 0.0 < distance_affinity(km) <= 1.0
+
+    def test_a_negative_distance_cannot_exceed_full_marks(self):
+        # Defensive: a distance is never negative, but clamping beats
+        # returning an affinity above 1.0 and corrupting the composite.
+        assert distance_affinity(-10.0) == pytest.approx(1.0)
+
+    def test_separates_what_the_tiers_cannot(self):
+        # What distance would buy, if the corpus could show it: these two are
+        # both DIFFERENT_COUNTY = 0.0 under the tiers, so the ordering between
+        # a 160 km trip and a 440 km one is lost.
+        nakuru = distance_affinity(kenya_geography.distance_km("Nairobi", "Nakuru"))
+        mombasa = distance_affinity(kenya_geography.distance_km("Nairobi", "Mombasa"))
+        assert nakuru > mombasa
+        assert mombasa < 0.05
+
+    def test_thika_would_land_near_the_tier_it_deserves(self):
+        # Nairobi to Thika is 39.7 km and a commute people genuinely make.
+        # The tiers give it SAME_METRO (0.45); measured it is ~0.58, closer to
+        # the SAME_COUNTY 0.6 the pair arguably warrants.
+        assert 0.5 < distance_affinity(kenya_geography.distance_km("Nairobi", "Thika")) < 0.65
+
+    def test_the_scoring_path_still_uses_the_evaluated_tiers(self):
+        # Pins the revert. eval/tune_location.py found distance did not earn
+        # the change (-0.0002 on validation, 0.005 required), so serving must
+        # stay on the configuration the reported NDCG describes. If someone
+        # wires distance in without re-running that sweep, this fails.
+        assert location_affinity("Nairobi", {"location": "Thika", "is_remote": False}) == (
+            SAME_METRO
+        )
+        assert location_affinity("Nairobi", {"location": "Mombasa", "is_remote": False}) == (
+            DIFFERENT_COUNTY
+        )
+
+    def test_remote_still_scores_full_marks(self):
+        assert location_affinity(None, {"location": None, "is_remote": True}) == SAME_TOWN
+
+    def test_an_unknown_town_falls_back_rather_than_guessing(self):
+        # Lodwar has no coordinates and no county entry, so this must be the
+        # unknown tier -- not 0.0, which would read as a confirmed mismatch.
+        assert location_affinity("Lodwar", {"location": "Nairobi", "is_remote": False}) == (
+            UNKNOWN_LOCATION
+        )
+
+    def test_missing_location_is_unknown_not_a_mismatch(self):
+        assert location_affinity("", {"location": "Nairobi", "is_remote": False}) == (
+            UNKNOWN_LOCATION
+        )
+
+
+class TestCoordinateParity:
+    """
+    The engine's coordinates and the web map's must agree.
+
+    They are separate tables in separate languages -- apps/web cannot import
+    Python -- so nothing but a test stops them drifting. Two of them showing a
+    town in different places would be a silent fault: the map would put a pin
+    somewhere the location score disagrees with.
+    """
+
+    def _web_table(self) -> dict[str, tuple[float, float]]:
+        import re
+        from pathlib import Path
+
+        ts = Path(__file__).parent.parent.parent / "web" / "src" / "lib" / "kenyaTowns.ts"
+        body = ts.read_text(encoding="utf-8")
+        start = body.index("export const TOWN_POINTS")
+        block = body[start : body.index("\n};", start)]
+        found = {}
+        for q1, q2, bare, lat, lon in re.findall(
+            r"(?:'([^']+)'|\"([^\"]+)\"|([a-z]+))\s*:\s*\{\s*lat:\s*(-?[\d.]+),\s*lon:\s*(-?[\d.]+)",
+            block,
+        ):
+            found[q1 or q2 or bare] = (float(lat), float(lon))
+        return found
+
+    def test_the_two_tables_hold_the_same_towns(self):
+        web = self._web_table()
+        assert web, "could not parse the TypeScript table"
+        assert set(web) == set(kenya_geography.TOWN_POINT)
+
+    def test_every_town_is_at_the_same_coordinates(self):
+        web = self._web_table()
+        for town, (lat, lon) in web.items():
+            engine_lat, engine_lon = kenya_geography.TOWN_POINT[town]
+            assert (lat, lon) == pytest.approx((engine_lat, engine_lon)), town
+
+    def test_every_town_the_matcher_knows_can_be_placed(self):
+        # A town in TOWN_COUNTY without coordinates silently falls back to
+        # the tiers, which is the behaviour the change was meant to retire.
+        missing = set(kenya_geography.TOWN_COUNTY) - set(kenya_geography.TOWN_POINT)
+        assert not missing, f"towns without coordinates: {sorted(missing)}"

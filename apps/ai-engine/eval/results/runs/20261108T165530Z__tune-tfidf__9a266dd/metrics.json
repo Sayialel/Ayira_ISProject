@@ -1,0 +1,63 @@
+{
+  "diagnostics": {
+    "current": {
+      "features": 1444,
+      "gigs_with_signal": 1.0,
+      "mean_terms_per_gig": 21.207253886010363,
+      "profiles_with_signal": 1.0
+    },
+    "bigrams": {
+      "features": 4906,
+      "gigs_with_signal": 1.0,
+      "mean_terms_per_gig": 45.637305699481864,
+      "profiles_with_signal": 1.0
+    },
+    "restricted": {
+      "features": 849,
+      "gigs_with_signal": 0.5129533678756477,
+      "mean_terms_per_gig": 0.7046632124352331,
+      "profiles_with_signal": 0.44565217391304346
+    }
+  },
+  "arms": {
+    "current": {
+      "weights": {
+        "semantic": 0.6,
+        "tfidf": 0.4,
+        "location": 0.0,
+        "reputation": 0.0
+      },
+      "train_ndcg": 0.7906089716779895,
+      "validation_ndcg": 0.7664007995871509,
+      "validation_ndcg_deployed_weights": 0.7617956692983886,
+      "test_ndcg": 0.7657910809028241
+    },
+    "bigrams": {
+      "weights": {
+        "semantic": 0.5,
+        "tfidf": 0.5,
+        "location": 0.0,
+        "reputation": 0.0
+      },
+      "train_ndcg": 0.7932471541386483,
+      "validation_ndcg": 0.7670173095785969,
+      "validation_ndcg_deployed_weights": 0.762774243438818,
+      "test_ndcg": 0.7775617503094887
+    },
+    "restricted": {
+      "weights": {
+        "semantic": 0.8,
+        "tfidf": 0.2,
+        "location": 0.0,
+        "reputation": 0.0
+      },
+      "train_ndcg": 0.787220505627405,
+      "validation_ndcg": 0.7577631086340431,
+      "validation_ndcg_deployed_weights": 0.7585561935319574,
+      "test_ndcg": 0.7480923673791154
+    }
+  },
+  "winner_on_validation": "bigrams",
+  "validation_gain_over_current": 0.0006165099914460237,
+  "adopted": false
+}

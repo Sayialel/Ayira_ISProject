@@ -162,6 +162,51 @@ SAME_METRO = 0.45
 UNKNOWN_LOCATION = 0.3
 DIFFERENT_COUNTY = 0.0
 
+# How fast reachability falls off with distance, in kilometres per halving.
+#
+# The tiers above are a four-valued approximation of a continuous quantity.
+# They were an improvement on exact string equality, but they still cannot
+# separate pairs inside one bucket: every "different county" pair scored 0,
+# so Nakuru to Nairobi (about 160 km, a real if awkward trip) scored the same
+# as Mombasa to Nairobi (about 440 km, an overnight journey). Coordinates are
+# now available, so the quantity can be measured instead of bucketed.
+#
+# 50 km per halving is chosen from the commute it has to describe, not fitted
+# to the metric: Nairobi to Thika is 39.7 km and a journey people genuinely
+# make daily, and it lands at 0.58 -- close to the old SAME_COUNTY of 0.6,
+# which is the tier that pair deserved and never got. 160 km gives 0.11 and
+# 440 km gives 0.002.
+#
+# Env-overridable so eval/tune_location.py can sweep it without a deploy, by
+# the same mechanism the weights use.
+def _halflife_from_env() -> float:
+    import os
+
+    raw = os.environ.get("MATCH_LOCATION_HALFLIFE_KM")
+    if raw is None:
+        return 50.0
+    try:
+        value = float(raw)
+        return value if value > 0 else 50.0
+    except ValueError:
+        return 50.0
+
+
+DISTANCE_HALFLIFE_KM = _halflife_from_env()
+
+
+def distance_affinity(km: float, halflife_km: float | None = None) -> float:
+    """
+    Reachability from a measured distance, in (0, 1].
+
+    Exponential rather than linear because the cost of distance is not linear:
+    the difference between 5 km and 25 km changes how you travel, while the
+    difference between 300 km and 320 km changes nothing -- both are a journey
+    you would not make for one gig.
+    """
+    halflife = halflife_km if halflife_km and halflife_km > 0 else DISTANCE_HALFLIFE_KM
+    return 0.5 ** (max(0.0, km) / halflife)
+
 
 def location_affinity(worker_location: str | None, gig: dict) -> float:
     """
@@ -181,6 +226,23 @@ def location_affinity(worker_location: str | None, gig: dict) -> float:
     if not worker_place or not gig_place:
         return UNKNOWN_LOCATION
 
+    # NOT distance, deliberately. Coordinates and distance_affinity() exist
+    # and are tested, and eval/tune_location.py swept eight half-lives from 10
+    # to 200 km against these tiers. Distance did not earn the change:
+    # validation NDCG@10 0.7700 against the tiers' 0.7701, a gain of -0.0002
+    # where 0.005 was required, and the weight search put location at 0.00 at
+    # every half-life below 200 km.
+    #
+    # The reason is the corpus, not the signal. The relevance grades were
+    # derived from KeSCO code agreement, so the labels are independent of
+    # location by construction -- no location signal, at any granularity, can
+    # predict a label that location never influenced. Sharpening it is
+    # therefore untestable here, and shipping it would mean deploying a
+    # configuration the evaluation does not describe.
+    #
+    # Run: eval/results/runs/20261108T165204Z__tune-location__9a266dd.
+    # Revisit when the corpus carries human relevance judgements that take
+    # location into account; the measurement path is ready for it.
     if kenya_geography.same_town(worker_place, gig_place):
         return SAME_TOWN
 

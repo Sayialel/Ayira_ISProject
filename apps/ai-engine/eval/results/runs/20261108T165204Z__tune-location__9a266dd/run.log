@@ -1,0 +1,30 @@
+2026-11-08T16:52:04.166651+00:00  run 20261108T165204Z__tune-location__9a266dd started
+2026-11-08T16:52:04.166651+00:00  dataset version b65642cd681e
+2026-11-08T16:52:04.166651+00:00  34 towns have coordinates
+2026-11-08T16:52:04.166651+00:00  Extracting features once (the embedding model runs per profile)...
+2026-11-08T16:54:59.018612+00:00    train: 56 profiles x 193 gigs, 924 graded pairs
+2026-11-08T16:54:59.020396+00:00    validation: 19 profiles x 193 gigs, 272 graded pairs
+2026-11-08T16:54:59.020396+00:00    test: 17 profiles x 193 gigs, 286 graded pairs
+2026-11-08T16:54:59.046964+00:00  
+2026-11-08T16:54:59.046964+00:00  BASELINE  tiers + deployed weights: validation 0.7701  test 0.7802
+2026-11-08T16:55:00.068871+00:00  BASELINE  tiers + searched weights:  train 0.7918  validation 0.7692  {'semantic': 0.55, 'tfidf': 0.45, 'location': 0.0, 'reputation': 0.0}
+2026-11-08T16:55:00.068871+00:00  
+2026-11-08T16:55:00.068871+00:00  halflife   train    validation   weights
+2026-11-08T16:55:01.012489+00:00       10   0.7918   0.7692      sem 0.55 tf 0.45 loc 0.00 rep 0.00
+2026-11-08T16:55:01.968826+00:00       20   0.7918   0.7692      sem 0.55 tf 0.45 loc 0.00 rep 0.00
+2026-11-08T16:55:02.912410+00:00       30   0.7918   0.7692      sem 0.55 tf 0.45 loc 0.00 rep 0.00
+2026-11-08T16:55:03.859536+00:00       50   0.7918   0.7692      sem 0.55 tf 0.45 loc 0.00 rep 0.00
+2026-11-08T16:55:04.772535+00:00       75   0.7918   0.7692      sem 0.55 tf 0.45 loc 0.00 rep 0.00
+2026-11-08T16:55:05.796963+00:00      100   0.7918   0.7692      sem 0.55 tf 0.45 loc 0.00 rep 0.00
+2026-11-08T16:55:06.782892+00:00      150   0.7918   0.7692      sem 0.55 tf 0.45 loc 0.00 rep 0.00
+2026-11-08T16:55:07.700295+00:00      200   0.7918   0.7700      sem 0.55 tf 0.40 loc 0.05 rep 0.00
+2026-11-08T16:55:07.700295+00:00  
+2026-11-08T16:55:07.700295+00:00  best on validation: halflife 200 km, {'semantic': 0.55, 'tfidf': 0.4, 'location': 0.05, 'reputation': 0.0}
+2026-11-08T16:55:07.700295+00:00    validation 0.7700 vs tiers 0.7701
+2026-11-08T16:55:07.700295+00:00  
+2026-11-08T16:55:07.700295+00:00  validation gain -0.0002, margin required 0.0050
+2026-11-08T16:55:07.700295+00:00  VERDICT: KEEP the tiers
+2026-11-08T16:55:07.700295+00:00  
+2026-11-08T16:55:07.700295+00:00  REPORTED ON TEST (once): distance 0.7774  tiers 0.7802
+2026-11-08T16:55:07.700295+00:00  The test figure for distance is recorded for completeness and is NOT a result to report as an improvement: the decision was made on validation and it was to keep the tiers.
+2026-11-08T16:55:07.928342+00:00  run 20261108T165204Z__tune-location__9a266dd finished

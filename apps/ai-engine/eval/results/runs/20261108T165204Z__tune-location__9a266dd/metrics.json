@@ -1,0 +1,112 @@
+{
+  "baseline_validation_deployed_weights": 0.7701238078683885,
+  "baseline_validation_searched_weights": 0.7692199028630672,
+  "baseline_test": 0.7801800493687651,
+  "baseline_searched_weights": {
+    "semantic": 0.55,
+    "tfidf": 0.45,
+    "location": 0.0,
+    "reputation": 0.0
+  },
+  "sweep": [
+    {
+      "halflife_km": 10.0,
+      "train_ndcg": 0.7917561665828715,
+      "validation_ndcg": 0.7692199028630672,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.45,
+        "location": 0.0,
+        "reputation": 0.0
+      }
+    },
+    {
+      "halflife_km": 20.0,
+      "train_ndcg": 0.7917561665828715,
+      "validation_ndcg": 0.7692199028630672,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.45,
+        "location": 0.0,
+        "reputation": 0.0
+      }
+    },
+    {
+      "halflife_km": 30.0,
+      "train_ndcg": 0.7917561665828715,
+      "validation_ndcg": 0.7692199028630672,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.45,
+        "location": 0.0,
+        "reputation": 0.0
+      }
+    },
+    {
+      "halflife_km": 50.0,
+      "train_ndcg": 0.7917561665828715,
+      "validation_ndcg": 0.7692199028630672,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.45,
+        "location": 0.0,
+        "reputation": 0.0
+      }
+    },
+    {
+      "halflife_km": 75.0,
+      "train_ndcg": 0.7917561665828715,
+      "validation_ndcg": 0.7692199028630672,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.45,
+        "location": 0.0,
+        "reputation": 0.0
+      }
+    },
+    {
+      "halflife_km": 100.0,
+      "train_ndcg": 0.7917561665828715,
+      "validation_ndcg": 0.7692199028630672,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.45,
+        "location": 0.0,
+        "reputation": 0.0
+      }
+    },
+    {
+      "halflife_km": 150.0,
+      "train_ndcg": 0.7917561665828715,
+      "validation_ndcg": 0.7692199028630672,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.45,
+        "location": 0.0,
+        "reputation": 0.0
+      }
+    },
+    {
+      "halflife_km": 200.0,
+      "train_ndcg": 0.7917832905960699,
+      "validation_ndcg": 0.7699705371312887,
+      "weights": {
+        "semantic": 0.55,
+        "tfidf": 0.4,
+        "location": 0.05,
+        "reputation": 0.0
+      }
+    }
+  ],
+  "selected_halflife_km": 200.0,
+  "selected_weights": {
+    "semantic": 0.55,
+    "tfidf": 0.4,
+    "location": 0.05,
+    "reputation": 0.0
+  },
+  "selected_validation_ndcg": 0.7699705371312887,
+  "validation_gain": -0.00015327073709980876,
+  "adopted": false,
+  "test_ndcg": 0.7773756970463782
+}
