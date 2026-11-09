@@ -251,6 +251,50 @@ export default function Profile() {
       </div>
 
       {/* ---------------------------------------------------------------- */}
+      {/* Import from a CV                                                 */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Above the tabs on purpose. This is the shortest route from an
+          empty profile to a matchable one, and it was previously buried
+          inside the Skills tab where a new worker had to go looking for it.
+          Prominent while the profile is thin, quiet once it is filled in --
+          someone with skills and a bio does not need to be sold this. */}
+      {!isStaff && (
+        <div
+          className={`mb-5 rounded-xl border p-4 sm:p-5 ${
+            skills.length === 0 || !bio.trim()
+              ? 'border-ayira-200 bg-ayira-50/60'
+              : 'border-slate-200 bg-white'
+          }`}
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="flex min-w-0 items-start gap-3">
+              <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-ayira-600 text-white">
+                <Upload size={18} aria-hidden />
+              </span>
+              <div className="min-w-0">
+                <h2 className="font-display text-base font-bold text-slate-900">
+                  {skills.length === 0 || !bio.trim()
+                    ? 'Start with your CV'
+                    : 'Update from your CV'}
+                </h2>
+                <p className="mt-1 text-sm text-slate-600">
+                  We read it on your device and fill in your skills and About section. Your CV
+                  is never uploaded.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setImporting(true)}
+              className="shrink-0 rounded-lg bg-ayira-600 px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-150 hover:bg-ayira-700 hover:shadow-lift active:scale-[0.98]"
+            >
+              Upload your CV
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ---------------------------------------------------------------- */}
       {/* Tabs                                                             */}
       {/* ---------------------------------------------------------------- */}
       <div className="overflow-x-auto">
@@ -432,18 +476,6 @@ export default function Profile() {
               Your skills and bio are what the AI matcher scores gigs against. Plain
               words beat job titles.
             </p>
-
-            {/* The fastest route from an empty profile to a matchable one,
-                which is also the fix for a new worker's first visit being
-                ranked on keywords alone. */}
-            <button
-              type="button"
-              onClick={() => setImporting(true)}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-ayira-400 hover:bg-ayira-50/50 sm:w-auto"
-            >
-              <Upload size={15} aria-hidden />
-              Import from my CV
-            </button>
 
             <div className="mt-5">
               <SaveButton saving={saving} />

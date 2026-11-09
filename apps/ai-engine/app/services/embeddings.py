@@ -32,6 +32,44 @@ def get_model() -> "SentenceTransformer":
     return _model
 
 
+def unload_model() -> bool:
+    """
+    Drops the encoder and returns whether one was actually held.
+
+    This exists because of the instance size. The process sits at about 130 MB
+    with the model unloaded and reaches roughly 445 MB once it is loaded and
+    used, against a 512 MB limit -- so a process that keeps it resident after
+    an embed has about 65 MB of headroom for everything else, and the next
+    request to arrive is the one that gets killed.
+
+    Serving never loads the model (see matcher), so the only caller that ever
+    holds it is the embed endpoint, and it releases it immediately afterwards.
+    gc.collect() is not superstition here: torch allocates large tensors whose
+    refcounts drop in cycles, and without an explicit collection the resident
+    size does not come back down promptly enough to matter.
+    """
+    global _model
+    if _model is None:
+        return False
+
+    _model = None
+
+    import gc
+
+    gc.collect()
+    try:
+        import torch
+
+        # Frees any cached allocator blocks. A no-op on CPU-only builds, which
+        # is what ships, but harmless and correct if that ever changes.
+        if torch.cuda.is_available():  # pragma: no cover - CPU-only in production
+            torch.cuda.empty_cache()
+    except ImportError:  # pragma: no cover
+        pass
+
+    return True
+
+
 def _clamp(value: float) -> float:
     """Cosine similarity can return small negatives; scores stay in 0-1."""
     return float(max(0.0, min(1.0, value)))

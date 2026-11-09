@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { supabaseAdmin } from '../lib/supabase';
 import { asyncHandler } from '../lib/asyncHandler';
 import { AppError } from '../middleware/errorHandler';
+import { requestGigEmbedding } from '../lib/embedTrigger';
 import { requireRole } from '../middleware/auth';
 import { GIG_CATEGORIES, DEFAULT_CURRENCY } from '../lib/constants';
 import {
@@ -351,6 +352,13 @@ gigRouter.patch(
       .single();
 
     assertNoDbError(error, 'Failed to publish gig');
+
+    // A published gig with no vector is invisible to vector search, however
+    // well it fits. Serving deliberately no longer embeds gigs inside a match
+    // request, so this is where it gets done. Not awaited: publishing must
+    // not wait on an encoder.
+    requestGigEmbedding(`gig ${existing.id} published`);
+
     res.json({ data });
   })
 );

@@ -66,17 +66,25 @@ def _similarity_from_distance(distance) -> float:
     return max(0.0, min(1.0, 1.0 - float(distance)))
 
 
-def _backfill_embeddings(sb) -> int:
+def _gigs_awaiting_embedding(sb) -> int:
     """
-    Brings stored gig embeddings up to date.
+    Reports how many gigs still have no usable vector. Does NOT compute them.
 
-    Runs before retrieval because a gig with no vector cannot be found by
-    vector search. In steady state this does nothing — it only has work after
-    gigs are posted or edited.
+    It used to compute them, and that was a latent copy of the bug that broke
+    worker matching. Embedding loads the encoder -- about 316 MB on top of a
+    130 MB process, against a 512 MB limit -- and doing it here put that cost
+    inside a match request. One employer posting a gig made the next worker's
+    match slow, and a batch of new gigs could take the request down with it.
 
-    The check itself is a round trip, so it is rate-limited: asking on every
-    request spent real time confirming there was nothing to do. A gig posted
-    during the interval is simply picked up by the next check.
+    A gig with no vector is simply not retrievable by vector search yet. That
+    is a visible, bounded gap -- it misses from the candidate pool until
+    something embeds it -- and it is much better than the alternative of
+    charging an unrelated worker's request for the work. POST /ai/embed-worker
+    and eval/backfill_worker_embeddings.py are where embedding belongs.
+
+    The count is still taken, rate-limited, because it is worth logging: a
+    number that stays non-zero means nothing is embedding gigs and the
+    catalogue is quietly shrinking from the matcher's point of view.
     """
     global _last_backfill_check
 
@@ -94,7 +102,7 @@ def _backfill_embeddings(sb) -> int:
     if not pending.data:
         return 0
 
-    return refresh_gig_embeddings(sb, pending.data, gig_text)
+    return len(pending.data)
 
 
 def _sufficiency_without_vector(sufficiency: ProfileSufficiency) -> ProfileSufficiency:
@@ -151,9 +159,13 @@ async def match_worker_to_gigs(
     # candidate list comes back empty.
     sufficiency = profile_sufficiency(profile)
 
-    rebuilt = _backfill_embeddings(sb)
-    if rebuilt:
-        logger.info("Rebuilt %d gig embedding(s) before matching", rebuilt)
+    awaiting = _gigs_awaiting_embedding(sb)
+    if awaiting:
+        logger.warning(
+            "%d gig(s) have no embedding and are not retrievable by vector search. "
+            "Run POST /ai/embed-gigs or eval/backfill_worker_embeddings.py.",
+            awaiting,
+        )
 
     # allow_compute=False: serving never loads the model. See
     # embedding_store.worker_embedding -- the instance cannot hold it, and a

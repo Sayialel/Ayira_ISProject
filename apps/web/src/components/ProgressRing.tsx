@@ -75,7 +75,14 @@ export interface CompletionItem {
  *
  * Weighted by what the matcher actually reads. Skills and bio are the two
  * fields `profile_text` is built from, so a profile without them cannot be
- * matched on anything but luck -- they count for more than an avatar.
+ * matched on anything but luck.
+ *
+ * A photo is deliberately NOT counted. It contributes nothing to matching,
+ * and counting it meant a worker who had filled in everything the matcher
+ * uses still saw an incomplete ring and a checklist item telling them to fix
+ * it -- which pointed them at the one field that would not change a single
+ * result. `avatar_url` is still accepted in the argument so existing callers
+ * need no change.
  *
  * Returns the checklist as well as the number, so the UI can say what is
  * missing instead of showing a percentage the person cannot act on.
@@ -101,7 +108,6 @@ export function profileCompletion(profile: {
       weight: 3,
       hint: 'The strongest matching signal',
     },
-    { label: 'Photo', done: has(profile.avatar_url), weight: 1 },
   ];
 
   const total = weighted.reduce((sum, i) => sum + i.weight, 0);

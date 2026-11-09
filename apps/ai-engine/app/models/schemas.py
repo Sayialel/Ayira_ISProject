@@ -30,3 +30,28 @@ class MatchResponse(BaseModel):
     matches: list[GigScore]
     # Optional so an older gateway reading this response still parses it.
     sufficiency: ProfileSufficiency | None = None
+
+class EmbedRequest(BaseModel):
+    worker_id: str
+    #: Recompute even when the stored hash already matches. Only for a
+    #: deliberate refresh; the default skips work that would change nothing.
+    force: bool = False
+
+
+class EmbedResponse(BaseModel):
+    worker_id: str
+    embedded: bool
+    #: Why, so the caller can tell "already current" from "nothing to embed"
+    #: from "done" without guessing from a boolean.
+    reason: str
+
+
+class EmbedGigsRequest(BaseModel):
+    #: How many to embed in one call. Bounded because each batch holds the
+    #: model, and the point of this endpoint is that the cost is predictable.
+    limit: int = 50
+
+
+class EmbedGigsResponse(BaseModel):
+    embedded: int
+    remaining: int

@@ -69,7 +69,7 @@ workerRouter.patch(
     // the semantic signal. Asking for the run here is what turns "within half
     // an hour" into "within a minute". Not awaited: see lib/embedTrigger.
     if (data?.role === 'worker' && affectsEmbedding(patch)) {
-      requestWorkerEmbedding(`profile saved by ${userId}`);
+      requestWorkerEmbedding(`profile saved by ${userId}`, userId);
     }
 
     res.json({ data });

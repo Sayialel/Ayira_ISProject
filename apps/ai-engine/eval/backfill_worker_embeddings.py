@@ -11,9 +11,11 @@ caller sees a 502. Matching worked for the three workers who happened to have
 cached vectors and failed for the other forty-eight, which read as "new
 workers cannot match".
 
-Gig vectors are already handled: matcher._backfill_embeddings refreshes them
-before retrieval. Worker vectors were only ever computed on the worker's own
-first match, which is precisely the request that cannot afford it.
+Gig vectors have their own path: POST /ai/embed-gigs on the engine, called by
+the gateway when a gig is published. They used to be refreshed inside the match
+request, which was the same mistake in a different place -- it charged an
+unrelated worker's request for a 316 MB model load. Serving now only counts
+what is unembedded and warns.
 
 Running this from a machine with memory to spare leaves every existing worker
 with a cached vector, so the engine never loads the model for them. It reads
