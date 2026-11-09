@@ -9,6 +9,7 @@ from app.config import settings
 from app.models.schemas import GigScore
 from app.services.embedding_store import (
     refresh_gig_embeddings,
+    text_hash,
     to_pgvector,
     worker_embedding,
 )
@@ -102,7 +103,18 @@ def _gigs_awaiting_embedding(sb) -> int:
     if not pending.data:
         return 0
 
-    return len(pending.data)
+    # The staleness test has to happen here. Despite its name,
+    # gigs_needing_embedding applies no such filter -- it returns every open
+    # gig, ordered so unembedded ones come first, and leaves the comparison to
+    # the caller. Counting its rows reported the entire catalogue as
+    # unembedded and logged a warning about 100 gigs that all had vectors.
+    #
+    # Cheap: hashing text is not embedding it, and no model is involved.
+    stale = 0
+    for row in pending.data:
+        if row.get("embedding_hash") != text_hash(gig_text(row)):
+            stale += 1
+    return stale
 
 
 def _sufficiency_without_vector(sufficiency: ProfileSufficiency) -> ProfileSufficiency:

@@ -85,6 +85,19 @@ export function affectsEmbedding(patch: Record<string, unknown>): boolean {
 function askEngineToEmbed(workerId: string, reason: string): void {
   if (!env.aiEngineSecret) return;
 
+  // OFF unless explicitly enabled, because on the engine's current plan this
+  // kills it. Measured against the deployed service: POST /ai/embed-worker
+  // returns 502 after 56 seconds and the process restarts, with no traceback
+  // -- the signature of the host killing it. The instance is 512 MB, sits at
+  // 132 MB idle, and loading plus using the encoder needs more headroom than
+  // the remaining 380 MB turns out to provide.
+  //
+  // Calling it anyway would mean every profile save took the matcher offline
+  // for about two minutes, which is far worse than one worker's first match
+  // being ranked on keywords. So the endpoint stays, tested and ready, and
+  // this is the switch to turn on once the engine has at least 1 GB.
+  if (process.env.AI_ENGINE_CAN_EMBED !== 'true') return;
+
   const controller = new AbortController();
   // Generous, because a sleeping free instance has to wake and then load a
   // model. Still bounded, because nothing is waiting on the answer and a
@@ -200,6 +213,12 @@ export function requestWorkerEmbedding(reason: string, workerId?: string): void 
  */
 export function requestGigEmbedding(reason: string): void {
   if (!env.aiEngineSecret) return;
+
+  // Same gate, same measurement, same reason: embedding gigs loads the same
+  // encoder, so on the free plan this would take the engine down whenever an
+  // employer published a gig. Until the plan allows it, new gigs are embedded
+  // by eval/backfill_worker_embeddings.py or the GitHub workflow.
+  if (process.env.AI_ENGINE_CAN_EMBED !== 'true') return;
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 120_000);
