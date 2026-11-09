@@ -46,6 +46,8 @@ const WEIGHTS: { key: keyof MatchBreakdown; label: string; weight: number }[] = 
 /** What the panel holds. Strings, because they come from inputs. */
 interface MatchFilterState {
   category?: string;
+  min_score?: string;
+  max_score?: string;
   location?: string;
   remote_only?: boolean;
   min_budget?: string;
@@ -68,6 +70,15 @@ function sentFilters(state: MatchFilterState) {
   const max = Number(state.max_budget);
   if (state.min_budget && Number.isFinite(min) && min >= 0) out.min_budget = min;
   if (state.max_budget && Number.isFinite(max) && max > 0) out.max_budget = max;
+
+  // Rounded, because the server takes integers and the slider is in whole
+  // percent. Clamped, because a hand-typed 150 should narrow to 100 rather
+  // than be rejected by the schema.
+  const lo = Math.round(Number(state.min_score));
+  const hi = Math.round(Number(state.max_score));
+  if (state.min_score && Number.isFinite(lo)) out.min_score = Math.min(100, Math.max(0, lo));
+  if (state.max_score && Number.isFinite(hi)) out.max_score = Math.min(100, Math.max(0, hi));
+
   return out;
 }
 
@@ -236,7 +247,7 @@ export default function AIMatches() {
 
       {showFilters && (
         <div className="mb-5 rounded-xl border border-slate-200 bg-white p-4">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             <label className="block">
               <span className="mb-1 block text-xs font-medium text-slate-600">Category</span>
               <select
@@ -283,6 +294,35 @@ export default function AIMatches() {
                 }
                 placeholder="Any"
                 className="w-full rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-ayira-500 focus:outline-none focus:ring-1 focus:ring-ayira-500"
+              />
+            </label>
+
+            <label className="block">
+              <span className="mb-1 block text-xs font-medium text-slate-600">
+                Match at least
+                <span className="ml-1 font-normal text-slate-400">
+                  {filters.min_score ? `${filters.min_score}%` : 'any'}
+                </span>
+              </span>
+              {/* A slider rather than a number box: the useful question is
+                  "only show me strong matches", which is a coarse choice, and
+                  a worker typing 73 is not expressing anything a step of 5
+                  does not capture. */}
+              <input
+                type="range"
+                min={0}
+                max={95}
+                step={5}
+                value={filters.min_score ?? '0'}
+                onChange={(e) =>
+                  setFilters((f) => ({
+                    ...f,
+                    // 0 means "no filter", so it is cleared rather than sent.
+                    min_score: e.target.value === '0' ? undefined : e.target.value,
+                  }))
+                }
+                aria-label="Minimum match percentage"
+                className="mt-2 w-full accent-ayira-600"
               />
             </label>
 

@@ -26,7 +26,7 @@ from app.services.scoring import (
     UNKNOWN_LOCATION,
 )
 from app.services.matcher import _sufficiency_without_vector
-from app.services import calibration, kenya_geography
+from app.services import calibration, embedding_store, kenya_geography
 from app.services.scoring import distance_affinity
 import math
 
@@ -611,3 +611,64 @@ class TestCoordinateParity:
         # the tiers, which is the behaviour the change was meant to retire.
         missing = set(kenya_geography.TOWN_COUNTY) - set(kenya_geography.TOWN_POINT)
         assert not missing, f"towns without coordinates: {sorted(missing)}"
+
+
+# ---------------------------------------------------------------------------
+# A stale embedding is still an embedding
+#
+# This is the regression that was reported three times: a worker edits their
+# profile, the stored hash no longer matches, and the serving path threw the
+# vector away -- dropping them to semantic = 0 against every gig and showing
+# "your profile is still being prepared" until somebody ran the backfill by
+# hand. Then they edited again.
+# ---------------------------------------------------------------------------
+
+
+class TestStaleEmbedding:
+    @staticmethod
+    def _worker(stored_hash: str | None, has_vector: bool = True) -> dict:
+        vector = "[" + ",".join(["0.1"] * 384) + "]" if has_vector else None
+        return {
+            "id": "w-1",
+            "skills": ["Python", "Django"],
+            "bio": "A backend developer.",
+            "embedding": vector,
+            "embedding_hash": stored_hash,
+        }
+
+    def test_a_matching_hash_returns_the_vector(self):
+        worker = self._worker(None)
+        worker["embedding_hash"] = embedding_store.text_hash(profile_text(worker))
+        got = embedding_store.worker_embedding(None, worker, profile_text, allow_compute=False)
+        assert got is not None and len(got) == 384
+
+    def test_a_stale_hash_still_returns_the_vector(self):
+        # The fix. A profile edited since the vector was computed is a small
+        # error; discarding the vector is a total one -- it removes 72% of the
+        # scoring weight and makes the nearest-neighbour probe a zero vector.
+        got = embedding_store.worker_embedding(
+            None, self._worker("a-hash-from-before-the-edit"), profile_text, allow_compute=False
+        )
+        assert got is not None and len(got) == 384
+
+    def test_no_vector_at_all_still_returns_none(self):
+        # The distinction that matters: stale is usable, absent is not, and
+        # only the absent case may degrade the ranking.
+        got = embedding_store.worker_embedding(
+            None, self._worker(None, has_vector=False), profile_text, allow_compute=False
+        )
+        assert got is None
+
+    def test_a_stale_vector_does_not_degrade_the_ranking(self):
+        # Ties the storage behaviour to what the worker is told. With a vector
+        # in hand the matcher never reaches _sufficiency_without_vector, so an
+        # edited profile must not produce the "still being prepared" message.
+        worker = self._worker("stale")
+        assert (
+            embedding_store.worker_embedding(None, worker, profile_text, allow_compute=False)
+            is not None
+        )
+        # And the message only exists for the no-vector path.
+        ok = profile_sufficiency(worker)
+        assert ok.level == "ok"
+        assert "being prepared" in _sufficiency_without_vector(ok).reason

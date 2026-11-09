@@ -13,7 +13,7 @@ import {
   toRange,
   buildPageMeta,
 } from '../lib/http';
-import { passesFilters } from '../lib/matchFilters';
+import { passesFilters, passesScoreBand } from '../lib/matchFilters';
 
 export const matchingRouter = Router();
 
@@ -49,10 +49,17 @@ const matchRequestSchema = z.object({
       remote_only: z.boolean().optional(),
       min_budget: z.number().nonnegative().optional(),
       max_budget: z.number().positive().optional(),
+      /** Match percentage band, on the figure the worker is shown. */
+      min_score: z.number().int().min(0).max(100).optional(),
+      max_score: z.number().int().min(0).max(100).optional(),
     })
     .refine(
       (f) => f.min_budget === undefined || f.max_budget === undefined || f.max_budget >= f.min_budget,
       { message: 'max_budget must be at least min_budget' }
+    )
+    .refine(
+      (f) => f.min_score === undefined || f.max_score === undefined || f.max_score >= f.min_score,
+      { message: 'max_score must be at least min_score' }
     )
     .optional(),
 });
@@ -298,7 +305,11 @@ matchingRouter.post(
 
     // Narrowing happens here, on the ranked list. See matchRequestSchema for
     // why it is not pushed into retrieval.
-    const visible = filters ? matches.filter((m) => passesFilters(m.gig, filters)) : matches;
+    const visible = filters
+      ? matches.filter(
+          (m) => passesFilters(m.gig, filters) && passesScoreBand(m.score_percent, filters)
+        )
+      : matches;
 
     // Logged before filtering: the log records what the matcher produced, and
     // a worker's choice of filter is not a property of the match quality

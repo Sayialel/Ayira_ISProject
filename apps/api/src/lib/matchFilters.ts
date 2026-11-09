@@ -14,6 +14,17 @@
 
 export interface MatchFilters {
   category?: string;
+  /**
+   * Bounds on the displayed match percentage, 0-100 inclusive.
+   *
+   * Applied to the percentage the worker actually sees, which is the
+   * calibrated P(relevant) when an artefact is promoted -- not the raw
+   * composite. Filtering on the raw score would mean the filter disagreed
+   * with the number on the card, which is the one thing a score filter must
+   * never do.
+   */
+  min_score?: number;
+  max_score?: number;
   /** Substring, case-insensitive, matched against the gig's location. */
   location?: string;
   remote_only?: boolean;
@@ -65,5 +76,18 @@ export function passesFilters(gig: FilterableGig, filters: MatchFilters): boolea
     if (floor !== null && floor > filters.max_budget) return false;
   }
 
+  return true;
+}
+
+/**
+ * Whether a scored match is inside the caller's percentage band.
+ *
+ * Separate from passesFilters because it reads the score rather than the gig,
+ * and because the score is computed after retrieval -- a band is necessarily
+ * a post-ranking filter even more than the others are.
+ */
+export function passesScoreBand(scorePercent: number, filters: MatchFilters): boolean {
+  if (filters.min_score !== undefined && scorePercent < filters.min_score) return false;
+  if (filters.max_score !== undefined && scorePercent > filters.max_score) return false;
   return true;
 }

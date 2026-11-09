@@ -119,9 +119,15 @@ def worker_embedding(
     workers cannot match", because a worker with no cached vector is exactly
     the one whose first match has to compute it.
 
-    Falling back to no vector is better than failing: the ranking loses its
-    strongest signal but TF-IDF, location and employer rating still order the
-    gigs, and the caller is told the result is degraded rather than being
+    With `allow_compute=False` a STALE vector is still returned. Only a worker
+    with no stored vector at all gets None. That distinction is the whole point:
+    discarding a usable embedding because the profile text changed removed 72%
+    of the scoring weight and made retrieval arbitrary, which is a far larger
+    error than ranking on a profile as it looked an hour ago.
+
+    Falling back to no vector at all is better than failing: the ranking loses
+    its strongest signal but TF-IDF, location and employer rating still order
+    the gigs, and the caller is told the result is degraded rather than being
     handed a 502. Run eval/backfill_worker_embeddings.py from a machine with
     memory to spare to restore the full signal.
     """
@@ -129,12 +135,42 @@ def worker_embedding(
     digest = text_hash(text)
 
     cached = parse_pgvector(worker.get("embedding"))
-    if cached is not None and worker.get("embedding_hash") == digest:
+    fresh = cached is not None and worker.get("embedding_hash") == digest
+
+    if fresh:
         return cached
 
     if not allow_compute:
+        # A STALE VECTOR BEATS NO VECTOR, and this is the difference between a
+        # worker getting real matches and getting keyword soup.
+        #
+        # This used to return None whenever the hash disagreed, which threw
+        # away a perfectly usable embedding because the profile text had
+        # changed at all. Serving cannot recompute (the instance has no room
+        # for the encoder), so the result was that every profile edit dropped
+        # the worker to semantic = 0 against every gig -- the 'degraded'
+        # ranking and the "your profile is still being prepared" message --
+        # and they stayed there until somebody ran the backfill by hand. Edit
+        # your skills again and you were back to square one. That is what was
+        # being reported, repeatedly.
+        #
+        # A slightly outdated embedding is a small error: the worker added two
+        # skills and the vector reflects the profile before them. Discarding
+        # it is a total one: it removes 72% of the scoring weight and makes
+        # retrieval itself arbitrary, because the nearest-neighbour probe
+        # becomes a zero vector. Using it is strictly better on both counts,
+        # and the backfill still corrects it to exact whenever it next runs.
+        if cached is not None:
+            logger.info(
+                "Worker %s has a stale embedding (profile edited since it was "
+                "computed); ranking on it rather than discarding the semantic "
+                "signal. The next backfill will refresh it.",
+                worker.get("id"),
+            )
+            return cached
+
         logger.warning(
-            "Worker %s has no current embedding and computing one is disabled; "
+            "Worker %s has no embedding at all and computing one is disabled; "
             "ranking without the semantic signal",
             worker.get("id"),
         )

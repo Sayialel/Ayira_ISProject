@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { passesFilters, type FilterableGig } from './matchFilters';
+import { passesFilters, passesScoreBand, type FilterableGig } from './matchFilters';
 
 /**
  * The budget rules are the ones worth pinning down. Comparing a worker's
@@ -141,5 +141,44 @@ describe('combinations', () => {
     const g = gig({ budget_min: 8000, budget_max: 12000 });
     expect(passesFilters(g, { min_budget: 5000, max_budget: 15000 })).toBe(true);
     expect(passesFilters(g, { min_budget: 20000, max_budget: 30000 })).toBe(false);
+  });
+});
+
+describe('passesScoreBand', () => {
+  it('is no filter when neither bound is set', () => {
+    expect(passesScoreBand(0, {})).toBe(true);
+    expect(passesScoreBand(100, {})).toBe(true);
+  });
+
+  it('applies a minimum inclusively', () => {
+    expect(passesScoreBand(60, { min_score: 60 })).toBe(true);
+    expect(passesScoreBand(59, { min_score: 60 })).toBe(false);
+  });
+
+  it('applies a maximum inclusively', () => {
+    expect(passesScoreBand(60, { max_score: 60 })).toBe(true);
+    expect(passesScoreBand(61, { max_score: 60 })).toBe(false);
+  });
+
+  it('applies a band', () => {
+    const band = { min_score: 40, max_score: 70 };
+    expect(passesScoreBand(40, band)).toBe(true);
+    expect(passesScoreBand(55, band)).toBe(true);
+    expect(passesScoreBand(70, band)).toBe(true);
+    expect(passesScoreBand(39, band)).toBe(false);
+    expect(passesScoreBand(71, band)).toBe(false);
+  });
+
+  it('a zero minimum keeps everything, including a zero score', () => {
+    // The slider sends nothing at 0, but a caller passing it explicitly must
+    // not accidentally exclude the floor.
+    expect(passesScoreBand(0, { min_score: 0 })).toBe(true);
+  });
+
+  it('is independent of the gig filters', () => {
+    // The two predicates are composed by the route, so neither may assume
+    // anything about the other's fields.
+    expect(passesScoreBand(80, { min_score: 50, category: 'Design' })).toBe(true);
+    expect(passesScoreBand(10, { min_score: 50, category: 'Design' })).toBe(false);
   });
 });
