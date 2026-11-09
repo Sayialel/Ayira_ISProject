@@ -130,6 +130,13 @@ export type AiMatchLogRow = {
   location_affinity: number | null;
   composite_score: number | null;
   created_at: string;
+  /**
+   * Calibrated P(relevant) at the time of the recommendation.
+   *
+   * Added in migration 027, which also backfilled the existing rows.
+   * Null only where composite_score was itself null.
+   */
+  confidence: number | null;
 }
 
 export type EscrowEventRow = {

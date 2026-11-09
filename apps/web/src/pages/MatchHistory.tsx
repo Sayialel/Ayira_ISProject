@@ -73,7 +73,9 @@ export default function MatchHistory() {
             <span>
               Each bar is one of the four signals the matcher combines. Skills
               match carries most of the weight; nearness and the employer's
-              rating adjust it slightly. The percentage is the combined score.
+              rating adjust it slightly. The percentage is the calibrated chance
+              you would find the gig relevant — the same figure AI Matches
+              showed you — while the bars below are the raw signals behind it.
             </span>
           </p>
 
@@ -100,7 +102,18 @@ export default function MatchHistory() {
 
 function LogRow({ log }: { log: MatchHistoryResponse['logs'][number] }) {
   const gig = log.gig;
-  const pct = Math.round(Number(log.composite_score ?? 0) * 100);
+
+  // The calibrated figure, which is what AI Matches showed when this was
+  // recommended. Rendering composite_score * 100 here meant one gig read 61%
+  // on that page and 40% in the history of the same recommendation, with
+  // nothing to tell a worker which to believe.
+  //
+  // Falls back to the raw composite only for a row with no stored
+  // confidence, which after migration 027's backfill means one whose
+  // composite_score was itself null -- so the fallback renders 0% either way
+  // and is here for type safety rather than as a real case.
+  const calibrated = log.confidence ?? log.composite_score;
+  const pct = Math.round(Number(calibrated ?? 0) * 100);
 
   const body = (
     <Card interactive={Boolean(gig)} className="p-4">
@@ -130,7 +143,7 @@ function LogRow({ log }: { log: MatchHistoryResponse['logs'][number] }) {
           <p className="font-display text-2xl font-bold tabular-nums text-ayira-700">
             {pct}%
           </p>
-          <p className="text-xs text-slate-400">fit</p>
+          <p className="text-xs text-slate-400">match</p>
         </div>
       </div>
 

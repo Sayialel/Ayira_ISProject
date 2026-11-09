@@ -380,6 +380,15 @@ export interface MatchLog {
   tfidf_score: number | null;
   location_affinity: number | null;
   composite_score: number | null;
+  /**
+   * What the worker was shown when this was recommended: the calibrated
+   * P(relevant), not the raw composite.
+   *
+   * History rendered `composite_score * 100` before migration 027, so one
+   * gig read 61% on the matches page and 40% in the history of that same
+   * recommendation. Null only on a row whose composite_score was null.
+   */
+  confidence: number | null;
   created_at: string;
   gig: {
     id: string;

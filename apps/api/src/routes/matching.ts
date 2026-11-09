@@ -231,6 +231,12 @@ async function logMatches(workerId: string, matches: GigScore[]) {
       tfidf_score: match.breakdown.tfidf ?? null,
       location_affinity: match.breakdown.location ?? null,
       composite_score: match.score,
+      // Stored alongside the raw score so Match History can show the same
+      // number AI Matches showed when it made the recommendation. Rendering
+      // the raw composite there meant one gig read 61% on one page and 40%
+      // on the other. Null from an engine with no calibration promoted;
+      // migration 027 backfilled the rows written before this column.
+      confidence: match.confidence ?? null,
     }))
   );
 
