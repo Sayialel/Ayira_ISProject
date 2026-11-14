@@ -56,8 +56,10 @@ export default function CreateGig() {
       return `Description must be at least ${MIN_DESCRIPTION} characters.`;
     }
     if (!category) return 'Choose a category.';
-    if (!isRemote && !location.trim()) {
-      return 'Add a location, or mark the gig as remote.';
+    if (!location.trim()) {
+      return isRemote
+        ? 'Add the town this remote gig is posted from, so it can be shown on the map.'
+        : 'Add a location.';
     }
     const min = Number(budgetMin);
     const max = Number(budgetMax);
@@ -203,10 +205,15 @@ export default function CreateGig() {
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            placeholder={isRemote ? 'Optional preferred location' : 'e.g. Nairobi'}
+            placeholder={isRemote ? 'Town it is posted from, e.g. Nairobi' : 'e.g. Nairobi'}
             aria-label="Location"
             className={inputClass}
           />
+          {isRemote && (
+            <p className="mt-1 text-xs text-slate-400">
+              Workers anywhere can take it. The town places it on the map with a remote marker.
+            </p>
+          )}
         </fieldset>
 
         <div className="grid gap-4 sm:grid-cols-2">

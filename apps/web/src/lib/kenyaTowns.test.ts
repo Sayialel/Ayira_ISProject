@@ -5,6 +5,7 @@ import {
   haversineKm,
   distanceToGig,
   formatDistance,
+  placeGig,
 } from './kenyaTowns';
 
 describe('TOWN_POINTS', () => {
@@ -105,5 +106,30 @@ describe('formatDistance', () => {
 
   it('passes null through', () => {
     expect(formatDistance(null)).toBeNull();
+  });
+});
+
+describe('placeGig', () => {
+  it("uses the gig's own location first", () => {
+    const placed = placeGig({ location: 'Thika', employer: { location: 'Mombasa' } });
+    expect(placed?.point.name).toBe('thika');
+    expect(placed?.source).toBe('gig');
+  });
+
+  it("falls back to the employer's town when the gig gives none", () => {
+    const placed = placeGig({ location: null, employer: { location: 'Kisumu, Kenya' } });
+    expect(placed?.point.name).toBe('kisumu');
+    expect(placed?.source).toBe('employer');
+  });
+
+  it("falls back when the gig's location is not a known town", () => {
+    const placed = placeGig({ location: 'Anywhere', employer: { location: 'Nakuru' } });
+    expect(placed?.source).toBe('employer');
+  });
+
+  it('returns null when neither names a known town', () => {
+    expect(placeGig({ location: null, employer: { location: null } })).toBeNull();
+    expect(placeGig({ location: '', employer: null })).toBeNull();
+    expect(placeGig({ location: 'Remote' })).toBeNull();
   });
 });

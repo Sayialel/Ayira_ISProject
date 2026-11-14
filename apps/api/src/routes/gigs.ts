@@ -61,6 +61,13 @@ const createGigSchema = gigBodySchema
   .refine((d) => new Date(d.deadline).getTime() > Date.now(), {
     message: 'Deadline must be in the future',
     path: ['deadline'],
+  })
+  // Every new gig says where it was posted from, remote ones included, so it
+  // can be placed on the matches map. A remote gig is pinned there with a
+  // remote marker; it is still reachable from anywhere in the score.
+  .refine((d) => Boolean(d.location), {
+    message: 'Location is required. For a remote gig, give the town it is posted from.',
+    path: ['location'],
   });
 
 const updateGigSchema = gigBodySchema.partial();

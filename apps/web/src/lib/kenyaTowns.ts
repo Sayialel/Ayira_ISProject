@@ -135,6 +135,37 @@ export function distanceToGig(
   return haversineKm(from, to);
 }
 
+/** Where a gig's pin goes, and which piece of data put it there. */
+export interface GigPlacement {
+  point: TownPoint & { name: string };
+  /**
+   * 'gig' -- the gig's own location field.
+   * 'employer' -- the gig gave none we recognise, so the town on the posting
+   * employer's profile is used: the best available answer to "where was this
+   * posted from", and labelled as such on the map.
+   */
+  source: 'gig' | 'employer';
+}
+
+/**
+ * Places a gig on the map, remote or not.
+ *
+ * A remote gig still has somewhere it was posted from, and showing it there
+ * (with a remote marker) is more useful than leaving it off the map: the
+ * worker sees who is hiring near them even for work they can do from home.
+ * Returns null only when neither the gig nor its employer names a known town.
+ */
+export function placeGig(gig: {
+  location: string | null;
+  employer?: { location?: string | null } | null;
+}): GigPlacement | null {
+  const own = resolveTown(gig.location);
+  if (own) return { point: own, source: 'gig' };
+  const employer = resolveTown(gig.employer?.location);
+  if (employer) return { point: employer, source: 'employer' };
+  return null;
+}
+
 /** Short human form: "in your town", "12 km", "490 km". */
 export function formatDistance(km: number | null): string | null {
   if (km === null) return null;

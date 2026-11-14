@@ -56,9 +56,28 @@ jobs:
     timeout-minutes: 20
 
     steps:
+      # Without the two repository secrets the backfill exits non-zero, and on
+      # a ten-minute schedule that is a failure email every ten minutes for a
+      # configuration gap rather than a fault. Detect it once, say so in the
+      # run summary, and skip the rest so the run succeeds.
+      - name: Check configuration
+        id: config
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "::warning title=Embedding skipped::Set the SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY repository secrets (Settings > Secrets and variables > Actions) to enable this job."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v4
+        if: steps.config.outputs.configured == 'true'
 
       - uses: actions/setup-python@v5
+        if: steps.config.outputs.configured == 'true'
         with:
           # Matches the engine and CI. A different interpreter can move a
           # float, and these vectors are compared against ones computed here.
@@ -67,12 +86,14 @@ jobs:
           cache-dependency-path: apps/ai-engine/requirements.txt
 
       - name: Install
+        if: steps.config.outputs.configured == 'true'
         working-directory: apps/ai-engine
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Check which workers need a vector
+        if: steps.config.outputs.configured == 'true'
         working-directory: apps/ai-engine
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -80,6 +101,7 @@ jobs:
         run: python -m eval.backfill_worker_embeddings --dry-run
 
       - name: Embed them
+        if: steps.config.outputs.configured == 'true'
         working-directory: apps/ai-engine
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

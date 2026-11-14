@@ -113,7 +113,7 @@ const matchResponseSchema = z.object({
 type GigScore = z.infer<typeof gigScoreSchema>;
 
 const GIG_FIELDS =
-  'id, title, description, category, required_skills, location, is_remote, budget_min, budget_max, currency, deadline, status, employer:users!employer_id(id, full_name, avatar_url, is_verified)';
+  'id, title, description, category, required_skills, location, is_remote, budget_min, budget_max, currency, deadline, status, employer:users!employer_id(id, full_name, avatar_url, is_verified, location)';
 
 /**
  * Statuses that mean "the engine is not ready yet", rather than "the engine
